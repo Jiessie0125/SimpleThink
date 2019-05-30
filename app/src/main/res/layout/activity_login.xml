@@ -7,14 +7,20 @@
     android:background="@color/mainColor"
     android:orientation="vertical">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:layout_margin="10dp"
+        android:paddingTop="20dp">
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/home"/>
-    </LinearLayout>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/setting"/>
+    </RelativeLayout>
 
 </LinearLayout>
