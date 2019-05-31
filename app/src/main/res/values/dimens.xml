@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="default_view_horizontal_padding">16dp</dimen>
+    <dimen name="hello_text_size">18sp</dimen>
+    <dimen name="welcome_text_size">24sp</dimen>
+    <dimen name="login_small_title">15sp</dimen>
+    <dimen name="logon_revive_word">12sp</dimen>
+    <dimen name="first_use">17sp</dimen>
+</resources>

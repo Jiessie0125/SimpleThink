@@ -5,4 +5,9 @@
     <color name="colorAccent">#FF4081</color>
     <color name="mainColor">#2c2635</color>
     <color name="item">#26202F</color>
+    <color name="wordWhite">#FFFFFF</color>
+    <color name="logonButton">#58D9B9</color>
+    <color name="blackItemLine">#26202F</color>
+    <color name="blackSuggesstion">#645E6B</color>
+    <color name="fisrtUse">#D3B462</color>
 </resources>
