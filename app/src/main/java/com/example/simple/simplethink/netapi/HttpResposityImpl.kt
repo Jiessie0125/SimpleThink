@@ -7,8 +7,8 @@ import io.reactivex.Observable
 /**
  * Created by mobileteam on 2019/6/4.
  */
-class HttpResposityImpl(val httpRetrofitApiService: HttpRetrofitApiService): HttpRepository {
+class HttpResposityImpl(): HttpRepository {
     override fun getTotleSort(): Observable<TotleSortResponse> {
-        return RetrofitServiceManager.instance.create(TotleSortResponse::class.java)
+        return RetrofitServiceManager.instance.create(HttpRetrofitApiService::class.java).getTotleSort()
     }
 }

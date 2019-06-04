@@ -8,6 +8,6 @@ import retrofit2.http.GET
  * Created by mobileteam on 2019/6/4.
  */
 interface HttpRetrofitApiService {
-    @GET("http://dev.simplemeditation.cn/new_course/category")
+    @GET("/new_course/category")
     fun getTotleSort(): Observable<TotleSortResponse>
 }
