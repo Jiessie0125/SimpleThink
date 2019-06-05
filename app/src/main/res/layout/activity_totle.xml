@@ -31,8 +31,8 @@
                 android:layout_weight="1"
                 android:button="@null"
                 android:gravity="center"
-                android:checked="true"
-                android:drawableTop="@drawable/tab_selector_totle"
+                android:checked="false"
+                android:textColor="@drawable/tab_selector_totle"
                 android:text="@string/totle"/>
             <RadioButton
                 android:layout_width="0dp"
@@ -41,7 +41,7 @@
                 android:button="@null"
                 android:gravity="center"
                 android:checked="false"
-                android:drawableTop="@drawable/tab_selector_totle"
+                android:textColor="@drawable/tab_selector_totle"
                 android:text="@string/scene"/>
             <RadioButton
                 android:layout_width="0dp"
@@ -50,7 +50,7 @@
                 android:button="@null"
                 android:gravity="center"
                 android:checked="false"
-                android:drawableTop="@drawable/tab_selector_totle"
+                android:textColor="@drawable/tab_selector_totle"
                 android:text="@string/whith_noise"/>
 
         </RadioGroup>
