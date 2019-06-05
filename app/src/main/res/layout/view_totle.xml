@@ -19,14 +19,14 @@
                android:layout_width="match_parent"
                android:layout_height="150dp"
                android:src="@drawable/download"/>
-           <LinearLayout
-               android:id="@+id/totleSort"
+           <android.support.v7.widget.RecyclerView
+               android:id="@+id/totleSortRecycleview"
                android:layout_width="match_parent"
                android:layout_height="wrap_content"
                android:layout_gravity="center"
                android:orientation="horizontal">
 
-           </LinearLayout>
+           </android.support.v7.widget.RecyclerView>
        </LinearLayout>
     </ScrollView>
 </LinearLayout>

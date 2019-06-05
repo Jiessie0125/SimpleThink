@@ -1,6 +1,7 @@
 package com.example.simple.simplethink.netapi
 
 import com.example.simple.simplethink.model.TotleSortListResponse
+import com.example.simple.simplethink.model.TotleSortResponse
 import io.reactivex.Observable
 import retrofit2.http.GET
 
@@ -9,5 +10,5 @@ import retrofit2.http.GET
  */
 interface HttpRetrofitApiService {
     @GET("new_course/category")
-    fun getTotleSort(): Observable<TotleSortListResponse>
+    fun getTotleSort(): Observable<List<TotleSortResponse>>
 }
