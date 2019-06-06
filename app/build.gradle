@@ -14,6 +14,14 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
+    signingConfigs{
+        release{
+            keyAlias 'simple_think'
+            keyPassword 'simple'
+            storeFile file('../key/keystore')
+            storePassword 'simple'
+        }
+    }
     buildTypes {
         release {
             minifyEnabled false
