@@ -25,7 +25,7 @@ class TotleActivity: AppCompatActivity(){
     private lateinit var mTabLayout : TabLayout
     private lateinit var mViewPager : ViewPager
     private var mTitleText : TextView? = null
-    private val mFragments = ArrayList<TotleFragment>()
+    private val mFragments = ArrayList<Fragment>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,10 +39,19 @@ class TotleActivity: AppCompatActivity(){
         persenter.getTotleSort()
         mTabLayout = tablayout
         mViewPager = viewpager
+
         val totleFragment = TotleFragment()
+        val scenceFragment = SceneFragment()
+        val whithFragment = WhithNoiseFragment()
+        mFragments.add(totleFragment.createFragment())
+        mFragments.add(scenceFragment.createFragment())
+        mFragments.add(whithFragment.createFragment())
+
         for (i in 0 until tabTitles.size) {
-            mFragments.add(totleFragment.createFragment(tabTitles[i]))
+            val tab = mTabLayout.getTabAt(i)
+            tab?.setCustomView(R.layout.tab_item)
         }
+
         mViewPager.adapter = object : FragmentPagerAdapter(supportFragmentManager) {
             override fun getItem(position: Int): Fragment {
                 return mFragments[position]
@@ -67,7 +76,8 @@ class TotleActivity: AppCompatActivity(){
             }
 
             override fun onTabSelected(tab: TabLayout.Tab?) {
-                updateTablayoutTitle(tab,true)
+                 updateTablayoutTitle(tab,true)
+                mViewPager.setCurrentItem(tab!!.position)
             }
 
             override fun onTabUnselected(tab: TabLayout.Tab?) {
@@ -78,12 +88,11 @@ class TotleActivity: AppCompatActivity(){
     fun updateTablayoutTitle(tab : TabLayout.Tab?, isSelected : Boolean){
         mTitleText = tab?.customView?.findViewById<TextView>(R.id.title_item)
         if(isSelected){
-            mTitleText?.isSelected = true
-            mTitleText?.textSize = ResourcesUtils.resource.getDimensionPixelSize(R.dimen.first_use).toFloat()
+           /* mTitleText?.isSelected = true
+            mTitleText?.textSize = ResourcesUtils.resource.getDimensionPixelSize(R.dimen.first_use).toFloat()*/
         }else{
             mTitleText?.isSelected = false
-            mTitleText?.textSize = ResourcesUtils.resource.getDimensionPixelSize(R.dimen.logon_revive_word).toFloat()
+            mTitleText?.setTextSize(36.0f)
         }
     }
-    fun setTitle(titleList : ){}
 }
