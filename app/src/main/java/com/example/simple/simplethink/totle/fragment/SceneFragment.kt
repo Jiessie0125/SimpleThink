@@ -1,4 +1,4 @@
-package com.example.simple.simplethink.totle
+package com.example.simple.simplethink.totle.fragment
 
 import android.os.Bundle
 import android.support.v4.app.Fragment

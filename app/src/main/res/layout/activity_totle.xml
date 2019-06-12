@@ -16,6 +16,7 @@
             android:id="@+id/user"
             android:layout_width="30dp"
             android:layout_height="30dp"
+
             android:src="@drawable/ic_launcher_background"
             android:layout_centerVertical="true"/>
 
@@ -25,14 +26,10 @@
             android:layout_height="wrap_content"
             android:layout_toStartOf="@+id/download"
             android:layout_toEndOf="@+id/user"
-            app:tabTextColor="@color/totleTitle"
-            app:tabSelectedTextColor="@color/wordWhite"
             app:tabIndicatorColor="@color/wordWhite"
             app:tabIndicatorHeight="5dp"
-            app:tabMaxWidth="0dp"
             app:tabGravity="fill"
-            app:tabMode="fixed"
-            android:layout_centerHorizontal="true"/>
+            app:tabMode="fixed"/>
         <ImageView
             android:id="@+id/download"
             android:layout_width="30dp"

@@ -1,15 +1,18 @@
 package com.example.simple.simplethink.totle
 
-import android.app.Activity
 import android.os.Bundle
 import android.support.design.widget.TabLayout
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentPagerAdapter
 import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
+import android.view.View
 import android.widget.TextView
 import com.example.simple.simplethink.R
 import com.example.simple.simplethink.netapi.HttpResposityImpl
+import com.example.simple.simplethink.totle.fragment.SceneFragment
+import com.example.simple.simplethink.totle.fragment.TotleFragment
+import com.example.simple.simplethink.totle.fragment.WhithNoiseFragment
 import com.example.simple.simplethink.utils.ResourcesUtils
 import kotlinx.android.synthetic.main.activity_totle.*
 
@@ -24,8 +27,8 @@ class TotleActivity: AppCompatActivity(){
             ResourcesUtils.getString(R.string.whith_noise))
     private lateinit var mTabLayout : TabLayout
     private lateinit var mViewPager : ViewPager
-    private var mTitleText : TextView? = null
     private val mFragments = ArrayList<Fragment>()
+    private var holder : ViewHolder?= null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,11 +50,6 @@ class TotleActivity: AppCompatActivity(){
         mFragments.add(scenceFragment.createFragment())
         mFragments.add(whithFragment.createFragment())
 
-        for (i in 0 until tabTitles.size) {
-            val tab = mTabLayout.getTabAt(i)
-            tab?.setCustomView(R.layout.tab_item)
-        }
-
         mViewPager.adapter = object : FragmentPagerAdapter(supportFragmentManager) {
             override fun getItem(position: Int): Fragment {
                 return mFragments[position]
@@ -70,29 +68,56 @@ class TotleActivity: AppCompatActivity(){
         }
         mTabLayout.setupWithViewPager(mViewPager)
         mTabLayout.tabMode = TabLayout.MODE_SCROLLABLE
+        initTabView()
+
+    }
+
+    private fun initTabView(){
+        for (i in 0 until tabTitles.size) {
+            val tab = mTabLayout.getTabAt(i)
+            tab?.setCustomView(R.layout.tab_item)
+            holder = ViewHolder(tab?.customView)
+            holder?.mTabItem?.text = tabTitles[i]
+            if (i == 0){
+                holder?.mTabItem?.isSelected = true
+                holder?.mTabItem?.textSize = 17.0f
+                holder?.mTabItem?.setTextColor(ResourcesUtils.resource.getColor(R.color.wordWhite))
+            }
+        }
+
         mTabLayout.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabReselected(tab: TabLayout.Tab?) {
 
             }
 
             override fun onTabSelected(tab: TabLayout.Tab?) {
-                 updateTablayoutTitle(tab,true)
-                mViewPager.setCurrentItem(tab!!.position)
+                updateTablayoutTitle(tab,true)
             }
 
             override fun onTabUnselected(tab: TabLayout.Tab?) {
-                 updateTablayoutTitle(tab,false)
+                updateTablayoutTitle(tab,false)
             }
         })
     }
     fun updateTablayoutTitle(tab : TabLayout.Tab?, isSelected : Boolean){
-        mTitleText = tab?.customView?.findViewById<TextView>(R.id.title_item)
+        holder = ViewHolder(tab?.customView)
         if(isSelected){
-           /* mTitleText?.isSelected = true
-            mTitleText?.textSize = ResourcesUtils.resource.getDimensionPixelSize(R.dimen.first_use).toFloat()*/
+            holder?.mTabItem?.isSelected = true
+            holder?.mTabItem?.textSize = 17.0f
+            holder?.mTabItem?.setTextColor(ResourcesUtils.resource.getColor(R.color.wordWhite))
+            mViewPager.currentItem = tab?.position!!
         }else{
-            mTitleText?.isSelected = false
-            mTitleText?.setTextSize(36.0f)
+            holder?.mTabItem?.isSelected = false
+            holder?.mTabItem?.textSize = 14.0f
+            holder?.mTabItem?.setTextColor(ResourcesUtils.resource.getColor(R.color.totleTitle))
         }
+    }
+}
+
+internal class ViewHolder(tabView: View?) {
+    var mTabItem: TextView?
+
+    init {
+        mTabItem = tabView?.findViewById(R.id.title_item)
     }
 }
