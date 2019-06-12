@@ -10,6 +10,8 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.simple.simplethink.R
 import com.example.simple.simplethink.model.TotleItem
+import com.example.simple.simplethink.model.TotleSortResponse
+import com.example.simple.simplethink.netapi.HttpResposityImpl
 import com.example.simple.simplethink.totle.adapter.TotleAdapter
 import kotlinx.android.synthetic.main.fragment_totle.*
 
@@ -17,7 +19,10 @@ import kotlinx.android.synthetic.main.fragment_totle.*
 /**
  * Created by jiessie on 2019/6/5.
  */
-class TotleFragment : Fragment() {
+class TotleFragment : Fragment(),TotleContact.View {
+
+    lateinit var persenter : TotleContact.Presenter
+
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View {
         return inflater!!.inflate(R.layout.fragment_totle,container,false)
     }
@@ -28,10 +33,11 @@ class TotleFragment : Fragment() {
     }
 
     private fun initView(){
-        val totleItem = TotleItem()
-        val layoutManager = GridLayoutManager(this.context,4)
-        recycle_tv.layoutManager = layoutManager
-        recycle_tv.adapter = TotleAdapter(this.context,totleItem)
+        val httpResposityImpl = HttpResposityImpl()
+        persenter = TotlePresenter(httpResposityImpl,this)
+        persenter.getTotleSort()
+
+
     }
     fun createFragment(): TotleFragment {
         val bundle = Bundle()
@@ -40,5 +46,11 @@ class TotleFragment : Fragment() {
         fragment.setArguments(bundle)
 
         return fragment
+    }
+
+    override fun showTotleSort(list: List<TotleSortResponse>) {
+        val layoutManager = GridLayoutManager(this.context,4)
+        recycle_tv.layoutManager = layoutManager
+        recycle_tv.adapter = TotleAdapter(this.context,list)
     }
 }

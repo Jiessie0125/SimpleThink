@@ -11,7 +11,7 @@ import com.example.simple.simplethink.R
  * Created by jiessie on 2019/6/5.
  */
 class SceneFragment : Fragment() {
-    val ARGUMENT = "ARGUMENT"
+
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View {
         return inflater!!.inflate(R.layout.fragment_scence,container,false)
     }

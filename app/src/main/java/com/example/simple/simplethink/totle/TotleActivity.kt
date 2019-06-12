@@ -10,18 +10,15 @@ import android.view.View
 import android.widget.TextView
 import com.example.simple.simplethink.R
 import com.example.simple.simplethink.netapi.HttpResposityImpl
-import com.example.simple.simplethink.totle.fragment.SceneFragment
-import com.example.simple.simplethink.totle.fragment.TotleFragment
-import com.example.simple.simplethink.totle.fragment.WhithNoiseFragment
+import com.example.simple.simplethink.totle.fragment.*
 import com.example.simple.simplethink.utils.ResourcesUtils
 import kotlinx.android.synthetic.main.activity_totle.*
 
 /**
  * Created by mobileteam on 2019/6/3.
  */
-class TotleActivity: AppCompatActivity(){
+class TotleActivity: AppCompatActivity() {
 
-    lateinit var persenter : TotleContact.Presenter
     val tabTitles = arrayOf(ResourcesUtils.getString(R.string.totle),
             ResourcesUtils.getString(R.string.scene),
             ResourcesUtils.getString(R.string.whith_noise))
@@ -37,9 +34,7 @@ class TotleActivity: AppCompatActivity(){
     }
 
     fun init(){
-        val httpResposityImpl = HttpResposityImpl()
-        persenter = TotlePresenter(httpResposityImpl)
-        persenter.getTotleSort()
+
         mTabLayout = tablayout
         mViewPager = viewpager
 
@@ -50,24 +45,7 @@ class TotleActivity: AppCompatActivity(){
         mFragments.add(scenceFragment.createFragment())
         mFragments.add(whithFragment.createFragment())
 
-        mViewPager.adapter = object : FragmentPagerAdapter(supportFragmentManager) {
-            override fun getItem(position: Int): Fragment {
-                return mFragments[position]
-            }
-
-            override fun getCount(): Int {
-                return mFragments.size
-            }
-
-            /**
-             * 为TabLayout中每一个tab设置标题
-             */
-            override fun getPageTitle(position: Int): CharSequence {
-                return tabTitles[position]
-            }
-        }
-        mTabLayout.setupWithViewPager(mViewPager)
-        mTabLayout.tabMode = TabLayout.MODE_SCROLLABLE
+        initAdapter()
         initTabView()
 
     }
@@ -99,6 +77,28 @@ class TotleActivity: AppCompatActivity(){
             }
         })
     }
+
+    fun initAdapter(){
+        mViewPager.adapter = object : FragmentPagerAdapter(supportFragmentManager) {
+            override fun getItem(position: Int): Fragment {
+                return mFragments[position]
+            }
+
+            override fun getCount(): Int {
+                return mFragments.size
+            }
+
+            /**
+             * 为TabLayout中每一个tab设置标题
+             */
+            override fun getPageTitle(position: Int): CharSequence {
+                return tabTitles[position]
+            }
+        }
+        mTabLayout.setupWithViewPager(mViewPager)
+        mTabLayout.tabMode = TabLayout.MODE_SCROLLABLE
+    }
+
     fun updateTablayoutTitle(tab : TabLayout.Tab?, isSelected : Boolean){
         holder = ViewHolder(tab?.customView)
         if(isSelected){
