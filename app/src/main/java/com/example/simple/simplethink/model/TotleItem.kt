@@ -8,6 +8,6 @@ import java.io.Serializable
  * Created by mobileteam on 2019/6/4.
  */
 class TotleItem(
-        val totleItemTxt: String,
-        val totleItemImage: Bitmap
+        var totleItemTxt: String,
+        var totleItemImage: Bitmap
 ): Serializable

@@ -5,4 +5,5 @@ package com.example.simple.simplethink.utils
  */
 object URLConstant {
     val BASE_URL = "http://dev.simplemeditation.cn/"
+    val BASE_URL_EMPT = ""
 }

@@ -1,7 +1,7 @@
 package com.example.simple.simplethink.totle.fragment
 
+import android.graphics.Bitmap
 import com.example.simple.simplethink.model.TotleSortResponse
-import com.example.simple.simplethink.netapi.HttpResposityImpl
 
 /**
  * Created by jiessie on 2019/6/5.
@@ -9,10 +9,12 @@ import com.example.simple.simplethink.netapi.HttpResposityImpl
 interface TotleContact {
 
     interface  Presenter {
-         fun getTotleSort()
+        fun getTotleSort()
+        fun getItemImage(image: String)
     }
 
     interface View {
-        fun showTotleSort(list : List<TotleSortResponse>)
+        fun getTotleSortIcon(list : List<TotleSortResponse>)
+        fun getItemImage(image: Bitmap)
     }
 }

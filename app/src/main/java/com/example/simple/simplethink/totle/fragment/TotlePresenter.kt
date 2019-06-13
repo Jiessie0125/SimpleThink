@@ -15,9 +15,21 @@ class TotlePresenter(val httpResposityImpl : HttpResposityImpl, val view: TotleF
                 .observeOn(AndroidSchedulers.mainThread())
                 .map { result -> result }
                 .subscribe({message ->
-                    view.showTotleSort(message)
+                    view.getTotleSortIcon(message)
                 },{
                     error->
+                    Log.e("---","----fail:"+error)
+                })
+    }
+
+    override fun getItemImage(url : String){
+        val disposable = httpResposityImpl.getItemImage(url).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .map { result -> result }
+                .subscribe({message ->
+                    view.getItemImage(message)
+                },{
+                    error ->
                     Log.e("---","----fail:"+error)
                 })
     }

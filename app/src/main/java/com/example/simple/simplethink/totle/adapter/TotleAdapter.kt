@@ -16,15 +16,15 @@ import com.example.simple.simplethink.totle.fragment.TotleFragment
 /**
  * Created by jiessie on 2019/6/11.
  */
-class TotleAdapter(val context : Context, val totleLish : List<TotleSortResponse>) : RecyclerView.Adapter<TotleViewHolder>() {
+class TotleAdapter(val context : Context, val totleLish : ArrayList<TotleItem>?) : RecyclerView.Adapter<TotleViewHolder>() {
 
     override fun getItemCount(): Int {
-        return totleLish.size
+        return totleLish?.size!!
     }
 
     override fun onBindViewHolder(holder: TotleViewHolder?, position: Int) {
-        holder?.mTotleItem?.text = totleLish.get(position).category_name
-        holder?.mItemImage?.setImageBitmap(totleLish.get(position).image)
+        holder?.mTotleItem?.text = totleLish?.get(position)?.totleItemTxt
+        holder?.mItemImage?.setImageBitmap(totleLish?.get(position)?.totleItemImage)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): TotleViewHolder {

@@ -2,6 +2,7 @@ package com.example.simple.simplethink.totle.fragment
 
 
 import android.content.Context
+import android.graphics.Bitmap
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.GridLayoutManager
@@ -14,6 +15,7 @@ import com.example.simple.simplethink.model.TotleSortResponse
 import com.example.simple.simplethink.netapi.HttpResposityImpl
 import com.example.simple.simplethink.totle.adapter.TotleAdapter
 import kotlinx.android.synthetic.main.fragment_totle.*
+import java.util.*
 
 
 /**
@@ -22,6 +24,10 @@ import kotlinx.android.synthetic.main.fragment_totle.*
 class TotleFragment : Fragment(),TotleContact.View {
 
     lateinit var persenter : TotleContact.Presenter
+    var totleList : ArrayList<TotleItem> ?=null
+    lateinit var totleItem : TotleItem
+    lateinit var itemImage : Bitmap
+    lateinit var totleAdapter : TotleAdapter
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View {
         return inflater!!.inflate(R.layout.fragment_totle,container,false)
@@ -37,7 +43,7 @@ class TotleFragment : Fragment(),TotleContact.View {
         persenter = TotlePresenter(httpResposityImpl,this)
         persenter.getTotleSort()
 
-
+       // setAdapter()
     }
     fun createFragment(): TotleFragment {
         val bundle = Bundle()
@@ -48,9 +54,22 @@ class TotleFragment : Fragment(),TotleContact.View {
         return fragment
     }
 
-    override fun showTotleSort(list: List<TotleSortResponse>) {
-        val layoutManager = GridLayoutManager(this.context,4)
-        recycle_tv.layoutManager = layoutManager
-        recycle_tv.adapter = TotleAdapter(this.context,list)
+    override fun getTotleSortIcon(list: List<TotleSortResponse>) {
+        for(i in 0 until list.size){
+            persenter.getItemImage(list[i].image)
+            totleItem.totleItemTxt = list[i].category_name
+            totleItem.totleItemImage = itemImage
+            totleList?.add(totleItem)
+        }
+    }
+
+    override fun getItemImage(image: Objects)  {
+       // itemImage = image
+    }
+
+    private fun setAdapter(){
+        totleAdapter = TotleAdapter(this.context,totleList)
+        recycle_tv.layoutManager = GridLayoutManager(this.context,4)
+        recycle_tv.adapter = totleAdapter
     }
 }
