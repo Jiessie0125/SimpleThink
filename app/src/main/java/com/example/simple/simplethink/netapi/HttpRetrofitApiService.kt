@@ -4,6 +4,7 @@ import android.graphics.Bitmap
 import com.example.simple.simplethink.model.TotleSortListResponse
 import com.example.simple.simplethink.model.TotleSortResponse
 import io.reactivex.Observable
+import okhttp3.ResponseBody
 import retrofit2.http.GET
 import retrofit2.http.Url
 
@@ -15,5 +16,5 @@ interface HttpRetrofitApiService {
     fun getTotleSort(): Observable<List<TotleSortResponse>>
 
     @GET
-    fun getItemImage(@Url url:String):Observable<Bitmap>
+    fun getItemImage(@Url url:String):Observable<ResponseBody>
 }

@@ -7,6 +7,7 @@ import okhttp3.Response
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.converter.scalars.ScalarsConverterFactory
 import java.io.IOException
 import java.util.concurrent.TimeUnit
 
@@ -40,8 +41,7 @@ class GetRetrofitServiceManager private constructor() {
         // 创建Retrofit
         mRetrofit = Retrofit.Builder()
                 .client(builder.build())
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .baseUrl(URLConstant.BASE_URL_EMPT)
+                .baseUrl(URLConstant.BASE_URL)
                 .build()
     }
 

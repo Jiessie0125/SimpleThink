@@ -15,6 +15,7 @@ import com.example.simple.simplethink.model.TotleSortResponse
 import com.example.simple.simplethink.netapi.HttpResposityImpl
 import com.example.simple.simplethink.totle.adapter.TotleAdapter
 import kotlinx.android.synthetic.main.fragment_totle.*
+import okhttp3.ResponseBody
 import java.util.*
 
 
@@ -24,9 +25,9 @@ import java.util.*
 class TotleFragment : Fragment(),TotleContact.View {
 
     lateinit var persenter : TotleContact.Presenter
-    var totleList : ArrayList<TotleItem> ?=null
-    lateinit var totleItem : TotleItem
-    lateinit var itemImage : Bitmap
+    var totleList : ArrayList<TotleItem?> ?=null
+    var totleItem : TotleItem ?= null
+    var itemImage : Bitmap ?= null
     lateinit var totleAdapter : TotleAdapter
 
     override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -56,20 +57,20 @@ class TotleFragment : Fragment(),TotleContact.View {
 
     override fun getTotleSortIcon(list: List<TotleSortResponse>) {
         for(i in 0 until list.size){
-            persenter.getItemImage(list[i].image)
-            totleItem.totleItemTxt = list[i].category_name
-            totleItem.totleItemImage = itemImage
-            totleList?.add(totleItem)
+            persenter.getItemImage(list[i].image,list[i].category_name)
+            /*totleItem?.totleItemTxt = list[i].category_name
+            totleItem?.totleItemImage = itemImage
+            totleList?.add(totleItem)*/
         }
     }
 
-    override fun getItemImage(image: Objects)  {
-       // itemImage = image
+    override fun getItemImage(image: Bitmap)  {
+       // itemImage = image.bytes()
     }
 
     private fun setAdapter(){
-        totleAdapter = TotleAdapter(this.context,totleList)
+       /* totleAdapter = TotleAdapter(this.context,totleList)
         recycle_tv.layoutManager = GridLayoutManager(this.context,4)
-        recycle_tv.adapter = totleAdapter
+        recycle_tv.adapter = totleAdapter*/
     }
 }
