@@ -2,7 +2,6 @@ package com.example.simple.simplethink.netapi
 
 import android.graphics.Bitmap
 import com.example.simple.simplethink.model.TotleSortResponse
-import com.example.simple.simplethink.network.GetRetrofitServiceManager
 import com.example.simple.simplethink.network.RetrofitServiceManager
 import io.reactivex.Observable
 import okhttp3.ResponseBody
