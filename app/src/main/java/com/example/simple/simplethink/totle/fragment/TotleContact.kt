@@ -16,6 +16,6 @@ interface TotleContact {
 
     interface View {
         fun getTotleSortIcon(list : List<TotleSortResponse>)
-        fun getItemImage(image: Bitmap)
+        fun getItemImage(imageName : String)
     }
 }

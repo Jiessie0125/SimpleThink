@@ -32,7 +32,7 @@ class TotlePresenter(val httpResposityImpl : HttpResposityImpl, val view: TotleF
                 .subscribe({message ->
                     FilesUtils.savaBitmap(message,strFileName)
                     Log.e("---","----success:"+message)
-                    //view.getItemImage(message!!)
+                    view.getItemImage(strFileName)
                 },{
                     error ->
                     Log.e("---","----fail:"+error)

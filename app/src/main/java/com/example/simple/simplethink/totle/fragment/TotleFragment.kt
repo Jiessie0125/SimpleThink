@@ -3,6 +3,7 @@ package com.example.simple.simplethink.totle.fragment
 
 import android.content.Context
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.GridLayoutManager
@@ -14,8 +15,9 @@ import com.example.simple.simplethink.model.TotleItem
 import com.example.simple.simplethink.model.TotleSortResponse
 import com.example.simple.simplethink.netapi.HttpResposityImpl
 import com.example.simple.simplethink.totle.adapter.TotleAdapter
+import com.example.simple.simplethink.utils.FilesUtils
+import com.example.simple.simplethink.utils.ResourcesUtils
 import kotlinx.android.synthetic.main.fragment_totle.*
-import okhttp3.ResponseBody
 import java.util.*
 
 
@@ -25,8 +27,8 @@ import java.util.*
 class TotleFragment : Fragment(),TotleContact.View {
 
     lateinit var persenter : TotleContact.Presenter
-    var totleList : ArrayList<TotleItem?> ?=null
-    var totleItem : TotleItem ?= null
+    var totleList = ArrayList<TotleItem>()
+
     var itemImage : Bitmap ?= null
     lateinit var totleAdapter : TotleAdapter
 
@@ -36,15 +38,23 @@ class TotleFragment : Fragment(),TotleContact.View {
 
     override fun onAttach(context: Context?) {
         super.onAttach(context)
+    }
+
+    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         initView()
     }
 
     private fun initView(){
-        val httpResposityImpl = HttpResposityImpl()
+        /*val httpResposityImpl = HttpResposityImpl()
         persenter = TotlePresenter(httpResposityImpl,this)
-        persenter.getTotleSort()
+        persenter.getTotleSort()*/
 
-       // setAdapter()
+        for(i in 0 until 8){
+            var totleItem = TotleItem("1",BitmapFactory.decodeResource(ResourcesUtils.resource,R.drawable.download))
+            totleList.add(totleItem)
+        }
+        setAdapter()
     }
     fun createFragment(): TotleFragment {
         val bundle = Bundle()
@@ -58,19 +68,21 @@ class TotleFragment : Fragment(),TotleContact.View {
     override fun getTotleSortIcon(list: List<TotleSortResponse>) {
         for(i in 0 until list.size){
             persenter.getItemImage(list[i].image,list[i].category_name)
-            /*totleItem?.totleItemTxt = list[i].category_name
+        }
+    }
+
+    override fun getItemImage(imageName : String)  {
+        val itemImage = FilesUtils.getItemIcon(imageName)
+        itemImage?.let {
+            /*totleItem?.totleItemTxt = imageName
             totleItem?.totleItemImage = itemImage
             totleList?.add(totleItem)*/
         }
     }
 
-    override fun getItemImage(image: Bitmap)  {
-       // itemImage = image.bytes()
-    }
-
     private fun setAdapter(){
-       /* totleAdapter = TotleAdapter(this.context,totleList)
+        totleAdapter = TotleAdapter(totleList)
         recycle_tv.layoutManager = GridLayoutManager(this.context,4)
-        recycle_tv.adapter = totleAdapter*/
+        recycle_tv.adapter = totleAdapter
     }
 }

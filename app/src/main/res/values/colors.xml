@@ -11,4 +11,5 @@
     <color name="blackSuggesstion">#645E6B</color>
     <color name="fisrtUse">#D3B462</color>
     <color name="totleTitle">#ff544d5d</color>
+    <color name="totleItem">#ffaeaeae</color>
 </resources>

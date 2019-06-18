@@ -9,14 +9,13 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.example.simple.simplethink.R
 import com.example.simple.simplethink.model.TotleItem
-import com.example.simple.simplethink.model.TotleSortResponse
-import com.example.simple.simplethink.totle.fragment.TotleFragment
+import java.util.ArrayList
 
 
 /**
  * Created by jiessie on 2019/6/11.
  */
-class TotleAdapter(val context : Context, val totleLish : ArrayList<TotleItem>?) : RecyclerView.Adapter<TotleViewHolder>() {
+class TotleAdapter( val totleLish : ArrayList<TotleItem>) : RecyclerView.Adapter<TotleViewHolder>() {
 
     override fun getItemCount(): Int {
         return totleLish?.size!!
@@ -28,8 +27,9 @@ class TotleAdapter(val context : Context, val totleLish : ArrayList<TotleItem>?)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): TotleViewHolder {
-        val holder = TotleViewHolder(LayoutInflater.from(context).inflate(R.layout.totle_item,parent,false))
-        return holder
+        val layoutInflater = LayoutInflater.from(parent?.context)
+        val holder = layoutInflater.inflate(R.layout.totle_item, null, false)
+        return TotleViewHolder(holder)
     }
 
 }

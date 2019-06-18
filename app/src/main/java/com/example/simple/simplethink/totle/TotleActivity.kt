@@ -58,7 +58,7 @@ class TotleActivity: AppCompatActivity() {
             holder?.mTabItem?.text = tabTitles[i]
             if (i == 0){
                 holder?.mTabItem?.isSelected = true
-                holder?.mTabItem?.textSize = 17.0f
+                holder?.mTabItem?.textSize = 20.0f 
                 holder?.mTabItem?.setTextColor(ResourcesUtils.resource.getColor(R.color.wordWhite))
             }
         }
@@ -103,12 +103,12 @@ class TotleActivity: AppCompatActivity() {
         holder = ViewHolder(tab?.customView)
         if(isSelected){
             holder?.mTabItem?.isSelected = true
-            holder?.mTabItem?.textSize = 17.0f
+            holder?.mTabItem?.textSize = 20.0f
             holder?.mTabItem?.setTextColor(ResourcesUtils.resource.getColor(R.color.wordWhite))
             mViewPager.currentItem = tab?.position!!
         }else{
             holder?.mTabItem?.isSelected = false
-            holder?.mTabItem?.textSize = 14.0f
+            holder?.mTabItem?.textSize = 17.0f
             holder?.mTabItem?.setTextColor(ResourcesUtils.resource.getColor(R.color.totleTitle))
         }
     }

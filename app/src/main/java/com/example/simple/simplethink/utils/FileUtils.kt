@@ -39,4 +39,18 @@ object FilesUtils{
 
         }
 
+    fun getItemIcon(strItemIcon : String) : Bitmap?{
+        try {
+            val folder = File(filename)
+            if(!folder.exists()) throw Exception("can't find folder")
+            val savePath = folder.getPath() + File.separator + strItemIcon + ".png"
+            val f = File(savePath)
+            if(f.exists()) throw Exception("can't find image")
+            return BitmapFactory.decodeFile(savePath)
+        }catch (e: Exception){
+            e.printStackTrace()
+        }
+        return null
+    }
+
 }
