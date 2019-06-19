@@ -6,4 +6,5 @@
     <dimen name="login_small_title">15sp</dimen>
     <dimen name="logon_revive_word">12sp</dimen>
     <dimen name="first_use">17sp</dimen>
+    <dimen name="course_txt">13sp</dimen>
 </resources>

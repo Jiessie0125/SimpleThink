@@ -37,7 +37,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="28dp"
                 android:paddingStart="@dimen/default_view_horizontal_padding"
-                android:paddingEnd="@dimen/default_view_horizontal_padding">
+                android:paddingEnd="@dimen/default_view_horizontal_padding"
+                android:orientation="vertical">
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
@@ -61,6 +62,13 @@
                         android:layout_height="14dp"
                         android:src="@drawable/more"/>
                 </LinearLayout>
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recycle_course_tv"
+                    android:layout_margin="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                </android.support.v7.widget.RecyclerView>
             </LinearLayout>
 
         </LinearLayout>
