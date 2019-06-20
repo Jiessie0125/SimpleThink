@@ -2,6 +2,7 @@ package com.example.simple.simplethink.utils
 
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.os.Build
 import android.os.Environment
 import okhttp3.ResponseBody
 import java.io.File
@@ -15,9 +16,9 @@ object FilesUtils{
     val APP_IMAGE_DIR = "sort_item"
     var filename = Environment.getExternalStorageDirectory().toString() + File.separator + APP_IMAGE_DIR
 
-        fun savaBitmap(message : ResponseBody, strFileName: String) {
+        fun savaBitmap(message : ByteArray, strFileName: String) {
             try {
-                val bitmap = BitmapFactory.decodeStream(message.byteStream())
+                val bitmap = BitmapFactory.decodeByteArray(message,0,message.size)
                 val folder = File(filename)
                 if (!folder.exists()) {
                     folder.mkdirs()
@@ -45,7 +46,7 @@ object FilesUtils{
             if(!folder.exists()) throw Exception("can't find folder")
             val savePath = folder.getPath() + File.separator + strItemIcon + ".png"
             val f = File(savePath)
-            if(f.exists()) throw Exception("can't find image")
+            if(!f.exists()) throw Exception("can't find image")
             return BitmapFactory.decodeFile(savePath)
         }catch (e: Exception){
             e.printStackTrace()

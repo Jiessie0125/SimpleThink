@@ -27,14 +27,8 @@ import java.util.*
  */
 class TotleFragment : Fragment(),TotleContact.View {
 
-    init {
-
-    }
-
     lateinit var persenter : TotleContact.Presenter
     var totleList = ArrayList<TotleItem>()
-
-    var itemImage : Bitmap ?= null
     lateinit var totleAdapter : TotleAdapter
     lateinit var courseAdapter : CourseAdapter
 
@@ -44,10 +38,10 @@ class TotleFragment : Fragment(),TotleContact.View {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        for(i in 0 until 8){
+        /*for(i in 0 until 8){
             var totleItem = TotleItem("1",BitmapFactory.decodeResource(ResourcesUtils.resource,R.drawable.download))
             totleList.add(totleItem)
-        }
+        }*/
     }
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
@@ -55,20 +49,16 @@ class TotleFragment : Fragment(),TotleContact.View {
         initView()
     }
 
-    private fun initView(){
-        /*val httpResposityImpl = HttpResposityImpl()
+    private fun (){
+        val httpResposityImpl = HttpResposityImpl()
         persenter = TotlePresenter(httpResposityImpl,this)
-        persenter.getTotleSort()*/
-        setAdapter()
-        setCourseAdapter()
-
+        persenter.getTotleSort()
     }
+
     fun createFragment(): TotleFragment {
         val bundle = Bundle()
-
         val fragment = TotleFragment()
         fragment.setArguments(bundle)
-
         return fragment
     }
 
@@ -81,9 +71,12 @@ class TotleFragment : Fragment(),TotleContact.View {
     override fun getItemImage(imageName : String)  {
         val itemImage = FilesUtils.getItemIcon(imageName)
         itemImage?.let {
-            /*totleItem?.totleItemTxt = imageName
-            totleItem?.totleItemImage = itemImage
-            totleList?.add(totleItem)*/
+            var totleItem = TotleItem(imageName,itemImage)
+            totleList?.add(totleItem)
+        }
+        if(totleList.size>8){
+            setAdapter()
+            setCourseAdapter()
         }
     }
 

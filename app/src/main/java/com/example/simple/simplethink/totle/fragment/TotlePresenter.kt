@@ -1,12 +1,10 @@
 package com.example.simple.simplethink.totle.fragment
 
-import android.os.Environment
 import android.util.Log
 import com.example.simple.simplethink.netapi.HttpResposityImpl
 import com.example.simple.simplethink.utils.FilesUtils
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
-import java.io.File
 
 /**
  * Created by jiessie on 2019/6/4.
@@ -21,7 +19,7 @@ class TotlePresenter(val httpResposityImpl : HttpResposityImpl, val view: TotleF
                     view.getTotleSortIcon(message)
                 },{
                     error->
-                    Log.e("---","----fail:"+error)
+                    Log.e("---","----getTotleSortfail:"+error)
                 })
     }
 
@@ -30,12 +28,12 @@ class TotlePresenter(val httpResposityImpl : HttpResposityImpl, val view: TotleF
                 .subscribeOn(AndroidSchedulers.mainThread())
                 .map { result -> result }
                 .subscribe({message ->
-                    FilesUtils.savaBitmap(message,strFileName)
-                    Log.e("---","----success:"+message)
+                    val messageByte = message.bytes()
+                    FilesUtils.savaBitmap(messageByte,strFileName)
                     view.getItemImage(strFileName)
                 },{
                     error ->
-                    Log.e("---","----fail:"+error)
+                    Log.e("---","----getItemImagefail:"+error)
                 })
     }
 }
