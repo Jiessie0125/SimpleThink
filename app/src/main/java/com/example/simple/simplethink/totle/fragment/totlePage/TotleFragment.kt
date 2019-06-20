@@ -1,4 +1,4 @@
-package com.example.simple.simplethink.totle.fragment
+package com.example.simple.simplethink.totle.fragment.totlePage
 
 
 import android.graphics.Bitmap
@@ -9,23 +9,25 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.simple.simplethink.R
+import com.example.simple.simplethink.model.Course
 import com.example.simple.simplethink.model.TotleItem
 import com.example.simple.simplethink.model.TotleSortResponse
 import com.example.simple.simplethink.netapi.HttpResposityImpl
 import com.example.simple.simplethink.totle.adapter.CourseAdapter
 import com.example.simple.simplethink.totle.adapter.TotleAdapter
-import com.example.simple.simplethink.utils.FilesUtils
 import kotlinx.android.synthetic.main.fragment_totle.*
 import java.util.*
+import kotlin.collections.ArrayList
 
 
 /**
  * Created by jiessie on 2019/6/5.
  */
-class TotleFragment : Fragment(),TotleContact.View {
+class TotleFragment : Fragment(), TotleContact.View {
 
     lateinit var persenter : TotleContact.Presenter
     var totleList = ArrayList<TotleItem>()
+    var courseList = ArrayList<TotleItem>()
     lateinit var totleAdapter : TotleAdapter
     lateinit var courseAdapter : CourseAdapter
 
@@ -49,9 +51,11 @@ class TotleFragment : Fragment(),TotleContact.View {
 
     private fun initView(){
         val httpResposityImpl = HttpResposityImpl()
-        persenter = TotlePresenter(httpResposityImpl,this)
+        persenter = TotlePresenter(httpResposityImpl, this)
         persenter.getTotleSort()
+        persenter.getCourse()
         setAdapter()
+        setCourseAdapter()
 
     }
 
@@ -69,7 +73,6 @@ class TotleFragment : Fragment(),TotleContact.View {
     }
 
     override fun getItemImage(imageName : String,image: Bitmap)  {
-       // val itemImage = FilesUtils.getItemIcon(imageName)
         image?.let {
             var totleItem = TotleItem(imageName,image)
             totleList?.add(totleItem)
@@ -84,8 +87,28 @@ class TotleFragment : Fragment(),TotleContact.View {
     }
 
     private fun setCourseAdapter(){
-        courseAdapter = CourseAdapter(totleList)
+        courseAdapter = CourseAdapter()
         recycle_course_tv.layoutManager = GridLayoutManager(this.context,2)
         recycle_course_tv.adapter = courseAdapter
+    }
+
+    override fun setCourseAdapterView(list: List<Course>) {
+        for(i in 0 until list.size){
+            persenter.getCourseImage(list[i].title_img_new,list[i].title)
+        }
+    }
+
+    override fun getCourseImageView(imageName: String, image: Bitmap) {
+        image?.let {
+            var totleItem = TotleItem(imageName,image)
+            courseList?.add(totleItem)
+        }
+        courseAdapter.setData(courseList)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        totleList = ArrayList<TotleItem>()
+        courseList = ArrayList<TotleItem>()
     }
 }

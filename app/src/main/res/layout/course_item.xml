@@ -20,7 +20,6 @@
         android:layout_width="155dp"
         android:layout_height="115dp"
         android:textSize="@dimen/course_txt"
-        android:textColor="@color/colorAccent"
-        android:text="ghjkghjk"
+        android:textColor="@color/wordWhite"
         android:gravity="center"/>
 </FrameLayout>

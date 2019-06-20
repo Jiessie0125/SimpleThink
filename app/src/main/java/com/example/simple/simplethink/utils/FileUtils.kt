@@ -16,14 +16,14 @@ object FilesUtils{
     val APP_IMAGE_DIR = "sort_item"
     var filename = Environment.getExternalStorageDirectory().toString() + File.separator + APP_IMAGE_DIR
 
-        fun savaBitmap(message : ByteArray, strFileName: String):Boolean {
+        fun savaBitmap(message : ByteArray, strFileName: String, type: String):Boolean {
             try {
                 val bitmap = BitmapFactory.decodeByteArray(message,0,message.size)
                 val folder = File(filename)
                 if (!folder.exists()) {
                     folder.mkdirs()
                 }
-                val savePath = folder.getPath() + File.separator + strFileName + ".png"
+                val savePath = folder.getPath() + File.separator + strFileName + "." + type
                 val f = File(savePath)
                 var fOut: FileOutputStream?
                 try {
@@ -41,11 +41,11 @@ object FilesUtils{
             return false
         }
 
-    fun getItemIcon(strItemIcon : String) : Bitmap?{
+    fun getItemIcon(strItemIcon : String, type: String) : Bitmap?{
         try {
             val folder = File(filename)
             if(!folder.exists()) throw Exception("can't find folder")
-            val savePath = folder.getPath() + File.separator + strItemIcon + ".png"
+            val savePath = folder.getPath() + File.separator + strItemIcon + "." + type
             val f = File(savePath)
             if(!f.exists()) throw Exception("can't find image")
             return BitmapFactory.decodeFile(savePath)

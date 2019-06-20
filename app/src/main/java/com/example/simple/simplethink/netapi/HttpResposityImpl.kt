@@ -1,5 +1,6 @@
 package com.example.simple.simplethink.netapi
 
+import com.example.simple.simplethink.model.FirstCourseResponse
 import com.example.simple.simplethink.model.TotleSortResponse
 import com.example.simple.simplethink.network.RetrofitServiceManager
 import io.reactivex.Observable
@@ -17,5 +18,15 @@ class HttpResposityImpl(): HttpRepository {
     override fun getItemImage(url: String): Observable<ResponseBody> {
         val getItemImage= RetrofitServiceManager.instance.create(HttpRetrofitApiService::class.java)
         return getItemImage.getItemImage(url)
+    }
+
+    override fun getCourseImage(): Observable<FirstCourseResponse> {
+        val getItemImage= RetrofitServiceManager.instance.create(HttpRetrofitApiService::class.java)
+        return getItemImage.getCourseImage()
+    }
+
+    override fun getCourseImageItem(url: String): Observable<ResponseBody> {
+        val getItemImage= RetrofitServiceManager.instance.create(HttpRetrofitApiService::class.java)
+        return getItemImage.getCourseImageItem(url)
     }
 }

@@ -13,7 +13,9 @@ import java.util.ArrayList
 /**
  * Created by jiessie on 2019/6/11.
  */
-class CourseAdapter( val totleLish : ArrayList<TotleItem>) : RecyclerView.Adapter<CourseViewHolder>() {
+class CourseAdapter( ) : RecyclerView.Adapter<CourseViewHolder>() {
+
+    var totleLish = ArrayList<TotleItem>()
 
     override fun getItemCount(): Int {
         return totleLish?.size!!
@@ -30,7 +32,10 @@ class CourseAdapter( val totleLish : ArrayList<TotleItem>) : RecyclerView.Adapte
         return CourseViewHolder(holder)
     }
 
-
+    fun setData(totleList : ArrayList<TotleItem>){
+        totleLish = totleList
+        notifyDataSetChanged()
+    }
 }
 
 class CourseViewHolder(view : View?): RecyclerView.ViewHolder(view) {

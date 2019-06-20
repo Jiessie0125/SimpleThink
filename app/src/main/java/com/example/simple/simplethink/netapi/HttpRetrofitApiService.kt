@@ -1,7 +1,6 @@
 package com.example.simple.simplethink.netapi
 
-import android.graphics.Bitmap
-import com.example.simple.simplethink.model.TotleSortListResponse
+import com.example.simple.simplethink.model.FirstCourseResponse
 import com.example.simple.simplethink.model.TotleSortResponse
 import io.reactivex.Observable
 import okhttp3.ResponseBody
@@ -17,4 +16,10 @@ interface HttpRetrofitApiService {
 
     @GET
     fun getItemImage(@Url url:String):Observable<ResponseBody>
+
+    @GET("new_course/exhibition")
+    fun getCourseImage(): Observable<FirstCourseResponse>
+
+    @GET
+    fun getCourseImageItem(@Url url:String):Observable<ResponseBody>
 }
