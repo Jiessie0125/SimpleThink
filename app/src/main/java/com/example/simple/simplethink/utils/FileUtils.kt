@@ -16,7 +16,7 @@ object FilesUtils{
     val APP_IMAGE_DIR = "sort_item"
     var filename = Environment.getExternalStorageDirectory().toString() + File.separator + APP_IMAGE_DIR
 
-        fun savaBitmap(message : ByteArray, strFileName: String) {
+        fun savaBitmap(message : ByteArray, strFileName: String):Boolean {
             try {
                 val bitmap = BitmapFactory.decodeByteArray(message,0,message.size)
                 val folder = File(filename)
@@ -31,13 +31,14 @@ object FilesUtils{
                     bitmap.compress(Bitmap.CompressFormat.PNG, 100, fOut)//把Bitmap对象解析成流
                     fOut!!.flush()
                     fOut!!.close()
+                    return true
                 } catch (e: Exception) {
                     e.printStackTrace()
                 }
             }catch (e : IOException){
                 e.printStackTrace()
             }
-
+            return false
         }
 
     fun getItemIcon(strItemIcon : String) : Bitmap?{
