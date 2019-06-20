@@ -15,8 +15,9 @@ import java.util.ArrayList
 /**
  * Created by jiessie on 2019/6/11.
  */
-class TotleAdapter( val totleLish : ArrayList<TotleItem>) : RecyclerView.Adapter<TotleViewHolder>() {
+class TotleAdapter( ) : RecyclerView.Adapter<TotleViewHolder>() {
 
+    var totleLish = ArrayList<TotleItem>()
     override fun getItemCount(): Int {
         return totleLish?.size!!
     }
@@ -30,6 +31,11 @@ class TotleAdapter( val totleLish : ArrayList<TotleItem>) : RecyclerView.Adapter
         val layoutInflater = LayoutInflater.from(parent?.context)
         val holder = layoutInflater.inflate(R.layout.totle_item, null, false)
         return TotleViewHolder(holder)
+    }
+
+    fun setData(totleList : ArrayList<TotleItem>){
+        totleLish = totleList
+        notifyDataSetChanged()
     }
 
 }

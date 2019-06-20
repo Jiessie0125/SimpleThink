@@ -39,7 +39,7 @@ class TotlePresenter(val httpResposityImpl : HttpResposityImpl, val view: TotleF
                         }
                      }
                  })
-                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({message ->
                     view.getItemImage(strFileName,message)
                 },{

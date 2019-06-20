@@ -52,7 +52,7 @@ class TotleFragment : Fragment(),TotleContact.View {
         persenter = TotlePresenter(httpResposityImpl,this)
         persenter.getTotleSort()
         setAdapter()
-        setCourseAdapter()
+
     }
 
     fun createFragment(): TotleFragment {
@@ -74,10 +74,11 @@ class TotleFragment : Fragment(),TotleContact.View {
             var totleItem = TotleItem(imageName,image)
             totleList?.add(totleItem)
         }
+      totleAdapter.setData(totleList)
     }
 
     private fun setAdapter(){
-        totleAdapter = TotleAdapter(totleList)
+        totleAdapter = TotleAdapter()
         recycle_tv.layoutManager = GridLayoutManager(this.context,4)
         recycle_tv.adapter = totleAdapter
     }
