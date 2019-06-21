@@ -11,6 +11,7 @@ import okhttp3.ResponseBody
 interface TotleContact {
 
     interface  Presenter {
+        fun getBanner()
         fun getTotleSort()
         fun getItemImage(image: String,fileName : String)
         fun getCourse()
@@ -22,5 +23,6 @@ interface TotleContact {
         fun getItemImage(imageName : String,image : Bitmap)
         fun setCourseAdapterView(list: List<Course>)
         fun getCourseImageView(imageName : String,image : Bitmap)
+        fun setBanner(bannerUrlList : ArrayList<String>)
     }
 }

@@ -16,6 +16,24 @@ import okhttp3.ResponseBody
  */
 class TotlePresenter(val httpResposityImpl : HttpResposityImpl, val view: TotleFragment) : TotleContact.Presenter {
 
+    override fun getBanner(){
+        httpResposityImpl.getBanner().subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .map { result -> result }
+                .subscribe({message ->
+                    var bannerUrlList = ArrayList<String>()
+                    for(i in 0 until message.size){
+                        var bannerURL = message[i].imgURL
+                        bannerUrlList.add(bannerURL)
+                    }
+                    view.setBanner(bannerUrlList)
+                },{
+                    error->
+                    Log.e("---","----getTotleSortfail:"+error)
+                })
+    }
+
+
     override fun getTotleSort(){
        httpResposityImpl.getTotleSort().subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

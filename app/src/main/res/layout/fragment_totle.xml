@@ -17,10 +17,10 @@
             android:layout_marginTop="20dp"
             android:orientation="vertical">
 
-            <ImageView
+            <com.youth.banner.Banner
+                android:id="@+id/mbanner"
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
-                android:src="@drawable/sugges_activity"/>
+                android:layout_height="150dp" />
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recycle_tv"
                 android:layout_margin="20dp"
@@ -57,10 +57,12 @@
                         android:text="@string/suggestion_course"
                         android:textColor="@color/wordWhite"
                         android:textSize="@dimen/login_small_title" />
+
                     <ImageView
+                        android:id="@+id/totleMore"
                         android:layout_width="14dp"
-                        android:layout_height="14dp"
-                        android:src="@drawable/more"/>
+                        android:layout_height="match_parent"
+                        android:src="@drawable/more" />
                 </LinearLayout>
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/recycle_course_tv"

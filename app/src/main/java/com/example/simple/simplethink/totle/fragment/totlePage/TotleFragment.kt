@@ -1,13 +1,17 @@
 package com.example.simple.simplethink.totle.fragment.totlePage
 
 
+import android.content.Context
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.GridLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import com.bumptech.glide.Glide
 import com.example.simple.simplethink.R
 import com.example.simple.simplethink.model.Course
 import com.example.simple.simplethink.model.TotleItem
@@ -15,9 +19,9 @@ import com.example.simple.simplethink.model.TotleSortResponse
 import com.example.simple.simplethink.netapi.HttpResposityImpl
 import com.example.simple.simplethink.totle.adapter.CourseAdapter
 import com.example.simple.simplethink.totle.adapter.TotleAdapter
+import com.example.simple.simplethink.utils.ResourcesUtils
+import com.youth.banner.loader.ImageLoader
 import kotlinx.android.synthetic.main.fragment_totle.*
-import java.util.*
-import kotlin.collections.ArrayList
 
 
 /**
@@ -37,21 +41,18 @@ class TotleFragment : Fragment(), TotleContact.View {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        /*for(i in 0 until 8){
-            var totleItem = TotleItem("1",BitmapFactory.decodeResource(ResourcesUtils.resource,R.drawable.download))
-            totleList.add(totleItem)
-        }*/
         initView()
     }
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        totleMore.setOnClickListener {  }
     }
 
     private fun initView(){
         val httpResposityImpl = HttpResposityImpl()
         persenter = TotlePresenter(httpResposityImpl, this)
+        persenter.getBanner()
         persenter.getTotleSort()
         persenter.getCourse()
         setAdapter()
@@ -104,6 +105,22 @@ class TotleFragment : Fragment(), TotleContact.View {
             courseList?.add(totleItem)
         }
         courseAdapter.setData(courseList)
+    }
+
+    override fun setBanner(bannerUrlList : ArrayList<String>) {
+        mbanner.setImageLoader(object :ImageLoader(){
+            override fun displayImage(context: Context?, path: Any?, imageView: ImageView?) {
+                Glide.with(context).load(path).into(imageView)
+            }
+        })
+        mbanner.setDelayTime(4000)
+        mbanner.setImages(bannerUrlList)
+        mbanner.isAutoPlay(true)
+        mbanner.start()
+    }
+
+    private fun showBuzzyCourse(){
+
     }
 
     override fun onResume() {
