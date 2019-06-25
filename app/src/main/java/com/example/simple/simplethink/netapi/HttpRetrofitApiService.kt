@@ -7,6 +7,7 @@ import com.example.simple.simplethink.model.TotleSortResponse
 import io.reactivex.Observable
 import okhttp3.ResponseBody
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Url
 
 /**
@@ -31,6 +32,6 @@ interface HttpRetrofitApiService {
     @GET
     fun getCourseImageItem(@Url url:String):Observable<ResponseBody>
 
-    @GET("banner/get")
-    fun getBuzzyCourse():  Observable<List<BuzzyCourseResponse>>
+    @GET("new_course/get_exhibition/{exhibition_id}")
+    fun getBuzzyCourse(@Path("exhibition_id")id:Int):  Observable<List<BuzzyCourseResponse>>
 }

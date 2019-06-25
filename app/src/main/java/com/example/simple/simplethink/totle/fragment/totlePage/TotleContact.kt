@@ -24,5 +24,6 @@ interface TotleContact {
         fun setCourseAdapterView(list: List<Course>)
         fun getCourseImageView(imageName : String,image : Bitmap)
         fun setBanner(bannerUrlList : ArrayList<String>)
+        fun setBuzzyItem(id :Int)
     }
 }

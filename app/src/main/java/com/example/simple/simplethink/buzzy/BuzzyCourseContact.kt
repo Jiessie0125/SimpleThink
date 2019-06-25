@@ -8,10 +8,10 @@ import com.example.simple.simplethink.model.TotleItem
 class BuzzyCourseContact {
 
     interface Presenter{
-        fun getBuzzyCourse()
+        fun getBuzzyCourse(id :Int)
     }
 
     interface View{
-        fun setBuzzyCourseAdapter(buzzyCourseUrlList: ArrayList<TotleItem>)
+        fun setBuzzyCourseAdapter(buzzyCourseUrlList : ArrayList<TotleItem>)
     }
 }

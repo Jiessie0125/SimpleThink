@@ -41,8 +41,8 @@ class HttpResposityImpl(): HttpRepository {
         return getItemImage.getCourseImageItem(url)
     }
 
-    override fun getBuzzyCourse(): Observable<List<BuzzyCourseResponse>> {
+    override fun getBuzzyCourse(id: Int): Observable<List<BuzzyCourseResponse>> {
         val getItemImage= RetrofitServiceManager.instance.create(HttpRetrofitApiService::class.java)
-        return getItemImage.getBuzzyCourse()
+        return getItemImage.getBuzzyCourse(id)
     }
 }

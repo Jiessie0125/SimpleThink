@@ -74,6 +74,7 @@ class TotlePresenter(val httpResposityImpl : HttpResposityImpl, val view: TotleF
                 .map { result -> result }
                 .subscribe({message ->
                     Log.e("---","----getCourse:"+message)
+                    view.setBuzzyItem(message.id)
                     view.setCourseAdapterView(message.courses)
                 },{
                     error->

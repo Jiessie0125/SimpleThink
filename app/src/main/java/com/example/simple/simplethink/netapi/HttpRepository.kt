@@ -17,5 +17,5 @@ interface HttpRepository {
     fun getItemImage(url: String) : Observable<ResponseBody>
     fun getCourseImage() : Observable<FirstCourseResponse>
     fun getCourseImageItem(url: String): Observable<ResponseBody>
-    fun getBuzzyCourse(): Observable<List<BuzzyCourseResponse>>
+    fun getBuzzyCourse(id: Int): Observable<List<BuzzyCourseResponse>>
 }
