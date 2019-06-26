@@ -2,6 +2,7 @@ package com.example.simple.simplethink.utils
 
 import android.annotation.SuppressLint
 import android.content.Context
+import com.example.simple.simplethink.MyApp
 import java.io.*
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
@@ -18,16 +19,6 @@ object LocalDataCache {
      */
     val CACHE_DURATION = (1000 * 60 * 60 * 2).toLong()//2小时
     private var messageDigest: MessageDigest? = null
-    private var context : Context?=null
-
-    fun getAppContext(): Context? {
-        if (context != null) return context
-        throw NullPointerException("u should init first")
-    }
-
-    fun init(context: Context) {
-        LocalDataCache.context = context.getApplicationContext()
-    }
     /**
      * 获取缓存在本地的数据
      *
@@ -35,7 +26,7 @@ object LocalDataCache {
      * @return
      */
     fun getLocalData(fileName: String): Any? {
-        val path = LocalDataCache.context?.getFilesDir().toString()
+        val path = MyApp.context?.getFilesDir().toString()
         val file = File(path + "/" + Md5(fileName) + ".config")
         file.getAbsolutePath()
         if (file.exists()) {
@@ -62,7 +53,7 @@ object LocalDataCache {
      * @param fileName 保存的文件名
      */
     fun save(`object`: Any, fileName: String) {
-        val path = LocalDataCache.context?.getFilesDir().toString()
+        val path = MyApp.context?.getFilesDir().toString()
         val file = File(path + "/" + Md5(fileName) + ".config")
         if (file.exists()) {
             file.delete()
