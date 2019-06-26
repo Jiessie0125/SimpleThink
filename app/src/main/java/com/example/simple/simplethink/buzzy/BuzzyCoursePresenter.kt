@@ -15,31 +15,25 @@ import okhttp3.ResponseBody
  */
 class BuzzyCoursePresenter(val httpResposityImpl : HttpResposityImpl, val view: BuzzyCourseActivity) : BuzzyCourseContact.Presenter{
 
+    var buzzyCourseUrlList = ArrayList<TotleItem>()
+
     override fun getBuzzyCourse(id: Int){
-        var imageFlage : Bitmap ?= null
         httpResposityImpl.getBuzzyCourse(id).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .map { result -> result }
                 .subscribe({message ->
-                    var buzzyCourseUrlList = ArrayList<TotleItem>()
                     for(i in 0 until message.size){
                         var bannerURL = message[i].title_img_new
                         var title = message[i].title
-                        imageFlage = getBuzzyCourseImage(bannerURL,title)
-                        imageFlage?.let {
-                            var totleItem = TotleItem(title,imageFlage!!)
-                            buzzyCourseUrlList.add(totleItem)
-                        }
+                        getBuzzyCourseImage(bannerURL,title)
                     }
-                    view.setBuzzyCourseAdapter(buzzyCourseUrlList)
                 },{
                     error->
                     Log.e("---","----getTotleSortfail:"+error)
                 })
     }
 
-    private fun getBuzzyCourseImage(url : String,strFileName : String): Bitmap?{
-        var image : Bitmap? = null
+    private fun getBuzzyCourseImage(url : String,strFileName : String){
         httpResposityImpl.getCourseImageItem(url).subscribeOn(Schedulers.io())
                 .subscribeOn(Schedulers.newThread())
                 .map(object : Function<ResponseBody, Bitmap> {
@@ -54,14 +48,14 @@ class BuzzyCoursePresenter(val httpResposityImpl : HttpResposityImpl, val view: 
                 })
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({message ->
-                    message?.let {
-                        image = message
+                    var totleItem = TotleItem(strFileName,message)
+                    buzzyCourseUrlList.add(totleItem)
+                    buzzyCourseUrlList?.let {
+                        view.setBuzzyCourseAdapter(buzzyCourseUrlList)
                     }
                 },{
                     error ->
-                    image = null
                     Log.e("---","----getItemImagefail:"+error)
                 })
-        return image
     }
 }

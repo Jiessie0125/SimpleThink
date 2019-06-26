@@ -1,5 +1,7 @@
 package com.example.simple.simplethink.totle
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.TabLayout
 import android.support.v4.app.Fragment
@@ -9,6 +11,7 @@ import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.TextView
 import com.example.simple.simplethink.R
+import com.example.simple.simplethink.buzzy.BuzzyCourseActivity
 import com.example.simple.simplethink.totle.fragment.*
 import com.example.simple.simplethink.totle.fragment.totlePage.TotleFragment
 import com.example.simple.simplethink.utils.ResourcesUtils
@@ -26,6 +29,13 @@ class TotleActivity: AppCompatActivity() {
     private lateinit var mViewPager : ViewPager
     private val mFragments = ArrayList<Fragment>()
     private var holder : ViewHolder?= null
+
+    companion object {
+        fun newIntent (context: Context) : Intent {
+            var intent = Intent(context, TotleActivity::class.java)
+            return intent
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -13,6 +13,7 @@
         android:layout_width="155dp"
         android:layout_height="115dp"
         android:src="@drawable/download"
+        android:scaleType="fitXY"
         android:layout_gravity="center_horizontal"
         />
     <TextView

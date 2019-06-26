@@ -12,7 +12,8 @@
         android:id="@+id/recycle_buzzy_course_img"
         android:layout_width="155dp"
         android:layout_height="115dp"
-        android:src="@drawable/download"
+        android:src="@drawable/days_absorbed"
+        android:scaleType="fitXY"
         android:layout_gravity="center_horizontal"
         />
     <TextView

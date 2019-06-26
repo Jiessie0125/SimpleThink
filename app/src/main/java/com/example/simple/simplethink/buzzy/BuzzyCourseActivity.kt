@@ -6,15 +6,18 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
 import com.example.simple.simplethink.R
+import com.example.simple.simplethink.base.BaseActivity
 import com.example.simple.simplethink.model.TotleItem
 import com.example.simple.simplethink.netapi.HttpResposityImpl
 import com.example.simple.simplethink.totle.adapter.CourseAdapter
+import com.example.simple.simplethink.utils.ResourcesUtils
 import kotlinx.android.synthetic.main.activity_buzzy_course.*
+import kotlinx.android.synthetic.main.title_tool.*
 
 /**
  * Created by mobileteam on 2019/6/21.
  */
-class BuzzyCourseActivity: Activity(),BuzzyCourseContact.View {
+class BuzzyCourseActivity: BaseActivity(),BuzzyCourseContact.View {
 
     lateinit var totleAdapter : CourseAdapter
     lateinit var buzzyCoursePresenter : BuzzyCourseContact.Presenter
@@ -28,6 +31,12 @@ class BuzzyCourseActivity: Activity(),BuzzyCourseContact.View {
         }
     }
 
+    override fun setHeader() {
+        super.setHeader()
+        title_tool_id.text = ResourcesUtils.getString(R.string.suggestion_course)
+        title_tool_back.setOnClickListener { finish() }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_buzzy_course)
@@ -35,6 +44,7 @@ class BuzzyCourseActivity: Activity(),BuzzyCourseContact.View {
     }
 
     fun initView(){
+        setHeader()
         var intent = getIntent()
         var buzzyItem = intent.getSerializableExtra(BuzzyFlag) as Int
         val httpResposityImpl = HttpResposityImpl()
