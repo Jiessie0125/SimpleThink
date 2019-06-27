@@ -3,9 +3,10 @@ package com.example.simple.simplethink.totle.fragment.totlePage
 import android.graphics.Bitmap
 import android.util.Log
 import com.example.simple.simplethink.netapi.HttpResposityImpl
-import com.example.simple.simplethink.totle.fragment.totlePage.TotleContact
-import com.example.simple.simplethink.totle.fragment.totlePage.TotleFragment
 import com.example.simple.simplethink.utils.FilesUtils
+import com.example.simple.simplethink.utils.LocalDataCache
+import com.example.simple.simplethink.utils.URLConstant.GETCOURSEIMAGE
+import com.example.simple.simplethink.utils.URLConstant.GETTOTLESORT
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.functions.Function
 import io.reactivex.schedulers.Schedulers
@@ -39,7 +40,8 @@ class TotlePresenter(val httpResposityImpl : HttpResposityImpl, val view: TotleF
                 .observeOn(AndroidSchedulers.mainThread())
                 .map { result -> result }
                 .subscribe({message ->
-                    view.getTotleSortIcon(message)
+                    LocalDataCache.save(message,GETTOTLESORT)
+                    view.getTotleSortIcon(false,message)
                 },{
                     error->
                     Log.e("---","----getTotleSortfail:"+error)
@@ -74,8 +76,9 @@ class TotlePresenter(val httpResposityImpl : HttpResposityImpl, val view: TotleF
                 .map { result -> result }
                 .subscribe({message ->
                     Log.e("---","----getCourse:"+message)
+                    LocalDataCache.save(message,GETCOURSEIMAGE)
                     view.setBuzzyItem(message.id)
-                    view.setCourseAdapterView(message.courses)
+                    view.setCourseAdapterView(false,message.courses)
                 },{
                     error->
                     Log.e("---","----getCourse:"+error)

@@ -19,10 +19,10 @@ interface TotleContact {
     }
 
     interface View {
-        fun getTotleSortIcon(list : List<TotleSortResponse>)
-        fun getItemImage(imageName : String,image : Bitmap)
-        fun setCourseAdapterView(list: List<Course>)
-        fun getCourseImageView(imageName : String,image : Bitmap)
+        fun getTotleSortIcon(isLocal: Boolean,list : List<TotleSortResponse>)
+        fun getItemImage(imageName : String,image : Bitmap?)
+        fun setCourseAdapterView(isLocal: Boolean,list: List<Course>)
+        fun getCourseImageView(imageName : String,image : Bitmap?)
         fun setBanner(bannerUrlList : ArrayList<String>)
         fun setBuzzyItem(id :Int)
     }

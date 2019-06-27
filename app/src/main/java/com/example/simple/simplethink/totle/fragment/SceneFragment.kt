@@ -18,10 +18,8 @@ class SceneFragment : Fragment() {
 
     fun createFragment(): SceneFragment {
         val bundle = Bundle()
-
         val fragment = SceneFragment()
         fragment.setArguments(bundle)
-
         return fragment
     }
 }
