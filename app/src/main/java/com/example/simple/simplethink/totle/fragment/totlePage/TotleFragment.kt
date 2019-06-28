@@ -72,11 +72,11 @@ class TotleFragment : Fragment(), TotleContact.View {
             setCourseAdapterView(true,(getCourseImage as FirstCourseResponse).courses)
             setBuzzyItem(getCourseImage.id)
         }
-       /* val httpResposityImpl = HttpResposityImpl()
+        val httpResposityImpl = HttpResposityImpl()
         persenter = TotlePresenter(httpResposityImpl, this)
         persenter.getBanner()
         persenter.getTotleSort()
-        persenter.getCourse()*/
+        persenter.getCourse()
     }
 
     fun createFragment(): TotleFragment {

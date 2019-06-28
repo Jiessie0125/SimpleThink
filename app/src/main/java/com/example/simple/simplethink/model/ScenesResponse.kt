@@ -13,7 +13,7 @@ data class ScenesResponse(
         @SerializedName("title") val title : String,
         @SerializedName("subtitle_new") val subtitle_new : String,
         @SerializedName("content_new") val content_new: String,
-        @SerializedName("title_img_new") val title_img_new : Int,
+        @SerializedName("title_img_new") val title_img_new : String,
         @SerializedName("content_img_new") val content_img_new : String,
         @SerializedName("type_new") val type_new: String,
         @SerializedName("recommend") val recommend : Int,

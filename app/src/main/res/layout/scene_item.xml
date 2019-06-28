@@ -4,27 +4,36 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_centerInParent="true">
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <RelativeLayout
+    android:orientation="horizontal">
+
+    <FrameLayout
+        android:layout_width="115dp"
+        android:layout_height="115dp"
+        android:layout_marginTop="@dimen/default_view_horizontal_padding"
+        android:layout_marginLeft="30dp">
+        <ImageView
+            android:id="@+id/scene_img_rv"
+            android:layout_width="115dp"
+            android:layout_height="115dp"
+            android:scaleType="fitXY"/>
+        <TextView
+            android:id="@+id/scene_img_txt_rv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal">
-            <TextView
-                android:id="@+id/test"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="111"
-                android:textColor="@color/colorAccent"/>
-            <ImageView
-                android:id="@+id/recycle_buzzy_course_img"
-                android:layout_toRightOf="@+id/test"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/days_absorbed"/>
-        </RelativeLayout>
-    </ScrollView>
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textSize="@dimen/hello_text_size"
+            android:textColor="@color/wordWhite"
+            android:text="111"/>
+    </FrameLayout>
+    <android.support.v7.widget.RecyclerView
+        android:layout_marginTop="@dimen/default_view_horizontal_padding"
+        android:id="@+id/scene_sections"
+        android:layout_marginLeft="30dp"
+        android:layout_gravity="center_vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+    </android.support.v7.widget.RecyclerView>
 
 </LinearLayout>

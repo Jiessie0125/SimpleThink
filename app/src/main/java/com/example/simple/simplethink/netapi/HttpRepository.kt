@@ -1,9 +1,6 @@
 package com.example.simple.simplethink.netapi
 
-import com.example.simple.simplethink.model.BannerResponse
-import com.example.simple.simplethink.model.BuzzyCourseResponse
-import com.example.simple.simplethink.model.FirstCourseResponse
-import com.example.simple.simplethink.model.TotleSortResponse
+import com.example.simple.simplethink.model.*
 import io.reactivex.Observable
 import okhttp3.ResponseBody
 
@@ -18,4 +15,5 @@ interface HttpRepository {
     fun getCourseImage() : Observable<FirstCourseResponse>
     fun getCourseImageItem(url: String): Observable<ResponseBody>
     fun getBuzzyCourse(id: Int): Observable<List<BuzzyCourseResponse>>
+    fun getScenes(): Observable<List<ScenesResponse>>
 }
