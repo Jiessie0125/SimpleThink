@@ -1,5 +1,6 @@
 package com.example.simple.simplethink.totle.fragment.totlePage
 
+import android.app.Activity
 import android.graphics.Bitmap
 import android.util.Log
 import com.example.simple.simplethink.netapi.HttpResposityImpl
@@ -35,15 +36,17 @@ class TotlePresenter(val httpResposityImpl : HttpResposityImpl, val view: TotleF
     }
 
 
-    override fun getTotleSort(){
+    override fun getTotleSort(context : Activity){
        httpResposityImpl.getTotleSort().subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .map { result -> result }
                 .subscribe({message ->
+                    LocalDataCache.save(message,GETTOTLESORT)
                     for (i in 0 until message.size){
+                        FilesUtils.downloadImage(context, message[i].image, message[i].category_name)
                         view.test(message[i].image,message[i].category_name)
                     }
-                   /* LocalDataCache.save(message,GETTOTLESORT)
+                   /*
                     view.getTotleSortIcon(false,message)*/
                 },{
                     error->
@@ -51,7 +54,7 @@ class TotlePresenter(val httpResposityImpl : HttpResposityImpl, val view: TotleF
                 })
     }
 
-    override fun getItemImage(url : String,strFileName : String){
+   /* override fun getItemImage(url : String,strFileName : String){
          httpResposityImpl.getItemImage(url).subscribeOn(Schedulers.io())
                 .subscribeOn(Schedulers.newThread())
                  .map(object :Function<ResponseBody,Bitmap> {
@@ -71,7 +74,7 @@ class TotlePresenter(val httpResposityImpl : HttpResposityImpl, val view: TotleF
                     error ->
                     Log.e("---","----getItemImagefail:"+error)
                 })
-    }
+    }*/
 
     override fun getCourse(){
         httpResposityImpl.getCourseImage().subscribeOn(Schedulers.io())
@@ -88,7 +91,7 @@ class TotlePresenter(val httpResposityImpl : HttpResposityImpl, val view: TotleF
                 })
     }
 
-    override fun getCourseImage(url : String,strFileName : String) {
+   /* override fun getCourseImage(url : String,strFileName : String) {
         httpResposityImpl.getCourseImageItem(url).subscribeOn(Schedulers.io())
                 .subscribeOn(Schedulers.newThread())
                 .map(object :Function<ResponseBody,Bitmap> {
@@ -108,5 +111,5 @@ class TotlePresenter(val httpResposityImpl : HttpResposityImpl, val view: TotleF
                     error ->
                     Log.e("---","----getItemImagefail:"+error)
                 })
-    }
+    }*/
 }

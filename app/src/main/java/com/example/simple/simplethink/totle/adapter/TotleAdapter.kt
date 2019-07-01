@@ -10,6 +10,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.example.simple.simplethink.R
 import com.example.simple.simplethink.model.TotleItem
+import com.example.simple.simplethink.utils.FilesUtils
 import com.example.simple.simplethink.utils.FilesUtils.downloadImage
 import java.util.ArrayList
 
@@ -26,7 +27,7 @@ class TotleAdapter(val context:Activity ) : RecyclerView.Adapter<TotleViewHolder
 
     override fun onBindViewHolder(holder: TotleViewHolder?, position: Int) {
         holder?.mTotleItem?.text = totleLish?.get(position)?.totleItemTxt
-        downloadImage(context,holder?.mItemImage,totleLish?.get(position)?.totleItemImage)
+        FilesUtils.getItemIcon(totleLish?.get(position)?.totleItemTxt,context,holder?.mItemImage)
        // holder?.mItemImage?.setImageBitmap(totleLish?.get(position)?.totleItemImage)
     }
 

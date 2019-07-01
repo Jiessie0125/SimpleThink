@@ -1,5 +1,6 @@
 package com.example.simple.simplethink.totle.fragment.totlePage
 
+import android.app.Activity
 import android.graphics.Bitmap
 import com.example.simple.simplethink.model.Course
 import com.example.simple.simplethink.model.TotleSortResponse
@@ -12,10 +13,10 @@ interface TotleContact {
 
     interface  Presenter {
         fun getBanner()
-        fun getTotleSort()
-        fun getItemImage(image: String,fileName : String)
+        fun getTotleSort(context : Activity)
+      //  fun getItemImage(image: String,fileName : String)
         fun getCourse()
-        fun getCourseImage(image: String,fileName : String)
+       // fun getCourseImage(image: String,fileName : String)
     }
 
     interface View {

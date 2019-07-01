@@ -27,6 +27,7 @@ import com.example.simple.simplethink.totle.adapter.CourseAdapter
 import com.example.simple.simplethink.totle.adapter.TotleAdapter
 import com.example.simple.simplethink.utils.FilesUtils
 import com.example.simple.simplethink.utils.FilesUtils.downloadImage
+import com.example.simple.simplethink.utils.FilesUtils.getItemIcon
 import com.example.simple.simplethink.utils.LocalDataCache
 import com.example.simple.simplethink.utils.URLConstant
 import com.youth.banner.loader.ImageLoader
@@ -67,20 +68,28 @@ class TotleFragment : Fragment(), TotleContact.View {
     }
 
     fun showLocalDataView(){
-         var getTotleSort  = LocalDataCache.getLocalData(URLConstant.GETTOTLESORT)
+         var getTotleSort  = LocalDataCache.getLocalData(URLConstant.GETTOTLESORT) as List<TotleSortResponse>
          var getCourseImage  = LocalDataCache.getLocalData(URLConstant.GETCOURSEIMAGE)
-         getTotleSort?.let {
-             getTotleSortIcon(true,getTotleSort as List<TotleSortResponse>)
+        if(getTotleSort == null){
+            val httpResposityImpl = HttpResposityImpl()
+            persenter = TotlePresenter(httpResposityImpl, this)
+            persenter.getBanner()
+            persenter.getTotleSort(this.activity!!)
+            persenter.getCourse()
+        }else{
+            for (i in 0 until getTotleSort.size) {
+                test(getTotleSort[i].image,getTotleSort[i].category_name)
+            }
+        }
+         /*getTotleSort?.let {
+
          }
          getCourseImage?.let {
              setCourseAdapterView(true,(getCourseImage as FirstCourseResponse).courses)
              setBuzzyItem(getCourseImage.id)
-         }
-         val httpResposityImpl = HttpResposityImpl()
-         persenter = TotlePresenter(httpResposityImpl, this)
-         persenter.getBanner()
-         persenter.getTotleSort()
-         persenter.getCourse()
+         }*/
+
+
     }
 
 
@@ -93,14 +102,14 @@ class TotleFragment : Fragment(), TotleContact.View {
     }
 
     override fun getTotleSortIcon(isLocal: Boolean,list: List<TotleSortResponse>) {
-        for (i in 0 until list.size) {
+        /*for (i in 0 until list.size) {
             if (isLocal){
                 var itemBitmap = FilesUtils.getItemIcon(list[i].category_name,"png")
                 getItemImage(list[i].category_name,itemBitmap)
             } else{
                 persenter.getItemImage(list[i].image, list[i].category_name)
             }
-        }
+        }*/
     }
 
     override fun getItemImage(imageName: String, image: Bitmap?) {
@@ -129,14 +138,14 @@ class TotleFragment : Fragment(), TotleContact.View {
     }
 
     override fun setCourseAdapterView(isLocal: Boolean,list: List<Course>) {
-        for (i in 0 until list.size) {
+        /*for (i in 0 until list.size) {
             if (isLocal){
                 var itemBitmap = FilesUtils.getItemIcon(list[i].title,"jpg")
                 getCourseImageView(list[i].title,itemBitmap)
             } else{
                 persenter.getCourseImage(list[i].title_img_new, list[i].title)
             }
-        }
+        }*/
     }
 
     override fun getCourseImageView(imageName: String, image: Bitmap?) {

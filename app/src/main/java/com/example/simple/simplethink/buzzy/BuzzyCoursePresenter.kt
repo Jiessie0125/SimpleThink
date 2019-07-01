@@ -34,7 +34,7 @@ class BuzzyCoursePresenter(val httpResposityImpl : HttpResposityImpl, val view: 
     }
 
     private fun getBuzzyCourseImage(url : String,strFileName : String){
-        httpResposityImpl.getCourseImageItem(url).subscribeOn(Schedulers.io())
+       /* httpResposityImpl.getCourseImageItem(url).subscribeOn(Schedulers.io())
                 .subscribeOn(Schedulers.newThread())
                 .map(object : Function<ResponseBody, Bitmap> {
                     override fun apply(t: ResponseBody): Bitmap? {
@@ -56,6 +56,6 @@ class BuzzyCoursePresenter(val httpResposityImpl : HttpResposityImpl, val view: 
                 },{
                     error ->
                     Log.e("---","----getItemImagefail:"+error)
-                })
+                })*/
     }
 }

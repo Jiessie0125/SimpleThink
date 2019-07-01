@@ -34,7 +34,7 @@ class ScenePresenter(val httpResposityImpl: HttpResposityImpl, val view: SceneFr
     }
 
     private fun getSencesImage(url: String, strFileName: String,scensMsg: List<Sections>) {
-        httpResposityImpl.getCourseImageItem(url).subscribeOn(Schedulers.io())
+       /*httpResposityImpl.getCourseImageItem(url).subscribeOn(Schedulers.io())
                 .subscribeOn(Schedulers.newThread())
                 .map(object : Function<ResponseBody, Bitmap> {
                     override fun apply(t: ResponseBody): Bitmap? {
@@ -53,7 +53,7 @@ class ScenePresenter(val httpResposityImpl: HttpResposityImpl, val view: SceneFr
                     view.setSenceAdapter(scenesResponse)
                 }, { error ->
                     Log.e("---", "----getItemImagefail:" + error)
-                })
+                })*/
 
     }
 }
