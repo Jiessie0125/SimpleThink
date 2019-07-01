@@ -24,7 +24,7 @@ class BuzzyCourseActivity: BaseActivity(),BuzzyCourseContact.View {
 
     companion object {
         const val BuzzyFlag = "BUZZYFLAG"
-        fun newIntent (item : Int,context: Context) :Intent{
+        fun newIntent (item : Int,context: Context?) :Intent{
             var intent = Intent(context,BuzzyCourseActivity::class.java)
             intent.putExtra(BuzzyFlag,item)
             return intent

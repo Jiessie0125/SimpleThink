@@ -14,7 +14,8 @@ import android.widget.TextView
  */
 class WhithNoiseFragment : Fragment() {
     val ARGUMENT = "ARGUMENT"
-    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View {
+
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val bundle = arguments
         var text: String? = ""
         if (bundle != null) {
@@ -27,7 +28,6 @@ class WhithNoiseFragment : Fragment() {
 
         return tv
     }
-
     fun createFragment(): WhithNoiseFragment {
         val bundle = Bundle()
 

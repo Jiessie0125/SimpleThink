@@ -23,7 +23,7 @@ class CourseAdapter( ) : RecyclerView.Adapter<CourseViewHolder>() {
 
     override fun onBindViewHolder(holder: CourseViewHolder?, position: Int) {
         holder?.mTotleItem?.text = totleLish?.get(position)?.totleItemTxt
-        holder?.mItemImage?.setImageBitmap(totleLish?.get(position)?.totleItemImage)
+       /* holder?.mItemImage?.setImageBitmap(totleLish?.get(position)?.totleItemImage)*/
     }
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): CourseViewHolder? {

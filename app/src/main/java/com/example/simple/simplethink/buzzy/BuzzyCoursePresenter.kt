@@ -48,11 +48,11 @@ class BuzzyCoursePresenter(val httpResposityImpl : HttpResposityImpl, val view: 
                 })
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({message ->
-                    var totleItem = TotleItem(strFileName,message)
+                   /* var totleItem = TotleItem(strFileName,message)
                     buzzyCourseUrlList.add(totleItem)
                     buzzyCourseUrlList?.let {
                         view.setBuzzyCourseAdapter(buzzyCourseUrlList)
-                    }
+                    }*/
                 },{
                     error ->
                     Log.e("---","----getItemImagefail:"+error)

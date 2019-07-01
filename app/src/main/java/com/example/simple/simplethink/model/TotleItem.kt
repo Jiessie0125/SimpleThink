@@ -9,5 +9,5 @@ import java.io.Serializable
  */
 class TotleItem(
         var totleItemTxt: String,
-        var totleItemImage: Bitmap
+        var totleItemImage: String
 ): Serializable

@@ -17,7 +17,7 @@ import java.util.ArrayList
 /**
  * Created by jiessie on 2019/6/11.
  */
-class SceneAdapter(val context: Context) : RecyclerView.Adapter<SceneViewHolder>() {
+class SceneAdapter(val context: Context?) : RecyclerView.Adapter<SceneViewHolder>() {
 
     var totleLish = ArrayList<SceneItem>()
 

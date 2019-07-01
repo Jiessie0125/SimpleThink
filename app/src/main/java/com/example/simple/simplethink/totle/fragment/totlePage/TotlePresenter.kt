@@ -40,8 +40,11 @@ class TotlePresenter(val httpResposityImpl : HttpResposityImpl, val view: TotleF
                 .observeOn(AndroidSchedulers.mainThread())
                 .map { result -> result }
                 .subscribe({message ->
-                    LocalDataCache.save(message,GETTOTLESORT)
-                    view.getTotleSortIcon(false,message)
+                    for (i in 0 until message.size){
+                        view.test(message[i].image,message[i].category_name)
+                    }
+                   /* LocalDataCache.save(message,GETTOTLESORT)
+                    view.getTotleSortIcon(false,message)*/
                 },{
                     error->
                     Log.e("---","----getTotleSortfail:"+error)
