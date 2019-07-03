@@ -13,7 +13,7 @@ interface TotleContact {
 
     interface  Presenter {
         fun getBanner()
-        fun getTotleSort(context : Activity)
+        fun getTotleSort()
       //  fun getItemImage(image: String,fileName : String)
         fun getCourse()
        // fun getCourseImage(image: String,fileName : String)
@@ -26,6 +26,7 @@ interface TotleContact {
         fun getCourseImageView(imageName : String,image : Bitmap?)
         fun setBanner(bannerUrlList : ArrayList<String>)
         fun setBuzzyItem(id :Int)
-        fun test(url: String,name: String )
+        fun setTotleIcon(url: String,name: String )
+        fun setCourseIcon(rl: String,name: String)
     }
 }

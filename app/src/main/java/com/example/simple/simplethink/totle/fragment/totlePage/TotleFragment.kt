@@ -68,17 +68,21 @@ class TotleFragment : Fragment(), TotleContact.View {
     }
 
     fun showLocalDataView(){
-         var getTotleSort  = LocalDataCache.getLocalData(URLConstant.GETTOTLESORT) as List<TotleSortResponse>
+        val httpResposityImpl = HttpResposityImpl()
+        persenter = TotlePresenter(httpResposityImpl, this,this.activity!!)
+        persenter.getBanner()
+         var getTotleSort  = LocalDataCache.getLocalData(URLConstant.GETTOTLESORT)
          var getCourseImage  = LocalDataCache.getLocalData(URLConstant.GETCOURSEIMAGE)
-        if(getTotleSort == null){
-            val httpResposityImpl = HttpResposityImpl()
-            persenter = TotlePresenter(httpResposityImpl, this)
-            persenter.getBanner()
-            persenter.getTotleSort(this.activity!!)
-            persenter.getCourse()
-        }else{
-            for (i in 0 until getTotleSort.size) {
-                test(getTotleSort[i].image,getTotleSort[i].category_name)
+        if(getTotleSort == null){ persenter.getTotleSort() }
+        else{
+            for (i in 0 until (getTotleSort as List<TotleSortResponse>).size) {
+                setTotleIcon(getTotleSort[i].image,getTotleSort[i].category_name)
+            }
+        }
+        if(getCourseImage == null){persenter.getCourse()}
+        else{
+            for (i in 0 until (getCourseImage as FirstCourseResponse).courses.size) {
+                setCourseIcon((getCourseImage as FirstCourseResponse).courses[i].title_img_new,(getCourseImage as FirstCourseResponse).courses[i].title)
             }
         }
          /*getTotleSort?.let {
@@ -120,7 +124,7 @@ class TotleFragment : Fragment(), TotleContact.View {
         totleAdapter.setData(totleList)*/
     }
 
-    override fun test(url: String,name:String) {
+    override fun setTotleIcon(url: String,name:String) {
         var totleItem = TotleItem(name, url)
         totleList?.add(totleItem)
         totleAdapter.setData(totleList)
@@ -132,9 +136,15 @@ class TotleFragment : Fragment(), TotleContact.View {
     }
 
     private fun setCourseAdapter() {
-        courseAdapter = CourseAdapter()
+        courseAdapter = CourseAdapter(this.activity!!)
         recycle_course_tv.layoutManager = GridLayoutManager(this.context, 2)
         recycle_course_tv.adapter = courseAdapter
+    }
+
+    override fun setCourseIcon(url: String, name: String) {
+        var totleItem = TotleItem(name, url)
+        courseList?.add(totleItem)
+        courseAdapter.setData(courseList)
     }
 
     override fun setCourseAdapterView(isLocal: Boolean,list: List<Course>) {

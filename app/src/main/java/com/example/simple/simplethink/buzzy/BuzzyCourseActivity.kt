@@ -54,7 +54,7 @@ class BuzzyCourseActivity: BaseActivity(),BuzzyCourseContact.View {
     }
 
     private fun setAdapter(){
-        totleAdapter = CourseAdapter()
+        totleAdapter = CourseAdapter(this)
         buzzyCouse_tv.layoutManager = GridLayoutManager(this,2)
         buzzyCouse_tv.adapter = totleAdapter
     }

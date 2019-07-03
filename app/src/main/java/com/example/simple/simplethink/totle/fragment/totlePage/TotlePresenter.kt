@@ -16,7 +16,7 @@ import okhttp3.ResponseBody
 /**
  * Created by jiessie on 2019/6/4.
  */
-class TotlePresenter(val httpResposityImpl : HttpResposityImpl, val view: TotleFragment) : TotleContact.Presenter {
+class TotlePresenter(val httpResposityImpl : HttpResposityImpl, val view: TotleFragment,val context : Activity) : TotleContact.Presenter {
 
     override fun getBanner(){
         httpResposityImpl.getBanner().subscribeOn(Schedulers.io())
@@ -36,7 +36,7 @@ class TotlePresenter(val httpResposityImpl : HttpResposityImpl, val view: TotleF
     }
 
 
-    override fun getTotleSort(context : Activity){
+    override fun getTotleSort(){
        httpResposityImpl.getTotleSort().subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .map { result -> result }
@@ -44,7 +44,7 @@ class TotlePresenter(val httpResposityImpl : HttpResposityImpl, val view: TotleF
                     LocalDataCache.save(message,GETTOTLESORT)
                     for (i in 0 until message.size){
                         FilesUtils.downloadImage(context, message[i].image, message[i].category_name)
-                        view.test(message[i].image,message[i].category_name)
+                        view.setTotleIcon(message[i].image,message[i].category_name)
                     }
                    /*
                     view.getTotleSortIcon(false,message)*/
@@ -85,6 +85,10 @@ class TotlePresenter(val httpResposityImpl : HttpResposityImpl, val view: TotleF
                     LocalDataCache.save(message,GETCOURSEIMAGE)
                     view.setBuzzyItem(message.id)
                     view.setCourseAdapterView(false,message.courses)
+                    for (i in 0 until message.courses.size){
+                        FilesUtils.downloadImage(context, message.courses[i].title_img_new, message.courses[i].title)
+                        view.setCourseIcon(message.courses[i].title_img_new,message.courses[i].title)
+                    }
                 },{
                     error->
                     Log.e("---","----getCourse:"+error)
