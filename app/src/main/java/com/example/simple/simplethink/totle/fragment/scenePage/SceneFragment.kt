@@ -37,7 +37,7 @@ class SceneFragment : Fragment() ,SceneContact.View{
     }
 
     fun setAdapter(){
-        sceneAdapter = SceneAdapter(this.activity)
+        sceneAdapter = SceneAdapter(this.activity!!)
         scene_rv.layoutManager = LinearLayoutManager(this.activity,LinearLayoutManager.VERTICAL,false)
         scene_rv.adapter = sceneAdapter
     }

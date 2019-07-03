@@ -8,6 +8,6 @@ import java.io.Serializable
  */
 class SceneItem(
         var sceneItemTxt: String,
-        var sceneItemImage: Bitmap,
+        var sceneItemImage: String,
         var sections : List<Sections>
 ): Serializable

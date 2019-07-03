@@ -1,5 +1,6 @@
 package com.example.simple.simplethink.buzzy.adapter
 
+import android.app.Activity
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -8,12 +9,13 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.example.simple.simplethink.R
 import com.example.simple.simplethink.model.TotleItem
+import com.example.simple.simplethink.utils.FilesUtils
 import java.util.ArrayList
 
 /**
  * Created by jiessie on 2019/6/11.
  */
-class CourseAdapter( ) : RecyclerView.Adapter<CourseViewHolder>() {
+class BuzzyCourseAdapter(val context : Activity ) : RecyclerView.Adapter<CourseViewHolder>() {
 
     var totleLish = ArrayList<TotleItem>()
 
@@ -23,6 +25,7 @@ class CourseAdapter( ) : RecyclerView.Adapter<CourseViewHolder>() {
 
     override fun onBindViewHolder(holder: CourseViewHolder?, position: Int) {
         holder?.mTotleItem?.text = totleLish?.get(position)?.totleItemTxt
+        FilesUtils.showImage(totleLish?.get(position)?.totleItemImage,context,holder?.mItemImage)
        /* holder?.mItemImage?.setImageBitmap(totleLish?.get(position)?.totleItemImage)*/
     }
 

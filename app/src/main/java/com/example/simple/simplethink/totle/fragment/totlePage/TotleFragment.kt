@@ -82,18 +82,12 @@ class TotleFragment : Fragment(), TotleContact.View {
         if(getCourseImage == null){persenter.getCourse()}
         else{
             for (i in 0 until (getCourseImage as FirstCourseResponse).courses.size) {
-                setCourseIcon((getCourseImage as FirstCourseResponse).courses[i].title_img_new,(getCourseImage as FirstCourseResponse).courses[i].title)
+                setCourseIcon(getCourseImage.courses[i].title_img_new,getCourseImage.courses[i].title)
             }
         }
-         /*getTotleSort?.let {
-
-         }
          getCourseImage?.let {
-             setCourseAdapterView(true,(getCourseImage as FirstCourseResponse).courses)
-             setBuzzyItem(getCourseImage.id)
-         }*/
-
-
+             setBuzzyItem((getCourseImage as FirstCourseResponse).id)
+         }
     }
 
 

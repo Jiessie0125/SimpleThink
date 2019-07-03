@@ -30,7 +30,7 @@ object LocalDataCache {
         val file = File(path + "/" + Md5(fileName) + ".config")
         file.getAbsolutePath()
         if (file.exists()) {
-            if (isValid(file)) {
+           // if (isValid(file)) {
                 try {
                     val fin = FileInputStream(file)
                     val oin = ObjectInputStream(fin)
@@ -41,7 +41,7 @@ object LocalDataCache {
                     e.printStackTrace()
                 }
 
-            }
+            //}
         }
         return null
     }

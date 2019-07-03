@@ -26,7 +26,10 @@ class ScenePresenter(val httpResposityImpl: HttpResposityImpl, val view: SceneFr
                 .subscribe({ message ->
                     Log.e("---", "----getScenes:" + message)
                     for(i in 0 until message.size ){
-                        getSencesImage(message[i].title_img_new,message[i].title,message[i].sections)
+                       // getSencesImage(message[i].title_img_new,message[i].title,message[i].sections)
+                        var sceneItem = SceneItem(message[i].title,message[i].title_img_new,message[i].sections)
+                        scenesResponse.add(sceneItem)
+                        view.setSenceAdapter(scenesResponse)
                     }
                 }, { error ->
                     Log.e("---", "----getScenes:" + error)

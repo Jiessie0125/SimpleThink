@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
 import com.example.simple.simplethink.R
 import com.example.simple.simplethink.base.BaseActivity
+import com.example.simple.simplethink.buzzy.adapter.BuzzyCourseAdapter
 import com.example.simple.simplethink.model.TotleItem
 import com.example.simple.simplethink.netapi.HttpResposityImpl
 import com.example.simple.simplethink.totle.adapter.CourseAdapter
@@ -19,7 +20,7 @@ import kotlinx.android.synthetic.main.title_tool.*
  */
 class BuzzyCourseActivity: BaseActivity(),BuzzyCourseContact.View {
 
-    lateinit var totleAdapter : CourseAdapter
+    lateinit var totleAdapter : BuzzyCourseAdapter
     lateinit var buzzyCoursePresenter : BuzzyCourseContact.Presenter
 
     companion object {
@@ -47,14 +48,14 @@ class BuzzyCourseActivity: BaseActivity(),BuzzyCourseContact.View {
         setHeader()
         var intent = getIntent()
         var buzzyItem = intent.getSerializableExtra(BuzzyFlag) as Int
+        setAdapter()
         val httpResposityImpl = HttpResposityImpl()
         buzzyCoursePresenter = BuzzyCoursePresenter(httpResposityImpl,this)
         buzzyCoursePresenter.getBuzzyCourse(buzzyItem)
-        setAdapter()
     }
 
     private fun setAdapter(){
-        totleAdapter = CourseAdapter(this)
+        totleAdapter = BuzzyCourseAdapter(this)
         buzzyCouse_tv.layoutManager = GridLayoutManager(this,2)
         buzzyCouse_tv.adapter = totleAdapter
     }

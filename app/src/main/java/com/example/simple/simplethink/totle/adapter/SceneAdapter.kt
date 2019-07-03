@@ -1,5 +1,6 @@
 package com.example.simple.simplethink.totle.adapter
 
+import android.app.Activity
 import android.content.Context
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -12,12 +13,13 @@ import com.example.simple.simplethink.R
 import com.example.simple.simplethink.model.SceneItem
 import com.example.simple.simplethink.model.ScenesResponse
 import com.example.simple.simplethink.model.TotleItem
+import com.example.simple.simplethink.utils.FilesUtils
 import java.util.ArrayList
 
 /**
  * Created by jiessie on 2019/6/11.
  */
-class SceneAdapter(val context: Context?) : RecyclerView.Adapter<SceneViewHolder>() {
+class SceneAdapter(val context: Activity) : RecyclerView.Adapter<SceneViewHolder>() {
 
     var totleLish = ArrayList<SceneItem>()
 
@@ -32,7 +34,8 @@ class SceneAdapter(val context: Context?) : RecyclerView.Adapter<SceneViewHolder
         holder?.mrecyclerView?.layoutManager= LinearLayoutManager(context)
         holder?.mrecyclerView?.adapter = sceneSectionsAdapter
         holder?.mTextView?.setText(totleLish?.get(position)?.sceneItemTxt)
-        holder?.mItemImage?.setImageBitmap(totleLish?.get(position)?.sceneItemImage)
+        //holder?.mItemImage?.setImageBitmap(totleLish?.get(position)?.sceneItemImage)
+        FilesUtils.showImage(totleLish?.get(position)?.sceneItemImage,context,holder?.mItemImage)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): SceneViewHolder? {

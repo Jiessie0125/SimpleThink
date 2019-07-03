@@ -73,6 +73,12 @@ object FilesUtils{
         }
     }
 
+    fun showImage(imageUrl: String,activity: Activity,imageView: ImageView?){
+        Glide.with(activity)
+                .load(imageUrl)
+                .into(imageView!!)
+    }
+
     fun downloadImage( activity: Activity, url: String, imageName :String) {
 
         Thread(Runnable {

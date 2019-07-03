@@ -25,7 +25,9 @@ class BuzzyCoursePresenter(val httpResposityImpl : HttpResposityImpl, val view: 
                     for(i in 0 until message.size){
                         var bannerURL = message[i].title_img_new
                         var title = message[i].title
-                        getBuzzyCourseImage(bannerURL,title)
+                        var totleItem = TotleItem(title,bannerURL)
+                        buzzyCourseUrlList.add(totleItem)
+                        view.setBuzzyCourseAdapter(buzzyCourseUrlList)
                     }
                 },{
                     error->
