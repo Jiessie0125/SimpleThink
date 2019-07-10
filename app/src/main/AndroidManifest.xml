@@ -32,7 +32,9 @@
         <activity android:name=".totle.TotleActivity"
             android:screenOrientation="portrait"/>
         <activity android:name=".buzzy.BuzzyCourseActivity"
-        android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"/>
+        <activity android:name=".totle.activity.SceneDetailActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

@@ -22,6 +22,7 @@ import java.util.ArrayList
 class SceneAdapter(val context: Activity) : RecyclerView.Adapter<SceneViewHolder>() {
 
     var totleLish = ArrayList<SceneItem>()
+    private var mClickListener : OnItemClickListener ?= null
 
 
     override fun getItemCount(): Int {
@@ -41,24 +42,37 @@ class SceneAdapter(val context: Activity) : RecyclerView.Adapter<SceneViewHolder
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): SceneViewHolder? {
         val layoutInflater = LayoutInflater.from(parent?.context)
         val holder = layoutInflater.inflate(R.layout.scene_item, null, false)
-        return SceneViewHolder(holder)
+        return SceneViewHolder(holder,mClickListener)
     }
 
     fun setData(totleList : ArrayList<SceneItem>){
         totleLish = totleList
         notifyDataSetChanged()
     }
+
+    fun setOnItemClickListener( listener : OnItemClickListener){
+        this.mClickListener = listener
+    }
 }
 
-class SceneViewHolder(view : View?): RecyclerView.ViewHolder(view) {
+class SceneViewHolder(view: View, private val mListener: OnItemClickListener?) : RecyclerView.ViewHolder(view), View.OnClickListener {
     var mItemImage : ImageView?
     var mTextView : TextView?
     var mrecyclerView : RecyclerView?
+
 
     init {
         mItemImage = view?.findViewById(R.id.scene_img_rv)
         mrecyclerView = view?.findViewById(R.id.scene_sections)
         mTextView = view?.findViewById(R.id.scene_img_txt_rv)
+
+        view.setOnClickListener(this)
+    }
+    override fun onClick(v: View) {
+        mListener?.onItemClick(v, getPosition())
     }
 
+}
+interface OnItemClickListener {
+    fun onItemClick(view: View, postion: Int)
 }

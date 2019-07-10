@@ -19,6 +19,7 @@ class CourseAdapter( val context: Activity) : RecyclerView.Adapter<CourseViewHol
 
     var totleLish = ArrayList<TotleItem>()
 
+
     override fun getItemCount(): Int {
         return totleLish?.size!!
     }
@@ -39,6 +40,7 @@ class CourseAdapter( val context: Activity) : RecyclerView.Adapter<CourseViewHol
         totleLish = totleList
         notifyDataSetChanged()
     }
+
 }
 
 class CourseViewHolder(view : View?): RecyclerView.ViewHolder(view) {
@@ -51,3 +53,4 @@ class CourseViewHolder(view : View?): RecyclerView.ViewHolder(view) {
     }
 
 }
+

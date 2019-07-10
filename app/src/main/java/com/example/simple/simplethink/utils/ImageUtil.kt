@@ -1,8 +1,18 @@
 package com.example.simple.simplethink.utils
 
+import android.app.Activity
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Canvas
+import android.graphics.drawable.Drawable
+import android.view.View
+import android.widget.ImageView
+import android.widget.LinearLayout
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.target.SimpleTarget
+import com.bumptech.glide.request.target.ViewTarget
+import com.bumptech.glide.request.transition.Transition
+import com.example.simple.simplethink.utils.ResourcesUtils.Companion.resource
 
 /**
  * Created by jiessie on 2019/7/4.
@@ -40,6 +50,16 @@ object ImageUtil {
     fun dp2px(context: Context, dp: Float): Float {
         val scale = context.getResources().getDisplayMetrics().density
         return dp * scale + 0.5f
+    }
+
+    fun showBKImage(imageUrl: String, activity: Activity, imageView: View){
+
+        val simpleTarget = object : SimpleTarget<Drawable>() {
+            override fun onResourceReady(resource: Drawable, transition: Transition<in Drawable>?) {
+                imageView.setBackground(resource)
+            }
+        }
+        Glide.with(activity).load(imageUrl).into(simpleTarget)
     }
 
 }

@@ -10,6 +10,8 @@ import com.example.simple.simplethink.R
 import com.example.simple.simplethink.model.SceneItem
 import com.example.simple.simplethink.model.ScenesResponse
 import com.example.simple.simplethink.netapi.HttpResposityImpl
+import com.example.simple.simplethink.totle.activity.SceneDetailActivity
+import com.example.simple.simplethink.totle.adapter.OnItemClickListener
 import com.example.simple.simplethink.totle.adapter.SceneAdapter
 import kotlinx.android.synthetic.main.fragment_scence.*
 import java.util.ArrayList
@@ -40,7 +42,18 @@ class SceneFragment : Fragment() ,SceneContact.View{
         sceneAdapter = SceneAdapter(this.activity!!)
         scene_rv.layoutManager = LinearLayoutManager(this.activity,LinearLayoutManager.VERTICAL,false)
         scene_rv.adapter = sceneAdapter
+        sceneAdapter.setOnItemClickListener(object :OnItemClickListener{
+            override fun onItemClick(view: View, postion: Int) {
+                showSceneDetailPage()
+               }
+        })
     }
+
+    fun showSceneDetailPage(){
+        val sceneDetailActivity = SceneDetailActivity.newIntent(this.context)
+        startActivity(sceneDetailActivity)
+    }
+
     override fun setSenceAdapter(scenesResponse:  ArrayList<SceneItem>) {
         sceneAdapter.setData(scenesResponse)
     }

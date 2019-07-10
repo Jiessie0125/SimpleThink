@@ -27,7 +27,6 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:layout_gravity="center_horizontal"
-            android:text="111"
             android:textSize="@dimen/first_use"
             android:textColor="@color/wordWhite" />
     </RelativeLayout>
