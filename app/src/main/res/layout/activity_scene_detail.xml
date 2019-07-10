@@ -7,22 +7,43 @@
     android:layout_height="match_parent"
     android:background="@color/mainColor"
     android:orientation="vertical">
-
-    <include android:id="@+id/scene_detail_title"
-        layout="@layout/title_tool"/>
+    <LinearLayout
+        android:id="@+id/scene_detail_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/default_view_horizontal_padding"
+        android:minHeight="55dp">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@drawable/back" />
+    </LinearLayout>
 
     <TextView
         android:id="@+id/scene_title"
+        android:layout_marginTop="170dp"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/default_view_horizontal_padding"
+        android:textColor="@color/wordWhite"
+        android:textSize="@dimen/scene_detail_txt"
+        android:text="aaa"/>
     <View
+        android:layout_marginTop="6dp"
         android:layout_width="wrap_content"
-        android:layout_height="4dp"
+        android:layout_height="2dp"
+        android:background="@color/wordWhite"
+        android:layout_marginLeft="@dimen/default_view_horizontal_padding"
         />
     <android.support.v7.widget.RecyclerView
+        android:layout_marginTop="40dp"
         android:id="@+id/scene_detail_rv"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/default_view_horizontal_padding">
+
+    </android.support.v7.widget.RecyclerView>
 
 
 </LinearLayout>

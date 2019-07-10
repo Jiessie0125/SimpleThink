@@ -22,6 +22,7 @@ import java.util.ArrayList
 class SceneFragment : Fragment() ,SceneContact.View{
     lateinit var sceneAdapter: SceneAdapter
     lateinit var persenter: SceneContact.Presenter
+   // lateinit var sceneList : List<ScenesResponse>
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater!!.inflate(R.layout.fragment_scence,container,false)
@@ -35,27 +36,28 @@ class SceneFragment : Fragment() ,SceneContact.View{
         val httpResposityImpl = HttpResposityImpl()
         persenter = ScenePresenter(httpResposityImpl,this)
         persenter.getAllScene()
-        setAdapter()
     }
 
-    fun setAdapter(){
-        sceneAdapter = SceneAdapter(this.activity!!)
+    fun setAdapter(sceneList : List<ScenesResponse>){
         scene_rv.layoutManager = LinearLayoutManager(this.activity,LinearLayoutManager.VERTICAL,false)
+        sceneAdapter = SceneAdapter(this.activity!!,sceneList)
         scene_rv.adapter = sceneAdapter
         sceneAdapter.setOnItemClickListener(object :OnItemClickListener{
             override fun onItemClick(view: View, postion: Int) {
-                showSceneDetailPage()
+                showSceneDetailPage(sceneList[postion])
                }
         })
     }
 
-    fun showSceneDetailPage(){
-        val sceneDetailActivity = SceneDetailActivity.newIntent(this.context)
+    fun showSceneDetailPage(sceneItem : ScenesResponse){
+        var sceneDetailActivity = SceneDetailActivity.newIntent(this.activity,sceneItem)
         startActivity(sceneDetailActivity)
     }
 
-    override fun setSenceAdapter(scenesResponse:  ArrayList<SceneItem>) {
-        sceneAdapter.setData(scenesResponse)
+    override fun setSenceAdapter(scenesResponse:  List<ScenesResponse>) {
+        //sceneList = scenesResponse
+        setAdapter(scenesResponse)
+        //sceneAdapter.setData(scenesResponse)
     }
 
     fun createFragment(): SceneFragment {

@@ -19,24 +19,24 @@ import java.util.ArrayList
 /**
  * Created by jiessie on 2019/6/11.
  */
-class SceneAdapter(val context: Activity) : RecyclerView.Adapter<SceneViewHolder>() {
+class SceneAdapter(val context: Activity,val sceneList : List<ScenesResponse>) : RecyclerView.Adapter<SceneViewHolder>() {
 
     var totleLish = ArrayList<SceneItem>()
     private var mClickListener : OnItemClickListener ?= null
 
 
     override fun getItemCount(): Int {
-        return totleLish?.size!!
+        return sceneList?.size!!
     }
 
     override fun onBindViewHolder(holder: SceneViewHolder?, position: Int) {
-        var sceneSectionsAdapter = SceneSectionsAdapter(totleLish?.get(position)?.sections)
+        var sceneSectionsAdapter = SceneSectionsAdapter(sceneList?.get(position)?.sections)
         holder?.mrecyclerView?.setHasFixedSize(true)
         holder?.mrecyclerView?.layoutManager= LinearLayoutManager(context)
         holder?.mrecyclerView?.adapter = sceneSectionsAdapter
-        holder?.mTextView?.setText(totleLish?.get(position)?.sceneItemTxt)
+        holder?.mTextView?.setText(sceneList?.get(position)?.title)
         //holder?.mItemImage?.setImageBitmap(totleLish?.get(position)?.sceneItemImage)
-        FilesUtils.showImage(totleLish?.get(position)?.sceneItemImage,context,holder?.mItemImage)
+        FilesUtils.showImage(sceneList?.get(position)?.title_img_new,context,holder?.mItemImage)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): SceneViewHolder? {

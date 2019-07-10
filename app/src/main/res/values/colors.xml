@@ -12,4 +12,5 @@
     <color name="fisrtUse">#D3B462</color>
     <color name="totleTitle">#ff544d5d</color>
     <color name="totleItem">#ffaeaeae</color>
+    <color name="sceneDetailTxt">#4A4A4A</color>
 </resources>

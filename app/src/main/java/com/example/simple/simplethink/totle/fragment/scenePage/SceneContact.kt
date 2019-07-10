@@ -16,6 +16,6 @@ interface SceneContact {
     }
 
     interface View {
-        fun setSenceAdapter(scenesResponse : ArrayList<SceneItem>)
+        fun setSenceAdapter(scenesResponse : List<ScenesResponse>)
     }
 }

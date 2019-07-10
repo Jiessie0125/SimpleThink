@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@color/mainColor"
+    android:layout_centerInParent="true"
+    android:orientation="vertical">
+    <ImageView
+        android:id="@+id/recycle_scene_detail_img"
+        android:layout_width="147dp"
+        android:layout_height="148dp"
+        android:src="@drawable/days_absorbed"
+        android:scaleType="fitXY"
+        android:layout_gravity="center_horizontal"
+        />
+    <TextView
+        android:id="@+id/recycle_scene_detail_tv"
+        android:layout_width="147dp"
+        android:layout_height="56dp"
+        android:background="@color/wordWhite"
+        android:textSize="@dimen/scene_detail_image_txt"
+        android:textColor="@color/sceneDetailTxt"
+        android:text="aaa"
+        android:gravity="center"/>
+</LinearLayout>
