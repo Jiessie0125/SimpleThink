@@ -23,10 +23,10 @@ class WelcomeActivity : Activity() {
 
        /*如果不是第一次启动app，则启动页*/   setContentView(R.layout.activity_welcome)
 
-        Handler().postDelayed(Runnable {
+       Handler().postDelayed(Runnable {
             /*2秒后进入主页*/
             enterHomeActivity()
-        }, 2000)
+        }, 1000)
     }
 
     private fun enterHomeActivity() {
