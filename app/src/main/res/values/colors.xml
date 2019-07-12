@@ -14,4 +14,5 @@
     <color name="totleItem">#ffaeaeae</color>
     <color name="sceneDetailTxt">#4A4A4A</color>
     <color name="guideText">#FFFFFF</color>
+    <color name="guideBtn">#1D1923</color>
 </resources>

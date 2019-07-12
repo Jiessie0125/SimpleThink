@@ -24,6 +24,7 @@ class WelcomeGuideActivity : Activity(), View.OnClickListener {
     private var adapter: GuideViewPagerAdapter? = null
     private var views: MutableList<View>? = null
     private var startBtn: Button? = null
+    private var linearLayout: LinearLayout? = null
 
     /*底部小点图片*/
     private var dots: Array<ImageView?>? = null
@@ -83,19 +84,19 @@ class WelcomeGuideActivity : Activity(), View.OnClickListener {
     }
 
     private fun initDots() {
-        val linearLayout = findViewById<View>(R.id.ll) as LinearLayout
+        linearLayout = findViewById<View>(R.id.ll) as LinearLayout
         dots =  arrayOfNulls(pics.size)
 
         /*循环取得小点图片*/
         for (i in pics.indices) {
             /*得到一个LinearLayout下面的每一个子元素*/
-            dots!![i] = linearLayout.getChildAt(i) as ImageView
-            dots!![i]!!.isEnabled = false//设置成灰色
+            dots!![i] = linearLayout!!.getChildAt(i) as ImageView
+            dots!![i]!!.isSelected = false//设置成灰色
             dots!![i]!!.setOnClickListener(this)
             dots!![i]!!.tag = i//设置位置tag，方便取出与当前位置对应,原理同上
         }
         currentIndex = 0
-        dots!![currentIndex]!!.isEnabled = true // 设置为白色，即选中状态
+        dots!![currentIndex]!!.isSelected = true // 设置为白色，即选中状态
     }
 
     /**
@@ -119,9 +120,14 @@ class WelcomeGuideActivity : Activity(), View.OnClickListener {
         if (position < 0 || position > pics.size || currentIndex == position) {
             return
         }
-        dots!![position]!!.isEnabled = true
-        dots!![currentIndex]!!.isEnabled = false
+        dots!![position]!!.isSelected = true
+        dots!![currentIndex]!!.isSelected = false
         currentIndex = position
+        if(position === pics.size -1){
+            linearLayout?.visibility = View.GONE
+        }else{
+            linearLayout?.visibility = View.VISIBLE
+        }
     }
 
     override fun onClick(v: View) {
