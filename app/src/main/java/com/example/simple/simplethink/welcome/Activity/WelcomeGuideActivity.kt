@@ -19,7 +19,7 @@ import com.example.simple.simplethink.welcome.Adapter.GuideViewPagerAdapter
 
 import java.util.ArrayList
 
-class WelcomeGuideActivity : Activity() {
+class WelcomeGuideActivity : Activity(), View.OnClickListener {
     private var viewPager: ViewPager? = null
     private var adapter: GuideViewPagerAdapter? = null
     private var views: MutableList<View>? = null
@@ -91,7 +91,7 @@ class WelcomeGuideActivity : Activity() {
             /*得到一个LinearLayout下面的每一个子元素*/
             dots!![i] = linearLayout.getChildAt(i) as ImageView
             dots!![i]!!.isEnabled = false//设置成灰色
-            dots!![i].setOnClickListener(this)
+            dots!![i]!!.setOnClickListener(this)
             dots!![i]!!.tag = i//设置位置tag，方便取出与当前位置对应,原理同上
         }
         currentIndex = 0
@@ -124,7 +124,7 @@ class WelcomeGuideActivity : Activity() {
         currentIndex = position
     }
 
-    fun onClick(v: View) {
+    override fun onClick(v: View) {
         if (v.tag == "enter") {
             enterMainActivity()
             return
@@ -167,12 +167,4 @@ class WelcomeGuideActivity : Activity() {
         /*引导页图片资源*/
         private val pics = intArrayOf(R.layout.guid_view1, R.layout.guid_view2, R.layout.guid_view3,R.layout.guid_view4)
     }
-}
-
-private fun ImageView?.setOnClickListener(welcomeGuideActivity: WelcomeGuideActivity) {
-
-}
-
-private fun Button.setOnClickListener(welcomeGuideActivity: WelcomeGuideActivity) {
-
 }
