@@ -13,6 +13,7 @@ import android.widget.LinearLayout
 
 
 import com.example.simple.simplethink.R
+import com.example.simple.simplethink.main.MainActivity
 import com.example.simple.simplethink.utils.SharedPreferencesUtil
 import com.example.simple.simplethink.welcome.Adapter.GuideViewPagerAdapter
 
@@ -41,13 +42,13 @@ class WelcomeGuideActivity : Activity() {
             val view = LayoutInflater.from(this).inflate(pics[i], null)
 
             if (i == pics.size - 1) {
-//                //startBtn = view.findViewById(R.id.btn_login) as Button
-//                /*这里使用setTag方法进行标注。在View中的setTag(Onbect)表示给View
-//                添加一个格外的数据，以后可以用getTag()将这个数据取出来。可以用在
-//                多个Button添加一个监听器，每个Button都设置不同的setTag。这个监听
-//                器就通过getTag来分辨是哪个Button 被按下。*/
-//                startBtn!!.tag = "enter"
-//                startBtn!!.setOnClickListener(this)
+                startBtn = view.findViewById(R.id.vp_guide_btn)
+                /*这里使用setTag方法进行标注。在View中的setTag(Onbect)表示给View
+                添加一个格外的数据，以后可以用getTag()将这个数据取出来。可以用在
+                多个Button添加一个监听器，每个Button都设置不同的setTag。这个监听
+                器就通过getTag来分辨是哪个Button 被按下。*/
+                startBtn!!.tag = "enter"
+                startBtn!!.setOnClickListener(this)
             }
             views!!.add(view)
         }
@@ -90,7 +91,7 @@ class WelcomeGuideActivity : Activity() {
             /*得到一个LinearLayout下面的每一个子元素*/
             dots!![i] = linearLayout.getChildAt(i) as ImageView
             dots!![i]!!.isEnabled = false//设置成灰色
-            //dots!![i].setOnClickListener(this)
+            dots!![i].setOnClickListener(this)
             dots!![i]!!.tag = i//设置位置tag，方便取出与当前位置对应,原理同上
         }
         currentIndex = 0
@@ -134,7 +135,7 @@ class WelcomeGuideActivity : Activity() {
     }
 
     private fun enterMainActivity() {
-        val intent = Intent(this@WelcomeGuideActivity, WelcomeActivity::class.java)
+        val intent = Intent(this@WelcomeGuideActivity, MainActivity::class.java)
         startActivity(intent)
         SharedPreferencesUtil.setBoolean(this@WelcomeGuideActivity, SharedPreferencesUtil.FIRST_OPEN, false)
         finish()
@@ -164,6 +165,14 @@ class WelcomeGuideActivity : Activity() {
     companion object {
 
         /*引导页图片资源*/
-        private val pics = intArrayOf(R.layout.guid_view1, R.layout.guid_view2, R.layout.guid_view3)
+        private val pics = intArrayOf(R.layout.guid_view1, R.layout.guid_view2, R.layout.guid_view3,R.layout.guid_view4)
     }
+}
+
+private fun ImageView?.setOnClickListener(welcomeGuideActivity: WelcomeGuideActivity) {
+
+}
+
+private fun Button.setOnClickListener(welcomeGuideActivity: WelcomeGuideActivity) {
+
 }

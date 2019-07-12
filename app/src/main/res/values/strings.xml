@@ -11,4 +11,15 @@
     <string name="totle">全部</string>
     <string name="scene">场景</string>
     <string name="whith_noise">白噪音</string>
+    <string name="guide_text_1_1">累了吗？</string>
+    <string name="guide_text_1_2">里面请</string>
+    <string name="guide_text_2_1">轻松</string>
+    <string name="guide_text_2_2">是我们与生活的</string>
+    <string name="guide_text_2_3">相处之道</string>
+    <string name="guide_text_3_1">宁静</string>
+    <string name="guide_text_3_2">以呼吸的名义</string>
+    <string name="guide_text_3_3">丈量内心</string>
+    <string name="guide_text_4_1">准备好了吗？</string>
+    <string name="guide_text_4_2">那就开始吧</string>
+    <string name="guide_btn">立即体验</string>
 </resources>

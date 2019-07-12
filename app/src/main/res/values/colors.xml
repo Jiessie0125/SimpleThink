@@ -13,4 +13,5 @@
     <color name="totleTitle">#ff544d5d</color>
     <color name="totleItem">#ffaeaeae</color>
     <color name="sceneDetailTxt">#4A4A4A</color>
+    <color name="guideText">#FFFFFF</color>
 </resources>

@@ -13,20 +13,20 @@ class WelcomeActivity : Activity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        val isFirstOpen = SharedPreferencesUtil.getBoolean(this, SharedPreferencesUtil.FIRST_OPEN, true)!!
-//        if (isFirstOpen) {
-//            val intent = Intent(this, WelcomeGuideActivity::class.java)
-//            startActivity(intent)
-//            finish()
-//            return
-//        }
+        val isFirstOpen = SharedPreferencesUtil.getBoolean(this, SharedPreferencesUtil.FIRST_OPEN, true)!!
+        if (isFirstOpen) {
+            val intent = Intent(this, WelcomeGuideActivity::class.java)
+            startActivity(intent)
+            finish()
+            return
+        }
 
        /*如果不是第一次启动app，则启动页*/   setContentView(R.layout.activity_welcome)
 
        Handler().postDelayed(Runnable {
             /*2秒后进入主页*/
             enterHomeActivity()
-        }, 1000)
+        }, 2000)
     }
 
     private fun enterHomeActivity() {
