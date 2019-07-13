@@ -22,4 +22,8 @@
     <string name="guide_text_4_1">准备好了吗？</string>
     <string name="guide_text_4_2">那就开始吧</string>
     <string name="guide_btn">立即体验</string>
+    <string name="logon">登录</string>
+    <string name="phone_number">手机号码</string>
+    <string name="enter_password">输入密码</string>
+    <string name="forget_password"><u>忘记密码?</u></string>
 </resources>

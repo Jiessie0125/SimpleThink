@@ -15,4 +15,5 @@
     <color name="sceneDetailTxt">#4A4A4A</color>
     <color name="guideText">#FFFFFF</color>
     <color name="guideBtn">#1D1923</color>
+    <color name="divide_line_vertical">#40394B</color>
 </resources>
