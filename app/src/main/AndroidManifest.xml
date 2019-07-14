@@ -39,6 +39,8 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".totle.activity.SceneDetailActivity"
             android:screenOrientation="portrait"/>
+        <activity android:name=".totle.activity.ScenePlayActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

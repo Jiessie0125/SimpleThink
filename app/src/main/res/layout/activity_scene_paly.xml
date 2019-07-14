@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scene_bg"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/mainColor"
+    android:orientation="vertical">
+    <RelativeLayout
+        android:id="@+id/scene_paly_close"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/welcome_text_size"
+        android:gravity="center_vertical"
+        android:minHeight="55dp">
+        <ImageView
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/close_whiete" />
+    </RelativeLayout>
+    <ImageView
+        android:layout_marginTop="130dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/logo_white"
+        android:layout_gravity="center_horizontal"/>
+    <TextView
+        android:layout_marginTop="70dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/wordWhite"
+        android:layout_gravity="center_horizontal"
+        android:text="12"
+        android:textSize="@dimen/scene_paly_txt"/>
+    <TextView
+        android:layout_marginTop="15dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/palyTime"
+        android:layout_gravity="center_horizontal"
+        android:text="12"
+        android:textSize="@dimen/logon_revive_word"/>
+
+    <SeekBar
+        android:id="@+id/progress_bar_healthy"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="250dp"
+        android:layout_height="5dp"
+        android:layout_marginTop="50dp"
+        android:layout_gravity="center"
+        android:max="100"
+        android:progress="0"
+        android:progressDrawable="@drawable/porcess_bk"
+        />
+
+</LinearLayout>

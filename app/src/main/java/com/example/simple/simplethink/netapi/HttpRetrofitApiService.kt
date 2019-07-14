@@ -34,4 +34,7 @@ interface HttpRetrofitApiService {
 
     @GET("scenes/get")
     fun getScenes(): Observable<List<ScenesResponse>>
+
+    @GET
+    fun getSceneMP3(@Url url:String):Observable<ResponseBody>
 }

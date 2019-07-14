@@ -47,4 +47,10 @@ class HttpResposityImpl(): HttpRepository {
         val getItemImage= RetrofitServiceManager.instance.create(HttpRetrofitApiService::class.java)
         return getItemImage.getScenes()
     }
+
+    override fun getSceneMP3(url: String): Observable<ResponseBody> {
+        val getItemImage= RetrofitServiceManager.instance.create(HttpRetrofitApiService::class.java)
+        return getItemImage.getSceneMP3(url)
+    }
+
 }
