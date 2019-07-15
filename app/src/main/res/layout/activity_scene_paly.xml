@@ -27,6 +27,7 @@
         android:src="@drawable/logo_white"
         android:layout_gravity="center_horizontal"/>
     <TextView
+        android:id="@+id/scene_item_name"
         android:layout_marginTop="70dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -34,14 +35,33 @@
         android:layout_gravity="center_horizontal"
         android:text="12"
         android:textSize="@dimen/scene_paly_txt"/>
-    <TextView
-        android:layout_marginTop="15dp"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/palyTime"
-        android:layout_gravity="center_horizontal"
-        android:text="12"
-        android:textSize="@dimen/logon_revive_word"/>
+        android:layout_gravity="center_horizontal">
+        <TextView
+            android:id="@+id/scene_item_play"
+            android:layout_marginTop="15dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/palyTime"
+            android:layout_gravity="center_horizontal"
+            android:text="00:00"
+            android:textSize="@dimen/logon_revive_word"/>
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/wordWhite"/>
+        <TextView
+            android:id="@+id/scene_item_totle"
+            android:layout_marginTop="15dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/palyTime"
+            android:layout_gravity="center_horizontal"
+            android:textSize="@dimen/logon_revive_word"/>
+
+    </LinearLayout>
 
     <SeekBar
         android:id="@+id/progress_bar_healthy"
@@ -50,8 +70,6 @@
         android:layout_height="5dp"
         android:layout_marginTop="50dp"
         android:layout_gravity="center"
-        android:max="100"
-        android:progress="0"
         android:progressDrawable="@drawable/porcess_bk"
         />
 

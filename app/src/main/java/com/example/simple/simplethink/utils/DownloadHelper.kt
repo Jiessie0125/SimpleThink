@@ -72,9 +72,10 @@ internal object DownloadHelper {
         }
 
         override fun onProgressUpdate(vararg values: Int?) {
-                super.onProgressUpdate(values[0])
-                if (values != null && values.size > 0) {
-                    mListener?.onProgress(values[0]!!)
+                super.onProgressUpdate(*values)
+                if (values.size > 0) {
+                    var mProcess= values[0] ?: 0
+                    mListener?.onProgress(mProcess)
                 }
         }
     }
@@ -83,6 +84,6 @@ internal object DownloadHelper {
         fun onStart()
         fun onSuccess(file: File)
         fun onFail(file: File, failInfo: String?)
-        fun onProgress(progress: Int)
+        fun onProgress(progress: Int?)
     }
 }

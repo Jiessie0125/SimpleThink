@@ -14,6 +14,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
 import com.example.simple.simplethink.R
+import com.example.simple.simplethink.totle.adapter.SceneDetailAdapter
 import kotlinx.android.synthetic.main.fragment_totle.*
 import okhttp3.ResponseBody
 import java.io.File
@@ -73,6 +74,14 @@ object FilesUtils{
         }
     }
 
+    fun getLocalFileUrl(sceneName : String ) : String{
+        var filePath = Environment.getExternalStorageDirectory().toString() + File.separator + SceneDetailAdapter.SCENEDETAIL
+        val appDir = File(filePath, sceneName)
+        if (!appDir.exists()) throw Exception("can't find folder")
+        return appDir.toString()
+
+    }
+
     fun showImage(imageUrl: String,activity: Activity,imageView: ImageView?){
         Glide.with(activity)
                 .load(imageUrl)
@@ -129,5 +138,21 @@ object FilesUtils{
 
         }
     }
+    fun timeParse(duration: Long): String {
+        var time = ""
+        val minute = duration / 60000
+        val seconds = duration % 60000
+        val second = Math.round(seconds.toFloat() / 1000).toLong()
+        if (minute < 10) {
+            time += "0"
+        }
+        time += minute.toString() + ":"
+        if (second < 10) {
+            time += "0"
+        }
+        time += second
+        return time
+    }
+
 
 }

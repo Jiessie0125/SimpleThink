@@ -14,6 +14,7 @@ import com.example.simple.simplethink.model.Sections
 import com.example.simple.simplethink.netapi.HttpResposityImpl
 import com.example.simple.simplethink.totle.adapter.SceneDetailAdapter
 import com.example.simple.simplethink.utils.DownloadHelper
+import com.example.simple.simplethink.utils.FilesUtils
 import com.example.simple.simplethink.utils.ImageUtil.showBKImage
 import kotlinx.android.synthetic.main.activity_scene_detail.*
 import kotlinx.android.synthetic.main.scene_detail_item.*
@@ -66,15 +67,14 @@ class SceneDetailActivity: AppCompatActivity() ,SceneDetailContact.View {
             override fun onItemClick(v: View, viewName: SceneDetailAdapter.ViewName, position: Int) {
                 when (v.getId()) {
                     R.id.scene_download -> downloadMP3(position)
-                    else -> showSceneResourcePage()
+                    else -> showSceneResourcePage(sections[position].title, FilesUtils.getLocalFileUrl(sections[position].title))
                 }
             }
-
         })
     }
 
-    private fun showSceneResourcePage(){
-        val intent = ScenePlayActivity.newIntent(this)
+    private fun showSceneResourcePage(sceneName : String, sceneSource : String){
+        val intent = ScenePlayActivity.newIntent(this,sceneName,sceneSource)
         startActivity(intent)
     }
 

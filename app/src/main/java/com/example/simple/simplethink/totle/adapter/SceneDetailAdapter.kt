@@ -1,12 +1,15 @@
 package com.example.simple.simplethink.totle.adapter
 
 import android.app.Activity
+import android.media.MediaPlayer
 import android.os.Environment
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
 import com.example.simple.simplethink.R
 import com.example.simple.simplethink.R.id.scene_download_mp3
@@ -14,6 +17,7 @@ import com.example.simple.simplethink.model.Sections
 import com.example.simple.simplethink.totle.activity.view.RoundProgressBar
 import com.example.simple.simplethink.utils.DownloadHelper
 import com.example.simple.simplethink.utils.FilesUtils
+import com.example.simple.simplethink.utils.FilesUtils.timeParse
 import com.example.simple.simplethink.utils.ResourcesUtils
 import java.io.File
 
@@ -26,11 +30,16 @@ class SceneDetailAdapter( val context: Activity,val sections : List<Sections>) :
     private var isShow = false
     private var mPosition = -1
 
+    companion object {
+        const val SCENEDETAIL = "SCENEDETAIL"
+    }
+
     override fun getItemCount(): Int {
         return sections.size
     }
 
     override fun onBindViewHolder(holder: SceneDetailHolder?, position: Int) {
+        holder?.mLinearLayout?.tag = position
         holder?.mTotleItem?.text = sections?.get(position)?.title
         FilesUtils.showImage(sections?.get(position)?.title_img, context, holder?.mItemImage)
         holder?.mDownloadImage?.tag = position
@@ -41,7 +50,7 @@ class SceneDetailAdapter( val context: Activity,val sections : List<Sections>) :
         }else{
             holder?.mProcessBar?.visibility = View.GONE
         }
-       /* holder?.mItemImage?.setImageBitmap(totleLish?.get(position)?.totleItemImage)*/
+        holder
     }
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): SceneDetailHolder? {
@@ -51,13 +60,19 @@ class SceneDetailAdapter( val context: Activity,val sections : List<Sections>) :
     }
 
     fun updateProcessBar(url: String,FILE_NAME: String, processBar: RoundProgressBar?){
-        var localPath = Environment.getExternalStorageDirectory().toString() + File.separator + FILE_NAME
+        var filePath = Environment.getExternalStorageDirectory().toString() + File.separator +SCENEDETAIL
+        val folder = File(filePath)
+        if (!folder.exists()) {
+            folder.mkdirs()
+        }
+        var localPath = folder.getPath() + File.separator + FILE_NAME
         DownloadHelper.download(url, localPath, object : DownloadHelper.OnDownloadListener {
             override fun onFail(file: File, failInfo: String?) {
             }
 
-            override fun onProgress(progress: Int) {
-                processBar?.progress = progress
+            override fun onProgress(progress: Int?) {
+                processBar?.progress = progress!!
+                Log.e("--processBar--","---processBar--"+progress)
             }
 
             override fun onStart() {
@@ -65,7 +80,6 @@ class SceneDetailAdapter( val context: Activity,val sections : List<Sections>) :
             }
 
             override fun onSuccess(file: File) {
-
             }
         })
     }
@@ -85,19 +99,21 @@ class SceneDetailAdapter( val context: Activity,val sections : List<Sections>) :
         var mItemImage : ImageView?
         var mDownloadImage : ImageView?
         var mProcessBar : RoundProgressBar?
+        var mLinearLayout : LinearLayout?
 
         init {
             mTotleItem = view?.findViewById(R.id.recycle_scene_detail_tv)
             mItemImage = view?.findViewById(R.id.recycle_scene_detail_img)
             mDownloadImage = view?.findViewById(R.id.scene_download)
             mProcessBar = view?.findViewById(R.id.scene_download_mp3)
+            mLinearLayout = view?.findViewById(R.id.scene_item)
             mProcessBar?.setStyle(RoundProgressBar.FILL)
             mProcessBar?.circleProgressColor = ResourcesUtils.resource.getColor(R.color.wordWhite)
             mProcessBar?.roundWidth = 1.toFloat()
             mProcessBar?.circleColor = ResourcesUtils.resource.getColor(R.color.wordWhite)
             mProcessBar?.setTextIsDisplayable(false)
 
-            view?.setOnClickListener(this@SceneDetailAdapter)
+            mLinearLayout?.setOnClickListener(this@SceneDetailAdapter)
             mDownloadImage?.setOnClickListener(this@SceneDetailAdapter)
         }
 
