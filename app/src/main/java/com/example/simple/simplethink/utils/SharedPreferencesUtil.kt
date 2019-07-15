@@ -2,10 +2,31 @@ package com.example.simple.simplethink.utils
 
 import android.content.Context
 import android.content.SharedPreferences
+import com.example.simple.simplethink.model.BannerResponse
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
+import com.youth.banner.Banner
+import java.util.*
 
 object SharedPreferencesUtil {
     private val FILE_NAME = "welcomePage"
     val FIRST_OPEN = "first_open"
+    val COOPEN_BANNER = "coopen_banner"
+
+    fun getBannerBean(context: Context): BannerResponse{
+        val sharedPreferences = context.getSharedPreferences(FILE_NAME,Context.MODE_PRIVATE)
+        val json = sharedPreferences.getString(COOPEN_BANNER,null)
+        return Gson().fromJson<BannerResponse>(json,BannerResponse::class.java)
+    }
+
+    fun setBannerBean(context: Context, banner:BannerResponse){
+        val sharedPreferences = context.getSharedPreferences(
+                FILE_NAME, Context.MODE_PRIVATE
+        )
+        val editor = sharedPreferences.edit()
+        editor.putString(COOPEN_BANNER, Gson().toJson(banner))
+        editor.commit()
+    }
 
     fun getBoolean(context: Context, strKey: String,
                    strDefault: Boolean?): Boolean? {

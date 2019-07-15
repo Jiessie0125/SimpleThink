@@ -17,5 +17,6 @@
     <color name="guideBtn">#1D1923</color>
     <color name="divide_line_vertical">#40394B</color>
     <color name="palyTime">#7F7F7F</color>
-    <color name="palyProcesss">#7F7F7F</color>#1A1521
+    <color name="palyProcesss">#7F7F7F</color>
+    <color name="transparent">#efeeee</color>
 </resources>

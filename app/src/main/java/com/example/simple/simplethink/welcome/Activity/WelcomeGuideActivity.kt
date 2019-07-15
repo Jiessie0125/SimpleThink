@@ -169,7 +169,6 @@ class WelcomeGuideActivity : Activity(), View.OnClickListener {
     }
 
     companion object {
-
         /*引导页图片资源*/
         private val pics = intArrayOf(R.layout.guid_view1, R.layout.guid_view2, R.layout.guid_view3,R.layout.guid_view4)
     }
