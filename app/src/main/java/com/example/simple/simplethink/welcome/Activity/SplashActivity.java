@@ -7,10 +7,13 @@ import android.os.CountDownTimer;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.simple.simplethink.R;
 import com.example.simple.simplethink.main.MainActivity;
+import com.example.simple.simplethink.model.BannerResponse;
+import com.example.simple.simplethink.utils.SharedPreferencesUtil;
 
 /**
  * Created by mobileteam on 2019/7/15.
@@ -20,6 +23,7 @@ public class SplashActivity extends Activity implements View.OnClickListener{
 
     private MyCountDownTimer mc;
     private TextView tv;
+    private ImageView iv;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -29,6 +33,17 @@ public class SplashActivity extends Activity implements View.OnClickListener{
         tv = (TextView) findViewById(R.id.tv_jump);
         tv.setTag("jump");
         tv.setOnClickListener(this);
+
+        initSplashPage();
+    }
+
+     void initSplashPage(){
+
+        BannerResponse bannerResponse = SharedPreferencesUtil.INSTANCE.getBannerBean(this);
+        String url = bannerResponse.getImgURL();
+        String linkPage = bannerResponse.getLessionsID();
+
+
         mc = new MyCountDownTimer(4000, 1000);
         mc.start();
         Handler handler = new Handler();
@@ -39,6 +54,7 @@ public class SplashActivity extends Activity implements View.OnClickListener{
                 enterHomeActivity();
             }
         },4000);
+
     }
 
     private void enterHomeActivity(){

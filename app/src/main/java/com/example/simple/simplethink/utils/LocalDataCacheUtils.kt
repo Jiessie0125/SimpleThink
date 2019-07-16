@@ -52,7 +52,7 @@ object LocalDataCache {
      * @param object   保存数据的对象
      * @param fileName 保存的文件名
      */
-    fun save(`object`: Any, fileName: String) {
+    fun save(`object`: kotlin.Any?, fileName: String) {
         val path = MyApp.context?.getFilesDir().toString()
         val file = File(path + "/" + Md5(fileName) + ".config")
         if (file.exists()) {

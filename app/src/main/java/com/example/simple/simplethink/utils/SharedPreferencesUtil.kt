@@ -1,12 +1,8 @@
 package com.example.simple.simplethink.utils
 
 import android.content.Context
-import android.content.SharedPreferences
 import com.example.simple.simplethink.model.BannerResponse
 import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
-import com.youth.banner.Banner
-import java.util.*
 
 object SharedPreferencesUtil {
     private val FILE_NAME = "welcomePage"
@@ -19,7 +15,7 @@ object SharedPreferencesUtil {
         return Gson().fromJson<BannerResponse>(json,BannerResponse::class.java)
     }
 
-    fun setBannerBean(context: Context, banner:BannerResponse){
+    fun setBannerBean(context: Context, banner: BannerResponse?){
         val sharedPreferences = context.getSharedPreferences(
                 FILE_NAME, Context.MODE_PRIVATE
         )

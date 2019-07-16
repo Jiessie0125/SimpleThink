@@ -41,8 +41,9 @@ class RetrofitServiceManager private constructor() {
         // 创建Retrofit
         mRetrofit = Retrofit.Builder()
                 .client(builder.build())
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .addConverterFactory(LegacyEmptyConvertFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .baseUrl(URLConstant.BASE_URL)
                 .build()
     }

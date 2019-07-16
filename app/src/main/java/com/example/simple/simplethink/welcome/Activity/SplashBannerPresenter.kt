@@ -9,15 +9,15 @@ import io.reactivex.schedulers.Schedulers
  * Created by mobileteam on 2019/7/15.
  */
 class SplashBannerPresenter(private val httpResposityImpl : HttpResposityImpl, val view: WelcomeActivity) : SplashContract.Presenter {
-    override fun getSplashBanner(url : String) {
-        httpResposityImpl.getSceneMP3(url).subscribeOn(Schedulers.io())
+    override fun getSplashBanner() {
+        httpResposityImpl.getSplashBanner().subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .map { result -> result }
                 .subscribe({message ->
-                    view.initSplashBannerData()
+                    view.initSplashBannerData(message)
                 },{
                     error->
-                    Log.e("---","----getBannerFail:"+error)
+                    Log.e("---","----getSplashBannerFail:"+error)
                 })
     }
 

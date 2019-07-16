@@ -6,6 +6,6 @@ package com.example.simple.simplethink.welcome.Activity;
 
 public interface SplashContract {
     interface Presenter{
-       public void getSplashBanner(String url);
+       public void getSplashBanner();
     }
 }

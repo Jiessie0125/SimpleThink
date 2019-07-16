@@ -8,6 +8,7 @@ import okhttp3.ResponseBody
  * Created by mobileteam on 2019/6/4.
  */
 interface HttpRepository {
+    fun getSplashBanner(): Observable<BannerResponse>
     fun getBanner(): Observable<List<BannerResponse>>
     fun getBannerView(url: String): Observable<ResponseBody>
     fun getTotleSort(): Observable<List<TotleSortResponse>>

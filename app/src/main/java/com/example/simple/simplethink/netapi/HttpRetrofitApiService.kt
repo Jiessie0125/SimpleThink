@@ -11,6 +11,10 @@ import retrofit2.http.Url
  * Created by mobileteam on 2019/6/4.
  */
 interface HttpRetrofitApiService {
+
+    @GET("ad/get")
+    fun getSplashBanner(): Observable<BannerResponse>
+
     @GET("banner/get")
     fun getBanner(): Observable<List<BannerResponse>>
 

@@ -7,4 +7,5 @@ object URLConstant {
     const val BASE_URL = "http://dev.simplemeditation.cn/"
     const val GETTOTLESORT = "GETTOTLESORT"
     const val GETCOURSEIMAGE = "GETCOURSEIMAGE"
+    const val GETSPLASHBANNER = "GETSPLASHBANNER"
 }

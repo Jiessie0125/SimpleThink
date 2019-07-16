@@ -9,6 +9,11 @@ import okhttp3.ResponseBody
  * Created by mobileteam on 2019/6/4.
  */
 class HttpResposityImpl(): HttpRepository {
+    override fun getSplashBanner(): Observable<BannerResponse> {
+        val getSplashBannerRetrofit = RetrofitServiceManager.instance.create(HttpRetrofitApiService::class.java)
+        return getSplashBannerRetrofit.getSplashBanner()
+    }
+
     override fun getBanner(): Observable<List<BannerResponse>> {
         val getTotleSortRetrofit = RetrofitServiceManager.instance.create(HttpRetrofitApiService::class.java)
         return getTotleSortRetrofit.getBanner()

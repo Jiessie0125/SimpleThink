@@ -41,7 +41,7 @@ internal object DownloadHelper {
                 while ((length) != -1) {
                     out.write(bytes, 0, length)
                     downloadSize += length
-                    publishProgress(downloadSize / contentLength * 100)
+                    publishProgress(downloadSize*100 / contentLength )
                     length = `in`.read(bytes)
                 }
                 `in`.close()
