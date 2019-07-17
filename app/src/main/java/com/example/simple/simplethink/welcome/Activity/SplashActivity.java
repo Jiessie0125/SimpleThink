@@ -2,6 +2,7 @@ package com.example.simple.simplethink.welcome.Activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Environment;
@@ -11,7 +12,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.example.simple.simplethink.R;
 import com.example.simple.simplethink.main.MainActivity;
 import com.example.simple.simplethink.model.BannerResponse;
@@ -32,6 +32,9 @@ public class SplashActivity extends Activity implements View.OnClickListener{
     private ImageView iv;
     private String APP_IMAGE_DIR = "sort_item";
     private String imagePath = Environment.getExternalStorageDirectory().toString() + File.separator + APP_IMAGE_DIR+ File.separator + "splashBanner.jpg";
+    private String tag;
+    private String linkPage;
+    private Handler handler;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,34 +50,52 @@ public class SplashActivity extends Activity implements View.OnClickListener{
      void initSplashPage(){
 
         BannerResponse bannerResponse = (BannerResponse) LocalDataCache.INSTANCE.getLocalData(URLConstant.GETSPLASHBANNER);
-        String url = bannerResponse.getImgURL();
-        String linkPage = bannerResponse.getLessionsID();
+        tag = bannerResponse.getTag();
+        linkPage = bannerResponse.getLessionsID();
         ImageUtil.INSTANCE.showBKImage(imagePath,this, iv);
+        iv.setTag("image");
+        iv.setOnClickListener(this);
         mc = new MyCountDownTimer(5000, 1000);
         mc.start();
-        Handler handler = new Handler();
+        handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
                 mc.onFinish();
-                enterHomeActivity();
+                enterActivity(MainActivity.class);
             }
         },4000);
 
     }
 
-    private void enterHomeActivity(){
-        Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+    private void enterActivity(Class activity){
+        Intent intent = new Intent(SplashActivity.this, activity);
         startActivity(intent);
         finish();
     }
 
     @Override
     public void onClick(View view) {
+        handler.removeCallbacksAndMessages(null);
         if(view.getTag().equals("jump")){
             mc.onFinish();
-            enterHomeActivity();
+            enterActivity(MainActivity.class);
             return;
+        }else if(view.getTag().equals("image")){
+            switch (tag){
+                case "vip":
+//                    enterActivity();
+                    break;
+                case "lessions":
+                    //                    enterActivity();
+                    break;
+                case "sign":
+                    //                    enterActivity();
+                    break;
+                case "advertisment":
+                    enterActivity(AdvertisementActivity.class);
+                    break;
+            }
         }
 
     }

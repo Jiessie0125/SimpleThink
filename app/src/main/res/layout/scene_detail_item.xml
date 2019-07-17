@@ -16,7 +16,6 @@
             android:id="@+id/recycle_scene_detail_img"
             android:layout_width="147dp"
             android:layout_height="148dp"
-            android:src="@drawable/days_absorbed"
             android:scaleType="fitXY"
             android:layout_gravity="center_horizontal"
             />
