@@ -60,10 +60,13 @@
             android:layout_gravity="center_horizontal"
             android:text="00:00"
             android:textSize="@dimen/logon_revive_word"/>
-        <View
+        <TextView
             android:layout_width="1dp"
-            android:layout_height="match_parent"
-            android:background="@color/wordWhite"/>
+            android:layout_height="wrap_content"
+            android:text="/"
+            android:textStyle="italic"
+            android:textSize="@dimen/logon_revive_word"
+            android:background="@color/palyTime"/>
         <TextView
             android:id="@+id/scene_item_totle"
             android:layout_marginTop="15dp"

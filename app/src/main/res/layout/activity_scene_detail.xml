@@ -5,8 +5,11 @@
     android:id="@+id/scene_bg"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/mainColor"
-    >
+    android:background="@color/mainColor">
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/transparent_layer"/>
     <LinearLayout
         android:id="@+id/scene_detail_back"
         android:layout_width="wrap_content"
