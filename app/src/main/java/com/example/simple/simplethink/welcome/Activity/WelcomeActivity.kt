@@ -1,7 +1,6 @@
 package com.example.simple.simplethink.welcome.Activity
 
 import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
@@ -9,9 +8,7 @@ import com.example.simple.simplethink.R
 import com.example.simple.simplethink.main.MainActivity
 import com.example.simple.simplethink.model.BannerResponse
 import com.example.simple.simplethink.netapi.HttpResposityImpl
-import com.example.simple.simplethink.utils.LocalDataCache
-import com.example.simple.simplethink.utils.SharedPreferencesUtil
-import com.example.simple.simplethink.utils.URLConstant
+import com.example.simple.simplethink.utils.*
 import java.util.*
 
 class WelcomeActivity : Activity() {
@@ -30,8 +27,9 @@ class WelcomeActivity : Activity() {
         val bannerData = LocalDataCache.getLocalData(URLConstant.GETSPLASHBANNER)
         if(bannerData is BannerResponse){
            splashBanner = bannerData
-           val date = Date()
-               if(date >= Date(splashBanner?.start_time) && date <= Date(splashBanner?.end_time)) {
+           val date = DateUtils.DateToString(Date(),DateUtils.DATE_TO_STRING_DETAIAL_PATTERN)
+
+               if(date >= splashBanner?.start_time.toString() && date <= splashBanner?.end_time.toString()) {
                    enterSplashActivity()
                    return
                }
@@ -59,6 +57,8 @@ class WelcomeActivity : Activity() {
             LocalDataCache.save(null, URLConstant.GETSPLASHBANNER)
         }else{
             LocalDataCache.save(bannerResponse, URLConstant.GETSPLASHBANNER)
+            FilesUtils.downloadImage(this, bannerResponse.imgURL, "splashBanner")
+            val a = "/storage/emulated/0/sort_item/splashBanner.jpg"
         }
 
     }

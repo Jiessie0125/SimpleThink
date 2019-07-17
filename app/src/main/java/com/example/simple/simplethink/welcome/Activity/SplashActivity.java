@@ -4,16 +4,22 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.Environment;
 import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.simple.simplethink.R;
 import com.example.simple.simplethink.main.MainActivity;
 import com.example.simple.simplethink.model.BannerResponse;
-import com.example.simple.simplethink.utils.SharedPreferencesUtil;
+import com.example.simple.simplethink.utils.ImageUtil;
+import com.example.simple.simplethink.utils.LocalDataCache;
+import com.example.simple.simplethink.utils.URLConstant;
+
+import java.io.File;
 
 /**
  * Created by mobileteam on 2019/7/15.
@@ -24,7 +30,8 @@ public class SplashActivity extends Activity implements View.OnClickListener{
     private MyCountDownTimer mc;
     private TextView tv;
     private ImageView iv;
-
+    private String APP_IMAGE_DIR = "sort_item";
+    private String imagePath = Environment.getExternalStorageDirectory().toString() + File.separator + APP_IMAGE_DIR+ File.separator + "splashBanner.jpg";
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,18 +40,17 @@ public class SplashActivity extends Activity implements View.OnClickListener{
         tv = (TextView) findViewById(R.id.tv_jump);
         tv.setTag("jump");
         tv.setOnClickListener(this);
-
+        iv = (ImageView) findViewById(R.id.iv_picture);
         initSplashPage();
     }
 
      void initSplashPage(){
 
-        BannerResponse bannerResponse = SharedPreferencesUtil.INSTANCE.getBannerBean(this);
+        BannerResponse bannerResponse = (BannerResponse) LocalDataCache.INSTANCE.getLocalData(URLConstant.GETSPLASHBANNER);
         String url = bannerResponse.getImgURL();
         String linkPage = bannerResponse.getLessionsID();
-
-
-        mc = new MyCountDownTimer(4000, 1000);
+        ImageUtil.INSTANCE.showBKImage(imagePath,this, iv);
+        mc = new MyCountDownTimer(5000, 1000);
         mc.start();
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
