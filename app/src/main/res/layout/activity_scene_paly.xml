@@ -20,12 +20,24 @@
             android:layout_alignParentRight="true"
             android:src="@drawable/close_whiete" />
     </RelativeLayout>
-    <ImageView
+    <FrameLayout
         android:layout_marginTop="130dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/logo_white"
-        android:layout_gravity="center_horizontal"/>
+        android:layout_gravity="center_horizontal">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/logo_white" />
+        <ImageView
+        android:id="@+id/scene_play"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:src="@drawable/scene_play" />
+
+    </FrameLayout>
+
     <TextView
         android:id="@+id/scene_item_name"
         android:layout_marginTop="70dp"

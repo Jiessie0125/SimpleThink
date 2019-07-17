@@ -21,6 +21,8 @@ import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
 import java.io.IOException
+import java.text.SimpleDateFormat
+import java.util.*
 
 /**
  * Created by mobileteam on 2019/6/6.
@@ -138,9 +140,9 @@ object FilesUtils{
 
         }
     }
-    fun timeParse(duration: Long): String {
+    fun timeParse(duration: Long?): String {
         var time = ""
-        val minute = duration / 60000
+        val minute = duration!! / 60000
         val seconds = duration % 60000
         val second = Math.round(seconds.toFloat() / 1000).toLong()
         if (minute < 10) {

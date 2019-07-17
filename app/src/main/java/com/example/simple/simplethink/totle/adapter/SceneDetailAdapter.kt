@@ -72,7 +72,6 @@ class SceneDetailAdapter( val context: Activity,val sections : List<Sections>) :
 
             override fun onProgress(progress: Int?) {
                 processBar?.progress = progress!!
-                Log.e("--processBar--","---processBar--"+progress)
             }
 
             override fun onStart() {

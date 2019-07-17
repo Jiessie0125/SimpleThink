@@ -9,9 +9,11 @@ import android.os.Handler
 import android.os.Message
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
+import android.view.View
 import android.widget.SeekBar
 import com.example.simple.simplethink.R
 import com.example.simple.simplethink.utils.FilesUtils
+import com.example.simple.simplethink.utils.FilesUtils.timeParse
 import kotlinx.android.synthetic.main.activity_scene_paly.*
 import java.io.IOException
 
@@ -19,7 +21,7 @@ import java.io.IOException
 /**
  * Created by jiessie on 2019/7/13.
  */
-class ScenePlayActivity : AppCompatActivity(){
+class ScenePlayActivity : AppCompatActivity(), View.OnClickListener {
 
     companion object {
         const val SCENERESOURCE = "SCENERESOURCE"
@@ -36,6 +38,7 @@ class ScenePlayActivity : AppCompatActivity(){
         override fun handleMessage(msg: Message) {
             super.handleMessage(msg)
             progress_bar_healthy.setProgress(msg.what)
+            scene_item_play.setText(timeParse(msg.what.toLong()))
             Log.e("","--test--"+msg.what)
         }
     }
@@ -68,26 +71,26 @@ class ScenePlayActivity : AppCompatActivity(){
         val sceneName = intent.getSerializableExtra(SCENENAME) as String
         val sceneSource = intent.getSerializableExtra(SCENERESOURCE) as String
         sceneName?.let { scene_item_name.text = it }
-        sceneSource?.let {
-            scene_item_totle.text = getSource(sceneSource)
-            }
-        scene_paly_close.setOnClickListener { finish() }
+//        scene_paly_close.setOnClickListener { finish() }
         play(sceneSource)
+        sceneSource?.let {
+            scene_item_totle.text = FilesUtils.timeParse(player?.getDuration()?.toLong())
+        }
     }
 
-    fun getSource(sceneSource : String) : String{
-        val mediaPlayer =  MediaPlayer()
-        mediaPlayer.setDataSource(sceneSource)
-        mediaPlayer.prepare()
-        return FilesUtils.timeParse(mediaPlayer.getDuration().toLong())
-    }
-
-    fun getLongMusic(sceneSource: String): Int{
-        val mediaPlayer =  MediaPlayer()
-        mediaPlayer.setDataSource(sceneSource)
-        mediaPlayer.prepare()
-        return mediaPlayer.getDuration()
-    }
+//    fun getSource(sceneSource : String) : String{
+//        val mediaPlayer =  MediaPlayer()
+//        mediaPlayer.setDataSource(sceneSource)
+//        mediaPlayer.prepare()
+//        return FilesUtils.timeParse(mediaPlayer.getDuration().toLong())
+//    }
+//
+//    fun getLongMusic(sceneSource: String): Int{
+//        val mediaPlayer =  MediaPlayer()
+//        mediaPlayer.setDataSource(sceneSource)
+//        mediaPlayer.prepare()
+//        return mediaPlayer.getDuration()
+//    }
 
     fun play(sceneSource : String){
         player?.reset()
@@ -99,7 +102,7 @@ class ScenePlayActivity : AppCompatActivity(){
             e.printStackTrace();
         }
         Thread( SeekBarThread()).start()
-        progress_bar_healthy.setMax(getLongMusic(sceneSource))
+        progress_bar_healthy.setMax(player?.duration!!)
     }
 
     internal inner class SeekBarThread : Runnable {
@@ -123,5 +126,21 @@ class ScenePlayActivity : AppCompatActivity(){
         super.onDestroy()
         player!!.reset()
         //isStop = true
+    }
+
+    override fun onClick(v: View?) {
+        when(v?.id){
+            R.id.scene_paly_close -> finish()
+            R.id.scene_play -> {
+                if(player?.isPlaying!!){
+                    player?.pause()
+                    scene_play.setImageResource(R.drawable.scene_play)
+                }else{
+                    player?.start()
+                    scene_play.setImageResource(R.drawable.scene_stop)
+                }
+
+            }
+        }
     }
 }
