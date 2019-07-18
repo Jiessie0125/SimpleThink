@@ -1,12 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/scene_bg"
+    android:id="@+id/scene_play_bg"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/mainColor"
-    android:orientation="vertical">
+    android:background="@color/mainColor">
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/transparent_layer"/>
+    <SeekBar
+        android:layout_below="@+id/scene_item_name"
+        android:id="@+id/progress_bar_healthy"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:maxHeight="5dp"
+        android:layout_marginTop="50dp"
+        android:layout_centerInParent="true"
+        android:thumb="@drawable/seek_bar_thumb"
+        android:progressDrawable="@drawable/porcess_bk"
+        />
     <RelativeLayout
         android:id="@+id/scene_paly_close"
         android:layout_width="wrap_content"
@@ -21,10 +35,12 @@
             android:src="@drawable/close_whiete" />
     </RelativeLayout>
     <FrameLayout
+        android:layout_below="@+id/scene_paly_close"
+        android:id="@+id/scene_play_img"
         android:layout_marginTop="130dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal">
+        android:layout_centerInParent="true">
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -39,18 +55,21 @@
     </FrameLayout>
 
     <TextView
+        android:layout_below="@+id/scene_play_img"
         android:id="@+id/scene_item_name"
         android:layout_marginTop="70dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/wordWhite"
-        android:layout_gravity="center_horizontal"
+        android:layout_centerInParent="true"
         android:text="12"
         android:textSize="@dimen/scene_paly_txt"/>
+
     <LinearLayout
+        android:layout_below="@+id/scene_item_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal">
+        android:layout_centerInParent="true">
         <TextView
             android:id="@+id/scene_item_play"
             android:layout_marginTop="15dp"
@@ -63,6 +82,7 @@
         <TextView
             android:layout_width="1dp"
             android:layout_height="wrap_content"
+            android:layout_margin="3dp"
             android:text="/"
             android:textStyle="italic"
             android:textSize="@dimen/logon_revive_word"
@@ -78,14 +98,5 @@
 
     </LinearLayout>
 
-    <SeekBar
-        android:id="@+id/progress_bar_healthy"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="250dp"
-        android:layout_height="5dp"
-        android:layout_marginTop="50dp"
-        android:layout_gravity="center"
-        android:progressDrawable="@drawable/porcess_bk"
-        />
 
-</LinearLayout>
+</RelativeLayout>

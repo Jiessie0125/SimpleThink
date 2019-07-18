@@ -14,8 +14,13 @@ import android.widget.SeekBar
 import com.example.simple.simplethink.R
 import com.example.simple.simplethink.utils.FilesUtils
 import com.example.simple.simplethink.utils.FilesUtils.timeParse
+import com.example.simple.simplethink.utils.ImageUtil.showBKImage
 import kotlinx.android.synthetic.main.activity_scene_paly.*
 import java.io.IOException
+
+
+
+
 
 
 /**
@@ -26,10 +31,12 @@ class ScenePlayActivity : AppCompatActivity(), View.OnClickListener {
     companion object {
         const val SCENERESOURCE = "SCENERESOURCE"
         const val SCENENAME = "SCENENAME"
-        fun newIntent (context: Context?,sceneName : String, sceneSource: String) : Intent {
+        const val BKGROUND = "BKGROUND"
+        fun newIntent (context: Context?,sceneName : String, sceneSource: String,bkground: String) : Intent {
             var intent = Intent(context, ScenePlayActivity::class.java)
             intent.putExtra(SCENENAME,sceneName)
             intent.putExtra(SCENERESOURCE,sceneSource)
+            intent.putExtra(BKGROUND,bkground)
             return intent
         }
     }
@@ -37,13 +44,14 @@ class ScenePlayActivity : AppCompatActivity(), View.OnClickListener {
     val handler = object : Handler(){
         override fun handleMessage(msg: Message) {
             super.handleMessage(msg)
-            progress_bar_healthy.setProgress(msg.what)
+            mSeekbar?.setProgress(msg.what)
             scene_item_play.setText(timeParse(msg.what.toLong()))
             Log.e("","--test--"+msg.what)
         }
     }
 
     var player : MediaPlayer ?= null
+    var mSeekbar : SeekBar ?= null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,15 +69,18 @@ class ScenePlayActivity : AppCompatActivity(), View.OnClickListener {
             }
 
             override fun onStopTrackingTouch(seekBar: SeekBar) {
-
+                player?.seekTo(mSeekbar?.progress!!)
             }
         })
     }
     private fun initView(){
         val intent = intent
         player = MediaPlayer()
+        mSeekbar = progress_bar_healthy
         val sceneName = intent.getSerializableExtra(SCENENAME) as String
         val sceneSource = intent.getSerializableExtra(SCENERESOURCE) as String
+        val bkground = intent.getSerializableExtra(BKGROUND) as String
+        showBKImage(bkground,this,scene_play_bg)
         sceneName?.let { scene_item_name.text = it }
 //        scene_paly_close.setOnClickListener { finish() }
         play(sceneSource)
@@ -78,20 +89,6 @@ class ScenePlayActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
 
-//    fun getSource(sceneSource : String) : String{
-//        val mediaPlayer =  MediaPlayer()
-//        mediaPlayer.setDataSource(sceneSource)
-//        mediaPlayer.prepare()
-//        return FilesUtils.timeParse(mediaPlayer.getDuration().toLong())
-//    }
-//
-//    fun getLongMusic(sceneSource: String): Int{
-//        val mediaPlayer =  MediaPlayer()
-//        mediaPlayer.setDataSource(sceneSource)
-//        mediaPlayer.prepare()
-//        return mediaPlayer.getDuration()
-//    }
-
     fun play(sceneSource : String){
         player?.reset()
         try {
@@ -99,10 +96,10 @@ class ScenePlayActivity : AppCompatActivity(), View.OnClickListener {
             player?.prepare()
             player?.start()
         } catch ( e: IOException) {
-            e.printStackTrace();
+            e.printStackTrace()
         }
         Thread( SeekBarThread()).start()
-        progress_bar_healthy.setMax(player?.duration!!)
+        mSeekbar?.setMax(player?.duration!!)
     }
 
     internal inner class SeekBarThread : Runnable {
@@ -123,14 +120,39 @@ class ScenePlayActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
     override fun onDestroy() {
+        player?.let {
+            if(player!!.isPlaying()){
+                player!!.stop();
+            }
+            player!!.release();
+        }
         super.onDestroy()
-        player!!.reset()
-        //isStop = true
+    }
+
+    override fun onPause() {
+        player?.let {
+            if (player!!.isPlaying()) {
+                player!!.pause()
+            }
+        }
+        super.onPause()
+    }
+
+    override fun onResume() {
+        player?.let {
+            if (!player!!.isPlaying()) {
+                player!!.start()
+            }
+        }
+        super.onResume()
     }
 
     override fun onClick(v: View?) {
         when(v?.id){
-            R.id.scene_paly_close -> finish()
+            R.id.scene_paly_close -> {
+                onDestroy()
+                finish()
+            }
             R.id.scene_play -> {
                 if(player?.isPlaying!!){
                     player?.pause()

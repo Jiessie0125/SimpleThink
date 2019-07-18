@@ -2,6 +2,7 @@ package com.example.simple.simplethink.totle.activity
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
 import android.os.Bundle
 import android.os.PersistableBundle
 import android.support.v7.app.AppCompatActivity
@@ -28,6 +29,7 @@ class SceneDetailActivity: AppCompatActivity() ,SceneDetailContact.View {
     lateinit var sceneDetailAdapter : SceneDetailAdapter
     lateinit var persenter: SceneDetailContact.Presenter
     private var isManager =false
+    lateinit var  sceneResponse : ScenesResponse
 
     companion object {
         const val SCENEDETAIL = "SCENEDETAIL"
@@ -47,7 +49,7 @@ class SceneDetailActivity: AppCompatActivity() ,SceneDetailContact.View {
         val httpResposityImpl = HttpResposityImpl()
         persenter = SceneDetailPresenter(httpResposityImpl, this)
         val intent = intent
-        val sceneResponse = intent.getSerializableExtra(SCENEDETAIL) as ScenesResponse
+        sceneResponse = intent.getSerializableExtra(SCENEDETAIL) as ScenesResponse
         showBKImage(sceneResponse.content_img_new,this,scene_bg)
         scene_title.text = sceneResponse.title
         scene_detail_back.setOnClickListener { finish() }
@@ -67,14 +69,14 @@ class SceneDetailActivity: AppCompatActivity() ,SceneDetailContact.View {
             override fun onItemClick(v: View, viewName: SceneDetailAdapter.ViewName, position: Int) {
                 when (v.getId()) {
                     R.id.scene_download -> downloadMP3(position)
-                    else -> showSceneResourcePage(sections[position].title, FilesUtils.getLocalFileUrl(sections[position].title))
+                    else -> showSceneResourcePage(sections[position].title, FilesUtils.getLocalFileUrl(sections[position].title),sceneResponse.content_img_new)
                 }
             }
         })
     }
 
-    private fun showSceneResourcePage(sceneName : String, sceneSource : String){
-        val intent = ScenePlayActivity.newIntent(this,sceneName,sceneSource)
+    private fun showSceneResourcePage(sceneName : String, sceneSource : String, bkground: String){
+        val intent = ScenePlayActivity.newIntent(this,sceneName,sceneSource,bkground)
         startActivity(intent)
     }
 
