@@ -18,7 +18,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".welcome.Activity.WelcomeActivity"
+        <activity android:name=".login.LoginViaPhoneNumActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -35,7 +35,7 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".main.MainActivity"
         android:screenOrientation="portrait"/>
-        <activity android:name=".login.LoginActivity"
+        <activity android:name=".welcome.Activity.WelcomeActivity"
             android:screenOrientation="portrait"/>
         <activity android:name=".totle.TotleActivity"
             android:screenOrientation="portrait"/>
