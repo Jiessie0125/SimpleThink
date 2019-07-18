@@ -6,6 +6,41 @@ apply plugin: 'kotlin-android-extensions'
 
 apply plugin: 'kotlin-kapt'
 
+apply plugin: 'com.mob.sdk'
+
+MobSDK {
+    appKey "2bbf1a48391f0"
+    appSecret "362a20fabe53bbc63601713e5819fbbd"
+    ShareSDK {
+        devInfo {
+            SinaWeibo {
+                appKey "411207932"
+                appSecret "9aeb5b839272c7626f1286e2b21e15f1"
+                callbackUri "http://www.sharesdk.cn"
+            }
+            Wechat {
+                appId "wx19435760a0e8b89e"
+                appSecret "233ae6f4dc37e9fe52dbfa6cf72d8acc"
+                withShareTicket true
+                miniprogramType 2
+            }
+            QQ {
+                appId "1109288757"
+                appKey "IIG6mDVGhnKIs0hv"
+            }
+            WechatMoments {
+                appId "wx19435760a0e8b89e"
+                appSecret "233ae6f4dc37e9fe52dbfa6cf72d8acc"
+            }
+            WechatFavorite {
+                appId "wx19435760a0e8b89e"
+                appSecret "233ae6f4dc37e9fe52dbfa6cf72d8acc"
+            }
+        }
+    }
+}
+
+
 android {
     compileSdkVersion 28
     defaultConfig {
