@@ -46,7 +46,6 @@ class ScenePlayActivity : AppCompatActivity(), View.OnClickListener {
             super.handleMessage(msg)
             mSeekbar?.setProgress(msg.what)
             scene_item_play.setText(timeParse(msg.what.toLong()))
-            Log.e("","--test--"+msg.what)
         }
     }
 
@@ -77,12 +76,13 @@ class ScenePlayActivity : AppCompatActivity(), View.OnClickListener {
         val intent = intent
         player = MediaPlayer()
         mSeekbar = progress_bar_healthy
+        scene_paly_close.setOnClickListener(this)
+        scene_play.setOnClickListener(this)
         val sceneName = intent.getSerializableExtra(SCENENAME) as String
         val sceneSource = intent.getSerializableExtra(SCENERESOURCE) as String
         val bkground = intent.getSerializableExtra(BKGROUND) as String
         showBKImage(bkground,this,scene_play_bg)
         sceneName?.let { scene_item_name.text = it }
-//        scene_paly_close.setOnClickListener { finish() }
         play(sceneSource)
         sceneSource?.let {
             scene_item_totle.text = FilesUtils.timeParse(player?.getDuration()?.toLong())
@@ -150,8 +150,8 @@ class ScenePlayActivity : AppCompatActivity(), View.OnClickListener {
     override fun onClick(v: View?) {
         when(v?.id){
             R.id.scene_paly_close -> {
-                onDestroy()
-                finish()
+                //onDestroy()
+                this.finish()
             }
             R.id.scene_play -> {
                 if(player?.isPlaying!!){
@@ -164,5 +164,10 @@ class ScenePlayActivity : AppCompatActivity(), View.OnClickListener {
 
             }
         }
+    }
+
+    override fun finish(){
+        handler.removeCallbacksAndMessages(null)
+        super.finish()
     }
 }

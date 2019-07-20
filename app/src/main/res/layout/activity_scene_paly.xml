@@ -83,8 +83,7 @@
             android:layout_width="1dp"
             android:layout_height="wrap_content"
             android:layout_margin="3dp"
-            android:text="/"
-            android:textStyle="italic"
+            android:text="&#047;"
             android:textSize="@dimen/logon_revive_word"
             android:background="@color/palyTime"/>
         <TextView
