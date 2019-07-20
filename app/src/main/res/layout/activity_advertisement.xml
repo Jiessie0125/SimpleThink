@@ -9,6 +9,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
     </WebView>
+
+    <Button
+        android:id="@+id/share_weChat"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_centerInParent="true"
+        android:text="wechat"/>
     <Button
         android:layout_alignParentLeft="true"
         android:layout_width="60dp"
