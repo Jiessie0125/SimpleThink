@@ -58,4 +58,9 @@ class HttpResposityImpl(): HttpRepository {
         return getItemImage.getSceneMP3(url)
     }
 
+    override fun getWhiteItem(): Observable<List<WhiteNoiseItemResponse>> {
+        val getTotleSortRetrofit = RetrofitServiceManager.instance.create(HttpRetrofitApiService::class.java)
+        return getTotleSortRetrofit.getWhiteItem()
+    }
+
 }

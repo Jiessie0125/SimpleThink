@@ -6,10 +6,10 @@ apply plugin: 'kotlin-android-extensions'
 
 apply plugin: 'kotlin-kapt'
 
-apply plugin: 'com.mob.sdk'
+//apply plugin: 'com.mob.sdk'
 
 
-MobSDK {
+/*MobSDK {
     appKey "2bbf1a48391f0"
     appSecret "362a20fabe53bbc63601713e5819fbbd"
     ShareSDK {
@@ -53,7 +53,7 @@ MobSDK {
             }
         }
     }
-}
+}*/
 
 
 android {

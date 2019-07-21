@@ -18,4 +18,5 @@ interface HttpRepository {
     fun getBuzzyCourse(id: Int): Observable<List<BuzzyCourseResponse>>
     fun getScenes(): Observable<List<ScenesResponse>>
     fun getSceneMP3(url: String): Observable<ResponseBody>
+    fun getWhiteItem(): Observable<List<WhiteNoiseItemResponse>>
 }

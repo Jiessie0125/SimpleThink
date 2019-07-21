@@ -41,4 +41,7 @@ interface HttpRetrofitApiService {
 
     @GET
     fun getSceneMP3(@Url url:String):Observable<ResponseBody>
+
+    @GET("white_noise/get")
+    fun getWhiteItem(): Observable<List<WhiteNoiseItemResponse>>
 }

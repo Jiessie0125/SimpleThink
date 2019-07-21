@@ -114,7 +114,6 @@ class ScenePlayActivity : AppCompatActivity(), View.OnClickListener {
                 } catch (e: InterruptedException) {
                     e.printStackTrace()
                 }
-
             }
 
         }

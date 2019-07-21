@@ -12,7 +12,7 @@ import com.example.simple.simplethink.R;
 
 import java.util.HashMap;
 
-import cn.sharesdk.framework.Platform;
+/*import cn.sharesdk.framework.Platform;
 import cn.sharesdk.framework.PlatformActionListener;
 import cn.sharesdk.framework.ShareSDK;
 import cn.sharesdk.onekeyshare.OnekeyShare;
@@ -20,7 +20,7 @@ import cn.sharesdk.sina.weibo.SinaWeibo;
 import cn.sharesdk.tencent.qq.QQ;
 import cn.sharesdk.wechat.friends.Wechat;
 import cn.sharesdk.wechat.moments.WechatMoments;
-import cn.sharesdk.tencent.qzone.QZone;
+import cn.sharesdk.tencent.qzone.QZone;*/
 
 /**
  * Created by mobileteam on 2019/7/18.
@@ -28,7 +28,7 @@ import cn.sharesdk.tencent.qzone.QZone;
 
 public class ShareTestActivity extends Activity {
 
-    @Override
+  /*  @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_advertisement);
@@ -142,5 +142,5 @@ public class ShareTestActivity extends Activity {
             }
         });
         weibo.share(sp);
-    }
+    }*/
 }
