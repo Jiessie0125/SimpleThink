@@ -24,17 +24,21 @@ class BuzzyCourseActivity: BaseActivity(),BuzzyCourseContact.View {
     lateinit var buzzyCoursePresenter : BuzzyCourseContact.Presenter
 
     companion object {
-        const val BuzzyFlag = "BUZZYFLAG"
-        fun newIntent (item : Int,context: Context?) :Intent{
+        const val BUZZYFLAG = "BUZZYFLAG"
+        const val BUZZYTITLE = "BUZZYTITLE"
+        const val ISBUZZY = "ISBUZZY"
+        fun newIntent (item : Int,context: Context?,title: String,isBuzzy: Boolean) :Intent{
             var intent = Intent(context,BuzzyCourseActivity::class.java)
-            intent.putExtra(BuzzyFlag,item)
+            intent.putExtra(BUZZYFLAG,item)
+            intent.putExtra(BUZZYTITLE,title)
+            intent.putExtra(ISBUZZY,isBuzzy)
             return intent
         }
     }
 
-    override fun setHeader() {
-        super.setHeader()
-        title_tool_id.text = ResourcesUtils.getString(R.string.suggestion_course)
+    override fun setHeader(title: String) {
+        super.setHeader(title)
+        title_tool_id.text = title
         title_tool_back.setOnClickListener { finish() }
     }
 
@@ -45,13 +49,15 @@ class BuzzyCourseActivity: BaseActivity(),BuzzyCourseContact.View {
     }
 
     fun initView(){
-        setHeader()
         var intent = getIntent()
-        var buzzyItem = intent.getSerializableExtra(BuzzyFlag) as Int
+        var buzzyItem = intent.getSerializableExtra(BUZZYFLAG) as Int
+        var buzzyTitle = intent.getSerializableExtra(BUZZYTITLE) as String
+        var isbuzzy = intent.getSerializableExtra(ISBUZZY) as Boolean
+        setHeader(buzzyTitle)
         setAdapter()
         val httpResposityImpl = HttpResposityImpl()
         buzzyCoursePresenter = BuzzyCoursePresenter(httpResposityImpl,this)
-        buzzyCoursePresenter.getBuzzyCourse(buzzyItem)
+        if (isbuzzy) buzzyCoursePresenter.getBuzzyCourse(buzzyItem) else buzzyCoursePresenter.getSortCouse(buzzyItem)
     }
 
     private fun setAdapter(){

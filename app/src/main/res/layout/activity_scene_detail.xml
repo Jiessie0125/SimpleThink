@@ -40,7 +40,7 @@
         android:layout_height="2dp"
         android:layout_alignStart="@+id/scene_title"
         android:layout_alignEnd="@+id/scene_title"
-        android:background="@color/wordWhite"
+        android:background="@color/palyTime"
         />
     <android.support.v7.widget.RecyclerView
         android:layout_below="@+id/scene_detail_view"

@@ -9,6 +9,7 @@ class BuzzyCourseContact {
 
     interface Presenter{
         fun getBuzzyCourse(id :Int)
+        fun getSortCouse(id: Int)
     }
 
     interface View{

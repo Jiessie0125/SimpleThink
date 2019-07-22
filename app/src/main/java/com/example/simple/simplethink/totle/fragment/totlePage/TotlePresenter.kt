@@ -44,8 +44,8 @@ class TotlePresenter(val httpResposityImpl : HttpResposityImpl, val view: TotleF
                     LocalDataCache.save(message,GETTOTLESORT)
                     for (i in 0 until message.size){
                         FilesUtils.downloadImage(context, message[i].image, message[i].category_name)
-                        view.setTotleIcon(message[i].image,message[i].category_name)
                     }
+                    view.setTotleIcon(message)
                    /*
                     view.getTotleSortIcon(false,message)*/
                 },{
@@ -53,28 +53,6 @@ class TotlePresenter(val httpResposityImpl : HttpResposityImpl, val view: TotleF
                     Log.e("---","----getTotleSortfail:"+error)
                 })
     }
-
-   /* override fun getItemImage(url : String,strFileName : String){
-         httpResposityImpl.getItemImage(url).subscribeOn(Schedulers.io())
-                .subscribeOn(Schedulers.newThread())
-                 .map(object :Function<ResponseBody,Bitmap> {
-                     override fun apply(t: ResponseBody): Bitmap? {
-                         val messageByte = t.bytes()
-                        if(FilesUtils.savaBitmap(messageByte,strFileName,"png")){
-                            return FilesUtils.getItemIcon(strFileName,"png")
-                        }else {
-                            return null
-                        }
-                     }
-                 })
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({message ->
-                    view.getItemImage(strFileName,message)
-                },{
-                    error ->
-                    Log.e("---","----getItemImagefail:"+error)
-                })
-    }*/
 
     override fun getCourse(){
         httpResposityImpl.getCourseImage().subscribeOn(Schedulers.io())
@@ -95,25 +73,4 @@ class TotlePresenter(val httpResposityImpl : HttpResposityImpl, val view: TotleF
                 })
     }
 
-   /* override fun getCourseImage(url : String,strFileName : String) {
-        httpResposityImpl.getCourseImageItem(url).subscribeOn(Schedulers.io())
-                .subscribeOn(Schedulers.newThread())
-                .map(object :Function<ResponseBody,Bitmap> {
-                    override fun apply(t: ResponseBody): Bitmap? {
-                        val messageByte = t.bytes()
-                        if(FilesUtils.savaBitmap(messageByte,strFileName,"jpg")){
-                            return FilesUtils.getItemIcon(strFileName,"jpg")
-                        }else {
-                            return null
-                        }
-                    }
-                })
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({message ->
-                    view.getCourseImageView(strFileName,message)
-                },{
-                    error ->
-                    Log.e("---","----getItemImagefail:"+error)
-                })
-    }*/
 }

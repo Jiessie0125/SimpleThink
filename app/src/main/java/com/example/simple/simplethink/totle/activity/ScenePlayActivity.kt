@@ -51,6 +51,7 @@ class ScenePlayActivity : AppCompatActivity(), View.OnClickListener {
 
     var player : MediaPlayer ?= null
     var mSeekbar : SeekBar ?= null
+    var isStop = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -95,17 +96,17 @@ class ScenePlayActivity : AppCompatActivity(), View.OnClickListener {
             player?.setDataSource(sceneSource)
             player?.prepare()
             player?.start()
+            Thread( SeekBarThread()).start()
         } catch ( e: IOException) {
             e.printStackTrace()
         }
-        Thread( SeekBarThread()).start()
         mSeekbar?.setMax(player?.duration!!)
     }
 
     internal inner class SeekBarThread : Runnable {
 
         override fun run() {
-            while (player != null /*&& isStop == false*/) {
+            while (player != null && isStop == false) {
                 // 将SeekBar位置设置到当前播放位置
                 handler.sendEmptyMessage(player!!.getCurrentPosition())
                 try {
@@ -119,6 +120,7 @@ class ScenePlayActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
     override fun onDestroy() {
+        isStop = true
         player?.let {
             if(player!!.isPlaying()){
                 player!!.stop();
@@ -149,7 +151,6 @@ class ScenePlayActivity : AppCompatActivity(), View.OnClickListener {
     override fun onClick(v: View?) {
         when(v?.id){
             R.id.scene_paly_close -> {
-                //onDestroy()
                 this.finish()
             }
             R.id.scene_play -> {
@@ -167,6 +168,8 @@ class ScenePlayActivity : AppCompatActivity(), View.OnClickListener {
 
     override fun finish(){
         handler.removeCallbacksAndMessages(null)
+        isStop = true
         super.finish()
     }
+
 }

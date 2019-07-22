@@ -7,6 +7,7 @@ import android.os.Handler
 import android.os.Message
 import android.support.v4.app.Fragment
 import android.support.v7.widget.GridLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -65,7 +66,7 @@ class WhithNoiseFragment : Fragment(),WhiteNoiseContact.View ,View.OnClickListen
 
     override fun updateView(list: List<WhiteNoiseItemResponse>) {
         whiteItemAdapter = WhiteItemAdapter(this.activity!!,list)
-        white_noise_rv.layoutManager  = GridLayoutManager(this.context, 3)
+        white_noise_rv.layoutManager  = GridLayoutManager(this.context, 3) as RecyclerView.LayoutManager?
         val stringIntegerHashMap = HashMap< String, Int>()
         stringIntegerHashMap.put(RecyclerViewSpacesItemDecoration.RIGHT_DECORATION, 25)//右间距
         stringIntegerHashMap.put(RecyclerViewSpacesItemDecoration.TOP_DECORATION, 25)

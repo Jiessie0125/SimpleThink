@@ -63,4 +63,9 @@ class HttpResposityImpl(): HttpRepository {
         return getTotleSortRetrofit.getWhiteItem()
     }
 
+    override fun getSortCourse(id: Int): Observable<List<BuzzyCourseResponse>> {
+        val getItemImage= RetrofitServiceManager.instance.create(HttpRetrofitApiService::class.java)
+        return getItemImage.getSortCourse(id)
+    }
+
 }
