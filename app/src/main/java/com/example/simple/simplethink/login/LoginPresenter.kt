@@ -3,6 +3,7 @@ package com.example.simple.simplethink.login
 import android.util.Log
 import com.example.simple.simplethink.netapi.auth.AuthRepository
 import com.example.simple.simplethink.netapi.auth.AuthRepositoryImp
+import com.example.simple.simplethink.utils.auth.AuthInstance
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.android.schedulers.AndroidSchedulers
 
@@ -25,9 +26,12 @@ class LoginPresenter : LoginContract.Presenter {
                 .observeOn(AndroidSchedulers.mainThread())
                 .map { result -> result }
                 .subscribe({ message ->
-
+                    val token = message.accessToken
+                    AuthInstance.getInstance().accessToken = token
+                    view?.onSuccess()
                 }, { error ->
                     Log.e("---", "----getTotleSortfail:" + error)
+                    view?.onFailure()
                 })
     }
 
