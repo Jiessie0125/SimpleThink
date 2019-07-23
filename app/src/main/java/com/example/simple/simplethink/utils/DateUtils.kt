@@ -8,11 +8,7 @@ import java.util.GregorianCalendar
 import java.util.Locale
 import java.util.Random
 
-/**
- * description: 时间格式
- * author:  kevin
- * date: 2017/6/13 19:46
- */
+
 object DateUtils {
     /** 日志对象  */
 

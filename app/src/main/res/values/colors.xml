@@ -19,4 +19,5 @@
     <color name="palyTime">#7F7F7F</color>
     <color name="palyProcesss">#7F7F7F</color>
     <color name="transparent">#efeeee</color>
+    <color name="popupWindow">#26212c</color>
 </resources>
