@@ -5,11 +5,11 @@ class AuthInstance {
 
     companion object {
         @Volatile
-        private var instance: AuthInstance? = null
+        private var singleton: AuthInstance? = null
 
         fun getInstance() =
-                instance ?: synchronized(this) {
-                    instance ?: AuthInstance().also { instance = it }
+                singleton ?: synchronized(this) {
+                    singleton ?: AuthInstance().also { singleton = it }
                 }
     }
 
