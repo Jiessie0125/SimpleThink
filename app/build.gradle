@@ -6,17 +6,17 @@ apply plugin: 'kotlin-android-extensions'
 
 apply plugin: 'kotlin-kapt'
 
-//apply plugin: 'com.mob.sdk'
+apply plugin: 'com.mob.sdk'
 
 
-/*MobSDK {
+MobSDK {
     appKey "2bbf1a48391f0"
     appSecret "362a20fabe53bbc63601713e5819fbbd"
     ShareSDK {
         devInfo {
             SinaWeibo {
                 appKey "411207932"
-                appSecret "9aeb5b839272c7626f1286e2b21e15f102"
+                appSecret "9aeb5b839272c7626f1286e2b21e15f1"
                 shareByAppClient true
                 enable true
             }
@@ -53,7 +53,7 @@ apply plugin: 'kotlin-kapt'
             }
         }
     }
-}*/
+}
 
 
 android {
