@@ -15,7 +15,9 @@ class LoginViaPhoneNumActivity : Activity(), LoginContract.View {
         setContentView(R.layout.activity_login_phone_number)
         presenter.bind(this)
         login_phone_btn.setOnClickListener{
-            presenter.login("","")
+            val phone = login_phone_number.text.toString()
+            val psd = login_phone_number_pwd.text.toString()
+            presenter.login(phone,psd)
         }
     }
 

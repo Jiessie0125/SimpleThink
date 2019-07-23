@@ -7,7 +7,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import com.example.simple.simplethink.utils.LocalDataCache
 import com.example.simple.simplethink.utils.ResourcesUtils
-import com.mob.MobSDK
+//import com.mob.MobSDK
 
 class MyApp : Application() {
 
@@ -22,6 +22,6 @@ class MyApp : Application() {
         super.onCreate()
         context = getApplicationContext()
         ResourcesUtils.init(this)
-        MobSDK.init(this)
+       // MobSDK.init(this)
     }
 }

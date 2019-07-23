@@ -11,9 +11,9 @@ import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.TextView
 import com.example.simple.simplethink.R
-import com.example.simple.simplethink.totle.fragment.*
 import com.example.simple.simplethink.totle.fragment.scenePage.SceneFragment
 import com.example.simple.simplethink.totle.fragment.totlePage.TotleFragment
+import com.example.simple.simplethink.totle.fragment.whiteNoisePage.WhithNoiseFragment
 import com.example.simple.simplethink.utils.ResourcesUtils
 import kotlinx.android.synthetic.main.activity_totle.*
 

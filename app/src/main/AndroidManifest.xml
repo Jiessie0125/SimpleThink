@@ -49,17 +49,8 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".totle.activity.ScenePlayActivity"
             android:screenOrientation="portrait"/>
-        <activity
-            android:name="cn.sharesdk.tencent.qq.ReceiveActivity"
-            android:launchMode="singleTask"
-            android:noHistory="true">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
-                <data android:scheme="1109288757" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".login.LoginViaPhoneNumActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

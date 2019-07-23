@@ -16,6 +16,6 @@ abstract  class BaseActivity : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
-    open fun setHeader(){}
+    open fun setHeader(title : String){}
 
 }

@@ -60,4 +60,22 @@ class BuzzyCoursePresenter(val httpResposityImpl : HttpResposityImpl, val view: 
                     Log.e("---","----getItemImagefail:"+error)
                 })*/
     }
+
+    override fun getSortCouse(id:Int) {
+        httpResposityImpl.getSortCourse(id).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .map { result -> result }
+                .subscribe({message ->
+                    for(i in 0 until message.size){
+                        var bannerURL = message[i].title_img_new
+                        var title = message[i].title
+                        var totleItem = TotleItem(title,bannerURL)
+                        buzzyCourseUrlList.add(totleItem)
+                        view.setBuzzyCourseAdapter(buzzyCourseUrlList)
+                    }
+                },{
+                    error->
+                    Log.e("---","----getTotleSortfail:"+error)
+                })
+    }
 }

@@ -29,8 +29,8 @@
         android:gravity="center_vertical"
         android:minHeight="55dp">
         <ImageView
-            android:layout_width="22dp"
-            android:layout_height="22dp"
+            android:layout_width="14dp"
+            android:layout_height="14dp"
             android:layout_alignParentRight="true"
             android:src="@drawable/close_whiete" />
     </RelativeLayout>
@@ -47,8 +47,8 @@
             android:src="@drawable/logo_white" />
         <ImageView
         android:id="@+id/scene_play"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="24dp"
+        android:layout_height="29dp"
         android:layout_gravity="center"
         android:src="@drawable/scene_play" />
 

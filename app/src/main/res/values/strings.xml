@@ -32,4 +32,5 @@
     <string name="qq_friends">QQ好友</string>
     <string name="qq_space">QQ空间</string>
     <string name="sina_weibo">新浪微博</string>
+    <string name="white_noise_time">00:00</string>
 </resources>

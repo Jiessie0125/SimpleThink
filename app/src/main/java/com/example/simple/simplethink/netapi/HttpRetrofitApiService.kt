@@ -41,4 +41,10 @@ interface HttpRetrofitApiService {
 
     @GET
     fun getSceneMP3(@Url url:String):Observable<ResponseBody>
+
+    @GET("white_noise/get")
+    fun getWhiteItem(): Observable<List<WhiteNoiseItemResponse>>
+
+    @GET("new_course/course/{category_id}")
+    fun getSortCourse(@Path("category_id")id:Int):  Observable<List<BuzzyCourseResponse>>
 }

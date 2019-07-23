@@ -20,4 +20,6 @@
     <color name="palyProcesss">#7F7F7F</color>
     <color name="transparent">#efeeee</color>
     <color name="popupWindow">#26212c</color>
+    <color name="whiteItem">#494154</color>
+    <color name="whiteItemSelected">#413A4B</color>
 </resources>
