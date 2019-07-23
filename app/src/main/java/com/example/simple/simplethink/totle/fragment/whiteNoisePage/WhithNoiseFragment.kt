@@ -33,6 +33,7 @@ class WhithNoiseFragment : Fragment(),WhiteNoiseContact.View ,View.OnClickListen
     lateinit var persenter: WhiteNoiseContact.Presenter
     lateinit var whiteItemAdapter: WhiteItemAdapter
     var player : MediaPlayer?= null
+    var isStop = true
 
     val handler = object : Handler(){
         override fun handleMessage(msg: Message) {
@@ -77,6 +78,7 @@ class WhithNoiseFragment : Fragment(),WhiteNoiseContact.View ,View.OnClickListen
             override fun onItemClick(v: View?, position: Int) {
                // releasePlay()
                 whiteItemAdapter.changetShowDelImage(true,position)
+                white_play.setImageResource(R.drawable.white_play)
                 white_item_play_time.text = ResourcesUtils.getString(R.string.white_noise_time)
                 updateProcessBar(list[position].url,list[position].title)
             }
@@ -123,7 +125,7 @@ class WhithNoiseFragment : Fragment(),WhiteNoiseContact.View ,View.OnClickListen
     internal inner class MyThread : Runnable {
 
         override fun run() {
-            while (player != null /*&& isStop == false*/) {
+            while (player != null && isStop == false) {
                 // 将SeekBar位置设置到当前播放位置
                 handler.sendEmptyMessage(player!!.getCurrentPosition())
                 try {
@@ -142,10 +144,10 @@ class WhithNoiseFragment : Fragment(),WhiteNoiseContact.View ,View.OnClickListen
             R.id.white_play -> {
                 if(player?.isPlaying!!){
                     player?.pause()
-                    white_play.setImageResource(R.drawable.white_stop)
+                    white_play.setImageResource(R.drawable.white_play)
                 }else{
                     player?.start()
-                    white_play.setImageResource(R.drawable.white_play)
+                    white_play.setImageResource(R.drawable.white_stop)
                 }
 
             }
@@ -154,7 +156,6 @@ class WhithNoiseFragment : Fragment(),WhiteNoiseContact.View ,View.OnClickListen
 
     fun createFragment(): WhithNoiseFragment {
         val bundle = Bundle()
-
         val fragment = WhithNoiseFragment()
         fragment.setArguments(bundle)
 
@@ -165,7 +166,9 @@ class WhithNoiseFragment : Fragment(),WhiteNoiseContact.View ,View.OnClickListen
         releasePlay()
         super.onDestroy()
     }
+
     private fun releasePlay(){
+        isStop = false
         player?.let {
             if(player!!.isPlaying()){
                 player!!.stop();

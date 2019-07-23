@@ -11,8 +11,10 @@ import android.widget.TextView
 import com.example.simple.simplethink.R
 import com.example.simple.simplethink.model.TotleItem
 import com.example.simple.simplethink.model.WhiteNoiseItemResponse
+import com.example.simple.simplethink.totle.fragment.whiteNoisePage.MyLayout
 import com.example.simple.simplethink.utils.DownloadHelper
 import com.example.simple.simplethink.utils.FilesUtils
+import com.example.simple.simplethink.utils.ResourcesUtils
 import java.io.File
 import java.util.ArrayList
 
@@ -24,6 +26,7 @@ class WhiteItemAdapter( val context: Activity,val totleLish: List<WhiteNoiseItem
     private var mClickListener : OnWhiteItemClickListener ?= null
     private var mPosition = -1
     private var isShow = false
+    private var checked = true
 
     override fun getItemCount(): Int {
         return totleLish?.size!!
@@ -32,10 +35,19 @@ class WhiteItemAdapter( val context: Activity,val totleLish: List<WhiteNoiseItem
     override fun onBindViewHolder(holder: WhiteItemViewHolder?, position: Int) {
         holder?.mTotleItem?.text = totleLish?.get(position)?.title
         FilesUtils.showImage(totleLish?.get(position)?.img, context, holder?.mItemImage)
-        if(isShow && mPosition == position){
+        if(position == 0 && checked){
             holder?.mSelectedItemImage?.visibility = View.VISIBLE
+            holder?.mWhiteItem?.background  = ResourcesUtils.resource.getDrawable(R.drawable.shape_corner_seleted)
+            holder?.mTotleItem?.setTextColor(ResourcesUtils.resource.getColor(R.color.wordWhite))
+            checked = false
+        }else if(isShow && mPosition == position){
+            holder?.mSelectedItemImage?.visibility = View.VISIBLE
+            holder?.mWhiteItem?.background  = ResourcesUtils.resource.getDrawable(R.drawable.shape_corner_seleted)
+            holder?.mTotleItem?.setTextColor(ResourcesUtils.resource.getColor(R.color.wordWhite))
         }else{
             holder?.mSelectedItemImage?.visibility = View.GONE
+            holder?.mWhiteItem?.background  = ResourcesUtils.resource.getDrawable(R.drawable.shape_corner)
+            holder?.mTotleItem?.setTextColor(ResourcesUtils.resource.getColor(R.color.whiteItem))
         }
     }
 
@@ -61,12 +73,13 @@ class WhiteItemViewHolder(view : View?, private val mListener: OnWhiteItemClickL
     var mTotleItem : TextView?
     var mItemImage : ImageView?
     var mSelectedItemImage : ImageView?
+    var mWhiteItem : MyLayout?
 
     init {
         mTotleItem = view?.findViewById(R.id.recycle_white_txt)
         mItemImage = view?.findViewById(R.id.recycle_white_sign)
         mSelectedItemImage = view?.findViewById(R.id.white_selected)
-
+        mWhiteItem = view?.findViewById(R.id.white_item)
         view?.setOnClickListener (this)
     }
 

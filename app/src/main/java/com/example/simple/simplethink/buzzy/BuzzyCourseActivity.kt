@@ -10,6 +10,7 @@ import com.example.simple.simplethink.base.BaseActivity
 import com.example.simple.simplethink.buzzy.adapter.BuzzyCourseAdapter
 import com.example.simple.simplethink.model.TotleItem
 import com.example.simple.simplethink.netapi.HttpResposityImpl
+import com.example.simple.simplethink.totle.activity.RecyclerViewSpacesItemDecoration
 import com.example.simple.simplethink.totle.adapter.CourseAdapter
 import com.example.simple.simplethink.utils.ResourcesUtils
 import kotlinx.android.synthetic.main.activity_buzzy_course.*
@@ -62,6 +63,10 @@ class BuzzyCourseActivity: BaseActivity(),BuzzyCourseContact.View {
 
     private fun setAdapter(){
         totleAdapter = BuzzyCourseAdapter(this)
+        val stringIntegerHashMap = HashMap< String, Int>()
+        stringIntegerHashMap.put(RecyclerViewSpacesItemDecoration.RIGHT_DECORATION, 25)//右间距
+        stringIntegerHashMap.put(RecyclerViewSpacesItemDecoration.TOP_DECORATION, 25)
+        buzzyCouse_tv.addItemDecoration(RecyclerViewSpacesItemDecoration(stringIntegerHashMap))
         buzzyCouse_tv.layoutManager = GridLayoutManager(this,2)
         buzzyCouse_tv.adapter = totleAdapter
     }

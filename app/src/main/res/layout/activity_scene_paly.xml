@@ -50,7 +50,7 @@
         android:layout_width="24dp"
         android:layout_height="29dp"
         android:layout_gravity="center"
-        android:src="@drawable/scene_play" />
+        android:src="@drawable/scene_stop" />
 
     </FrameLayout>
 

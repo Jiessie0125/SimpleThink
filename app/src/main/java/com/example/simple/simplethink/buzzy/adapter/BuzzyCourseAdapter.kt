@@ -26,7 +26,6 @@ class BuzzyCourseAdapter(val context : Activity ) : RecyclerView.Adapter<CourseV
     override fun onBindViewHolder(holder: CourseViewHolder?, position: Int) {
         holder?.mTotleItem?.text = totleLish?.get(position)?.totleItemTxt
         FilesUtils.showImage(totleLish?.get(position)?.totleItemImage,context,holder?.mItemImage)
-       /* holder?.mItemImage?.setImageBitmap(totleLish?.get(position)?.totleItemImage)*/
     }
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): CourseViewHolder? {
