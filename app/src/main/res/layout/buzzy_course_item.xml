@@ -4,22 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:paddingTop="10dp"
     android:background="@color/mainColor"
-    android:layout_centerInParent="true"
-    android:orientation="vertical">
+    android:layout_centerInParent="true">
     <ImageView
         android:id="@+id/recycle_buzzy_course_img"
         android:layout_width="155dp"
-        android:layout_height="115dp"
-        android:src="@drawable/days_absorbed"
+        android:layout_height="155dp"
         android:scaleType="fitXY"
         android:layout_gravity="center_horizontal"
         />
     <TextView
         android:id="@+id/recycle_buzzy_course_tv"
         android:layout_width="155dp"
-        android:layout_height="115dp"
+        android:layout_height="155dp"
         android:textSize="@dimen/course_txt"
         android:textColor="@color/wordWhite"
         android:gravity="center"/>

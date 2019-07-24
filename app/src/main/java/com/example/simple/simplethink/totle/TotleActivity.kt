@@ -44,6 +44,8 @@ class TotleActivity: AppCompatActivity() {
     }
 
     fun init(){
+        user.setOnClickListener{finish()}
+        download.setOnClickListener {  }
 
         mTabLayout = tablayout
         mViewPager = viewpager

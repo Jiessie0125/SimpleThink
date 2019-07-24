@@ -1,5 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:state_selected="true" android:drawable="@drawable/shape_corner_seleted"/>
-    <item android:state_selected="false" android:drawable="@drawable/shape_corner"/>
+    <item android:state_selected="true">
+        <shape xmlns:android="http://schemas.android.com/apk/res/android">
+            <solid android:color="@color/whiteItemSelected" />
+            <corners android:topLeftRadius="10dp"
+                android:topRightRadius="10dp"
+                android:bottomRightRadius="10dp"
+                android:bottomLeftRadius="10dp"/>
+            <stroke android:width="1dp" android:color="@color/whiteItemSelected" />
+        </shape>
+    </item>
+    <item android:state_selected="false">
+        <shape xmlns:android="http://schemas.android.com/apk/res/android">
+            <solid android:color="@color/item" />
+            <corners android:topLeftRadius="10dp"
+                android:topRightRadius="10dp"
+                android:bottomRightRadius="10dp"
+                android:bottomLeftRadius="10dp"/>
+            <stroke android:width="1dp" android:color="@color/item" />
+        </shape>
+    </item>
 </selector>
