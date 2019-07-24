@@ -2,14 +2,11 @@ package com.example.simple.simplethink.welcome.Activity;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.BitmapFactory;
-import android.media.Image;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.Gravity;
 import android.view.View;
 import android.webkit.WebView;
-import android.widget.Button;
 import android.widget.ImageView;
 
 import com.example.simple.simplethink.R;
@@ -21,6 +18,7 @@ import com.example.simple.simplethink.utils.ShareMediaPopupWindow;
 import com.example.simple.simplethink.utils.URLConstant;
 
 import cn.sharesdk.framework.Platform;
+import cn.sharesdk.framework.ShareSDK;
 
 /**
  * Created by mobileteam on 2019/7/17.
@@ -49,6 +47,11 @@ public class AdvertisementActivity extends Activity implements View.OnClickListe
         share_btn = (ImageView) findViewById(R.id.ad_share_btn);
         share_btn.setTag("share");
         share_btn.setOnClickListener(this);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 
     private void initBean() {
