@@ -5,6 +5,7 @@
     <color name="colorAccent">#FF4081</color>
     <color name="mainColor">#2c2635</color>
     <color name="item">#26202F</color>
+    <color name="wordBlack">#000000</color>
     <color name="wordWhite">#FFFFFF</color>
     <color name="logonButton">#58D9B9</color>
     <color name="blackItemLine">#26202F</color>
@@ -18,7 +19,7 @@
     <color name="divide_line_vertical">#40394B</color>
     <color name="palyTime">#7F7F7F</color>
     <color name="palyProcesss">#7F7F7F</color>
-    <color name="transparent">#efeeee</color>
+    <color name="transparent">#F8F8FF</color>
     <color name="popupWindow">#26212c</color>
     <color name="whiteItem">#494154</color>
     <color name="whiteItemSelected">#413A4B</color>

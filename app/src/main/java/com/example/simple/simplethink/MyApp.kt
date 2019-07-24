@@ -8,6 +8,7 @@ import android.content.Intent
 import android.os.Bundle
 import com.example.simple.simplethink.utils.ResourcesUtils
 import com.example.simple.simplethink.welcome.Activity.WelcomeActivity
+import com.mob.MobSDK
 
 //import com.mob.MobSDK
 
@@ -24,13 +25,14 @@ class MyApp : Application() {
         super.onCreate()
         context = getApplicationContext()
         ResourcesUtils.init(this)
-       // MobSDK.init(this)
+        MobSDK.init(this)
+        initBackgroundCallBack()
     }
 
 
     private fun initBackgroundCallBack() {
         var count = 0
-        var isRunInBackground = true
+        var isRunInBackground = false
         var time = System.currentTimeMillis()
         registerActivityLifecycleCallbacks(object : ActivityLifecycleCallbacks {
             override fun onActivityCreated(activity: Activity?, savedInstanceState: Bundle?) {
@@ -47,9 +49,10 @@ class MyApp : Application() {
                 if (isRunInBackground) {
                     // 后台到前台，在此进行相应操作
                     isRunInBackground = false
-                    if (System.currentTimeMillis() - time > 10000) {
-                            val intent = Intent(context, WelcomeActivity::class.java)
-                            startActivity(intent)
+                    if (System.currentTimeMillis() - time > 180000) {
+                        val intent = Intent(context, WelcomeActivity::class.java)
+                        intent.putExtra("isAppRestart", true)
+                        startActivity(intent)
                     }
 
                 }

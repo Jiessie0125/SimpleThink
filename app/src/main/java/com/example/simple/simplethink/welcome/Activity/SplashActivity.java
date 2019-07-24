@@ -2,7 +2,6 @@ package com.example.simple.simplethink.welcome.Activity;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Environment;
@@ -35,11 +34,13 @@ public class SplashActivity extends Activity implements View.OnClickListener{
     private String tag;
     private String linkPage;
     private Handler handler;
+    private boolean isAppRestart = false;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-
+        Intent intent = getIntent();
+        isAppRestart = intent.getBooleanExtra("isAppRestart",false);
         tv = (TextView) findViewById(R.id.tv_jump);
         tv.setTag("jump");
         tv.setOnClickListener(this);
@@ -69,6 +70,11 @@ public class SplashActivity extends Activity implements View.OnClickListener{
     }
 
     private void enterActivity(Class activity){
+
+        if(isAppRestart){
+            finish();
+            return;
+        }
         Intent intent = new Intent(SplashActivity.this, activity);
         startActivity(intent);
         finish();

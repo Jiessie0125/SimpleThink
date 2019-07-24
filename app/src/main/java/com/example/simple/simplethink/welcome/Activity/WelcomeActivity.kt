@@ -15,8 +15,11 @@ class WelcomeActivity : Activity() {
     lateinit var persenter: SplashContract.Presenter
 
     private var splashBanner:BannerResponse? = null
+    private var isAppRestart:Boolean? = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        var intent = getIntent()
+        isAppRestart = intent.getBooleanExtra("isAppRestart",false)
         val isFirstOpen = SharedPreferencesUtil.getBoolean(this, SharedPreferencesUtil.FIRST_OPEN, true)!!
         if (isFirstOpen) {
             val intent = Intent(this, WelcomeGuideActivity::class.java)
@@ -44,6 +47,10 @@ class WelcomeActivity : Activity() {
 
        Handler().postDelayed(Runnable {
             /*2秒后进入主页*/
+           if(isAppRestart as Boolean){
+               finish()
+               return@Runnable
+           }
             enterHomeActivity()
         }, 2000)
     }
@@ -65,6 +72,7 @@ class WelcomeActivity : Activity() {
 
     private fun enterSplashActivity(){
         val intent = Intent(this, SplashActivity::class.java)
+        intent.putExtra("isAppRestart", isAppRestart)
         startActivity(intent)
         finish()
     }

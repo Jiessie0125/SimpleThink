@@ -13,6 +13,7 @@
 
 
 
+
     <application
         android:name=".MyApp"
         tools:replace="android:name"
@@ -23,7 +24,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".welcome.Activity.WelcomeActivity"
-            android:launchMode="singleTask"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
