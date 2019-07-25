@@ -24,6 +24,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".welcome.Activity.WelcomeActivity"
+            android:theme="@style/anim_fade"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -32,12 +33,16 @@
             </intent-filter>
         </activity>
         <activity android:name=".welcome.Activity.AdvertisementActivity"
+            android:theme="@style/anim_slide"
             android:screenOrientation="portrait"/>
         <activity android:name=".welcome.Activity.SplashActivity"
+            android:theme="@style/anim_fade"
             android:screenOrientation="portrait"/>
         <activity android:name=".welcome.Activity.WelcomeGuideActivity"
+            android:theme="@style/anim_fade"
             android:screenOrientation="portrait"/>
         <activity android:name=".main.MainActivity"
+            android:theme="@style/anim_fade"
         android:screenOrientation="portrait"/>
         <activity android:name=".login.LoginActivity"
             android:screenOrientation="portrait"/>
