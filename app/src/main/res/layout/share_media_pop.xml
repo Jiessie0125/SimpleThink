@@ -20,34 +20,30 @@
                 android:layout_marginRight="40dp"
                 android:layout_marginTop="50dp">
                 <ImageView
-                    android:id="@+id/share_weChat"
+                    android:id="@+id/share0"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:layout_marginRight="10dp"
-                    android:src="@drawable/weixin"
                     android:scaleType="fitXY"
                     android:visibility="gone"/>
                 <ImageView
-                    android:id="@+id/share_moments"
+                    android:id="@+id/share1"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:layout_marginRight="10dp"
-                    android:src="@drawable/pengyouquan"
                     android:scaleType="fitXY"
                     android:visibility="gone"/>
                 <ImageView
-                    android:id="@+id/share_qq"
+                    android:id="@+id/share2"
                     android:layout_marginRight="10dp"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
-                    android:src="@drawable/qq"
                     android:scaleType="fitXY"
                     android:visibility="gone"/>
                 <ImageView
-                    android:id="@+id/share_qqSpace"
+                    android:id="@+id/share3"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
-                    android:src="@drawable/qq_space"
                     android:scaleType="fitXY"
                     android:visibility="gone"/>
             </LinearLayout>
@@ -58,41 +54,37 @@
                 android:layout_marginLeft="40dp"
                 android:layout_marginRight="40dp">
                 <TextView
-                    android:id="@+id/weChat_text"
+                    android:id="@+id/shareText0"
                     android:textAlignment="center"
                     android:layout_width="60dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/wechat_friends"
                     android:textColor="@color/wordWhite"
                     android:layout_marginRight="10dp"
                     android:visibility="gone"
                     />
                 <TextView
-                    android:id="@+id/moments_text"
+                    android:id="@+id/shareText1"
                     android:textAlignment="center"
                     android:layout_width="60dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/wechat_moments"
                     android:textColor="@color/wordWhite"
                     android:layout_marginRight="10dp"
                     android:visibility="gone"
                     />
                 <TextView
-                    android:id="@+id/qq_text"
+                    android:id="@+id/shareText2"
                     android:textAlignment="center"
                     android:layout_width="60dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/qq_friends"
                     android:textColor="@color/wordWhite"
                     android:layout_marginRight="10dp"
                     android:visibility="gone"
                     />
                 <TextView
-                    android:id="@+id/qq_space_text"
+                    android:id="@+id/shareText3"
                     android:textAlignment="center"
                     android:layout_width="60dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/qq_space"
                     android:textColor="@color/wordWhite"
                     android:visibility="gone"
                     />
@@ -105,11 +97,10 @@
                 android:layout_marginRight="40dp"
                 android:layout_marginTop="20dp">
                 <ImageView
-                    android:id="@+id/share_weibo"
+                    android:id="@+id/share4"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:layout_marginRight="10dp"
-                    android:src="@drawable/weibo"
                     android:scaleType="fitXY"
                     android:visibility="gone"/>
 
@@ -121,11 +112,10 @@
                 android:layout_marginLeft="40dp"
                 android:layout_marginRight="40dp">
                 <TextView
-                    android:id="@+id/weibo_text"
+                    android:id="@+id/shareText4"
                     android:textAlignment="center"
                     android:layout_width="60dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/sina_weibo"
                     android:textColor="@color/wordWhite"
                     android:layout_marginRight="10dp"
                     android:visibility="gone"

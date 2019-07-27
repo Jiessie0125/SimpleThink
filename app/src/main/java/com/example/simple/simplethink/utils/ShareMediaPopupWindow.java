@@ -1,6 +1,9 @@
 package com.example.simple.simplethink.utils;
 
 import android.content.Context;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -72,12 +75,20 @@ public class ShareMediaPopupWindow extends PopupWindow implements View.OnClickLi
     private void initShareWidgets(String[] supportedMeidaList) {
         if(null != supportedMeidaList && supportedMeidaList.length > 0){
             for(int i = 0; i < supportedMeidaList.length; i++){
+                int identifier= context.getResources().getIdentifier("share"+i, "id", context.getPackageName());
+                int identifier1= context.getResources().getIdentifier("shareText"+i, "id", context.getPackageName());
                 if(supportedMeidaList[i].equals(WECHAT)){
                     Platform wechat = ShareSDK.getPlatform (Wechat.NAME);
                     boolean clientValid = wechat.isClientValid();
                     if(clientValid){
-                        shareWeChat = (ImageView) mPopView.findViewById(R.id.share_weChat);
-                        shareWeChatText = (TextView) mPopView.findViewById(R.id.weChat_text);
+                        if(identifier == 0)
+                            continue;
+                        shareWeChat = (ImageView) mPopView.findViewById(identifier);
+                        shareWeChat.setImageDrawable(getDrawableFromId(R.drawable.weixin));
+                        if(identifier1 == 0)
+                            continue;
+                        shareWeChatText = (TextView) mPopView.findViewById(identifier1);
+                        shareWeChatText.setText(R.string.wechat_friends);
                         shareWeChat.setVisibility(View.VISIBLE);
                         shareWeChatText.setVisibility(View.VISIBLE);
                         shareWeChat.setTag(WECHAT);
@@ -89,10 +100,16 @@ public class ShareMediaPopupWindow extends PopupWindow implements View.OnClickLi
                     Platform wechat = ShareSDK.getPlatform (Wechat.NAME);
                     boolean clientValid = wechat.isClientValid();
                     if(clientValid){
-                        shareMoments = (ImageView) mPopView.findViewById(R.id.share_moments);
-                        shareMomentsText = (TextView) mPopView.findViewById(R.id.moments_text);
+                        if(identifier == 0)
+                            continue;
+                        shareMoments = (ImageView) mPopView.findViewById(identifier);
+                        shareMoments.setImageDrawable(getDrawableFromId(R.drawable.pengyouquan));
+                        if(identifier1 == 0)
+                            continue;
+                        shareMomentsText = (TextView) mPopView.findViewById(identifier1);
                         shareMoments.setVisibility(View.VISIBLE);
                         shareMomentsText.setVisibility(View.VISIBLE);
+                        shareMomentsText.setText(R.string.wechat_moments);
                         shareMoments.setTag(MOMENTS);
                         shareMoments.setOnClickListener(this);
                         continue;
@@ -102,8 +119,12 @@ public class ShareMediaPopupWindow extends PopupWindow implements View.OnClickLi
                     Platform qq = ShareSDK.getPlatform (cn.sharesdk.tencent.qq.QQ.NAME);
                     boolean clientValid = qq.isClientValid();
                     if(clientValid){
-                        shareQQ = (ImageView) mPopView.findViewById(R.id.share_qq);
-                        shareQQText = (TextView) mPopView.findViewById(R.id.qq_text);
+                        if(identifier == 0)
+                            continue;
+                        shareQQ = (ImageView) mPopView.findViewById(identifier);
+                        shareQQ.setImageDrawable(getDrawableFromId(R.drawable.qq));
+                        shareQQText = (TextView) mPopView.findViewById(identifier1);
+                        shareQQText.setText(R.string.qq_friends);
                         shareQQ.setVisibility(View.VISIBLE);
                         shareQQText.setVisibility(View.VISIBLE);
                         shareQQ.setTag(QQ);
@@ -115,8 +136,10 @@ public class ShareMediaPopupWindow extends PopupWindow implements View.OnClickLi
                     Platform qq = ShareSDK.getPlatform (cn.sharesdk.tencent.qq.QQ.NAME);
                     boolean clientValid = qq.isClientValid();
                     if(clientValid){
-                        shareQQSpace = (ImageView) mPopView.findViewById(R.id.share_qqSpace);
-                        shareQQSpaceText = (TextView) mPopView.findViewById(R.id.qq_space_text);
+                        shareQQSpace = (ImageView) mPopView.findViewById(identifier);
+                        shareQQSpace.setImageDrawable(getDrawableFromId(R.drawable.qq_space));
+                        shareQQSpaceText = (TextView) mPopView.findViewById(identifier1);
+                        shareQQSpaceText.setText(R.string.qq_space);
                         shareQQSpace.setVisibility(View.VISIBLE);
                         shareQQSpaceText.setVisibility(View.VISIBLE);
                         shareQQSpace.setTag(QQSPACE);
@@ -128,8 +151,10 @@ public class ShareMediaPopupWindow extends PopupWindow implements View.OnClickLi
                     Platform weibo = ShareSDK.getPlatform (SinaWeibo.NAME);
                     boolean clientValid = weibo.isClientValid();
                     if(clientValid){
-                        shareWeibo = (ImageView) mPopView.findViewById(R.id.share_weibo);
-                        shareWeiboText = (TextView) mPopView.findViewById(R.id.weibo_text);
+                        shareWeibo = (ImageView) mPopView.findViewById(identifier);
+                        shareWeibo.setImageDrawable(getDrawableFromId(R.drawable.weibo));
+                        shareWeiboText = (TextView) mPopView.findViewById(identifier1);
+                        shareWeiboText.setText(R.string.sina_weibo);
                         shareWeibo.setVisibility(View.VISIBLE);
                         shareWeiboText.setVisibility(View.VISIBLE);
                         shareWeibo.setTag(WEIBO);
@@ -265,6 +290,12 @@ public class ShareMediaPopupWindow extends PopupWindow implements View.OnClickLi
     @Override
     public void onCancel(Platform platform, int i) {
         Toast.makeText(context, "取消分享", Toast.LENGTH_LONG).show();
+    }
+
+
+    private BitmapDrawable getDrawableFromId(int id){
+        Resources res = this.context.getResources();
+        return (BitmapDrawable)res.getDrawable(id);
     }
 }
 

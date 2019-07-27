@@ -23,4 +23,5 @@
     <color name="popupWindow">#26212c</color>
     <color name="whiteItem">#494154</color>
     <color name="whiteItemSelected">#413A4B</color>
+    <color name="countDown">#474151</color>
 </resources>
