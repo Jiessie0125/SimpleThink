@@ -1,6 +1,7 @@
 package com.example.simple.simplethink.netapi
 
 import com.example.simple.simplethink.model.*
+import com.example.simple.simplethink.model.bean.CourseResponse
 import io.reactivex.Observable
 import okhttp3.ResponseBody
 import retrofit2.http.GET
@@ -47,4 +48,8 @@ interface HttpRetrofitApiService {
 
     @GET("new_course/course/{category_id}")
     fun getSortCourse(@Path("category_id")id:Int):  Observable<List<BuzzyCourseResponse>>
+
+
+    @GET("new_course/section/{course_id}")
+    fun getCourseDetail(@Path("course_id")id:Int):  Observable<CourseResponse>
 }

@@ -65,8 +65,8 @@ class TotlePresenter(val httpResposityImpl : HttpResposityImpl, val view: TotleF
                     view.setCourseAdapterView(false,message.courses)
                     for (i in 0 until message.courses.size){
                         FilesUtils.downloadImage(context, message.courses[i].title_img_new, message.courses[i].title)
-                        view.setCourseIcon(message.courses[i].title_img_new,message.courses[i].title)
                     }
+                    view.setCourseIcon(message.courses)
                 },{
                     error->
                     Log.e("---","----getCourse:"+error)

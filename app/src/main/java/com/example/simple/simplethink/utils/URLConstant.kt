@@ -8,4 +8,6 @@ object URLConstant {
     const val GETTOTLESORT = "GETTOTLESORT"
     const val GETCOURSEIMAGE = "GETCOURSEIMAGE"
     const val GETSPLASHBANNER = "GETSPLASHBANNER"
+    const val VIP = "vip"
+    const val FREE = "free"
 }

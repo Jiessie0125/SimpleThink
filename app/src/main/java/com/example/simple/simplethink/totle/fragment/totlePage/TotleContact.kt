@@ -27,6 +27,6 @@ interface TotleContact {
         fun setBanner(bannerUrlList : ArrayList<String>)
         fun setBuzzyItem(id :Int)
         fun setTotleIcon(message : List<TotleSortResponse>)
-        fun setCourseIcon(rl: String,name: String)
+        fun setCourseIcon(courses : List<Course>)
     }
 }

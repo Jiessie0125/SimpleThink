@@ -1,6 +1,7 @@
 package com.example.simple.simplethink.netapi
 
 import com.example.simple.simplethink.model.*
+import com.example.simple.simplethink.model.bean.CourseResponse
 import io.reactivex.Observable
 import okhttp3.ResponseBody
 
@@ -20,4 +21,5 @@ interface HttpRepository {
     fun getSceneMP3(url: String): Observable<ResponseBody>
     fun getWhiteItem(): Observable<List<WhiteNoiseItemResponse>>
     fun getSortCourse(id: Int):  Observable<List<BuzzyCourseResponse>>
+    fun getCourseDetail(id: Int): Observable<CourseResponse>
 }

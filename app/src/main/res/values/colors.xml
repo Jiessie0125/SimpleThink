@@ -24,4 +24,5 @@
     <color name="whiteItem">#494154</color>
     <color name="whiteItemSelected">#413A4B</color>
     <color name="countDown">#474151</color>
+    <color name="courseDetail">#ACACAC</color>
 </resources>
