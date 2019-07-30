@@ -36,7 +36,7 @@ class DeviceUtils {
                     Settings.Secure.ANDROID_ID
 
             )
-          return UUID(androidId.hashCode()as Long, androidId.hashCode() as Long shl 32).toString()
+            return UUID(androidId.hashCode() * 1L, androidId.hashCode() * 1L shl 32).toString()
 
         }
     }

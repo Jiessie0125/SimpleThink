@@ -7,7 +7,7 @@ interface LoginContract {
 
     interface View {
         fun onSuccess()
-        fun onFailure()
+        fun onFailure(e: Throwable)
 
     }
 

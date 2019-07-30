@@ -1,6 +1,5 @@
 package com.example.simple.simplethink.login
 
-import android.util.Log
 import com.example.simple.simplethink.netapi.auth.AuthRepository
 import com.example.simple.simplethink.netapi.auth.AuthRepositoryImp
 import com.example.simple.simplethink.utils.auth.AuthInstance
@@ -30,8 +29,7 @@ class LoginPresenter : LoginContract.Presenter {
                     AuthInstance.getInstance().accessToken = token
                     view?.onSuccess()
                 }, { error ->
-                    Log.e("---", "----getTotleSortfail:" + error)
-                    view?.onFailure()
+                    view?.onFailure(error)
                 })
     }
 
