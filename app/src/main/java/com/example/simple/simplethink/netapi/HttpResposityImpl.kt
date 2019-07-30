@@ -92,4 +92,15 @@ class HttpResposityImpl(): HttpRepository {
         return updateUserInfo.updateUserInfo(params)
     }
 
+    override fun register(password_old: String, password_new: String, username: String, code: String): Observable<ResponseBody> {
+        val register = RetrofitServiceManager.instance.create(HttpRetrofitApiService::class.java)
+        val params = HashMap<String, String>().apply {
+            put("password_old", password_old)
+            put("password_new", password_new)
+            put("username", username)
+            put("code", code)
+        }
+        return register.register(params)
+    }
+
 }

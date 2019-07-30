@@ -1,6 +1,10 @@
 package com.example.simple.simplethink.login;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
@@ -27,6 +31,7 @@ public class ForgetPasswordActivity extends Activity implements View.OnClickList
     private EditText password2;
     private EditText validate_sms_code;
     private boolean isTriggerCountDown = false;
+    private String model;
     private Handler handler;
     private MyCountDownTimer mc;
     private ForgetPasswordPresenter presenter = new ForgetPasswordPresenter();
@@ -46,6 +51,9 @@ public class ForgetPasswordActivity extends Activity implements View.OnClickList
         password1 = (EditText)findViewById(R.id.login_phone_number_pwd_1);
         password2 = (EditText)findViewById(R.id.login_phone_number_pwd_2);
         validate_sms_code = (EditText)findViewById(R.id.validate_sms_code);
+        Intent intent = getIntent();
+        model = intent.getStringExtra("model");
+
     }
 
     @Override
@@ -59,7 +67,12 @@ public class ForgetPasswordActivity extends Activity implements View.OnClickList
             String password_new = password2.getText().toString();
             String userName = phoneNumber.getText().toString();
             String code = validate_sms_code.getText().toString();
-            presenter.updateUserInfo(password_old, password_new, userName, code);
+            if(model.equals("forgetPassword")){
+                presenter.updateUserInfo(password_old, password_new, userName, code);
+            }else if(model.equals("register")){
+                presenter.register(password_old, password_new, userName, code);
+            }
+
         }else if(view.getTag().equals("countDown")){
             if(isTriggerCountDown){
                 return;
@@ -77,12 +90,16 @@ public class ForgetPasswordActivity extends Activity implements View.OnClickList
                 mc = new ForgetPasswordActivity.MyCountDownTimer(60000, 1000);
                 mc.start();
                 isTriggerCountDown = true;
+                countDown.setEnabled(false);
+                countDown.setTextColor(getResources().getColorStateList(R.color.countDown));
                 handler = new Handler();
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         mc.onFinish();
                         isTriggerCountDown = false;
+                        countDown.setEnabled(true);
+                        countDown.setTextColor(getResources().getColorStateList(R.color.logonButton));
                     }
                 },60000);
             }
@@ -90,6 +107,8 @@ public class ForgetPasswordActivity extends Activity implements View.OnClickList
 
 
     }
+
+
 
     private boolean validation(){
         String phoneNumberText = phoneNumber.getText().toString();

@@ -16,5 +16,6 @@ interface ForgetPasswordContract {
         fun unbind()
         fun sendSMS(phoneNumber: Long)
         fun updateUserInfo(password_old: String, password_new: String, username: String, code: String)
+        fun register(password_old: String, password_new: String, username: String, code: String)
     }
 }
