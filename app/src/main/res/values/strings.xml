@@ -41,5 +41,8 @@
     <string name="password_is_lower_minimum">密码至少需要6位</string>
     <string name="password_is_exceed_maximum">密码至多只能18位</string>
     <string name="password_is_not_align">请重新确认密码两次输入是否一致</string>
+    <string name="sms_code_is_invalid">验证码不能为空</string>
+    <string name="send_sms_code">发送验证码</string>
+    <string name="sms_countdown_time">秒后再次</string>
 
 </resources>
