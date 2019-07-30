@@ -18,7 +18,7 @@ import com.example.simple.simplethink.utils.ValidationUtils;
  * Created by mobileteam on 2019/7/25.
  */
 
-public class ForgetPasswordActivity extends Activity implements View.OnClickListener{
+public class ForgetPasswordActivity extends Activity implements View.OnClickListener, ForgetPasswordContract.View{
 
     private Button submit_btn;
     private TextView countDown;
@@ -29,6 +29,7 @@ public class ForgetPasswordActivity extends Activity implements View.OnClickList
     private boolean isTriggerCountDown = false;
     private Handler handler;
     private MyCountDownTimer mc;
+    private ForgetPasswordPresenter presenter = new ForgetPasswordPresenter();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -54,10 +55,25 @@ public class ForgetPasswordActivity extends Activity implements View.OnClickList
             if(validation()){
                 return;
             }
+            String password_old = password1.getText().toString();
+            String password_new = password2.getText().toString();
+            String userName = phoneNumber.getText().toString();
+            String code = validate_sms_code.getText().toString();
+            presenter.updateUserInfo(password_old, password_new, userName, code);
         }else if(view.getTag().equals("countDown")){
             if(isTriggerCountDown){
                 return;
             }else{
+                String phoneNumberText = phoneNumber.getText().toString();
+                if(phoneNumberText.equals("")){
+                    Toast.makeText(this, R.string.phone_number_is_empty, Toast.LENGTH_LONG).show();
+                    return;
+                }
+                if(!ValidationUtils.isMobileNO(phoneNumberText) || phoneNumberText.length()< 11){
+                    Toast.makeText(this, R.string.phone_number_is_invalid, Toast.LENGTH_LONG).show();
+                    return;
+                }
+                presenter.sendSMS(Long.parseLong(phoneNumber.getText().toString()));
                 mc = new ForgetPasswordActivity.MyCountDownTimer(60000, 1000);
                 mc.start();
                 isTriggerCountDown = true;
@@ -110,6 +126,16 @@ public class ForgetPasswordActivity extends Activity implements View.OnClickList
         }
 
         return false;
+    }
+
+    @Override
+    public void onSuccess() {
+
+    }
+
+    @Override
+    public void onFailure() {
+
     }
 
     class MyCountDownTimer extends CountDownTimer {

@@ -22,4 +22,6 @@ interface HttpRepository {
     fun getWhiteItem(): Observable<List<WhiteNoiseItemResponse>>
     fun getSortCourse(id: Int):  Observable<List<BuzzyCourseResponse>>
     fun getCourseDetail(id: Int): Observable<CourseResponse>
+    fun sendSMS(phoneNumber: Long): Observable<ResponseBody>
+    fun updateUserInfo(password_old: String, password_new: String, username: String, code: String): Observable<ResponseBody>
 }

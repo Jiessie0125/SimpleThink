@@ -10,6 +10,7 @@ import okhttp3.ResponseBody
  * Created by mobileteam on 2019/6/4.
  */
 class HttpResposityImpl(): HttpRepository {
+
     override fun getSplashBanner(): Observable<BannerResponse> {
         val getSplashBannerRetrofit = RetrofitServiceManager.instance.create(HttpRetrofitApiService::class.java)
         return getSplashBannerRetrofit.getSplashBanner()
@@ -72,4 +73,23 @@ class HttpResposityImpl(): HttpRepository {
         val getItemImage= RetrofitServiceManager.instance.create(HttpRetrofitApiService::class.java)
         return getItemImage.getCourseDetail(id)
     }
+    override fun sendSMS(phoneNumber: Long): Observable<ResponseBody> {
+        val sendSMS = RetrofitServiceManager.instance.create(HttpRetrofitApiService::class.java)
+        val params = HashMap<String, Long>().apply {
+            put("phone_number", phoneNumber)
+        }
+        return sendSMS.sendSMS(params)
+    }
+
+    override fun updateUserInfo(password_old: String, password_new: String, username: String, code: String): Observable<ResponseBody> {
+        val updateUserInfo = RetrofitServiceManager.instance.create(HttpRetrofitApiService::class.java)
+        val params = HashMap<String, String>().apply {
+            put("password_old", password_old)
+            put("password_new", password_new)
+            put("username", username)
+            put("code", code)
+        }
+        return updateUserInfo.updateUserInfo(params)
+    }
+
 }

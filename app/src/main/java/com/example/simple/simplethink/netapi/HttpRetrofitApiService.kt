@@ -4,9 +4,7 @@ import com.example.simple.simplethink.model.*
 import com.example.simple.simplethink.model.bean.CourseResponse
 import io.reactivex.Observable
 import okhttp3.ResponseBody
-import retrofit2.http.GET
-import retrofit2.http.Path
-import retrofit2.http.Url
+import retrofit2.http.*
 
 /**
  * Created by mobileteam on 2019/6/4.
@@ -52,4 +50,12 @@ interface HttpRetrofitApiService {
 
     @GET("new_course/section/{course_id}")
     fun getCourseDetail(@Path("course_id")id:Int):  Observable<CourseResponse>
+
+    @FormUrlEncoded
+    @POST("sms/send")
+    fun sendSMS(@FieldMap params: Map<String, Long>): Observable<ResponseBody>
+
+    @FormUrlEncoded
+    @PUT("user/password")
+    fun updateUserInfo(params: HashMap<String, String>): Observable<ResponseBody>
 }
