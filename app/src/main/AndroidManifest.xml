@@ -32,6 +32,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".login.ProtocolActivity"
+            android:theme="@style/anim_slide"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".login.ForgetPasswordActivity"
+            android:theme="@style/anim_slide"
+            android:screenOrientation="portrait"/>
         <activity android:name=".welcome.Activity.AdvertisementActivity"
             android:theme="@style/anim_slide"
             android:screenOrientation="portrait"/>
