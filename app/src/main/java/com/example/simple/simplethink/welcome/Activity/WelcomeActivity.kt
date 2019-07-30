@@ -81,4 +81,8 @@ class WelcomeActivity : Activity() {
         startActivity(intent)
         finish()
     }
+
+    public fun onFailure(e:Throwable){
+        ErrorHandler.showErrorWithToast(this,e);
+    }
 }

@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.simple.simplethink.R;
+import com.example.simple.simplethink.utils.ErrorHandler;
 import com.example.simple.simplethink.utils.ValidationUtils;
 
 /**
@@ -41,6 +42,7 @@ public class ForgetPasswordActivity extends Activity implements View.OnClickList
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forget_password);
+        presenter.bind(this);
         submit_btn = (Button)findViewById(R.id.submit_btn);
         submit_btn.setTag("submit");
         submit_btn.setOnClickListener(this);
@@ -54,6 +56,12 @@ public class ForgetPasswordActivity extends Activity implements View.OnClickList
         Intent intent = getIntent();
         model = intent.getStringExtra("model");
 
+    }
+
+    @Override
+    protected void onDestroy() {
+        presenter.unbind();
+        super.onDestroy();
     }
 
     @Override
@@ -153,8 +161,8 @@ public class ForgetPasswordActivity extends Activity implements View.OnClickList
     }
 
     @Override
-    public void onFailure() {
-
+    public void onFailure(Throwable e) {
+       //TODO
     }
 
     class MyCountDownTimer extends CountDownTimer {

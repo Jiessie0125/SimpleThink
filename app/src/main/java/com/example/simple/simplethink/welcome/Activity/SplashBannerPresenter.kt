@@ -17,7 +17,7 @@ class SplashBannerPresenter(private val httpResposityImpl : HttpResposityImpl, v
                     view.initSplashBannerData(message)
                 },{
                     error->
-                    Log.e("---","----getSplashBannerFail:"+error)
+                    view.onFailure(error)
                 })
     }
 

@@ -13,6 +13,7 @@ class ForgetPasswordPresenter : ForgetPasswordContract.Presenter {
 
 
     override fun unbind() {
+        this.view = null
     }
 
 
@@ -31,7 +32,7 @@ class ForgetPasswordPresenter : ForgetPasswordContract.Presenter {
                     view?.onSuccess()
                 }, { error ->
                     Log.e("---", "----sendSMSFail:" + error)
-                    view?.onFailure()
+                    view?.onFailure(error)
                 })
     }
 
@@ -43,7 +44,7 @@ class ForgetPasswordPresenter : ForgetPasswordContract.Presenter {
                     view?.onSuccess()
                 }, { error ->
                     Log.e("---", "----updateUserInfoFail:" + error)
-                    view?.onFailure()
+                    view?.onFailure(error)
                 })
     }
 
@@ -55,7 +56,7 @@ class ForgetPasswordPresenter : ForgetPasswordContract.Presenter {
                     view?.onSuccess()
                 }, { error ->
                     Log.e("---", "----registerFail:" + error)
-                    view?.onFailure()
+                    view?.onFailure(error)
                 })
     }
 
