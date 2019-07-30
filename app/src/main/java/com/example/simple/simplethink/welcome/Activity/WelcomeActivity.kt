@@ -65,7 +65,6 @@ class WelcomeActivity : Activity() {
         }else{
             LocalDataCache.save(bannerResponse, URLConstant.GETSPLASHBANNER)
             FilesUtils.downloadImage(this, bannerResponse.imgURL, "splashBanner")
-            val a = "/storage/emulated/0/sort_item/splashBanner.jpg"
         }
 
     }

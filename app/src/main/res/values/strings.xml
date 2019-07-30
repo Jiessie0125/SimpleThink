@@ -44,5 +44,8 @@
     <string name="sms_code_is_invalid">验证码不能为空</string>
     <string name="send_sms_code">发送验证码</string>
     <string name="sms_countdown_time">秒后再次</string>
-
+    <string name="vip">会员</string>
+    <string name="free">限免</string>
+    <string name="class_list">课程列表</string>
+    <string name="download_class_list">下载全部课程</string>
 </resources>

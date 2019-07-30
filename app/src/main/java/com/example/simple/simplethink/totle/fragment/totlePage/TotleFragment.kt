@@ -1,7 +1,6 @@
 package com.example.simple.simplethink.totle.fragment.totlePage
 
 
-import android.app.Activity
 import android.content.Context
 import android.graphics.Bitmap
 import android.os.Bundle
@@ -11,11 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.Toast
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.bumptech.glide.request.RequestOptions
-import com.bumptech.glide.request.target.Target
 import com.example.simple.simplethink.R
 import com.example.simple.simplethink.buzzy.BuzzyCourseActivity
 import com.example.simple.simplethink.model.Course
@@ -23,17 +18,18 @@ import com.example.simple.simplethink.model.FirstCourseResponse
 import com.example.simple.simplethink.model.TotleItem
 import com.example.simple.simplethink.model.TotleSortResponse
 import com.example.simple.simplethink.netapi.HttpResposityImpl
+import com.example.simple.simplethink.totle.activity.RecyclerViewSpacesItemDecoration
+import com.example.simple.simplethink.totle.activity.course.CourseDetailActivity
 import com.example.simple.simplethink.totle.adapter.CourseAdapter
+import com.example.simple.simplethink.totle.adapter.OnCoursetemClickListener
 import com.example.simple.simplethink.totle.adapter.OnTotleItemClickListener
 import com.example.simple.simplethink.totle.adapter.TotleAdapter
-import com.example.simple.simplethink.utils.FilesUtils
-import com.example.simple.simplethink.utils.FilesUtils.downloadImage
-import com.example.simple.simplethink.utils.FilesUtils.getItemIcon
 import com.example.simple.simplethink.utils.LocalDataCache
 import com.example.simple.simplethink.utils.ResourcesUtils
 import com.example.simple.simplethink.utils.URLConstant
 import com.youth.banner.loader.ImageLoader
 import kotlinx.android.synthetic.main.fragment_totle.*
+import kotlinx.android.synthetic.main.fragment_white_noise.*
 
 
 /**
@@ -64,7 +60,6 @@ class TotleFragment : Fragment(), TotleContact.View {
     }
 
     private fun initView() {
-        setCourseAdapter()
         showLocalDataView()
     }
 
@@ -76,15 +71,15 @@ class TotleFragment : Fragment(), TotleContact.View {
          var getCourseImage  = LocalDataCache.getLocalData(URLConstant.GETCOURSEIMAGE)
         if(getTotleSort == null){ persenter.getTotleSort() }
         else{
-            for (i in 0 until (getTotleSort as List<TotleSortResponse>).size) {
-                setTotleIcon(getTotleSort)
-            }
+           // for (i in 0 until (getTotleSort as List<TotleSortResponse>).size) {
+                setTotleIcon(getTotleSort as List<TotleSortResponse>)
+           // }
         }
         if(getCourseImage == null){persenter.getCourse()}
         else{
-            for (i in 0 until (getCourseImage as FirstCourseResponse).courses.size) {
-                setCourseIcon(getCourseImage.courses[i].title_img_new,getCourseImage.courses[i].title)
-            }
+           // for (i in 0 until (getCourseImage as FirstCourseResponse).courses.size) {
+                setCourseIcon((getCourseImage as FirstCourseResponse).courses)
+           // }
         }
          getCourseImage?.let {
              setBuzzyItem((getCourseImage as FirstCourseResponse).id)
@@ -119,10 +114,6 @@ class TotleFragment : Fragment(), TotleContact.View {
         totleAdapter.setData(totleList)*/
     }
 
-    /*override fun setTotleIcon(message: TotleSortResponse) {
-        totleList?.add(message)
-        totleAdapter.setData(totleList)
-    }*/
     override fun setTotleIcon(message: List<TotleSortResponse>) {
         totleAdapter = TotleAdapter(this.activity!!,message)
         recycle_tv.layoutManager = GridLayoutManager(this.context, 4)
@@ -135,17 +126,20 @@ class TotleFragment : Fragment(), TotleContact.View {
             }
         })
     }
-
-    private fun setCourseAdapter() {
-        courseAdapter = CourseAdapter(this.activity!!)
+    override fun setCourseIcon(courses : List<Course>) {
+        courseAdapter = CourseAdapter(this.activity!!,courses)
         recycle_course_tv.layoutManager = GridLayoutManager(this.context, 2)
+        val stringIntegerHashMap = HashMap< String, Int>()
+        stringIntegerHashMap.put(RecyclerViewSpacesItemDecoration.RIGHT_DECORATION, 50)//右间距
+        stringIntegerHashMap.put(RecyclerViewSpacesItemDecoration.TOP_DECORATION, 50)
+        recycle_course_tv.addItemDecoration(RecyclerViewSpacesItemDecoration(stringIntegerHashMap))
         recycle_course_tv.adapter = courseAdapter
-    }
-
-    override fun setCourseIcon(url: String, name: String) {
-        var totleItem = TotleItem(name, url)
-        courseList?.add(totleItem)
-        courseAdapter.setData(courseList)
+        courseAdapter.notifyDataSetChanged()
+        courseAdapter.setOnItemClickListener(object :OnCoursetemClickListener{
+            override fun onItemClick(v: View?, position: Int) {
+                showCourseDetail(courses[position].id)
+            }
+        })
     }
 
     override fun setCourseAdapterView(isLocal: Boolean,list: List<Course>) {
@@ -186,6 +180,11 @@ class TotleFragment : Fragment(), TotleContact.View {
     private fun showBuzzyCourse(title: String,isBuzzy : Boolean) {
         var buzzyCourseActivity = BuzzyCourseActivity.newIntent(buzzyItems,this.activity, title,isBuzzy)
         startActivity(buzzyCourseActivity)
+    }
+
+    private fun showCourseDetail(title: Int) {
+        var courseActivity = CourseDetailActivity.newIntent(title,this.activity)
+        startActivity(courseActivity)
     }
 
     override fun onResume() {
