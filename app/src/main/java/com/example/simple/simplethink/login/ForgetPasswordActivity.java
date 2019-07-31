@@ -12,6 +12,7 @@ import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,6 +27,7 @@ import com.example.simple.simplethink.utils.ValidationUtils;
 public class ForgetPasswordActivity extends Activity implements View.OnClickListener, ForgetPasswordContract.View{
 
     private Button submit_btn;
+    private ImageView title_tool_back;
     private TextView countDown;
     private EditText phoneNumber;
     private EditText password1;
@@ -53,6 +55,9 @@ public class ForgetPasswordActivity extends Activity implements View.OnClickList
         password1 = (EditText)findViewById(R.id.login_phone_number_pwd_1);
         password2 = (EditText)findViewById(R.id.login_phone_number_pwd_2);
         validate_sms_code = (EditText)findViewById(R.id.validate_sms_code);
+        title_tool_back = (ImageView)findViewById(R.id.title_tool_back);
+        title_tool_back.setTag("back");
+        title_tool_back.setOnClickListener(this);
         Intent intent = getIntent();
         model = intent.getStringExtra("model");
 
@@ -111,8 +116,9 @@ public class ForgetPasswordActivity extends Activity implements View.OnClickList
                     }
                 },60000);
             }
+        }else if(view.getTag().equals("back")){
+            finish();
         }
-
 
     }
 

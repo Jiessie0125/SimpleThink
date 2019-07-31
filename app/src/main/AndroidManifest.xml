@@ -48,7 +48,6 @@
             android:theme="@style/anim_fade"
             android:screenOrientation="portrait"/>
         <activity android:name=".main.MainActivity"
-            android:theme="@style/anim_fade"
         android:screenOrientation="portrait"/>
         <activity android:name=".login.LoginActivity"
             android:screenOrientation="portrait"/>

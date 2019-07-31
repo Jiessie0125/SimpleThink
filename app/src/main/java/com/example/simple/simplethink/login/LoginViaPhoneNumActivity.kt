@@ -37,6 +37,15 @@ class LoginViaPhoneNumActivity : Activity(), LoginContract.View {
             val psd = login_phone_number_pwd.text.toString()
             presenter.login(phone, psd)
         }
+        forget_password_link.setOnClickListener {
+            val intent = Intent(this, ForgetPasswordActivity::class.java)
+            intent.putExtra("model","register")
+            startActivity(intent)
+        }
+        login_phone_back_btn.setOnClickListener {
+            finish();
+        }
+
     }
 
     private fun checkIsPhoneNumber(): Boolean {

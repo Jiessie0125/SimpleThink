@@ -57,10 +57,10 @@ interface HttpRetrofitApiService {
 
     @FormUrlEncoded
     @PUT("user/password")
-    fun updateUserInfo(params: HashMap<String, String>): Observable<ResponseBody>
+    fun updateUserInfo(@FieldMap params: HashMap<String, String>): Observable<ResponseBody>
 
 
     @FormUrlEncoded
     @POST("user")
-    fun register(params: HashMap<String, String>): Observable<ResponseBody>
+    fun register(@FieldMap params: HashMap<String, String>): Observable<ResponseBody>
 }
