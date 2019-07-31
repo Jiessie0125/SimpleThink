@@ -1,6 +1,8 @@
 package com.example.simple.simplethink.login
 
 import android.app.Activity
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import com.example.simple.simplethink.R
 import com.example.simple.simplethink.utils.ErrorHandler
@@ -11,6 +13,12 @@ import kotlinx.android.synthetic.main.activity_login_phone_number.*
  * Created by Ashur on 2019/7/18.
  */
 class LoginViaPhoneNumActivity : Activity(), LoginContract.View {
+    companion object {
+        open fun newIntent(context: Context):Intent{
+            return Intent(context,LoginViaPhoneNumActivity::class.java)
+        }
+    }
+
     override fun onFailure(e: Throwable) {
         ErrorHandler.showErrorWithToast(this, e)
     }
@@ -42,6 +50,6 @@ class LoginViaPhoneNumActivity : Activity(), LoginContract.View {
     }
 
     override fun onSuccess() {
-
+        finish()
     }
 }

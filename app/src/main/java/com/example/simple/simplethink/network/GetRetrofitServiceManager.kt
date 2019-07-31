@@ -1,6 +1,7 @@
 package com.example.simple.simplethink.network
 
 import com.example.simple.simplethink.utils.URLConstant
+import com.example.simple.simplethink.utils.auth.AuthInstance
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Response
@@ -31,7 +32,9 @@ class GetRetrofitServiceManager private constructor() {
                         .addHeader("Accept", "application/json")
                         .addHeader("Content-Type", "application/json; charset=utf-8")
                         .method(originalRequest.method(), originalRequest.body())
-                //requestBuilder.addHeader("Authorization", "Bearer " + BaseConstant.TOKEN)//添加请求头信息，服务器进行token有效性验证
+                if(AuthInstance.getInstance().accessToken?.isNotEmpty() == true){
+                    requestBuilder.addHeader("Authorization","Bearer "+ AuthInstance.getInstance().accessToken);
+                }
                 val request = requestBuilder.build()
                 return chain.proceed(request)
             }

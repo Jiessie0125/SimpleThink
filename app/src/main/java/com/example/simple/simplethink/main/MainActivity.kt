@@ -3,6 +3,7 @@ package com.example.simple.simplethink.main
 import android.app.Activity
 import android.os.Bundle
 import com.example.simple.simplethink.R
+import com.example.simple.simplethink.login.LoginViaPhoneNumActivity
 import com.example.simple.simplethink.totle.TotleActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -15,8 +16,12 @@ class MainActivity : Activity() {
         setContentView(R.layout.activity_main)
         init()
     }
-    private fun init(){
-        home.setOnClickListener {  showTotlePage()}
+
+    private fun init() {
+        home.setOnClickListener { showTotlePage() }
+        logon_register.setOnClickListener {
+            startActivity(LoginViaPhoneNumActivity.newIntent(this))
+        }
     }
 
     private fun showTotlePage(){
