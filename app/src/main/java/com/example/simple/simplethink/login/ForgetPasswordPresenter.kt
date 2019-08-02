@@ -49,7 +49,7 @@ class ForgetPasswordPresenter : ForgetPasswordContract.Presenter {
     }
 
     override fun register(password_old: String, password_new: String, username: String, code: String) {
-        repository.register(password_old, password_new, username, code).subscribeOn(Schedulers.io())
+        repository.register(password_old, username, code).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .map { result -> result }
                 .subscribe({ message ->

@@ -12,10 +12,10 @@ import kotlinx.android.synthetic.main.activity_login_phone_number.*
 /**
  * Created by Ashur on 2019/7/18.
  */
-class LoginViaPhoneNumActivity : Activity(), LoginContract.View {
+class LoginViaPhoneNumActivity : Activity(), LoginViaPhoneContract.View {
     companion object {
-        open fun newIntent(context: Context):Intent{
-            return Intent(context,LoginViaPhoneNumActivity::class.java)
+        open fun newIntent(context: Context): Intent {
+            return Intent(context, LoginViaPhoneNumActivity::class.java)
         }
     }
 
@@ -23,7 +23,7 @@ class LoginViaPhoneNumActivity : Activity(), LoginContract.View {
         ErrorHandler.showErrorWithToast(this, e)
     }
 
-    private var presenter: LoginContract.Presenter = LoginPresenter()
+    private var presenter: LoginViaPhoneContract.Presenter = LoginViaPhonePresenter()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login_phone_number)
@@ -39,7 +39,7 @@ class LoginViaPhoneNumActivity : Activity(), LoginContract.View {
         }
         forget_password_link.setOnClickListener {
             val intent = Intent(this, ForgetPasswordActivity::class.java)
-            intent.putExtra("model","register")
+            intent.putExtra("model", "register")
             startActivity(intent)
         }
         login_phone_back_btn.setOnClickListener {
@@ -59,6 +59,7 @@ class LoginViaPhoneNumActivity : Activity(), LoginContract.View {
     }
 
     override fun onSuccess() {
+        setResult(RESULT_OK)
         finish()
     }
 }

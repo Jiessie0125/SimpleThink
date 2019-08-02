@@ -24,5 +24,5 @@ interface HttpRepository {
     fun getCourseDetail(id: Int): Observable<CourseResponse>
     fun sendSMS(phoneNumber: Long): Observable<ResponseBody>
     fun updateUserInfo(password_old: String, password_new: String, username: String, code: String): Observable<ResponseBody>
-    fun register(password_old: String, password_new: String, username: String, code: String): Observable<ResponseBody>
+    fun register(password: String, username: String, code: String?): Observable<ResponseBody>
 }

@@ -1,6 +1,7 @@
 package com.example.simple.simplethink.netapi.auth
 
 import com.example.simple.simplethink.model.AuthResponse
+import com.example.simple.simplethink.model.CheckIsUserExistResponse
 import com.example.simple.simplethink.model.UserInfoResponse
 import io.reactivex.Observable
 import retrofit2.http.*
@@ -17,4 +18,8 @@ interface AuthApiService {
 
     @GET("/user")
     fun getUserInfo(): Observable<UserInfoResponse>
+
+    @FormUrlEncoded
+    @POST("/user/exist")
+    fun checkUserIsExist(@FieldMap params: Map<String, String>): Observable<CheckIsUserExistResponse>
 }
