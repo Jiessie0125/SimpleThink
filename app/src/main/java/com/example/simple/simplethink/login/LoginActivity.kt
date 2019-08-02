@@ -122,6 +122,7 @@ class LoginActivity : Activity(), PlatformActionListener, LoginContract.View {
     }
 
     override fun onSuccess() {
+        finish()
     }
 
     override fun onFailure(e: Throwable) {
