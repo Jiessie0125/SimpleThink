@@ -11,4 +11,6 @@
     <dimen name="scene_detail_image_txt">14sp</dimen>
     <dimen name="title_tool">55dp</dimen>
     <dimen name="scene_paly_txt">16sp</dimen>
+
+    <dimen name="text_size_normal">14sp</dimen>
 </resources>

@@ -10,4 +10,5 @@ object URLConstant {
     const val GETSPLASHBANNER = "GETSPLASHBANNER"
     const val VIP = "vip"
     const val FREE = "free"
+    const val THIRD_PSD = "w123456"
 }
