@@ -19,6 +19,8 @@
                 layout="@layout/title_tool"/>
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/buzzyCouse_tv"
+                android:paddingStart="@dimen/default_view_horizontal_padding"
+                android:paddingEnd="@dimen/default_view_horizontal_padding"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
 

@@ -49,6 +49,9 @@
     <string name="free">限免</string>
     <string name="class_list">课程列表</string>
     <string name="download_class_list">下载全部课程</string>
+    <string name="vip_date">会员有效期至：</string>
+    <string name="renew">续费</string>
+    <string name="vip_center">会员中心</string>
 
     <!--login & reg-->
     <string name="login_via_phone">手机登录</string>
