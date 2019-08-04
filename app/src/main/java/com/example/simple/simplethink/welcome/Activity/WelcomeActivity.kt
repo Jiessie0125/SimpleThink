@@ -73,16 +73,14 @@ class WelcomeActivity : Activity() {
         val intent = Intent(this, SplashActivity::class.java)
         intent.putExtra("isAppRestart", isAppRestart)
         startActivity(intent)
-        finish()
     }
 
     private fun enterHomeActivity() {
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
-        finish()
     }
 
-    public fun onFailure(e:Throwable){
+    fun onFailure(e:Throwable){
         ErrorHandler.showErrorWithToast(this,e);
     }
 }

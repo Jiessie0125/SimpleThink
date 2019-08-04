@@ -61,7 +61,7 @@ class SceneDetailAdapter( val context: Activity,val sections : List<Sections>) :
 
     fun updateProcessBar(url: String,FILE_NAME: String, processBar: RoundProgressBar?){
         var filePath = Environment.getExternalStorageDirectory().toString() + File.separator +SCENEDETAIL
-        val folder = File(filePath)
+        val folder = context.getExternalFilesDir(SCENEDETAIL)
         if (!folder.exists()) {
             folder.mkdirs()
         }

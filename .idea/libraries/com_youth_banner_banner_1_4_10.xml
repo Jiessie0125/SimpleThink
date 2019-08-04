@@ -1,8 +1,8 @@
 <component name="libraryTable">
   <library name="com.youth.banner:banner-1.4.10">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/banner-1.4.10.aar/54e49b52bea926956c64c1cbd5c786ee/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/banner-1.4.10.aar/54e49b52bea926956c64c1cbd5c786ee/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/banner-1.4.10.aar/2652b3b98fe25981a752cacd290ec41a/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/banner-1.4.10.aar/2652b3b98fe25981a752cacd290ec41a/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES>

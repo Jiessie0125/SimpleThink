@@ -98,12 +98,12 @@ class WhithNoiseFragment : Fragment(),WhiteNoiseContact.View ,View.OnClickListen
     }
 
     fun updateProcessBar(url: String,FILE_NAME: String){
-        var filePath = Environment.getExternalStorageDirectory().toString() + File.separator + WHITEITEM
-        val folder = File(filePath)
-        if (!folder.exists()) {
-            folder.mkdirs()
+      //  var filePath = Environment.getExternalStorageDirectory().toString() + File.separator + WHITEITEM
+        val folder = context?.getExternalFilesDir(WHITEITEM)
+        if (!folder?.exists()!!) {
+            folder?.mkdirs()
         }
-        var localPath = folder.getPath() + File.separator + FILE_NAME
+        var localPath = folder?.getPath() + File.separator + FILE_NAME
         DownloadHelper.download(url, localPath, object : DownloadHelper.OnDownloadListener {
             override fun onFail(file: File, failInfo: String?) {
             }

@@ -32,7 +32,7 @@ class ScenePlayActivity : AppCompatActivity(), View.OnClickListener {
         const val SCENERESOURCE = "SCENERESOURCE"
         const val SCENENAME = "SCENENAME"
         const val BKGROUND = "BKGROUND"
-        fun newIntent (context: Context?,sceneName : String, sceneSource: String,bkground: String) : Intent {
+        fun newIntent (context: Context?,sceneName : String, sceneSource: String,bkground: String?) : Intent {
             var intent = Intent(context, ScenePlayActivity::class.java)
             intent.putExtra(SCENENAME,sceneName)
             intent.putExtra(SCENERESOURCE,sceneSource)
@@ -79,12 +79,14 @@ class ScenePlayActivity : AppCompatActivity(), View.OnClickListener {
         mSeekbar = progress_bar_healthy
         scene_paly_close.setOnClickListener(this)
         scene_play.setOnClickListener(this)
-        val sceneName = intent.getSerializableExtra(SCENENAME) as String
-        val sceneSource = intent.getSerializableExtra(SCENERESOURCE) as String
-        val bkground = intent.getSerializableExtra(BKGROUND) as String
-        showBKImage(bkground,this,scene_play_bg)
+        val sceneName = intent.getSerializableExtra(SCENENAME) as String?
+        val sceneSource = intent.getSerializableExtra(SCENERESOURCE) as String?
+        val bkground = intent.getSerializableExtra(BKGROUND) as String?
+        bkground?.let {
+            showBKImage(bkground,this,scene_play_bg)
+        }
         sceneName?.let { scene_item_name.text = it }
-        play(sceneSource)
+        sceneSource?.let {  play(sceneSource) }
         sceneSource?.let {
             scene_item_totle.text = FilesUtils.timeParse(player?.getDuration()?.toLong())
         }

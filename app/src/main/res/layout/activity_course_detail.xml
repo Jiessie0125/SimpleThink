@@ -39,7 +39,6 @@
                     android:id="@+id/course_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="1111"
                     android:textColor="@color/wordWhite"
                     android:textSize="@dimen/hello_text_size"/>
                 <ImageView
@@ -53,7 +52,6 @@
                 android:id="@+id/content_detail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="111"
                 android:textSize="@dimen/scene_detail_image_txt"
                 android:gravity="center_horizontal"
                 android:layout_marginLeft="70dp"

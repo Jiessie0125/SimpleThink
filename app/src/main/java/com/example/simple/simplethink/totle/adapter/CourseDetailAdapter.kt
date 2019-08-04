@@ -7,12 +7,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.RelativeLayout
 import android.widget.TextView
 import com.example.simple.simplethink.R
 import com.example.simple.simplethink.model.Course
 import com.example.simple.simplethink.model.bean.CourseSections
+import com.example.simple.simplethink.totle.activity.view.ProgressBarView
 import com.example.simple.simplethink.utils.DownloadHelper
 import com.example.simple.simplethink.utils.FilesUtils
+import com.example.simple.simplethink.utils.FilesUtils.isHaveFile
 import com.example.simple.simplethink.utils.ResourcesUtils
 import com.example.simple.simplethink.utils.URLConstant
 import java.io.File
@@ -38,12 +41,19 @@ class CourseDetailAdapter(val context: Activity, val totleLish : List<CourseSect
         holder?.mTotleItem?.text = totleLish?.get(position)?.title
         holder?.mItemName?.text = FilesUtils.timeParse(totleLish[position].main_duration.toLong())
         holder?.mCourseViptem?.tag = position
-        if(isShow && mPosition == position){
+        holder?.mCoursePlay?.tag = position
+        if(isHaveFile(totleLish?.get(position)?.title,COURSEDETAIL)){
+            holder?.mRelativeLayout?.background = ResourcesUtils.resource.getDrawable(R.color.courseDetailDownload)
+            holder?.mCoursePlay?.visibility = View.VISIBLE
+            holder?.mCourseViptem?.visibility = View.GONE
+        }else if(isShow && mPosition == position){
             holder?.mItemPercent?.visibility = View.VISIBLE
             holder?.mCourseViptem?.visibility = View.GONE
-            updateProcessBar(totleLish[position].url,totleLish[position].title)
-        }else{
+            updateProcessBar(totleLish[position].url,totleLish[position].title,holder?.mProgressItem)
+        }
+        else{
             holder?.mItemPercent?.visibility = View.GONE
+            holder?.mRelativeLayout?.background = ResourcesUtils.resource.getDrawable(R.color.mainColor)
         }
     }
 
@@ -67,14 +77,21 @@ class CourseDetailAdapter(val context: Activity, val totleLish : List<CourseSect
         var mItemName : TextView?
         var mCourseViptem : ImageView?
         var mItemPercent : TextView?
+        var mProgressItem : ProgressBarView?
+        var mCoursePlay : ImageView?
+        var mRelativeLayout : RelativeLayout?
 
         init {
             mTotleItem = view?.findViewById(R.id.recycle_course_name)
             mItemName = view?.findViewById(R.id.recycle_course_time)
             mCourseViptem = view?.findViewById(R.id.course_download)
             mItemPercent = view?.findViewById(R.id.course_download_percent)
+            mProgressItem = view?.findViewById(R.id.mProgessBar)
+            mCoursePlay = view?.findViewById(R.id.course_play)
+            mRelativeLayout = view?.findViewById(R.id.course_detail_item)
 
             mCourseViptem?.setOnClickListener(this@CourseDetailAdapter)
+            mCoursePlay?.setOnClickListener(this@CourseDetailAdapter)
         }
 
 
@@ -88,13 +105,15 @@ class CourseDetailAdapter(val context: Activity, val totleLish : List<CourseSect
         val position = v?.getTag()      //getTag()获取数据
         if (mClickListener != null) {
             when (v?.getId()) {
-                R.id.scene_download -> mClickListener?.onItemClick(v, position as Int)
+                R.id.course_download -> mClickListener?.onItemClick(v, position as Int)
+                R.id.course_play -> mClickListener?.onItemClick(v, position as Int)
             }
         }
     }
-    fun updateProcessBar(url: String,FILE_NAME: String){
-        var filePath = Environment.getExternalStorageDirectory().toString() + File.separator +COURSEDETAIL
-        val folder = File(filePath)
+    fun updateProcessBar(url: String,FILE_NAME: String, processBar: ProgressBarView?){
+       // var filePath = Environment.getExternalStorageDirectory().toString() + File.separator +COURSEDETAIL
+       // var filePath = context.getExternalFilesDir(COURSEDETAIL)
+        val folder = context.getExternalFilesDir(COURSEDETAIL)
         if (!folder.exists()) {
             folder.mkdirs()
         }
@@ -104,15 +123,17 @@ class CourseDetailAdapter(val context: Activity, val totleLish : List<CourseSect
             }
 
             override fun onProgress(progress: Int?) {
-
+                processBar?.progress = progress!!
             }
 
             override fun onStart() {
-
+                processBar?.progress =0
             }
 
             override fun onSuccess(file: File) {
+                notifyDataSetChanged()
             }
         })
     }
+
 }
