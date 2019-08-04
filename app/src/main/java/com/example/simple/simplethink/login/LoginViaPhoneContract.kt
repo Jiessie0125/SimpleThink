@@ -1,21 +1,19 @@
 package com.example.simple.simplethink.login
 
 /**
- * Created by Ashur on 2019/8/2.
+ * Created by 111 on 2019/7/18.
  */
+interface LoginViaPhoneContract {
 
-interface LoginContract {
     interface View {
         fun onSuccess()
         fun onFailure(e: Throwable)
-        fun loading()
-        fun dismiss()
 
     }
 
     interface Presenter {
         fun bind(view: View)
         fun unbind()
-        fun login(userName: String)
+        fun login(userName: String, password: String)
     }
 }

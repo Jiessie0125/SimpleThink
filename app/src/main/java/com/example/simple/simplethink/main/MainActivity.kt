@@ -1,10 +1,12 @@
 package com.example.simple.simplethink.main
 
+import android.Manifest
 import android.app.Activity
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.example.simple.simplethink.R
+import com.example.simple.simplethink.login.LoginActivity
 import com.example.simple.simplethink.login.LoginViaPhoneNumActivity
 import com.example.simple.simplethink.main.adapter.CourseAdapter
 import com.example.simple.simplethink.main.adapter.OnCoursetemClickListener
@@ -41,18 +43,19 @@ class MainActivity : Activity() , MainContract.View{
 
     override fun onFailure(e: Throwable) {
         ErrorHandler.showErrorWithToast(this, e)
-    }
 
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         init()
+        //PermissionUtils.requestPermissions(Manifest.permission.CAMERA,REQ_CODE_PICK_PHOTO);
     }
 
     private fun init() {
         home.setOnClickListener { showTotlePage() }
         logon_register.setOnClickListener {
-            startActivity(LoginViaPhoneNumActivity.newIntent(this))
+            startActivity(LoginActivity.newIntent(this))
         }
         getImages()
     }

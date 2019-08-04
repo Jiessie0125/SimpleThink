@@ -11,4 +11,5 @@ object URLConstant {
     const val GETMYCOURSEIMAGE = "GETMYCOURSEIMAGE"
     const val VIP = "vip"
     const val FREE = "free"
+    const val THIRD_PSD = "w123456"
 }
