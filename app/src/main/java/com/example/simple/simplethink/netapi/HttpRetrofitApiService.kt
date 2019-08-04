@@ -63,4 +63,14 @@ interface HttpRetrofitApiService {
     @FormUrlEncoded
     @POST("user")
     fun register(@FieldMap params: HashMap<String, String>): Observable<ResponseBody>
+
+    @GET("activity/get")
+    fun getSuggestedActivity(): Observable<ActivityResponse>
+
+    @GET("bottom_activity/get")
+    fun getBottomActivity(): Observable<BottomActivityResponse>
+
+    @GET("new_course/recommend")
+    fun getSuggestedCourse(): Observable<List<SuggestedCourse>>
+
 }

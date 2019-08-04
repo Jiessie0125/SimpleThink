@@ -168,7 +168,7 @@ public class ForgetPasswordActivity extends Activity implements View.OnClickList
 
     @Override
     public void onFailure(Throwable e) {
-       //TODO
+        ErrorHandler.Companion.showErrorWithToast(this,e);
     }
 
     class MyCountDownTimer extends CountDownTimer {

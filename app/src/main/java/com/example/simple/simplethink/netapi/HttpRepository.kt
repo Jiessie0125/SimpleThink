@@ -25,4 +25,7 @@ interface HttpRepository {
     fun sendSMS(phoneNumber: Long): Observable<ResponseBody>
     fun updateUserInfo(password_old: String, password_new: String, username: String, code: String): Observable<ResponseBody>
     fun register(password_old: String, password_new: String, username: String, code: String): Observable<ResponseBody>
+    fun getSuggestedActivity() : Observable<ActivityResponse>
+    fun getBottomActivity(): Observable<BottomActivityResponse>
+    fun getSuggestedCourse(): Observable<List<SuggestedCourse>>
 }

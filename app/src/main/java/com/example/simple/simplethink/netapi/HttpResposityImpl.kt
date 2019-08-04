@@ -95,12 +95,26 @@ class HttpResposityImpl(): HttpRepository {
     override fun register(password_old: String, password_new: String, username: String, code: String): Observable<ResponseBody> {
         val register = RetrofitServiceManager.instance.create(HttpRetrofitApiService::class.java)
         val params = HashMap<String, String>().apply {
-            put("password_old", password_old)
-            put("password_new", password_new)
+            put("password", password_old)
             put("username", username)
             put("code", code)
         }
         return register.register(params)
+    }
+
+    override fun getSuggestedActivity(): Observable<ActivityResponse> {
+        val getSuggestedActivityRetrofit = RetrofitServiceManager.instance.create(HttpRetrofitApiService::class.java)
+        return getSuggestedActivityRetrofit.getSuggestedActivity()
+    }
+
+    override fun getBottomActivity(): Observable<BottomActivityResponse> {
+        val getBottomActivityRetrofit = RetrofitServiceManager.instance.create(HttpRetrofitApiService::class.java)
+        return getBottomActivityRetrofit.getBottomActivity()
+    }
+
+    override fun getSuggestedCourse(): Observable<List<SuggestedCourse>> {
+        val getSuggestedCourseRetrofit = RetrofitServiceManager.instance.create(HttpRetrofitApiService::class.java)
+        return getSuggestedCourseRetrofit.getSuggestedCourse();
     }
 
 }
