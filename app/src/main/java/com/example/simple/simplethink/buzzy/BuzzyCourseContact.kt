@@ -1,5 +1,6 @@
 package com.example.simple.simplethink.buzzy
 
+import com.example.simple.simplethink.model.BuzzyCourseResponse
 import com.example.simple.simplethink.model.TotleItem
 
 /**
@@ -13,6 +14,6 @@ class BuzzyCourseContact {
     }
 
     interface View{
-        fun setBuzzyCourseAdapter(buzzyCourseUrlList : ArrayList<TotleItem>)
+        fun setBuzzyCourseAdapter(buzzyCourseUrlList : List<BuzzyCourseResponse>)
     }
 }

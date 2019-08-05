@@ -12,8 +12,6 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
 
-
-
     <application
         android:name=".MyApp"
         tools:replace="android:name"
@@ -62,6 +60,8 @@
         <activity android:name=".login.LoginViaPhoneNumActivity"
             android:screenOrientation="portrait"/>
         <activity android:name=".totle.activity.course.CourseDetailActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".vip.VIPCenterActivity"
             android:screenOrientation="portrait"/>
     </application>
 
