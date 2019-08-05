@@ -17,6 +17,7 @@ import com.example.simple.simplethink.login.LoginActivity
 import com.example.simple.simplethink.login.LoginViaPhoneNumActivity
 import com.example.simple.simplethink.main.adapter.CourseAdapter
 import com.example.simple.simplethink.main.adapter.OnCoursetemClickListener
+import com.example.simple.simplethink.main.setting.SettingActivity
 import com.example.simple.simplethink.model.ActivityResponse
 import com.example.simple.simplethink.model.BottomActivityResponse
 import com.example.simple.simplethink.model.SuggestedCourse
@@ -64,7 +65,13 @@ import kotlinx.android.synthetic.main.activity_main.*
         selection_more.setOnClickListener {
 
         }
+        setting.setOnClickListener { showSettingPage() }
         //PermissionUtils.requestPermissions(Manifest.permission.CAMERA,REQ_CODE_PICK_PHOTO);
+    }
+
+    private fun showSettingPage(){
+        val settingIntent = SettingActivity.newIntent(this)
+        startActivity(settingIntent)
     }
 
     private fun init() {

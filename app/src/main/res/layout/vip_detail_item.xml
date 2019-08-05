@@ -14,7 +14,6 @@
         android:id="@+id/recycle_vip_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="111"
         android:layout_marginLeft="10dp"
         android:gravity="center"
         android:layout_centerVertical="true"
@@ -26,7 +25,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="@dimen/hello_text_size"
-        android:text="333"
         android:textColor="@color/fisrtUse"
         android:layout_centerInParent="true"
         android:gravity="center"/>
@@ -40,6 +38,6 @@
         android:text="@string/renew"
         android:textSize="@dimen/login_small_title"
         android:textColor="@color/wordWhite"
-        android:layout_marginRight="20dp"
+        android:layout_marginEnd="20dp"
         android:layout_centerVertical="true" />
 </RelativeLayout>

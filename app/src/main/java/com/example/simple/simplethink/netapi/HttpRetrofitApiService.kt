@@ -73,4 +73,7 @@ interface HttpRetrofitApiService {
     @GET("new_course/recommend")
     fun getSuggestedCourse(): Observable<List<SuggestedCourse>>
 
+    @GET("/subscription")
+    fun getSubscription(@Header("Authorization") authorization : String): Observable<SubscriptionResponse>
+
 }
