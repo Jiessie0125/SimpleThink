@@ -102,7 +102,7 @@ class HttpResposityImpl(): HttpRepository {
         return register.register(params)
     }
 
-    override fun getSuggestedActivity(): Observable<ActivityResponse> {
+    override fun getSuggestedActivity(): Observable<List<ActivityResponse>> {
         val getSuggestedActivityRetrofit = RetrofitServiceManager.instance.create(HttpRetrofitApiService::class.java)
         return getSuggestedActivityRetrofit.getSuggestedActivity()
     }

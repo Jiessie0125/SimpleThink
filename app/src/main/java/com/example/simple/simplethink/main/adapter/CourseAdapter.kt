@@ -7,12 +7,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.example.simple.simplethink.R
 import com.example.simple.simplethink.model.SuggestedCourse
 import com.example.simple.simplethink.utils.FilesUtils
 import com.example.simple.simplethink.utils.ResourcesUtils
 import com.example.simple.simplethink.utils.URLConstant.FREE
 import com.example.simple.simplethink.utils.URLConstant.VIP
+import kotlinx.android.synthetic.main.activity_main.*
 
 /**
  * Created by jiessie on 2019/6/11.
@@ -26,7 +29,7 @@ class CourseAdapter( val context: Activity, val totallist : List<SuggestedCourse
 
     override fun onBindViewHolder(holder: CourseViewHolder?, position: Int) {
         holder?.mTotleItem?.text = totallist?.get(position)?.title
-        FilesUtils.getItemIcon(totallist?.get(position)?.title,context,holder?.mItemImage)
+        Glide.with(context).load(totallist?.get(position)?.title_img_new).into(holder?.mItemImage!!)
         when(totallist[position].type_new){
             VIP -> {
                 holder?.mCourseViptem?.visibility = View.VISIBLE

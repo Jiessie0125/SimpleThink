@@ -128,33 +128,45 @@
                 android:paddingEnd="@dimen/default_view_horizontal_padding"
                 android:paddingStart="@dimen/default_view_horizontal_padding">
 
-                <LinearLayout
+                <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
 
                     <View
+                        android:id="@+id/square_shape"
                         android:layout_width="14dp"
                         android:layout_height="14dp"
-                        android:layout_gravity="center"
+                        android:layout_centerVertical="true"
                         android:layout_marginRight="5dp"
                         android:background="@drawable/button_circle_shape" />
 
                     <TextView
+                        android:layout_toRightOf="@id/square_shape"
+                        android:layout_alignParentTop="true"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/suggestion_activity"
+                        android:text="@string/selection_edit"
                         android:textColor="@color/wordWhite"
                         android:textSize="@dimen/login_small_title" />
-                </LinearLayout>
+                    <ImageView
+                        android:id="@+id/selection_more"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="5dp"
+                        android:src="@drawable/next"/>
+                </RelativeLayout>
 
                 <ImageView
+                    android:id="@+id/selection_image"
                     android:layout_width="wrap_content"
                     android:layout_height="135dp"
                     android:layout_marginTop="15dp"
-                    android:scaleType="fitXY"
-                    android:src="@drawable/sugges_activity" />
+                    android:scaleType="fitXY" />
 
                 <TextView
+                    android:id="@+id/selection_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -164,6 +176,7 @@
                     android:textSize="@dimen/login_small_title" />
 
                 <TextView
+                    android:id="@+id/selection_sub_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"

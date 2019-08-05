@@ -3,6 +3,7 @@ package com.example.simple.simplethink.main
 import android.app.Activity
 import android.content.Context
 import android.util.Log
+import com.bumptech.glide.Glide
 import com.example.simple.simplethink.netapi.HttpRepository
 import com.example.simple.simplethink.netapi.HttpResposityImpl
 import com.example.simple.simplethink.netapi.auth.AuthRepository
@@ -38,8 +39,7 @@ class MainPresenter : MainContract.Presenter {
                     Log.e("---","----getMyCourse:"+message)
                     LocalDataCache.save(message, URLConstant.GETMYCOURSEIMAGE)
                     for (i in 0 until message.size){
-                        FilesUtils.downloadImage(activity, message[i].title_img_new, message[i].title)
-                    }
+                }
                     view?.onGtSuggestedCourseSuccess(message)
                 },{
                     error->
@@ -59,11 +59,13 @@ class MainPresenter : MainContract.Presenter {
         this.view = null
     }
 
-    override fun getSuggestedActivity()  {
+    override fun getSuggestedActivity(activity: Activity)  {
         repository.getSuggestedActivity().subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .map { result -> result }
                 .subscribe({ message ->
+                    Log.e("---","----getSuggestedActivity:"+message)
+                    LocalDataCache.save(message, URLConstant.GETACTIVITYIMAGE)
                     view?.onGetSuggestedActivitySuccess(message)
                 }, { error ->
                     view?.onFailure(error)

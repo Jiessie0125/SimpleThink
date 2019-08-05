@@ -33,6 +33,7 @@ public class AdvertisementActivity extends Activity implements View.OnClickListe
     private String[] supportMediaList = {ShareMediaPopupWindow.WECHAT,ShareMediaPopupWindow.MOMENTS,ShareMediaPopupWindow.QQ,
     ShareMediaPopupWindow.QQSPACE,ShareMediaPopupWindow.WEIBO};
     private ShareMediaBean bean = new ShareMediaBean();
+    private String from;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -47,6 +48,7 @@ public class AdvertisementActivity extends Activity implements View.OnClickListe
         share_btn = (ImageView) findViewById(R.id.ad_share_btn);
         share_btn.setTag("share");
         share_btn.setOnClickListener(this);
+        from = getIntent().getStringExtra("from");
     }
 
     @Override
@@ -65,7 +67,9 @@ public class AdvertisementActivity extends Activity implements View.OnClickListe
     @Override
     public void onClick(View view) {
         if(view.getTag().equals("back")){
-            enterHomeActivity();
+            if(from.equals("main")){
+                enterHomeActivity();
+            }
         }else {
             initBean();
             showPopFormBottom();

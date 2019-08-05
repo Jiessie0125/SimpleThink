@@ -65,7 +65,7 @@ interface HttpRetrofitApiService {
     fun register(@FieldMap params: HashMap<String, String>): Observable<ResponseBody>
 
     @GET("activity/get")
-    fun getSuggestedActivity(): Observable<ActivityResponse>
+    fun getSuggestedActivity(): Observable<List<ActivityResponse>>
 
     @GET("bottom_activity/get")
     fun getBottomActivity(): Observable<BottomActivityResponse>

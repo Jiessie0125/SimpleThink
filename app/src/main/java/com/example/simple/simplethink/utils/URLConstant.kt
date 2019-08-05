@@ -9,6 +9,7 @@ object URLConstant {
     const val GETCOURSEIMAGE = "GETCOURSEIMAGE"
     const val GETSPLASHBANNER = "GETSPLASHBANNER"
     const val GETMYCOURSEIMAGE = "GETMYCOURSEIMAGE"
+    const val GETACTIVITYIMAGE = "GETACTIVITYIMAGE"
     const val VIP = "vip"
     const val FREE = "free"
     const val THIRD_PSD = "w123456"

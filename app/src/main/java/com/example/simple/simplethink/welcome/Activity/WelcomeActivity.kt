@@ -64,7 +64,6 @@ class WelcomeActivity : Activity() {
             LocalDataCache.save(null, URLConstant.GETSPLASHBANNER)
         }else{
             LocalDataCache.save(bannerResponse, URLConstant.GETSPLASHBANNER)
-            FilesUtils.downloadImage(this, bannerResponse.imgURL, "splashBanner")
         }
 
     }

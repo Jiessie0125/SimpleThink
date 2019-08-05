@@ -11,7 +11,7 @@ import com.example.simple.simplethink.model.SuggestedCourse
 interface MainContract {
 
     interface View {
-        fun onGetSuggestedActivitySuccess(message: ActivityResponse)
+        fun onGetSuggestedActivitySuccess(message: List<ActivityResponse>)
         fun onGetBottomActivitySuccess(message: BottomActivityResponse)
         fun onGtSuggestedCourseSuccess(message: List<SuggestedCourse>)
         fun onFailure(e: Throwable)
@@ -21,7 +21,7 @@ interface MainContract {
     interface Presenter {
         fun bind(view: View)
         fun unbind()
-        fun getSuggestedActivity()
+        fun getSuggestedActivity(activity: Activity)
         fun getBottomActivity()
         fun getSuggestedCourse(activity: Activity)
     }
