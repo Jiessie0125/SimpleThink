@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.TextView
 import com.example.simple.simplethink.R
+import com.example.simple.simplethink.totle.activity.down.DownloadActivity
 import com.example.simple.simplethink.totle.fragment.scenePage.SceneFragment
 import com.example.simple.simplethink.totle.fragment.totlePage.TotleFragment
 import com.example.simple.simplethink.totle.fragment.whiteNoisePage.WhithNoiseFragment
@@ -45,7 +46,7 @@ class TotleActivity: AppCompatActivity() {
 
     fun init(){
         user.setOnClickListener{finish()}
-        download.setOnClickListener {  }
+        download.setOnClickListener {  showDownClassActivity()}
 
         mTabLayout = tablayout
         mViewPager = viewpager
@@ -60,6 +61,11 @@ class TotleActivity: AppCompatActivity() {
         initAdapter()
         initTabView()
 
+    }
+
+    private fun showDownClassActivity(){
+        val downloadIntent = DownloadActivity.newIntent(this)
+        startActivity(downloadIntent)
     }
 
     private fun initTabView(){

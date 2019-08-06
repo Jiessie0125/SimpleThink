@@ -59,15 +59,12 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:gravity="center">
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="10dp"
-                        android:src="@drawable/vip"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/vip_expire"
+                        android:drawableLeft="@drawable/vip"
+                        android:drawablePadding="19dp"
                         android:textSize="@dimen/logon_revive_word"
                         android:layout_marginEnd="20dp"
                         android:textColor="@color/blackSuggesstion"/>
