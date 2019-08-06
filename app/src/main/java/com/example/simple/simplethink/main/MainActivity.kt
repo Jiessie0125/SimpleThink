@@ -2,6 +2,7 @@ package com.example.simple.simplethink.main
 
 import android.Manifest
 import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.support.v7.widget.LinearLayoutManager
@@ -23,11 +24,10 @@ import com.example.simple.simplethink.model.SuggestedCourse
 import com.example.simple.simplethink.totle.TotleActivity
 import com.example.simple.simplethink.totle.activity.RecyclerViewSpacesItemDecoration
 import com.example.simple.simplethink.totle.activity.course.CourseDetailActivity
-import com.example.simple.simplethink.utils.ErrorHandler
-import com.example.simple.simplethink.utils.FilesUtils
-import com.example.simple.simplethink.utils.LocalDataCache
-import com.example.simple.simplethink.utils.URLConstant
+import com.example.simple.simplethink.utils.*
+import com.example.simple.simplethink.welcome.Activity.AdvertisementActivity
 import kotlinx.android.synthetic.main.activity_main.*
+import java.util.*
 
 /**
  * Created by mobileteam on 2019/6/3.
@@ -95,10 +95,20 @@ import kotlinx.android.synthetic.main.activity_main.*
             Glide.with(this@MainActivity).load(R.drawable.sugges_activity).into(selection_image)
             return
         }
-//        if(message.size == 1){
-//            Glide.with(this@MainActivity).load(message?.get(0).imgURL).apply(RequestOptions().placeholder(R.drawable.sugges_activity)).into(selection_image)
-//            return
-//        }
+        if(message.size == 1){
+            val suggestedActivity = message?.get(0)
+            val date = DateUtils.DateToString(Date(), DateUtils.DATE_TO_STRING_DETAIAL_PATTERN)
+            if(date >= suggestedActivity?.start_time.toString() && date <= suggestedActivity?.end_time.toString()) {
+                Glide.with(this@MainActivity).load(message?.get(0).imgURL).apply(RequestOptions().placeholder(R.drawable.sugges_activity)).into(selection_image)
+                selection_image.setOnClickListener {
+                    redirector(message?.get(0))
+                }
+            }
+            else{
+                Glide.with(this@MainActivity).load(R.drawable.sugges_activity).into(selection_image)
+            }
+            return
+        }
         handler = Handler()
         runnable = object : Runnable
         {
@@ -109,15 +119,51 @@ import kotlinx.android.synthetic.main.activity_main.*
                     activityCount = 0
                 }
 
-                Glide.with(this@MainActivity).load(message?.get(activityCount).imgURL).apply(RequestOptions().placeholder(R.drawable.sugges_activity)).into(selection_image)
-                selection_title.text = message.get(activityCount).title
-                selection_sub_title.text = message.get(activityCount).subtitle
-                activityCount++
+                val date = DateUtils.DateToString(Date(), DateUtils.DATE_TO_STRING_DETAIAL_PATTERN)
+                if(date >= message?.get(activityCount)?.start_time.toString() && date <= message?.get(activityCount)?.end_time.toString()) {
+                    Glide.with(this@MainActivity).load(message?.get(activityCount).imgURL).apply(RequestOptions().placeholder(R.drawable.sugges_activity)).into(selection_image)
+                    selection_title.text = message.get(activityCount).title
+                    selection_sub_title.text = message.get(activityCount).subtitle
+                    activityCount++
+                    selection_image.setOnClickListener {
+                        redirector(message?.get(activityCount))
+                    }
+                }
             }
         }
         handler.post(runnable)
     }
 
+
+    private fun redirector(acitivityResponse: ActivityResponse?) {
+        when (acitivityResponse?.tag) {
+            "vip" -> {
+            }
+            "lessions" -> {
+            }
+            "sign" -> {
+            }
+            "advertisment" -> enterActivity(AdvertisementActivity::class.java, "", acitivityResponse)
+        }
+
+    }
+
+    private fun enterActivity(activity: Class<*>, from: String, acitivityResponse: ActivityResponse?) {
+
+
+        val intent = Intent(this@MainActivity, activity)
+
+        if (from == "") {
+            intent.putExtra("from", "main")
+        }else{
+            intent.putExtra("from", from)
+        }
+        acitivityResponse?.let {
+            intent.putExtra("ActivityResponse", it)
+        }
+        startActivity(intent)
+        finish()
+    }
 
 
     private fun setCouseAdapter(totalList : List<SuggestedCourse>){

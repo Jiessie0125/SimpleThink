@@ -35,6 +35,7 @@ public class SplashActivity extends Activity implements View.OnClickListener{
     private String linkPage;
     private Handler handler;
     private boolean isAppRestart = false;
+    private BannerResponse bannerResponse;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,7 +51,7 @@ public class SplashActivity extends Activity implements View.OnClickListener{
 
      void initSplashPage(){
 
-        BannerResponse bannerResponse = (BannerResponse) LocalDataCache.INSTANCE.getLocalData(URLConstant.GETSPLASHBANNER);
+        bannerResponse = (BannerResponse) LocalDataCache.INSTANCE.getLocalData(URLConstant.GETSPLASHBANNER);
         tag = bannerResponse.getTag();
         linkPage = bannerResponse.getLessionsID();
         Glide.with(this).load(bannerResponse.getImgURL()).into(iv);
@@ -62,13 +63,13 @@ public class SplashActivity extends Activity implements View.OnClickListener{
             @Override
             public void run() {
                 mc.onFinish();
-                enterActivity(MainActivity.class, "");
+                enterActivity(MainActivity.class, "", null);
             }
         },4000);
 
     }
 
-    private void enterActivity(Class activity, String from){
+    private void enterActivity(Class activity, String from, BannerResponse bannerResponse){
 
         if(isAppRestart){
             finish();
@@ -77,8 +78,14 @@ public class SplashActivity extends Activity implements View.OnClickListener{
 
         Intent intent = new Intent(SplashActivity.this, activity);
 
-        if(!from.equals("")){
+        if(from.equals("")){
             intent.putExtra("from","main");
+        }else {
+            intent.putExtra("from",from);
+        }
+
+        if(bannerResponse != null){
+            intent.putExtra("BannerResponse",bannerResponse);
         }
         startActivity(intent);
         finish();
@@ -89,7 +96,7 @@ public class SplashActivity extends Activity implements View.OnClickListener{
         handler.removeCallbacksAndMessages(null);
         if(view.getTag().equals("jump")){
             mc.onFinish();
-            enterActivity(MainActivity.class, "");
+            enterActivity(MainActivity.class, "", null);
             return;
         }else {
             switch (tag){
@@ -103,7 +110,7 @@ public class SplashActivity extends Activity implements View.OnClickListener{
                     //                    enterActivity();
                     break;
                 case "advertisment":
-                    enterActivity(AdvertisementActivity.class,"main");
+                    enterActivity(AdvertisementActivity.class,"main", bannerResponse);
                     break;
             }
         }

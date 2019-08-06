@@ -6,11 +6,13 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.Gravity;
 import android.view.View;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.ImageView;
 
 import com.example.simple.simplethink.R;
 import com.example.simple.simplethink.main.MainActivity;
+import com.example.simple.simplethink.model.ActivityResponse;
 import com.example.simple.simplethink.model.BannerResponse;
 import com.example.simple.simplethink.model.bean.ShareMediaBean;
 import com.example.simple.simplethink.utils.LocalDataCache;
@@ -28,6 +30,7 @@ public class AdvertisementActivity extends Activity implements View.OnClickListe
 
     private WebView webView;
     private BannerResponse bannerResponse;
+    private ActivityResponse activityResponse;
     private ImageView back_btn;
     private ImageView share_btn;
     private String[] supportMediaList = {ShareMediaPopupWindow.WECHAT,ShareMediaPopupWindow.MOMENTS,ShareMediaPopupWindow.QQ,
@@ -40,15 +43,23 @@ public class AdvertisementActivity extends Activity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_advertisement);
         webView = (WebView) findViewById(R.id.ad_webView);
-        bannerResponse = (BannerResponse) LocalDataCache.INSTANCE.getLocalData(URLConstant.GETSPLASHBANNER);
-        webView.loadUrl(bannerResponse.getLessionsID());
+        webView.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN);
+        from = getIntent().getStringExtra("from");
+        bannerResponse = (BannerResponse)getIntent().getSerializableExtra("BannerResponse");
+        activityResponse = (ActivityResponse)getIntent().getSerializableExtra("ActivityResponse");
+        if(bannerResponse != null){
+            webView.loadUrl(bannerResponse.getLessionsID());
+        }
+        if(activityResponse != null){
+            webView.loadUrl(activityResponse.getLessionsID());
+        }
         back_btn = (ImageView) findViewById(R.id.ad_back_btn);
         back_btn.setTag("back");
         back_btn.setOnClickListener(this);
         share_btn = (ImageView) findViewById(R.id.ad_share_btn);
         share_btn.setTag("share");
         share_btn.setOnClickListener(this);
-        from = getIntent().getStringExtra("from");
+
     }
 
     @Override
@@ -60,8 +71,16 @@ public class AdvertisementActivity extends Activity implements View.OnClickListe
         bean.setShareType(Platform.SHARE_WEBPAGE);
         bean.setTitle("简单冥想");
         bean.setText("累了？来放松一下");
-        bean.setImageUrl(bannerResponse.getImgURL());
-        bean.setUrl(bannerResponse.getLessionsID());
+
+        if(bannerResponse != null){
+            bean.setImageUrl(bannerResponse.getImgURL());
+            bean.setUrl(bannerResponse.getLessionsID());
+        }
+        if(activityResponse != null){
+            bean.setImageUrl(activityResponse.getImgURL());
+            bean.setUrl(activityResponse.getLessionsID());
+        }
+
     }
 
     @Override
