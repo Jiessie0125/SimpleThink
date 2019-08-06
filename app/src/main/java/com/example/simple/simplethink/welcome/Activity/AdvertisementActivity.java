@@ -14,13 +14,11 @@ import com.example.simple.simplethink.R;
 import com.example.simple.simplethink.main.MainActivity;
 import com.example.simple.simplethink.model.ActivityResponse;
 import com.example.simple.simplethink.model.BannerResponse;
+import com.example.simple.simplethink.model.BottomActivityResponse;
 import com.example.simple.simplethink.model.bean.ShareMediaBean;
-import com.example.simple.simplethink.utils.LocalDataCache;
 import com.example.simple.simplethink.utils.ShareMediaPopupWindow;
-import com.example.simple.simplethink.utils.URLConstant;
 
 import cn.sharesdk.framework.Platform;
-import cn.sharesdk.framework.ShareSDK;
 
 /**
  * Created by mobileteam on 2019/7/17.
@@ -31,6 +29,7 @@ public class AdvertisementActivity extends Activity implements View.OnClickListe
     private WebView webView;
     private BannerResponse bannerResponse;
     private ActivityResponse activityResponse;
+    private BottomActivityResponse bottomActivityResponse;
     private ImageView back_btn;
     private ImageView share_btn;
     private String[] supportMediaList = {ShareMediaPopupWindow.WECHAT,ShareMediaPopupWindow.MOMENTS,ShareMediaPopupWindow.QQ,
@@ -47,11 +46,15 @@ public class AdvertisementActivity extends Activity implements View.OnClickListe
         from = getIntent().getStringExtra("from");
         bannerResponse = (BannerResponse)getIntent().getSerializableExtra("BannerResponse");
         activityResponse = (ActivityResponse)getIntent().getSerializableExtra("ActivityResponse");
+        bottomActivityResponse = (BottomActivityResponse)getIntent().getSerializableExtra("BottomActivityResponse");
         if(bannerResponse != null){
             webView.loadUrl(bannerResponse.getLessionsID());
         }
         if(activityResponse != null){
             webView.loadUrl(activityResponse.getLessionsID());
+        }
+        if(bottomActivityResponse != null){
+            webView.loadUrl(bottomActivityResponse.getLessionsID());
         }
         back_btn = (ImageView) findViewById(R.id.ad_back_btn);
         back_btn.setTag("back");
@@ -79,6 +82,10 @@ public class AdvertisementActivity extends Activity implements View.OnClickListe
         if(activityResponse != null){
             bean.setImageUrl(activityResponse.getImgURL());
             bean.setUrl(activityResponse.getLessionsID());
+        }
+        if(bottomActivityResponse != null){
+            bean.setImageUrl(bottomActivityResponse.getImgURL());
+            bean.setUrl(bottomActivityResponse.getLessionsID());
         }
 
     }

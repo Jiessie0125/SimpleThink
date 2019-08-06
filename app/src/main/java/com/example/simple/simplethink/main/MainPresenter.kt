@@ -31,16 +31,13 @@ class MainPresenter : MainContract.Presenter {
                 })
     }
 
-    override fun getSuggestedCourse(activity: Activity) {
+    override fun getSuggestedCourse() {
         repository.getSuggestedCourse().subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .map { result -> result }
                 .subscribe({message ->
                     Log.e("---","----getMyCourse:"+message)
-                    LocalDataCache.save(message, URLConstant.GETMYCOURSEIMAGE)
-                    for (i in 0 until message.size){
-                }
-                    view?.onGtSuggestedCourseSuccess(message)
+                    view?.onGetSuggestedCourseSuccess(message)
                 },{
                     error->
                     Log.e("---","----getMyCourse:"+error)
@@ -59,13 +56,12 @@ class MainPresenter : MainContract.Presenter {
         this.view = null
     }
 
-    override fun getSuggestedActivity(activity: Activity)  {
+    override fun getSuggestedActivity()  {
         repository.getSuggestedActivity().subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .map { result -> result }
                 .subscribe({ message ->
                     Log.e("---","----getSuggestedActivity:"+message)
-                    LocalDataCache.save(message, URLConstant.GETACTIVITYIMAGE)
                     view?.onGetSuggestedActivitySuccess(message)
                 }, { error ->
                     view?.onFailure(error)

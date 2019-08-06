@@ -193,9 +193,9 @@
                 android:background="@color/blackItemLine" />
 
             <ImageView
+                android:id="@+id/bottom_banner"
                 android:layout_width="wrap_content"
-                android:layout_height="60dp"
-                android:src="@drawable/first_use"/>
+                android:layout_height="60dp" />
 
         </LinearLayout>
     </ScrollView>

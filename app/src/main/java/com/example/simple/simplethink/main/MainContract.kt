@@ -13,7 +13,7 @@ interface MainContract {
     interface View {
         fun onGetSuggestedActivitySuccess(message: List<ActivityResponse>)
         fun onGetBottomActivitySuccess(message: BottomActivityResponse)
-        fun onGtSuggestedCourseSuccess(message: List<SuggestedCourse>)
+        fun onGetSuggestedCourseSuccess(message: List<SuggestedCourse>)
         fun onFailure(e: Throwable)
 
     }
@@ -21,8 +21,8 @@ interface MainContract {
     interface Presenter {
         fun bind(view: View)
         fun unbind()
-        fun getSuggestedActivity(activity: Activity)
+        fun getSuggestedActivity()
         fun getBottomActivity()
-        fun getSuggestedCourse(activity: Activity)
+        fun getSuggestedCourse()
     }
 }

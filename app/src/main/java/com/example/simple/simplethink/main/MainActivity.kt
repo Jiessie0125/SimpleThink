@@ -20,6 +20,7 @@ import com.example.simple.simplethink.main.adapter.CourseAdapter
 import com.example.simple.simplethink.main.adapter.OnCoursetemClickListener
 import com.example.simple.simplethink.main.setting.SettingActivity
 import com.example.simple.simplethink.model.ActivityResponse
+import com.example.simple.simplethink.model.BannerResponse
 import com.example.simple.simplethink.model.BottomActivityResponse
 import com.example.simple.simplethink.model.SuggestedCourse
 import com.example.simple.simplethink.totle.TotleActivity
@@ -46,10 +47,10 @@ import java.util.*
     }
 
     override fun onGetBottomActivitySuccess(message: BottomActivityResponse) {
-
+        setBottomBanner(message)
     }
 
-    override fun onGtSuggestedCourseSuccess(message: List<SuggestedCourse>) {
+    override fun onGetSuggestedCourseSuccess(message: List<SuggestedCourse>) {
         setCouseAdapter(message)
     }
 
@@ -58,16 +59,16 @@ import java.util.*
         ErrorHandler.showErrorWithToast(this, e)
 
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        presenter.bind(this)
         init()
-        selection_more.setOnClickListener {
-
-        }
         setting.setOnClickListener { showSettingPage() }
         //PermissionUtils.requestPermissions(Manifest.permission.CAMERA,REQ_CODE_PICK_PHOTO);
     }
+
 
     private fun showSettingPage(){
         val settingIntent = SettingActivity.newIntent(this)
@@ -83,17 +84,15 @@ import java.util.*
     }
 
     private fun getImages(){
-        var myCourse = LocalDataCache.getLocalData(URLConstant.GETMYCOURSEIMAGE)
-        var suggestedActivity = LocalDataCache.getLocalData(URLConstant.GETACTIVITYIMAGE)
-        if(myCourse == null){
-            presenter.getSuggestedCourse(this)
-        }else{
-            setCouseAdapter(myCourse as List<SuggestedCourse>)
-        }
-        if(suggestedActivity == null){
-            presenter.getSuggestedActivity(this)
-        }else{
-            setSuggestedActivity(suggestedActivity as List<ActivityResponse>)
+        presenter.getSuggestedCourse()
+        presenter.getSuggestedActivity()
+        presenter.getBottomActivity()
+    }
+
+    private fun setBottomBanner(message: BottomActivityResponse){
+        Glide.with(this@MainActivity).load(message.imgURL).into(bottom_banner)
+        bottom_banner.setOnClickListener {
+            redirectorBanner(message)
         }
     }
 
@@ -139,6 +138,36 @@ import java.util.*
             }
         }
         handler.post(runnable)
+    }
+
+    private fun redirectorBanner(bannerResponse: BottomActivityResponse?) {
+        when (bannerResponse?.tag) {
+            "vip" -> {
+            }
+            "lessions" -> {
+            }
+            "sign" -> {
+            }
+            "advertisment" -> enterBannerActivity(AdvertisementActivity::class.java, "", bannerResponse)
+        }
+
+    }
+
+    private fun enterBannerActivity(activity: Class<*>, from: String, bannerResponse: BottomActivityResponse?) {
+
+
+        val intent = Intent(this@MainActivity, activity)
+
+        if (from == "") {
+            intent.putExtra("from", "main")
+        }else{
+            intent.putExtra("from", from)
+        }
+        bannerResponse?.let {
+            intent.putExtra("BottomActivityResponse", it)
+        }
+        startActivity(intent)
+        finish()
     }
 
 
