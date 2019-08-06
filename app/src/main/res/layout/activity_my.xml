@@ -36,37 +36,50 @@
                     android:layout_alignParentRight="true"
                     android:src="@drawable/setting" />
             </RelativeLayout>
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="44dp"
-                android:layout_marginTop="52dp"
                 android:orientation="vertical">
-
+                <com.example.simple.simplethink.vip.CircleImageView
+                    android:layout_width="110dp"
+                    android:layout_height="110dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/share_media"/>
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_marginTop="12sp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/hello"
-                    android:textColor="@color/wordWhite"
-                    android:textSize="@dimen/hello_text_size" />
+                    android:text="111"
+                    android:gravity="center"
+                    android:textSize="@dimen/scene_paly_txt"
+                    android:textColor="@color/wordWhite"/>
+                <LinearLayout
+                    android:layout_marginTop="18dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center">
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="10dp"
+                        android:src="@drawable/vip"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/vip_expire"
+                        android:textSize="@dimen/logon_revive_word"
+                        android:layout_marginEnd="20dp"
+                        android:textColor="@color/blackSuggesstion"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/logon_revive_word"
+                        android:text="@string/to_renew"
+                        android:textColor="@color/fisrtUse"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:text="@string/welcome"
-                    android:textColor="@color/wordWhite"
-                    android:textSize="@dimen/welcome_text_size"
-                    android:textStyle="bold" />
+                </LinearLayout>
 
-                <Button
-                    android:id="@+id/logon_register"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:background="@drawable/button_circle_shape"
-                    android:text="@string/logon_button" />
             </LinearLayout>
 
             <View

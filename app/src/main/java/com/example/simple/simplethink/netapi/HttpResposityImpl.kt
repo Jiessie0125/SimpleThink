@@ -117,4 +117,9 @@ class HttpResposityImpl(): HttpRepository {
         return getSuggestedCourseRetrofit.getSuggestedCourse();
     }
 
+    override fun getSubscription(authorization: String): Observable<SubscriptionResponse> {
+        val getSuggestedCourseRetrofit = RetrofitServiceManager.instance.create(HttpRetrofitApiService::class.java)
+        return getSuggestedCourseRetrofit.getSubscription(authorization);
+    }
+
 }

@@ -52,6 +52,10 @@
     <string name="vip_date">会员有效期至：</string>
     <string name="renew">续费</string>
     <string name="vip_center">会员中心</string>
+    <string name="suggestion">意见反馈</string>
+    <string name="versionInfo">版本信息</string>
+    <string name="to_renew">去续费>></string>
+    <string name="vip_expire">会员还有 天到期</string>
 
     <!--login & reg-->
     <string name="login_via_phone">手机登录</string>
