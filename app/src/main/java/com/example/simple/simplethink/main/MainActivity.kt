@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
+import android.widget.Toast
 import android.widget.ImageView
 import android.widget.TextView
 import com.bumptech.glide.Glide
@@ -34,10 +35,21 @@ import java.util.*
 /**
  * Created by mobileteam on 2019/6/3.
  */
- class MainActivity : Activity() , MainContract.View{
+class MainActivity : Activity() , MainContract.View, PermissionInterface {
+
 
     private var presenter: MainContract.Presenter = MainPresenter()
     lateinit var courseAdapter : CourseAdapter
+    var LOCATION:Int = 1
+    var STORATE:Int = 2
+
+    val arrayOfStringCall: Array<String> = arrayOf(Manifest.permission.READ_PHONE_STATE
+            ,Manifest.permission.READ_CALL_LOG,Manifest.permission.CALL_PHONE,
+            Manifest.permission.ADD_VOICEMAIL,Manifest.permission.WRITE_CALL_LOG,
+            Manifest.permission.USE_SIP,Manifest.permission.PROCESS_OUTGOING_CALLS,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.ACCESS_COARSE_LOCATION,Manifest.permission.ACCESS_FINE_LOCATION
+    )
     private var handler: Handler = Handler()
     private var runnable: Runnable = Runnable {}
     private var activityCount: Int = 0
@@ -65,8 +77,8 @@ import java.util.*
         setContentView(R.layout.activity_main)
         presenter.bind(this)
         init()
+        PermissionUtils.requestPermissions(arrayOfStringCall,LOCATION,this,this);
         setting.setOnClickListener { showSettingPage() }
-        //PermissionUtils.requestPermissions(Manifest.permission.CAMERA,REQ_CODE_PICK_PHOTO);
     }
 
 
@@ -235,6 +247,25 @@ import java.util.*
          var courseActivity = CourseDetailActivity.newIntent(title,this)
          startActivity(courseActivity)
      }
+    override fun requestPermissionsSuccess(callBackCode: Int) {
+//        when (callBackCode) {
+//            LOCATION -> PermissionUtils.requestPermissions(arrayOfStringStorage,2,this,this)
+//            STORATE -> PermissionUtils.requestPermissions(arrayOfStringLocation,3,this,this)
+//        }
 
+    }
+
+    override fun requestPermissionsFail(callBackCode: Int) {
+//        when (callBackCode) {
+//            LOCATION -> PermissionUtils.requestPermissions(arrayOfStringStorage,2,this,this)
+//            STORATE -> PermissionUtils.requestPermissions( arrayOfStringLocation,3,this,this)
+//        }
+    }
+
+    override  fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>?, grantResults: IntArray?) {
+        PermissionUtils.requestPermissionsResult(requestCode, permissions as Array<String>
+                , grantResults!!); // 接管结果判断
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+    }
 
 }
