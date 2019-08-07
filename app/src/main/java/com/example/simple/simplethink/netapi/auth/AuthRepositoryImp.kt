@@ -2,6 +2,7 @@ package com.example.simple.simplethink.netapi.auth
 
 import com.example.simple.simplethink.model.AuthResponse
 import com.example.simple.simplethink.model.CheckIsUserExistResponse
+import com.example.simple.simplethink.model.UserInfoResponse
 import com.example.simple.simplethink.network.RetrofitServiceManager
 import com.example.simple.simplethink.utils.DeviceUtils
 import io.reactivex.Observable
@@ -10,6 +11,10 @@ import io.reactivex.Observable
  * Created by Ashur on 2019/7/18.
  */
 class AuthRepositoryImp : AuthRepository {
+    override fun loadUserInfo(): Observable<UserInfoResponse> {
+        val service = RetrofitServiceManager.instance.create(AuthApiService::class.java)
+        return service.getUserInfo()
+    }
 
     override fun checkIsUserExist(userName: String): Observable<CheckIsUserExistResponse> {
         val service = RetrofitServiceManager.instance.create(AuthApiService::class.java)

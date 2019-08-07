@@ -1,7 +1,10 @@
 package com.example.simple.simplethink.utils.auth
 
+import com.example.simple.simplethink.model.UserInfoResponse
+
 class AuthInstance {
     var accessToken: String? = ""
+    var userInfo: UserInfoResponse? = null
 
     companion object {
         @Volatile
@@ -13,5 +16,10 @@ class AuthInstance {
                 }
     }
 
+    fun clear() {
+        accessToken = null
+        userInfo = null
+        singleton = null
+    }
 
 }
