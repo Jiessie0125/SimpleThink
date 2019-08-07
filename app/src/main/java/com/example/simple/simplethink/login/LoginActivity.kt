@@ -60,6 +60,7 @@ class LoginActivity : Activity(), PlatformActionListener, LoginContract.View {
         login_via_qq.setOnClickListener { loginViaQQ() }
         login_via_weibo.setOnClickListener { loginViaWeibo() }
         login_close_btn.setOnClickListener { close() }
+        login_policy.setOnClickListener{policy()}
         register_btn.setOnClickListener { register() }
     }
 
@@ -84,7 +85,14 @@ class LoginActivity : Activity(), PlatformActionListener, LoginContract.View {
     }
 
     private fun register() {
+        val intent = Intent(this, ForgetPasswordActivity::class.java)
+        intent.putExtra("model","register");
+        startActivity(intent)
+    }
 
+    private fun policy() {
+        val intent = ProtocolActivity.newIntent(this)
+        startActivity(intent)
     }
 
     private fun close() {

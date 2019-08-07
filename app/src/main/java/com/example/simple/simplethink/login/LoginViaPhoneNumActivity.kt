@@ -39,7 +39,7 @@ class LoginViaPhoneNumActivity : Activity(), LoginViaPhoneContract.View {
         }
         forget_password_link.setOnClickListener {
             val intent = Intent(this, ForgetPasswordActivity::class.java)
-            intent.putExtra("model", "register")
+            intent.putExtra("model", "forgetPassword")
             startActivity(intent)
         }
         login_phone_back_btn.setOnClickListener {
