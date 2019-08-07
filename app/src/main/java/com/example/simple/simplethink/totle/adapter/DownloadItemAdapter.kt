@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.RelativeLayout
 import android.widget.TextView
 import com.example.simple.simplethink.R
 import com.example.simple.simplethink.model.VIPItem
@@ -13,15 +14,23 @@ import com.example.simple.simplethink.model.VIPItem
 /**
  * Created by jiessie on 2019/6/11.
  */
-class DownloadItemAdapter(val context: Activity, val vipArray : ArrayList<String>) : RecyclerView.Adapter<DownloadHolder>() {
+class DownloadItemAdapter(val context: Activity, val vipArray : ArrayList<String>) : RecyclerView.Adapter<DownloadItemAdapter.DownloadHolder>(), View.OnClickListener  {
 
-    private var mClickListener : OnTotleItemClickListener?= null
+    private var mClickListener : OnDownloadItemClickListener?= null
+    var hidenClass : String =""
     override fun getItemCount(): Int {
         return vipArray?.size!!
     }
 
     override fun onBindViewHolder(holder: DownloadHolder?, position: Int) {
         holder?.mNameItem?.text = vipArray[position]
+        holder?.mDeleteItem?.tag = position
+        holder?.mDownloadRelative?.tag = position
+        if(hidenClass == holder?.mNameItem?.text){
+            holder?.mDownloadRelative?.visibility = View.GONE
+        }else{
+            holder?.mDownloadRelative?.visibility = View.VISIBLE
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): DownloadHolder {
@@ -30,30 +39,43 @@ class DownloadItemAdapter(val context: Activity, val vipArray : ArrayList<String
         return DownloadHolder(holder, mClickListener)
     }
 
-    fun setOnItemClickListener( listener : OnTotleItemClickListener){
+    fun setOnItemClickListener( listener : OnDownloadItemClickListener){
         this.mClickListener = listener
     }
 
-}
+    fun setData(bigClassName : String){
+        hidenClass = bigClassName
+        notifyDataSetChanged()
+    }
 
-class DownloadHolder(view : View?, private val mListener: OnTotleItemClickListener?): RecyclerView.ViewHolder(view), View.OnClickListener {
-    var mPlayItem : ImageView?
-    var mNameItem : TextView?
-    var mDeleteItem : ImageView?
+   inner class DownloadHolder(view : View?, private val mListener: OnDownloadItemClickListener?): RecyclerView.ViewHolder(view){
+        var mNameItem : TextView?
+        var mDeleteItem : ImageView?
+        var mDownloadRelative : RelativeLayout?
 
-    init {
-        mPlayItem = view?.findViewById(R.id.download_play_ry)
-        mNameItem = view?.findViewById(R.id.download_name_ry)
-        mDeleteItem = view?.findViewById(R.id.download_delete_ry)
+        init {
+            mNameItem = view?.findViewById(R.id.download_name_ry)
+            mDeleteItem = view?.findViewById(R.id.download_delete_ry)
+            mDownloadRelative = view?.findViewById(R.id.download_relative)
 
-        view?.setOnClickListener(this)
+            mDownloadRelative?.setOnClickListener(this@DownloadItemAdapter)
+            mDeleteItem?.setOnClickListener(this@DownloadItemAdapter)
+        }
+    }
+
+    interface OnDownloadItemClickListener {
+        fun onItemClick(v: View?, position: Int)
     }
 
     override fun onClick(v: View?) {
-        mListener?.onItemClick(v, getPosition())
+        val position = v?.getTag()      //getTag()获取数据
+        if (mClickListener != null) {
+            when (v?.getId()) {
+                R.id.download_delete_ry -> mClickListener?.onItemClick(v, position as Int)
+                else -> mClickListener?.onItemClick(v,  position as Int)
+            }
+        }
     }
+
 }
 
-interface OnDownloadItemClickListener {
-    fun onItemClick(v: View?, position: Int)
-}

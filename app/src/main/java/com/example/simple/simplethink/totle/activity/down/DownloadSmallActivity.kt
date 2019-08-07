@@ -7,7 +7,9 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.example.simple.simplethink.R
 import com.example.simple.simplethink.base.BaseActivity
+import com.example.simple.simplethink.totle.activity.ScenePlayActivity
 import com.example.simple.simplethink.totle.adapter.DownloadItemAdapter
+import com.example.simple.simplethink.totle.adapter.DownloadSmallItemAdapter
 import com.example.simple.simplethink.utils.ResourcesUtils
 import kotlinx.android.synthetic.main.activity_download.*
 import kotlinx.android.synthetic.main.title_tool.*
@@ -15,13 +17,15 @@ import kotlinx.android.synthetic.main.title_tool.*
 /**
  * Created by jiessie on 2019/7/5.
  */
-class DownloadActivity : BaseActivity() {
-    lateinit var downloadAdapter : DownloadItemAdapter
+class DownloadSmallActivity : BaseActivity() {
+    lateinit var downloadAdapter : DownloadSmallItemAdapter
     var downloadArray = ArrayList<String>()
 
     companion object {
-        fun newIntent (context: Context?) : Intent {
-            var intent = Intent(context, DownloadActivity::class.java)
+        const val SOURCENAME = "SOURCENAME"
+        fun newIntent (context: Context?,sourceName : String) : Intent {
+            var intent = Intent(context, DownloadSmallActivity::class.java)
+            intent.putExtra(SOURCENAME,sourceName)
             return intent
         }
     }
@@ -32,23 +36,25 @@ class DownloadActivity : BaseActivity() {
     }
 
     fun initView(){
+        var intent = getIntent()
+        var sourceName = intent.getSerializableExtra(SOURCENAME) as String
         setHeader(ResourcesUtils.getString(R.string.download_manager))
-        val folder = this.getExternalFilesDirs(null)[0]
+        val folder = this.getExternalFilesDirs(sourceName)[0]
         folder?.let {
             it.list().forEach { item ->
                 downloadArray.add(item)
             }
         }
         downloadArray?.let {
-            downloadClass.layoutManager =LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false)
-            downloadAdapter = DownloadItemAdapter(this,downloadArray)
+            downloadClass.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+            downloadAdapter = DownloadSmallItemAdapter(this, downloadArray)
             downloadClass.adapter = downloadAdapter
             downloadAdapter.notifyDataSetChanged()
-            downloadAdapter.setOnItemClickListener(object : DownloadItemAdapter.OnDownloadItemClickListener {
+            downloadAdapter.setOnItemClickListener(object : DownloadSmallItemAdapter.OnDownloadSmallItemClickListener {
                 override fun onItemClick(v: View?, position: Int) {
                     when (v?.getId()) {
-                        R.id.download_delete_ry -> removeBigClass(downloadArray[position])
-                        else ->showSmallClass(downloadArray[position])
+                        R.id.download_small_delete_ry -> removeBigClass(downloadArray[position])
+                        R.id.download_small_play_ry ->showPlayPage(downloadArray[position],sourceName)
                     }
                 }
             })
@@ -65,12 +71,10 @@ class DownloadActivity : BaseActivity() {
         val folder = this.getExternalFilesDir(bigClassName)
         if (folder.exists()) {
             folder.delete()
-            downloadAdapter.setData(bigClassName)
         }
     }
-    private fun showSmallClass(bigClassName : String){
-        val downloadSmallIntent = DownloadSmallActivity.newIntent(this,bigClassName)
-        startActivity(downloadSmallIntent)
+    private fun showPlayPage(sceneName : String,sceneSource: String){
+        val intent = ScenePlayActivity.newIntent(this,sceneName,sceneSource,null)
+        startActivity(intent)
     }
-
 }

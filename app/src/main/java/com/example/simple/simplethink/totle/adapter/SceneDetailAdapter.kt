@@ -24,15 +24,11 @@ import java.io.File
 /**
  * Created by jiessie on 2019/6/11.
  */
-class SceneDetailAdapter( val context: Activity,val sections : List<Sections>) : RecyclerView.Adapter<SceneDetailAdapter.SceneDetailHolder>(), View.OnClickListener {
+class SceneDetailAdapter( val context: Activity,val sections : List<Sections>,val title : String) : RecyclerView.Adapter<SceneDetailAdapter.SceneDetailHolder>(), View.OnClickListener {
 
     private var mClickListener : OnItemDetailClickListener ?= null
     private var isShow = false
     private var mPosition = -1
-
-    companion object {
-        const val SCENEDETAIL = "SCENEDETAIL"
-    }
 
     override fun getItemCount(): Int {
         return sections.size
@@ -60,8 +56,7 @@ class SceneDetailAdapter( val context: Activity,val sections : List<Sections>) :
     }
 
     fun updateProcessBar(url: String,FILE_NAME: String, processBar: RoundProgressBar?){
-        var filePath = Environment.getExternalStorageDirectory().toString() + File.separator +SCENEDETAIL
-        val folder = context.getExternalFilesDir(SCENEDETAIL)
+        val folder = context.getExternalFilesDir(title)
         if (!folder.exists()) {
             folder.mkdirs()
         }

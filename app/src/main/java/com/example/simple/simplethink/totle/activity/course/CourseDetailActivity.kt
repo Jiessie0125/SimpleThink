@@ -8,11 +8,9 @@ import android.view.View
 import com.example.simple.simplethink.R
 import com.example.simple.simplethink.base.BaseActivity
 import com.example.simple.simplethink.model.bean.CourseResponse
-import com.example.simple.simplethink.model.bean.CourseSections
 import com.example.simple.simplethink.netapi.HttpResposityImpl
 import com.example.simple.simplethink.totle.activity.ScenePlayActivity
 import com.example.simple.simplethink.totle.adapter.CourseDetailAdapter
-import com.example.simple.simplethink.totle.adapter.CourseDetailAdapter.Companion.COURSEDETAIL
 import com.example.simple.simplethink.utils.FilesUtils
 import com.example.simple.simplethink.vip.VIPCenterActivity
 import kotlinx.android.synthetic.main.activity_course_detail.*
@@ -56,7 +54,7 @@ class CourseDetailActivity: BaseActivity(), CourseDetailContact.View{
         course_detail_totle.text = "("+ courseResponse.section_total_count+")"
         FilesUtils.showImage(courseResponse.title_img_new, this, content_bk)
         course_detail_rv.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false)
-        courseDetailAdapter = CourseDetailAdapter(this,courseResponse.sections)
+        courseDetailAdapter = CourseDetailAdapter(this,courseResponse.sections,courseResponse.title)
         course_detail_rv.adapter = courseDetailAdapter
         courseDetailAdapter.notifyDataSetChanged()
         courseDetailAdapter.setOnItemClickListener(object : CourseDetailAdapter.OnCourseDetailItemClickListener {
@@ -64,7 +62,7 @@ class CourseDetailActivity: BaseActivity(), CourseDetailContact.View{
                 when(v?.id){
                     R.id.course_download -> isVipItem(courseResponse.sections[position].free,position)
                     R.id.course_play -> showSceneResourcePage(courseResponse.sections[position].title,
-                            FilesUtils.getLocalFileUrl(courseResponse.sections[position].title,COURSEDETAIL),null)
+                            FilesUtils.getLocalFileUrl(courseResponse.sections[position].title,courseResponse.title),null)
                 }
             }
         })

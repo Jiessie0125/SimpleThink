@@ -53,11 +53,11 @@ class SceneDetailActivity: AppCompatActivity() ,SceneDetailContact.View {
         showBKImage(sceneResponse.content_img_new,this,scene_bg)
         scene_title.text = sceneResponse.title
         scene_detail_back.setOnClickListener { finish() }
-        setSceneDetailAdapter(sceneResponse.sections)
+        setSceneDetailAdapter(sceneResponse.sections,sceneResponse.title)
     }
 
-    private fun setSceneDetailAdapter(sections : List<Sections>){
-        sceneDetailAdapter = SceneDetailAdapter(this,sections)
+    private fun setSceneDetailAdapter(sections : List<Sections>,title : String){
+        sceneDetailAdapter = SceneDetailAdapter(this,sections,title)
         val layoutManager = LinearLayoutManager(this)
         layoutManager.orientation = LinearLayoutManager.HORIZONTAL
         scene_detail_rv.layoutManager = layoutManager
@@ -69,7 +69,7 @@ class SceneDetailActivity: AppCompatActivity() ,SceneDetailContact.View {
             override fun onItemClick(v: View, viewName: SceneDetailAdapter.ViewName, position: Int) {
                 when (v.getId()) {
                     R.id.scene_download -> downloadMP3(position)
-                    else -> showSceneResourcePage(sections[position].title, FilesUtils.getLocalFileUrl(sections[position].title,SceneDetailAdapter.SCENEDETAIL),sceneResponse.content_img_new)
+                    else -> showSceneResourcePage(sections[position].title, FilesUtils.getLocalFileUrl(sections[position].title,title),sceneResponse.content_img_new)
                 }
             }
         })

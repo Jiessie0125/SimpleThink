@@ -23,11 +23,7 @@ import java.io.File
 /**
  * Created by jiessie on 2019/6/11.
  */
-class CourseDetailAdapter(val context: Activity, val totleLish : List<CourseSections>) : RecyclerView.Adapter<CourseDetailAdapter.CourseDetailViewHolder>() , View.OnClickListener {
-
-    companion object {
-        const val COURSEDETAIL = "COURSEDETAIL"
-    }
+class CourseDetailAdapter(val context: Activity, val totleLish : List<CourseSections>, val courseTitle: String) : RecyclerView.Adapter<CourseDetailAdapter.CourseDetailViewHolder>() , View.OnClickListener {
 
     private var mClickListener : OnCourseDetailItemClickListener?= null
     private var mPosition = -1
@@ -42,7 +38,7 @@ class CourseDetailAdapter(val context: Activity, val totleLish : List<CourseSect
         holder?.mItemName?.text = FilesUtils.timeParse(totleLish[position].main_duration.toLong())
         holder?.mCourseViptem?.tag = position
         holder?.mCoursePlay?.tag = position
-        if(isHaveFile(totleLish?.get(position)?.title,COURSEDETAIL)){
+        if(isHaveFile(totleLish?.get(position)?.title,courseTitle)){
             holder?.mRelativeLayout?.background = ResourcesUtils.resource.getDrawable(R.color.courseDetailDownload)
             holder?.mCoursePlay?.visibility = View.VISIBLE
             holder?.mCourseViptem?.visibility = View.GONE
@@ -113,7 +109,7 @@ class CourseDetailAdapter(val context: Activity, val totleLish : List<CourseSect
     fun updateProcessBar(url: String,FILE_NAME: String, processBar: ProgressBarView?){
        // var filePath = Environment.getExternalStorageDirectory().toString() + File.separator +COURSEDETAIL
        // var filePath = context.getExternalFilesDir(COURSEDETAIL)
-        val folder = context.getExternalFilesDir(COURSEDETAIL)
+        val folder = context.getExternalFilesDir(courseTitle)
         if (!folder.exists()) {
             folder.mkdirs()
         }

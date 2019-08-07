@@ -64,6 +64,10 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".vip.VIPCenterActivity"
             android:screenOrientation="portrait"/>
+        <activity android:name=".totle.activity.down.DownloadActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".totle.activity.down.DownloadSmallActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

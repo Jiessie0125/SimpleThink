@@ -6,23 +6,28 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:minHeight="55dp"
-    android:id="@+id/download_relative"
     android:background="@color/mainColor"
     android:layout_gravity="center"
     android:orientation="horizontal">
-
+    <ImageView
+        android:id="@+id/download_small_play_ry"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:layout_centerVertical="true"
+        android:src="@drawable/scene_play"/>
     <TextView
-        android:id="@+id/download_name_ry"
+        android:id="@+id/download_small_name_ry"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="@dimen/login_small_title"
         android:layout_marginLeft="20dp"
+        android:layout_toEndOf="@+id/download_small_play_ry"
         android:text="222"
         android:textColor="@color/wordWhite"
         android:layout_centerVertical="true"/>
 
     <ImageView
-        android:id="@+id/download_delete_ry"
+        android:id="@+id/download_small_delete_ry"
         android:layout_alignParentRight="true"
         android:layout_width="14dp"
         android:layout_height="16dp"

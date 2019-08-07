@@ -29,7 +29,7 @@ import java.io.IOException
  * Created by jiessie on 2019/6/5.
  */
 class WhithNoiseFragment : Fragment(),WhiteNoiseContact.View ,View.OnClickListener{
-    val ARGUMENT = "ARGUMENT"
+    
     lateinit var persenter: WhiteNoiseContact.Presenter
     lateinit var whiteItemAdapter: WhiteItemAdapter
     var player : MediaPlayer?= null
