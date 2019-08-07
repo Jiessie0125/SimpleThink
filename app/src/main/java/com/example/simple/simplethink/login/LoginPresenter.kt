@@ -13,6 +13,8 @@ import io.reactivex.android.schedulers.AndroidSchedulers
  * Created by 111 on 2019/7/18.
  */
 class LoginPresenter : LoginContract.Presenter {
+
+
     private var view: LoginContract.View? = null
     private val authRepository: AuthRepository = AuthRepositoryImp()
     private val repository: HttpRepository = HttpResposityImpl()
@@ -43,7 +45,7 @@ class LoginPresenter : LoginContract.Presenter {
                 .subscribe({ message ->
                     val token = message.accessToken
                     AuthInstance.getInstance().accessToken = token
-                    view?.onSuccess()
+                    view?.onLoginSuccess()
                     view?.dismiss()
                 }, { error ->
                     view?.dismiss()
@@ -62,4 +64,17 @@ class LoginPresenter : LoginContract.Presenter {
                 })
     }
 
+    override fun loadUserInfo() {
+        view?.loading()
+        authRepository.loadUserInfo().subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({ message ->
+                    AuthInstance.getInstance().userInfo = message
+                    view?.onLoadUserInfoSuccess()
+                    view?.dismiss()
+                }, { error ->
+                    view?.dismiss()
+                    view?.onFailure(error)
+                })
+    }
 }

@@ -16,64 +16,51 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="36dp"
-                android:paddingEnd="@dimen/default_view_horizontal_padding"
-                android:paddingStart="@dimen/default_view_horizontal_padding">
-
-                <ImageView
-                    android:id="@+id/home"
-                    android:layout_width="22dp"
-                    android:layout_height="22dp"
-                    android:src="@drawable/home" />
-
-                <ImageView
-                    android:id="@+id/setting"
-                    android:layout_width="22dp"
-                    android:layout_height="22dp"
-                    android:layout_alignParentRight="true"
-                    android:src="@drawable/setting" />
-            </RelativeLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
+
                 <com.example.simple.simplethink.vip.CircleImageView
+                    android:id="@+id/avatar"
                     android:layout_width="110dp"
                     android:layout_height="110dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/share_media"/>
+                    android:src="@drawable/share_media" />
+
                 <TextView
+                    android:id="@+id/user_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="12sp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="111"
                     android:gravity="center"
-                    android:textSize="@dimen/scene_paly_txt"
-                    android:textColor="@color/wordWhite"/>
+                    android:text="111"
+                    android:textColor="@color/wordWhite"
+                    android:textSize="@dimen/scene_paly_txt" />
+
                 <LinearLayout
-                    android:layout_marginTop="18dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="center">
+                    android:layout_marginTop="18dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/vip_expire"
+                        android:layout_marginEnd="20dp"
                         android:drawableLeft="@drawable/vip"
                         android:drawablePadding="19dp"
-                        android:textSize="@dimen/logon_revive_word"
-                        android:layout_marginEnd="20dp"
-                        android:textColor="@color/blackSuggesstion"/>
+                        android:text="@string/vip_expire"
+                        android:textColor="@color/blackSuggesstion"
+                        android:textSize="@dimen/logon_revive_word" />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="@dimen/logon_revive_word"
                         android:text="@string/to_renew"
-                        android:textColor="@color/fisrtUse"/>
+                        android:textColor="@color/fisrtUse"
+                        android:textSize="@dimen/logon_revive_word" />
 
                 </LinearLayout>
 
@@ -110,17 +97,19 @@
                         android:textColor="@color/wordWhite"
                         android:textSize="@dimen/login_small_title" />
                 </LinearLayout>
+
                 <ScrollView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
+
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content">
+
                         <android.support.v7.widget.RecyclerView
                             android:id="@+id/recommend_course"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content">
-                        </android.support.v7.widget.RecyclerView>
+                            android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
                     </LinearLayout>
                 </ScrollView>
             </LinearLayout>
@@ -152,21 +141,22 @@
                         android:background="@drawable/button_circle_shape" />
 
                     <TextView
-                        android:layout_toRightOf="@id/square_shape"
-                        android:layout_alignParentTop="true"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_toRightOf="@id/square_shape"
                         android:text="@string/selection_edit"
                         android:textColor="@color/wordWhite"
                         android:textSize="@dimen/login_small_title" />
+
                     <ImageView
                         android:id="@+id/selection_more"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
                         android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
                         android:layout_marginRight="5dp"
-                        android:src="@drawable/next"/>
+                        android:src="@drawable/next" />
                 </RelativeLayout>
 
                 <ImageView
@@ -205,7 +195,7 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="60dp"
-                android:src="@drawable/first_use"/>
+                android:src="@drawable/first_use" />
 
         </LinearLayout>
     </ScrollView>
