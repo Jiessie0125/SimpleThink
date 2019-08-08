@@ -76,4 +76,6 @@ interface HttpRetrofitApiService {
     @GET("/subscription")
     fun getSubscription(@Header("Authorization") authorization : String): Observable<SubscriptionResponse>
 
+    @GET("/version/android")
+    fun getAppVersion(): Observable<SubscriptionResponse>
 }

@@ -66,5 +66,5 @@
     <string name="login_policy"><![CDATA[登录即代表同意<U>简单冥想用户隐私政策</U>]]></string>
     <string name="login_3rd_party_auth_fail">认证失败</string>
     <string name="login_3rd_party_auth_cancel">取消授权认证</string>
-    <string name="selection_edit">精选编辑</string>
+    <string name="selection_edit">编辑精选</string>
 </resources>
