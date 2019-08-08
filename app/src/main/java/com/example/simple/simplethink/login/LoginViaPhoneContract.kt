@@ -8,7 +8,8 @@ interface LoginViaPhoneContract {
     interface View {
         fun onSuccess()
         fun onFailure(e: Throwable)
-
+        fun showLoading()
+        fun dismissLoading()
     }
 
     interface Presenter {

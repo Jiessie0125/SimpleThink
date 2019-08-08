@@ -24,7 +24,7 @@ class ErrorHandler {
             if (msgId <= 0) {
                 return
             }
-            Toast.makeText(context, context.getText(msgId), Toast.LENGTH_LONG).show()
+            Toast.makeText(context, context.getString(msgId), Toast.LENGTH_LONG).show()
         }
 
         private fun getErrorMsg(context: Context, e: Throwable): String {

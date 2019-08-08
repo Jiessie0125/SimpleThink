@@ -97,7 +97,12 @@ class HttpResposityImpl(): HttpRepository {
             put("password", password)
             put("username", username)
             put("platform", "android")
-            code?.let { put("code", it) }
+            put("gender", "other")
+            put("code", code ?: "")
+            put("nickname", "")
+            put("avatar", "")
+            put("range_age", "")
+            put("range_location", "")
         }
         return register.register(params)
     }

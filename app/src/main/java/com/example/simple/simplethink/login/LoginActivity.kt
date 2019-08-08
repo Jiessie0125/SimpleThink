@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.text.Html
+import android.widget.Toast
 import cn.sharesdk.framework.Platform
 import cn.sharesdk.framework.PlatformActionListener
 import com.example.simple.simplethink.R
@@ -22,6 +23,7 @@ import java.util.HashMap
  * Created by mobileteam on 2019/5/30.
  */
 class LoginActivity : Activity(), PlatformActionListener, LoginContract.View {
+
     override fun loading() {
         waitDialog?.show()
     }
@@ -30,8 +32,8 @@ class LoginActivity : Activity(), PlatformActionListener, LoginContract.View {
         waitDialog?.dismiss()
     }
 
-    val presenter = LoginPresenter()
-    var waitDialog: WaitDialog? = null
+    private val presenter = LoginPresenter()
+    private var waitDialog: WaitDialog? = null
 
     companion object {
         const val REQUEST_LOGIN = 1
@@ -108,7 +110,7 @@ class LoginActivity : Activity(), PlatformActionListener, LoginContract.View {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if (requestCode == REQUEST_LOGIN && resultCode == RESULT_OK) {
-            finish()
+            loginSuccess()
         }
     }
 
@@ -129,12 +131,25 @@ class LoginActivity : Activity(), PlatformActionListener, LoginContract.View {
         runOnUiThread { ErrorHandler.showErrorWithToast(this, R.string.login_3rd_party_auth_fail) }
     }
 
-    override fun onSuccess() {
-        finish()
+    override fun onLoginSuccess() {
+        loadUserInfo()
     }
 
     override fun onFailure(e: Throwable) {
         ErrorHandler.showErrorWithToast(this, e)
     }
 
+    override fun onLoadUserInfoSuccess() {
+        loginSuccess()
+    }
+
+    private fun loadUserInfo() {
+        presenter.loadUserInfo()
+    }
+
+
+    private fun loginSuccess() {
+        Toast.makeText(this, getString(R.string.login_success), Toast.LENGTH_LONG).show()
+        finish()
+    }
 }

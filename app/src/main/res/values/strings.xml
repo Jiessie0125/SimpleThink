@@ -67,4 +67,5 @@
     <string name="login_3rd_party_auth_fail">认证失败</string>
     <string name="login_3rd_party_auth_cancel">取消授权认证</string>
     <string name="selection_edit">编辑精选</string>
+    <string name="login_success">登录成功</string>
 </resources>

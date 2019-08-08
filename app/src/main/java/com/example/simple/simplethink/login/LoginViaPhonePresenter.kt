@@ -21,16 +21,31 @@ class LoginViaPhonePresenter : LoginViaPhoneContract.Presenter {
     }
 
     override fun login(userName: String, password: String) {
+        view?.showLoading()
         repository.auth(userName, password).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .map { result -> result }
                 .subscribe({ message ->
                     val token = message.accessToken
                     AuthInstance.getInstance().accessToken = token
-                    view?.onSuccess()
+                    loadUserInfo()
                 }, { error ->
+                    view?.dismissLoading()
                     view?.onFailure(error)
                 })
     }
 
+    private fun loadUserInfo() {
+        repository.loadUserInfo().subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .map { result -> result }
+                .subscribe({ message ->
+                    view?.dismissLoading()
+                    AuthInstance.getInstance().userInfo = message
+                    view?.onSuccess()
+                }, { error ->
+                    view?.dismissLoading()
+                    view?.onFailure(error)
+                })
+    }
 }

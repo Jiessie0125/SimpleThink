@@ -109,5 +109,7 @@ dependencies {
     implementation 'com.android.support:design:25.4.0'
     implementation 'com.youth.banner:banner:1.4.10'
     implementation 'com.github.bumptech.glide:glide:4.5.0'
+    implementation 'com.github.jokermonn:permissions4m:2.1.2-lib'
+    annotationProcessor 'com.github.jokermonn:permissions4m:2.1.2-processor'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.5.0'
 }

@@ -36,7 +36,7 @@
     <string name="invalid_code">激活码有误</string>
     <string name="used_code">激活码已使用</string>
     <string name="within_the_discount_period">当前已有折扣</string>
-
+    <string name="download_manager">下载管理</string>
     <!--local-->
     <string name="invalid_phone_number_format">无效的手机号码</string>
 

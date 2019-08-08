@@ -7,12 +7,14 @@ import android.os.Bundle
 import com.example.simple.simplethink.R
 import com.example.simple.simplethink.utils.ErrorHandler
 import com.example.simple.simplethink.utils.ValidationUtils
+import com.example.simple.simplethink.widget.WaitDialog
 import kotlinx.android.synthetic.main.activity_login_phone_number.*
 
 /**
  * Created by Ashur on 2019/7/18.
  */
 class LoginViaPhoneNumActivity : Activity(), LoginViaPhoneContract.View {
+
     companion object {
         open fun newIntent(context: Context): Intent {
             return Intent(context, LoginViaPhoneNumActivity::class.java)
@@ -23,10 +25,12 @@ class LoginViaPhoneNumActivity : Activity(), LoginViaPhoneContract.View {
         ErrorHandler.showErrorWithToast(this, e)
     }
 
+    private var waitDialog: WaitDialog? = null
     private var presenter: LoginViaPhoneContract.Presenter = LoginViaPhonePresenter()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login_phone_number)
+        waitDialog = WaitDialog(this)
         presenter.bind(this)
         login_phone_btn.setOnClickListener {
             if (!checkIsPhoneNumber()) {
@@ -46,6 +50,14 @@ class LoginViaPhoneNumActivity : Activity(), LoginViaPhoneContract.View {
             finish();
         }
 
+    }
+
+    override fun showLoading() {
+        waitDialog?.show()
+    }
+
+    override fun dismissLoading() {
+        waitDialog?.dismiss()
     }
 
     private fun checkIsPhoneNumber(): Boolean {
