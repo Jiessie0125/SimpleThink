@@ -10,6 +10,7 @@ import com.example.simple.simplethink.base.BaseActivity
 import com.example.simple.simplethink.totle.activity.ScenePlayActivity
 import com.example.simple.simplethink.totle.adapter.DownloadItemAdapter
 import com.example.simple.simplethink.totle.adapter.DownloadSmallItemAdapter
+import com.example.simple.simplethink.utils.FilesUtils
 import com.example.simple.simplethink.utils.ResourcesUtils
 import kotlinx.android.synthetic.main.activity_download.*
 import kotlinx.android.synthetic.main.title_tool.*
@@ -45,16 +46,19 @@ class DownloadSmallActivity : BaseActivity() {
                 downloadArray.add(item)
             }
         }
+        downloadAdapter = DownloadSmallItemAdapter(this)
         downloadArray?.let {
             downloadClass.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-            downloadAdapter = DownloadSmallItemAdapter(this, downloadArray)
+            downloadArray.forEach { item ->
+                downloadAdapter.setData(downloadArray)
+            }
             downloadClass.adapter = downloadAdapter
             downloadAdapter.notifyDataSetChanged()
             downloadAdapter.setOnItemClickListener(object : DownloadSmallItemAdapter.OnDownloadSmallItemClickListener {
                 override fun onItemClick(v: View?, position: Int) {
                     when (v?.getId()) {
                         R.id.download_small_delete_ry -> removeBigClass(downloadArray[position])
-                        R.id.download_small_play_ry ->showPlayPage(downloadArray[position],sourceName)
+                        R.id.download_small_play_ry ->showPlayPage(downloadArray[position],FilesUtils.getLocalFileUrl(downloadArray[position],sourceName))
                     }
                 }
             })
@@ -70,7 +74,9 @@ class DownloadSmallActivity : BaseActivity() {
     private fun removeBigClass(bigClassName : String){
         val folder = this.getExternalFilesDir(bigClassName)
         if (folder.exists()) {
-            folder.delete()
+            FilesUtils.deleteFile(folder)
+            downloadArray.remove(bigClassName)
+            downloadAdapter.setData(downloadArray)
         }
     }
     private fun showPlayPage(sceneName : String,sceneSource: String){

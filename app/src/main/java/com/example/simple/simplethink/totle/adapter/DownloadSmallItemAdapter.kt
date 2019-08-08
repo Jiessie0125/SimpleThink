@@ -12,9 +12,11 @@ import com.example.simple.simplethink.R
 /**
  * Created by jiessie on 2019/6/11.
  */
-class DownloadSmallItemAdapter(val context: Activity, val vipArray : ArrayList<String>) : RecyclerView.Adapter<DownloadSmallItemAdapter.DownloadSmallHolder>(), View.OnClickListener {
+class DownloadSmallItemAdapter(val context: Activity) : RecyclerView.Adapter<DownloadSmallItemAdapter.DownloadSmallHolder>(), View.OnClickListener {
 
     private var mClickListener : OnDownloadSmallItemClickListener?= null
+    var vipArray = ArrayList<String>()
+
     override fun getItemCount(): Int {
         return vipArray?.size!!
     }
@@ -33,6 +35,11 @@ class DownloadSmallItemAdapter(val context: Activity, val vipArray : ArrayList<S
 
     fun setOnItemClickListener( listener : OnDownloadSmallItemClickListener){
         this.mClickListener = listener
+    }
+
+    fun setData(vipArray : ArrayList<String>){
+        this.vipArray = vipArray
+        notifyDataSetChanged()
     }
 
    inner class DownloadSmallHolder(view : View?): RecyclerView.ViewHolder(view){
@@ -58,8 +65,8 @@ class DownloadSmallItemAdapter(val context: Activity, val vipArray : ArrayList<S
         val position = v?.getTag()      //getTag()获取数据
         if (mClickListener != null) {
             when (v?.getId()) {
-                R.id.download_delete_ry -> mClickListener?.onItemClick(v, position as Int)
                 R.id.download_small_play_ry -> mClickListener?.onItemClick(v,  position as Int)
+                R.id.download_small_delete_ry -> mClickListener?.onItemClick(v, position as Int)
             }
         }
     }
