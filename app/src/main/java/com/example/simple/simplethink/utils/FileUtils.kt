@@ -163,5 +163,21 @@ object FilesUtils{
         return time
     }
 
+    fun deleteFile(dirFile: File): Boolean {
+        // 如果dir对应的文件不存在，则退出
+        if (!dirFile.exists()) {
+            return false
+        }
 
+        if (dirFile.isFile()) {
+            return dirFile.delete()
+        } else {
+
+            for (file in dirFile.listFiles()) {
+                deleteFile(file)
+            }
+        }
+
+        return dirFile.delete()
+    }
 }

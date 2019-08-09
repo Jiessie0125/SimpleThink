@@ -8,6 +8,7 @@ import android.view.View
 import com.example.simple.simplethink.R
 import com.example.simple.simplethink.base.BaseActivity
 import com.example.simple.simplethink.totle.adapter.DownloadItemAdapter
+import com.example.simple.simplethink.utils.FilesUtils
 import com.example.simple.simplethink.utils.ResourcesUtils
 import kotlinx.android.synthetic.main.activity_download.*
 import kotlinx.android.synthetic.main.title_tool.*
@@ -39,11 +40,13 @@ class DownloadActivity : BaseActivity() {
                 downloadArray.add(item)
             }
         }
+        downloadAdapter = DownloadItemAdapter(this)
         downloadArray?.let {
             downloadClass.layoutManager =LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false)
-            downloadAdapter = DownloadItemAdapter(this,downloadArray)
+            downloadArray.forEach { item ->
+                downloadAdapter.setData(downloadArray)
+            }
             downloadClass.adapter = downloadAdapter
-            downloadAdapter.notifyDataSetChanged()
             downloadAdapter.setOnItemClickListener(object : DownloadItemAdapter.OnDownloadItemClickListener {
                 override fun onItemClick(v: View?, position: Int) {
                     when (v?.getId()) {
@@ -64,8 +67,10 @@ class DownloadActivity : BaseActivity() {
     private fun removeBigClass(bigClassName : String){
         val folder = this.getExternalFilesDir(bigClassName)
         if (folder.exists()) {
-            folder.delete()
-            downloadAdapter.setData(bigClassName)
+           // folder.delete()
+            FilesUtils.deleteFile(folder)
+            downloadArray.remove(bigClassName)
+            downloadAdapter.setData(downloadArray)
         }
     }
     private fun showSmallClass(bigClassName : String){

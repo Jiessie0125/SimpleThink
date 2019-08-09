@@ -14,10 +14,12 @@ import com.example.simple.simplethink.model.VIPItem
 /**
  * Created by jiessie on 2019/6/11.
  */
-class DownloadItemAdapter(val context: Activity, val vipArray : ArrayList<String>) : RecyclerView.Adapter<DownloadItemAdapter.DownloadHolder>(), View.OnClickListener  {
+class DownloadItemAdapter(val context: Activity) : RecyclerView.Adapter<DownloadItemAdapter.DownloadHolder>(), View.OnClickListener  {
 
     private var mClickListener : OnDownloadItemClickListener?= null
     var hidenClass : String =""
+    var vipArray = ArrayList<String>()
+
     override fun getItemCount(): Int {
         return vipArray?.size!!
     }
@@ -43,8 +45,12 @@ class DownloadItemAdapter(val context: Activity, val vipArray : ArrayList<String
         this.mClickListener = listener
     }
 
-    fun setData(bigClassName : String){
+    /*fun setData(bigClassName : String){
         hidenClass = bigClassName
+        notifyDataSetChanged()
+    }*/
+    fun setData(vipArray : ArrayList<String>){
+        this.vipArray = vipArray
         notifyDataSetChanged()
     }
 
