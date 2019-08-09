@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".main.setting.AppVersionActivity"
+    android:background="@color/mainColor">
+    <include android:id="@+id/registerTitle"
+        layout="@layout/title_tool"/>
+
+    <ImageView
+        android:id="@+id/version_image"
+        android:layout_width="82dp"
+        android:layout_height="82dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/logo_app"
+        android:layout_marginTop="172dp"
+        android:layout_centerHorizontal="true"/>
+    <LinearLayout
+        android:id="@+id/app_version_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/version_image"
+        android:orientation="horizontal"
+        android:layout_marginTop="15dp"
+        android:layout_centerHorizontal="true">
+        <TextView
+            android:id="@+id/version_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/wordWhite"
+            android:layout_centerHorizontal="true"
+            xmlns:tools="http://schemas.android.com/tools"
+            tools:text="@string/app_version"
+            android:textSize="@dimen/text_size_normal"/>
+
+        <TextView
+            android:id="@+id/version_app"
+            android:layout_toRightOf="@+id/version_text"
+            android:layout_below="@+id/version_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/wordWhite"
+            android:layout_centerHorizontal="true"
+            xmlns:tools="http://schemas.android.com/tools"
+            tools:text=" V1.1"
+            android:textSize="@dimen/text_size_normal"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/login_policy"
+        android:layout_below="@+id/app_version_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:textColor="#645E6B"
+        android:textSize="@dimen/text_size_normal"
+        tools:text="" />
+</RelativeLayout>

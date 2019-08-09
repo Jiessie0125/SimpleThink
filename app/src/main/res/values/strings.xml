@@ -68,4 +68,7 @@
     <string name="login_3rd_party_auth_cancel">取消授权认证</string>
     <string name="selection_edit">编辑精选</string>
     <string name="login_success">登录成功</string>
+
+    <string name="app_version">当前版本 :</string>
+    <string name="app_policy"><![CDATA[<U>《简单冥想用户隐私服务协议》</U>]]></string>
 </resources>
