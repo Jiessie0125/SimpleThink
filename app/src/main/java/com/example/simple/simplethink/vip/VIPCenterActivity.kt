@@ -4,27 +4,31 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.example.simple.simplethink.R
 import com.example.simple.simplethink.base.BaseActivity
+import com.example.simple.simplethink.login.LoginActivity
 import com.example.simple.simplethink.model.BuzzyCourseResponse
 import com.example.simple.simplethink.model.VIPItem
 import com.example.simple.simplethink.netapi.HttpResposityImpl
 import com.example.simple.simplethink.utils.ResourcesUtils
 import com.example.simple.simplethink.utils.auth.AuthInstance
 import kotlinx.android.synthetic.main.activity_vip_center.*
+import kotlinx.android.synthetic.main.fragment_main_postlogon.*
 import kotlinx.android.synthetic.main.title_tool.*
 
 /**
  * Created by mobileteam on 2019/6/21.
  */
-class VIPCenterActivity : BaseActivity(),VIPCenterContact.View {
+class VIPCenterActivity : BaseActivity(), VIPCenterContact.View {
 
-    lateinit var vipItemAdapter : VIPItemAdapter
+    lateinit var vipItemAdapter: VIPItemAdapter
     var vipArray = ArrayList<VIPItem>()
     lateinit var persenter: VIPCenterContact.Presenter
 
     companion object {
-        fun newIntent ( context: Context?) : Intent {
+        fun newIntent(context: Context?): Intent {
             var intent = Intent(context, VIPCenterActivity::class.java)
             return intent
         }
@@ -43,16 +47,21 @@ class VIPCenterActivity : BaseActivity(),VIPCenterContact.View {
         init()
     }
 
-    private fun init(){
-        var vip = VIPItem("1个月","¥10")
-        var vip1 = VIPItem("3个月","¥60")
-        var vip2 = VIPItem("12个月","¥240")
-        var vip3 = VIPItem("永久","¥1288")
+    override fun onResume() {
+        super.onResume()
+        initUserInfoView()
+    }
+
+    private fun init() {
+        var vip = VIPItem("1个月", "¥10")
+        var vip1 = VIPItem("3个月", "¥60")
+        var vip2 = VIPItem("12个月", "¥240")
+        var vip3 = VIPItem("永久", "¥1288")
         vipArray.add(vip)
         vipArray.add(vip1)
         vipArray.add(vip2)
         vipArray.add(vip3)
-        vipItemAdapter = VIPItemAdapter(this,vipArray)
+        vipItemAdapter = VIPItemAdapter(this, vipArray)
         vip_detail.layoutManager = LinearLayoutManager(this)
         vip_detail.adapter = vipItemAdapter
         vipItemAdapter.notifyDataSetChanged()
@@ -66,8 +75,17 @@ class VIPCenterActivity : BaseActivity(),VIPCenterContact.View {
     }
 
 
-
     override fun updateVipItem(buzzyCourseUrlList: List<BuzzyCourseResponse>) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    private fun initUserInfoView() {
+        AuthInstance.getInstance().userInfo?.let {
+            Glide.with(this).load(it.avatar).apply(RequestOptions().placeholder(R.drawable.photo)).into(user_avatar)
+            userName.text = it.nickName
+            return
+        }
+        val intent = LoginActivity.newIntent(this)
+        startActivity(intent)
     }
 }
