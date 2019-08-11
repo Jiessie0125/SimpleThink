@@ -180,4 +180,7 @@ object FilesUtils{
 
         return dirFile.delete()
     }
+    fun belongCalendar( nowTime:Date,  beginTime:Date,  endTime:Date) : Boolean{
+        return if (nowTime.after(beginTime) && nowTime.before(endTime)) { true} else {false}
+    }
 }

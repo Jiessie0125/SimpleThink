@@ -1,6 +1,7 @@
 package com.example.simple.simplethink.vip
 
 import com.example.simple.simplethink.model.BuzzyCourseResponse
+import com.example.simple.simplethink.model.SubscriptionResponse
 
 /**
  * Created by mobileteam on 2019/6/21.
@@ -8,10 +9,10 @@ import com.example.simple.simplethink.model.BuzzyCourseResponse
 class VIPCenterContact {
 
     interface Presenter{
-        fun getSubscription(auth : String)
+        fun getSubscription()
     }
 
     interface View{
-        fun updateVipItem(buzzyCourseUrlList : List<BuzzyCourseResponse>)
+        fun updateVipItem(sub : SubscriptionResponse)
     }
 }

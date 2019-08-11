@@ -74,8 +74,12 @@ interface HttpRetrofitApiService {
     fun getSuggestedCourse(): Observable<List<SuggestedCourse>>
 
     @GET("/subscription")
-    fun getSubscription(@Header("Authorization") authorization : String): Observable<SubscriptionResponse>
+    fun getSubscription(/*@Header("Authorization") authorization : String*/): Observable<SubscriptionResponse>
 
     @GET("/version/android")
     fun getAppVersion(): Observable<SubscriptionResponse>
+
+    @FormUrlEncoded
+    @POST("/oauth/access_token")
+    fun refresh(@FieldMap params: Map<String, String>): Observable<AuthResponse>
 }

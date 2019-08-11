@@ -3,10 +3,12 @@ package com.example.simple.simplethink.utils.auth
 import com.example.simple.simplethink.model.UserInfoResponse
 
 class AuthInstance {
-    var accessToken: String? = ""
+    var accessToken: String? = null
     var userInfo: UserInfoResponse? = null
 
     companion object {
+        const val AUTH = "AUTH"
+        const val REFRESHTOKEN = "REFRESHTOKEN"
         @Volatile
         private var singleton: AuthInstance? = null
 

@@ -1,11 +1,14 @@
 package com.example.simple.simplethink.login
 
+import com.example.simple.simplethink.MyApp
 import com.example.simple.simplethink.netapi.HttpRepository
 import com.example.simple.simplethink.netapi.HttpResposityImpl
 import com.example.simple.simplethink.netapi.auth.AuthRepository
 import com.example.simple.simplethink.netapi.auth.AuthRepositoryImp
+import com.example.simple.simplethink.utils.SharedPreferencesUtil
 import com.example.simple.simplethink.utils.URLConstant
 import com.example.simple.simplethink.utils.auth.AuthInstance
+import com.example.simple.simplethink.utils.auth.AuthInstance.Companion.AUTH
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.android.schedulers.AndroidSchedulers
 
@@ -45,6 +48,8 @@ class LoginPresenter : LoginContract.Presenter {
                 .subscribe({ message ->
                     val token = message.accessToken
                     AuthInstance.getInstance().accessToken = token
+                    SharedPreferencesUtil.setString(MyApp.context,AUTH,AuthInstance.getInstance().accessToken)
+                    SharedPreferencesUtil.setString(MyApp.context, AuthInstance.REFRESHTOKEN,message.refreshToken)
                     view?.onLoginSuccess()
                     view?.dismiss()
                 }, { error ->
