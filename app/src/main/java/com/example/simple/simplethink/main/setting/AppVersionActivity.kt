@@ -25,10 +25,18 @@ class AppVersionActivity : Activity() {
         registerTitle.setOnClickListener {
             finish();
         }
-        login_policy.text = Html.fromHtml(getString(R.string.login_policy))
+        login_policy.text = Html.fromHtml(getString(R.string.app_policy))
         login_policy.setOnClickListener {
             val intent = ProtocolActivity.newIntent(this)
             startActivity(intent)
         }
+        version_app.text = getAppVersion()
+        version_text.text = getString(R.string.app_version)
+    }
+
+    fun getAppVersion(): String {
+        val pkName = this.getPackageName()
+        return this.getPackageManager().getPackageInfo(
+                pkName, 0).versionName
     }
 }

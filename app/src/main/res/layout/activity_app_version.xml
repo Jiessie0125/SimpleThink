@@ -30,7 +30,6 @@
             android:layout_height="wrap_content"
             android:textColor="@color/wordWhite"
             android:layout_centerHorizontal="true"
-            xmlns:tools="http://schemas.android.com/tools"
             tools:text="@string/app_version"
             android:textSize="@dimen/text_size_normal"/>
 
@@ -42,8 +41,6 @@
             android:layout_height="wrap_content"
             android:textColor="@color/wordWhite"
             android:layout_centerHorizontal="true"
-            xmlns:tools="http://schemas.android.com/tools"
-            tools:text=" V1.1"
             android:textSize="@dimen/text_size_normal"/>
     </LinearLayout>
 
