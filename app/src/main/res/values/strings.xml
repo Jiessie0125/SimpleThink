@@ -58,7 +58,8 @@
     <string name="not_vip">您还不是会员</string>
     <string name="buy">购买</string>
     <string name="vip_date">会员有效期至：%1$s</string>
-
+    <string name="total_time">累计时长（分钟）</string>
+    <string name="total_date">累计天数</string>
     <!--login & reg-->
     <string name="login_via_phone">手机登录</string>
     <string name="login_via_qq">QQ</string>
