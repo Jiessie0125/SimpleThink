@@ -29,4 +29,5 @@ interface HttpRepository {
     fun getSuggestedCourse(): Observable<List<SuggestedCourse>>
     fun register(password: String, username: String, code: String?): Observable<ResponseBody>
     fun getSubscription( authorization : String): Observable<SubscriptionResponse>
+    fun appLogoff(): Observable<ResponseBody>
 }

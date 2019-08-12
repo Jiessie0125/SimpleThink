@@ -78,4 +78,7 @@ interface HttpRetrofitApiService {
 
     @GET("/version/android")
     fun getAppVersion(): Observable<SubscriptionResponse>
+
+    @DELETE("/user/session")
+    fun appLogoff(): Observable<ResponseBody>
 }

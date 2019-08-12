@@ -74,4 +74,5 @@
     <string name="app_feedback">客服邮箱：jiandan888@126.com</string>
     <string name="app_query">有疑问或者问题反馈请联系客服邮箱</string>
     <string name="app_query_title">意见反馈</string>
+    <string name="logoff">退出登录</string>
 </resources>

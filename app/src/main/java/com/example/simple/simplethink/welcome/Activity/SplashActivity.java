@@ -15,6 +15,7 @@ import com.bumptech.glide.Glide;
 import com.example.simple.simplethink.R;
 import com.example.simple.simplethink.main.MainActivity;
 import com.example.simple.simplethink.model.BannerResponse;
+import com.example.simple.simplethink.totle.TotleActivity;
 import com.example.simple.simplethink.utils.ImageUtil;
 import com.example.simple.simplethink.utils.LocalDataCache;
 import com.example.simple.simplethink.utils.URLConstant;
@@ -63,7 +64,7 @@ public class SplashActivity extends Activity implements View.OnClickListener{
             @Override
             public void run() {
                 mc.onFinish();
-                enterActivity(MainActivity.class, "", null);
+                enterActivity(TotleActivity.class, "", null);
             }
         },4000);
 
@@ -96,7 +97,7 @@ public class SplashActivity extends Activity implements View.OnClickListener{
         handler.removeCallbacksAndMessages(null);
         if(view.getTag().equals("jump")){
             mc.onFinish();
-            enterActivity(MainActivity.class, "", null);
+            enterActivity(TotleActivity.class, "", null);
             return;
         }else {
             switch (tag){

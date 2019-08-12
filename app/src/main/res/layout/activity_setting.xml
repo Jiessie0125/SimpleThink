@@ -10,6 +10,7 @@
     <include android:id="@+id/buzzy_title"
         layout="@layout/title_tool"/>
     <RelativeLayout
+        android:id="@+id/setting_feedback"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/default_view_horizontal_padding"
@@ -21,13 +22,6 @@
             android:text="@string/suggestion"
             android:textColor="@color/wordWhite"
             android:layout_centerVertical="true"/>
-        <ImageView
-            android:id="@+id/suggestionIcon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/next_white"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"/>
 
     </RelativeLayout>
     <View
@@ -35,6 +29,7 @@
         android:layout_height="1dp"
         android:background="@color/viewLine"/>
     <RelativeLayout
+        android:id="@+id/setting_version"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/default_view_horizontal_padding"
@@ -46,12 +41,14 @@
             android:text="@string/versionInfo"
             android:textColor="@color/wordWhite"
             android:layout_centerVertical="true"/>
-        <ImageView
+        <TextView
             android:id="@+id/versionInfo"
+            android:textColor="#645E6B"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/next_white"
             android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:textSize="@dimen/text_size_normal"
             android:layout_centerVertical="true"/>
 
     </RelativeLayout>
@@ -60,6 +57,7 @@
         android:layout_height="1dp"
         android:background="@color/viewLine"/>
     <RelativeLayout
+        android:id="@+id/setting_vip"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/default_view_horizontal_padding"
@@ -71,18 +69,26 @@
             android:text="@string/vip_center"
             android:textColor="@color/wordWhite"
             android:layout_centerVertical="true"/>
-        <ImageView
-            android:id="@+id/vipCenter"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/next_white"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"/>
 
     </RelativeLayout>
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/viewLine"/>
+    <RelativeLayout
+        android:id="@+id/setting_logoff"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/default_view_horizontal_padding"
+        android:layout_marginEnd="@dimen/default_view_horizontal_padding"
+        android:minHeight="55dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/logoff"
+            android:textColor="@color/logoff"
+            android:layout_centerVertical="true"/>
+
+    </RelativeLayout>
 
 </LinearLayout>

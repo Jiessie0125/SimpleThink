@@ -27,7 +27,7 @@
     <color name="courseDetail">#ACACAC</color>
     <color name="courseDetailDownload">#1F1A27</color>
     <color name="viewLine">#3C3645</color>
-
+    <color name="logoff">#9D4141</color>
 
     <color name="transparent1">#00000000</color>
 </resources>

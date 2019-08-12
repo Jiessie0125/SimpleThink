@@ -127,4 +127,9 @@ class HttpResposityImpl(): HttpRepository {
         return getSuggestedCourseRetrofit.getSubscription(authorization);
     }
 
+    override fun appLogoff(): Observable<ResponseBody> {
+        val appLogoffRetrofit = RetrofitServiceManager.instance.create(HttpRetrofitApiService::class.java)
+        return appLogoffRetrofit.appLogoff();
+    }
+
 }
