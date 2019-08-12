@@ -11,6 +11,8 @@ import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.TextView
 import com.example.simple.simplethink.R
+import com.example.simple.simplethink.R.id.user
+import com.example.simple.simplethink.main.MainActivity
 import com.example.simple.simplethink.totle.activity.down.DownloadActivity
 import com.example.simple.simplethink.totle.fragment.scenePage.SceneFragment
 import com.example.simple.simplethink.totle.fragment.totlePage.TotleFragment
@@ -53,7 +55,7 @@ class TotleActivity: AppCompatActivity() {
             presenter.refreshToken(SharedPreferencesUtil.getString(this,REFRESHTOKEN))
         }
 
-        user.setOnClickListener{finish()}
+        user.setOnClickListener{showMainActivity()}
         download.setOnClickListener {  showDownClassActivity()}
 
         mTabLayout = tablayout
@@ -69,6 +71,11 @@ class TotleActivity: AppCompatActivity() {
         initAdapter()
         initTabView()
 
+    }
+
+    private fun showMainActivity(){
+        val intent = Intent(this,MainActivity::class.java)
+        startActivity(intent)
     }
 
     private fun showDownClassActivity(){

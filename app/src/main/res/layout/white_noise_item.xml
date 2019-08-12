@@ -14,28 +14,31 @@
         android:layout_height="wrap_content"
         android:src="@drawable/selected"
         android:scaleType="fitXY"
+        android:layout_alignParentRight="true"
         android:layout_gravity="right"
         android:layout_marginTop="10dp"
         android:layout_marginRight="10dp"
+        android:layout_weight="1"
         android:visibility="gone"
         />
     <ImageView
         android:id="@+id/recycle_white_sign"
         android:layout_width="10dp"
         android:layout_height="15dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="50dp"
         android:src="@drawable/download"
         android:scaleType="fitXY"
         android:layout_marginLeft="18dp"
         />
     <TextView
         android:id="@+id/recycle_white_txt"
+        android:layout_below="@+id/recycle_white_sign"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="@dimen/login_small_title"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         android:layout_marginLeft="18dp"
-        android:text="aaa"
+        android:text="aaDDDDa"
         android:textColor="@color/whiteItem"
         android:gravity="center"/>
 </com.example.simple.simplethink.totle.fragment.whiteNoisePage.MyLayout>

@@ -10,7 +10,7 @@ import okhttp3.ResponseBody
 /**
  * Created by mobileteam on 2019/6/4.
  */
-class HttpResposityImpl(): HttpRepository {
+class HttpResposityImpl: HttpRepository {
     override fun getSplashBanner(): Observable<BannerResponse> {
         val getSplashBannerRetrofit = RetrofitServiceManager.instance.create(HttpRetrofitApiService::class.java)
         return getSplashBannerRetrofit.getSplashBanner()
@@ -141,7 +141,7 @@ class HttpResposityImpl(): HttpRepository {
 
     override fun appLogoff(): Observable<ResponseBody> {
         val appLogoffRetrofit = RetrofitServiceManager.instance.create(HttpRetrofitApiService::class.java)
-        return appLogoffRetrofit.appLogoff();
+        return appLogoffRetrofit.appLogoff()
     }
 
 }

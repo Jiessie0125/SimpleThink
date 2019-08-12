@@ -3,13 +3,14 @@ package com.example.simple.simplethink.totle.fragment.whiteNoisePage
 import android.content.Context
 import android.util.AttributeSet
 import android.widget.LinearLayout
+import android.widget.RelativeLayout
 
 /**
  * Created by jiessie on 2019/7/21.
  */
 
 
-class MyLayout : LinearLayout {
+class MyLayout : RelativeLayout {
 
     constructor(context: Context, attrs: AttributeSet,
                 defStyle: Int) : super(context, attrs, defStyle) {
