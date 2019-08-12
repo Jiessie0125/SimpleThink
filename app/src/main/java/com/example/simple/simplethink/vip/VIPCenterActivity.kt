@@ -64,28 +64,7 @@ class VIPCenterActivity : BaseActivity(), VIPCenterContact.View {
         if(!SharedPreferencesUtil.getString(this,AUTH).isNullOrEmpty()) {
             persenter.getSubscription()
         }
-        user_avatar.setOnClickListener {
-            PhotoPicker.builder()
-                    .setPhotoCount(1)
-                    .setShowCamera(true)
-                    .setShowGif(false)
-                    .setPreviewEnabled(false)
-                    .start(this, PhotoPicker.REQUEST_CODE)
-        }
     }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == RESULT_OK && data != null) {
-            if (requestCode == PhotoPicker.REQUEST_CODE) {
-                val photos = data.getStringArrayListExtra(PhotoPicker.KEY_SELECTED_PHOTOS)
-                val photoPath = photos[0]
-                val inputUri = Uri.fromFile(File(photoPath))
-                Glide.with(this).load(inputUri).apply(RequestOptions().placeholder(R.drawable.photo)).into(user_avatar)
-            }
-        }
-    }
-
 
     override fun updateVipItem(sub : SubscriptionResponse) {
         val date = Date(System.currentTimeMillis())

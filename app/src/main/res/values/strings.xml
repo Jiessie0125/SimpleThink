@@ -54,7 +54,7 @@
     <string name="suggestion">意见反馈</string>
     <string name="versionInfo">版本信息</string>
     <string name="to_renew">去续费>></string>
-    <string name="vip_expire">会员还有 天到期</string>
+    <string name="vip_expire">会员还有%1$s天到期</string>
     <string name="not_vip">您还不是会员</string>
     <string name="buy">购买</string>
     <string name="vip_date">会员有效期至：%1$s</string>
