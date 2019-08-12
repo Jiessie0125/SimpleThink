@@ -188,14 +188,14 @@
                 </RelativeLayout>
 
                 <ImageView
-                    android:id="@+id/selection_image"
+                    android:id="@+id/selection_image1"
                     android:layout_width="wrap_content"
                     android:layout_height="135dp"
                     android:layout_marginTop="15dp"
                     android:scaleType="fitXY" />
 
                 <TextView
-                    android:id="@+id/selection_title"
+                    android:id="@+id/selection_title1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -205,7 +205,7 @@
                     android:textSize="@dimen/login_small_title" />
 
                 <TextView
-                    android:id="@+id/selection_sub_title"
+                    android:id="@+id/selection_sub_title1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -213,18 +213,9 @@
                     android:textColor="@color/blackSuggesstion"
                     android:textSize="@dimen/logon_revive_word" />
             </LinearLayout>
-
             <View
                 android:layout_width="match_parent"
-                android:layout_height="7dp"
-                android:layout_marginTop="30dp"
-                android:background="@color/blackItemLine" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="60dp"
-                android:src="@drawable/first_use" />
-
+                android:layout_height="50dp"></View>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

@@ -96,6 +96,8 @@ class PreLogonFragment : LogonBaseFragment(), MainContract.View {
             val date = DateUtils.DateToString(Date(), DateUtils.DATE_TO_STRING_DETAIAL_PATTERN)
             if (date >= suggestedActivity?.start_time.toString() && date <= suggestedActivity?.end_time.toString()) {
                 Glide.with(context!!).load(message?.get(0).imgURL).apply(RequestOptions().placeholder(R.drawable.sugges_activity)).into(selection_image)
+                selection_title.text = message.get(activityCount).title
+                selection_sub_title.text = message.get(activityCount).subtitle
                 selection_image.setOnClickListener {
                     redirector(message?.get(0))
                 }
