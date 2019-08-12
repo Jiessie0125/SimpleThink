@@ -6,22 +6,23 @@ import android.net.Uri
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 import com.example.simple.simplethink.R
 import com.example.simple.simplethink.base.BaseActivity
 import com.example.simple.simplethink.login.LoginActivity
-import com.example.simple.simplethink.model.BuzzyCourseResponse
-import com.example.simple.simplethink.model.VIPItem
+import com.example.simple.simplethink.model.SubscriptionResponse
 import com.example.simple.simplethink.netapi.HttpResposityImpl
-import com.example.simple.simplethink.utils.DateUtils
+import com.example.simple.simplethink.utils.FilesUtils.belongCalendar
 import com.example.simple.simplethink.utils.ResourcesUtils
+import com.example.simple.simplethink.utils.SharedPreferencesUtil
 import com.example.simple.simplethink.utils.auth.AuthInstance
+import com.example.simple.simplethink.utils.auth.AuthInstance.Companion.AUTH
 import kotlinx.android.synthetic.main.activity_vip_center.*
-import kotlinx.android.synthetic.main.fragment_main_postlogon.*
 import kotlinx.android.synthetic.main.title_tool.*
 import me.iwf.photopicker.PhotoPicker
 import java.io.File
+import java.text.SimpleDateFormat
+import java.util.*
 
 /**
  * Created by mobileteam on 2019/6/21.
@@ -29,8 +30,8 @@ import java.io.File
 class VIPCenterActivity : BaseActivity(), VIPCenterContact.View {
 
     lateinit var vipItemAdapter: VIPItemAdapter
-    var vipArray = ArrayList<VIPItem>()
     lateinit var persenter: VIPCenterContact.Presenter
+    var sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
 
     companion object {
         fun newIntent(context: Context?): Intent {
@@ -58,25 +59,11 @@ class VIPCenterActivity : BaseActivity(), VIPCenterContact.View {
     }
 
     private fun init() {
-        var vip = VIPItem("1个月", "¥10")
-        var vip1 = VIPItem("3个月", "¥60")
-        var vip2 = VIPItem("12个月", "¥240")
-        var vip3 = VIPItem("永久", "¥1288")
-        vipArray.add(vip)
-        vipArray.add(vip1)
-        vipArray.add(vip2)
-        vipArray.add(vip3)
-        vipItemAdapter = VIPItemAdapter(this, vipArray)
-        vip_detail.layoutManager = LinearLayoutManager(this)
-        vip_detail.adapter = vipItemAdapter
-        vipItemAdapter.notifyDataSetChanged()
-
         val httpResposityImpl = HttpResposityImpl()
         persenter = VIPCenterPresenter(httpResposityImpl, this)
-        AuthInstance.getInstance().accessToken?.let {
-            persenter.getSubscription(AuthInstance.getInstance().accessToken!!)
+        if(!SharedPreferencesUtil.getString(this,AUTH).isNullOrEmpty()) {
+            persenter.getSubscription()
         }
-
         user_avatar.setOnClickListener {
             PhotoPicker.builder()
                     .setPhotoCount(1)
@@ -100,17 +87,33 @@ class VIPCenterActivity : BaseActivity(), VIPCenterContact.View {
     }
 
 
-    override fun updateVipItem(buzzyCourseUrlList: List<BuzzyCourseResponse>) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun updateVipItem(sub : SubscriptionResponse) {
+        val date = Date(System.currentTimeMillis())
+        val startTime = sdf.parse(sub.user.start_at)
+        val endTime = sdf.parse(sub.user.end_at)
+        var isVip = false
+        if(belongCalendar(date,startTime,endTime)) {
+            userInfo.text = String.format(getString(R.string.vip_date), endTime)
+            isVip = true
+        }else{
+            userInfo.text = ResourcesUtils.getString(R.string.not_vip)
+        }
+        vipItemAdapter = VIPItemAdapter(this, sub.common,isVip)
+        vip_detail.layoutManager = LinearLayoutManager(this)
+        vip_detail.adapter = vipItemAdapter
+        vipItemAdapter.notifyDataSetChanged()
     }
 
     private fun initUserInfoView() {
-        AuthInstance.getInstance().userInfo?.let {
-            Glide.with(this).load(it.avatar).apply(RequestOptions().placeholder(R.drawable.photo)).into(user_avatar)
-            userName.text = it.nickName
-            return
+        if(!SharedPreferencesUtil.getString(this,AUTH).isNullOrEmpty()) {
+            AuthInstance.getInstance().userInfo?.let {
+                Glide.with(this).load(it.avatar).apply(RequestOptions().placeholder(R.drawable.photo)).into(user_avatar)
+                userName.text = it.nickName
+                return
+            }
+        }else{
+            val intent = LoginActivity.newIntent(this)
+            startActivity(intent)
         }
-        val intent = LoginActivity.newIntent(this)
-        startActivity(intent)
     }
 }

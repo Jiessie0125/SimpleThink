@@ -2,6 +2,7 @@ package com.example.simple.simplethink.netapi
 
 import com.example.simple.simplethink.model.*
 import com.example.simple.simplethink.model.bean.CourseResponse
+import com.example.simple.simplethink.network.GetRetrofitServiceManager
 import com.example.simple.simplethink.network.RetrofitServiceManager
 import io.reactivex.Observable
 import okhttp3.ResponseBody
@@ -122,9 +123,20 @@ class HttpResposityImpl(): HttpRepository {
         return getSuggestedCourseRetrofit.getSuggestedCourse();
     }
 
-    override fun getSubscription(authorization: String): Observable<SubscriptionResponse> {
+    override fun getSubscription(/*authorization: String*/): Observable<SubscriptionResponse> {
         val getSuggestedCourseRetrofit = RetrofitServiceManager.instance.create(HttpRetrofitApiService::class.java)
-        return getSuggestedCourseRetrofit.getSubscription(authorization);
+        return getSuggestedCourseRetrofit.getSubscription();
+    }
+
+    override fun refresh(refresh : String): Observable<AuthResponse> {
+        val service = RetrofitServiceManager.instance.create(HttpRetrofitApiService::class.java)
+        val params = HashMap<String, String>().apply {
+            put("refresh_token", refresh)
+            put("client_secret", "3f54abb72023eeb7f32370242ffce0926b73aa24")
+            put("client_id", "android")
+            put("grant_type", "refresh_token")
+        }
+        return service.refresh(params)
     }
 
     override fun appLogoff(): Observable<ResponseBody> {

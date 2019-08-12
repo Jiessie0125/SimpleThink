@@ -15,6 +15,7 @@ import com.example.simple.simplethink.utils.SharedPreferencesUtil
 import com.example.simple.simplethink.vip.VIPCenterActivity
 import kotlinx.android.synthetic.main.activity_setting.*
 import okhttp3.ResponseBody
+import kotlinx.android.synthetic.main.title_tool.*
 
 /**
  * Created by jiessie on 2019/8/6.
@@ -45,6 +46,7 @@ class SettingActivity : Activity(), SettingContract.View {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_setting)
+        init()
         versionInfo.text = "V" + getAppVersion() + "版本"
         setting_version.setOnClickListener {
             val intent = AppVersionActivity.newIntent(this)
@@ -72,5 +74,9 @@ class SettingActivity : Activity(), SettingContract.View {
         val pkName = this.getPackageName()
         return this.getPackageManager().getPackageInfo(
                 pkName, 0).versionName
+    }
+
+    private fun init(){
+        title_tool_back.setOnClickListener { finish() }
     }
 }

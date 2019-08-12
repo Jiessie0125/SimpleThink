@@ -54,7 +54,7 @@ object SharedPreferencesUtil {
         editor.commit()
     }
 
-    fun getString(context: Context, strKey: String): String {
+    fun getString(context: Context, strKey: String): String? {
         val setPreferences = context.getSharedPreferences(
                 FILE_NAME, Context.MODE_PRIVATE)
         return setPreferences.getString(strKey, "")
@@ -67,15 +67,15 @@ object SharedPreferencesUtil {
         return setPreferences.getString(strKey, strDefault)
     }
 
-    fun setString(context: Context, strKey: String, strData: String) {
-        val activityPreferences = context.getSharedPreferences(
+    fun setString(context: Context?, strKey: String, strData: String?) {
+        val activityPreferences = context?.getSharedPreferences(
                 FILE_NAME, Context.MODE_PRIVATE)
-        val editor = activityPreferences.edit()
-        editor.putString(strKey, strData)
-        editor.commit()
+        val editor = activityPreferences?.edit()
+        editor?.putString(strKey, strData)
+        editor?.commit()
     }
 
-    fun getInt(context: Context, strKey: String): Int {
+    fun getInt(context: Context, strKey: String?): Int {
         val setPreferences = context.getSharedPreferences(
                 FILE_NAME, Context.MODE_PRIVATE)
         return setPreferences.getInt(strKey, -1)

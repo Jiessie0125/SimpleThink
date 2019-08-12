@@ -1,7 +1,9 @@
 package com.example.simple.simplethink.login
 
+import com.example.simple.simplethink.MyApp
 import com.example.simple.simplethink.netapi.auth.AuthRepository
 import com.example.simple.simplethink.netapi.auth.AuthRepositoryImp
+import com.example.simple.simplethink.utils.SharedPreferencesUtil
 import com.example.simple.simplethink.utils.auth.AuthInstance
 import io.reactivex.schedulers.Schedulers
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -28,6 +30,8 @@ class LoginViaPhonePresenter : LoginViaPhoneContract.Presenter {
                 .subscribe({ message ->
                     val token = message.accessToken
                     AuthInstance.getInstance().accessToken = token
+                    SharedPreferencesUtil.setString(MyApp.context, AuthInstance.AUTH,AuthInstance.getInstance().accessToken)
+                    SharedPreferencesUtil.setString(MyApp.context, AuthInstance.REFRESHTOKEN,message.refreshToken)
                     loadUserInfo()
                 }, { error ->
                     view?.dismissLoading()
