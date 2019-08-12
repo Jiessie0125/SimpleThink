@@ -8,10 +8,13 @@ import android.os.Message
 import android.view.View
 import com.example.simple.simplethink.MyApp
 import com.example.simple.simplethink.R
+import com.example.simple.simplethink.main.MainActivity
 import com.example.simple.simplethink.main.SettingContract
 import com.example.simple.simplethink.main.SettingPresenter
 import com.example.simple.simplethink.model.SuggestedCourse
+import com.example.simple.simplethink.utils.ErrorHandler
 import com.example.simple.simplethink.utils.SharedPreferencesUtil
+import com.example.simple.simplethink.utils.auth.AuthInstance
 import com.example.simple.simplethink.vip.VIPCenterActivity
 import kotlinx.android.synthetic.main.activity_setting.*
 import okhttp3.ResponseBody
@@ -25,10 +28,14 @@ class SettingActivity : Activity(), SettingContract.View {
     private val presenter = SettingPresenter()
 
     override fun onLogoffSuccess(message: ResponseBody) {
+        AuthInstance.getInstance().clear()
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
+        finish()
     }
 
     override fun onFailure(e: Throwable) {
-
+        ErrorHandler.showErrorWithToast(this, e)
     }
 
     override fun onDestroy() {
@@ -47,6 +54,8 @@ class SettingActivity : Activity(), SettingContract.View {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_setting)
         init()
+        presenter.bind(this)
+
         versionInfo.text = "V" + getAppVersion() + "版本"
         setting_version.setOnClickListener {
             val intent = AppVersionActivity.newIntent(this)
@@ -61,11 +70,15 @@ class SettingActivity : Activity(), SettingContract.View {
             startActivity(intent)
         }
 
-        val from = intent.getStringExtra("from")
-//        SharedPreferencesUtil.getString(MyApp.context, )
-        if(from.equals("prelogon")){
-            setting_logoff.visibility = View.INVISIBLE
-        }else{
+        initLogoffField()
+        setting_logoff.setOnClickListener {
+            presenter.appLogoff()
+        }
+    }
+
+    fun initLogoffField(){
+        setting_logoff.visibility = View.INVISIBLE
+        AuthInstance.getInstance().accessToken?.let {
             setting_logoff.visibility = View.VISIBLE
         }
     }
