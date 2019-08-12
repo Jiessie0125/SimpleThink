@@ -19,6 +19,7 @@ import com.example.simple.simplethink.totle.fragment.totlePage.TotleFragment
 import com.example.simple.simplethink.totle.fragment.whiteNoisePage.WhithNoiseFragment
 import com.example.simple.simplethink.utils.ResourcesUtils
 import com.example.simple.simplethink.utils.SharedPreferencesUtil
+import com.example.simple.simplethink.utils.auth.AuthInstance
 import com.example.simple.simplethink.utils.auth.AuthInstance.Companion.AUTH
 import com.example.simple.simplethink.utils.auth.AuthInstance.Companion.REFRESHTOKEN
 import kotlinx.android.synthetic.main.activity_totle.*
@@ -54,7 +55,6 @@ class TotleActivity: AppCompatActivity() {
         if(!SharedPreferencesUtil.getString(this,REFRESHTOKEN).isNullOrEmpty()){
             presenter.refreshToken(SharedPreferencesUtil.getString(this,REFRESHTOKEN))
         }
-
         user.setOnClickListener{showMainActivity()}
         download.setOnClickListener {  showDownClassActivity()}
 

@@ -15,7 +15,6 @@ interface MainContract {
         fun onGetBottomActivitySuccess(message: BottomActivityResponse)
         fun onGetSuggestedCourseSuccess(message: List<SuggestedCourse>)
         fun onFailure(e: Throwable)
-
     }
 
     interface Presenter {

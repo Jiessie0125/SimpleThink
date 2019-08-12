@@ -1,6 +1,7 @@
 package com.example.simple.simplethink.utils
 
 import android.content.Context
+import android.content.SharedPreferences
 import com.example.simple.simplethink.model.BannerResponse
 import com.google.gson.Gson
 
@@ -113,6 +114,14 @@ object SharedPreferencesUtil {
                 FILE_NAME, Context.MODE_PRIVATE)
         val editor = activityPreferences.edit()
         editor.putLong(strKey, strData)
+        editor.commit()
+    }
+
+    fun removeString(context: Context,key: String){
+        val setPreferences = context.getSharedPreferences(
+                FILE_NAME, Context.MODE_PRIVATE)
+        val editor = setPreferences.edit()
+        editor.remove(key)
         editor.commit()
     }
 }
