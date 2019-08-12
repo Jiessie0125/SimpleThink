@@ -1,6 +1,8 @@
 package com.example.simple.simplethink.utils.auth
 
+import com.example.simple.simplethink.MyApp
 import com.example.simple.simplethink.model.UserInfoResponse
+import com.example.simple.simplethink.utils.SharedPreferencesUtil
 
 class AuthInstance {
     var accessToken: String? = null
@@ -22,6 +24,8 @@ class AuthInstance {
         accessToken = null
         userInfo = null
         singleton = null
+        SharedPreferencesUtil.removeString(MyApp.context!!,AuthInstance.AUTH)
+        SharedPreferencesUtil.removeString(MyApp.context!!,AuthInstance.REFRESHTOKEN)
     }
 
 }
