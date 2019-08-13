@@ -7,6 +7,8 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.example.simple.simplethink.R
 import com.example.simple.simplethink.base.BaseActivity
+import com.example.simple.simplethink.model.PraticeSections
+import com.example.simple.simplethink.model.Sections
 import com.example.simple.simplethink.model.bean.CourseResponse
 import com.example.simple.simplethink.netapi.HttpResposityImpl
 import com.example.simple.simplethink.totle.activity.ScenePlayActivity
@@ -61,9 +63,12 @@ class CourseDetailActivity: BaseActivity(), CourseDetailContact.View{
             override fun onItemClick(v: View?, position: Int) {
                 when(v?.id){
                     R.id.course_download -> isVipItem(courseResponse.sections[position].free,position)
-                    R.id.course_play -> showSceneResourcePage(courseResponse.sections[position].title,
-                            FilesUtils.getLocalFileUrl(courseResponse.sections[position].title,courseResponse.title),null)
-                }
+                    R.id.course_play -> {
+                        val pratice = PraticeSections(courseResponse.sections[position].id,courseResponse.sections[position].course_id,courseResponse.sections[position].audio_id)
+                        showSceneResourcePage(courseResponse.sections[position].title,
+                                FilesUtils.getLocalFileUrl(courseResponse.sections[position].title,courseResponse.title),null,pratice)
+
+                    }}
             }
         })
     }
@@ -80,8 +85,8 @@ class CourseDetailActivity: BaseActivity(), CourseDetailContact.View{
         }
     }
 
-    private fun showSceneResourcePage(sceneName : String, sceneSource : String, bkground: String?){
-        val intent = ScenePlayActivity.newIntent(this,sceneName,sceneSource,bkground)
+    private fun showSceneResourcePage(sceneName : String, sceneSource : String, bkground: String?,sections: PraticeSections){
+        val intent = ScenePlayActivity.newIntent(this,sceneName,sceneSource,bkground,sections)
         startActivity(intent)
     }
 

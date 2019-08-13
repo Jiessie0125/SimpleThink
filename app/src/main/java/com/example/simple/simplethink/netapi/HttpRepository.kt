@@ -31,4 +31,6 @@ interface HttpRepository {
     fun getSubscription(): Observable<SubscriptionResponse>
     fun appLogoff(): Observable<ResponseBody>
     fun refresh(refresh : String): Observable<AuthResponse>
+    fun uploadPractice(params: HashMap<String, ArrayList<CourseLogs>>): Observable<ResponseBody>
+    fun getCourseLogs(): Observable<SubscriptionResponse>
 }

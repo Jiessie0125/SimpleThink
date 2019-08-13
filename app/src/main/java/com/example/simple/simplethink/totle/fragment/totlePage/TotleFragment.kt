@@ -182,8 +182,8 @@ class TotleFragment : Fragment(), TotleContact.View {
         startActivity(buzzyCourseActivity)
     }
 
-    private fun showCourseDetail(title: Int) {
-        var courseActivity = CourseDetailActivity.newIntent(title,this.activity)
+    private fun showCourseDetail(title: Int?) {
+        var courseActivity = CourseDetailActivity.newIntent(title!!,this.activity)
         startActivity(courseActivity)
     }
 
