@@ -22,12 +22,17 @@ import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import okhttp3.ResponseBody
-import java.io.File
+import android.provider.MediaStore
+import android.graphics.Bitmap
+import android.os.Environment
+import android.os.Environment.getExternalStorageDirectory
+import java.io.*
+
 
 /**
  * Created by mobileteam on 2019/8/13.
  */
-class UserInfoActivity: Activity(),UserInfoContract.View {
+class UserInfoActivity : Activity(), UserInfoContract.View {
     override fun onRefreshUerInfoSuccess() {
         initUserInfoView()
         Toast.makeText(this, R.string.update_user_info_success, Toast.LENGTH_LONG).show()
@@ -49,7 +54,7 @@ class UserInfoActivity: Activity(),UserInfoContract.View {
     }
 
     companion object {
-        fun newIntent (context: Context?) : Intent {
+        fun newIntent(context: Context?): Intent {
             var intent = Intent(context, UserInfoActivity::class.java)
             return intent
         }
@@ -121,5 +126,4 @@ class UserInfoActivity: Activity(),UserInfoContract.View {
             }
         }
     }
-
 }
