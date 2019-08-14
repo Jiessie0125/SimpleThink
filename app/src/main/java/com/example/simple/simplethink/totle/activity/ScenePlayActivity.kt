@@ -38,7 +38,6 @@ class ScenePlayActivity : AppCompatActivity(), View.OnClickListener {
         const val SCENENAME = "SCENENAME"
         const val BKGROUND = "BKGROUND"
         const val SECTIONS = "SECTIONS"
-        const val COURSELOGS = "course_logs"
         fun newIntent (context: Context?,sceneName : String, sceneSource: String,bkground: String?,sections: PraticeSections?) : Intent {
             var intent = Intent(context, ScenePlayActivity::class.java)
             intent.putExtra(SCENENAME,sceneName)
@@ -109,8 +108,7 @@ class ScenePlayActivity : AppCompatActivity(), View.OnClickListener {
                 val date = Date(System.currentTimeMillis())
                 course = CourseLogs(GenerateUUID.generateOneUUID(),sections?.course_id,sections?.id,sections?.audio_id,sdf.format(date))
                 courseList.add(course)
-                courseMap.put(COURSELOGS,courseList)
-                persenter.uploadPractice(courseMap)
+                persenter.uploadPractice(courseList)
             }
         })
     }
