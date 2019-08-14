@@ -12,14 +12,13 @@ import android.util.Log
 import android.view.View
 import android.widget.SeekBar
 import com.example.simple.simplethink.R
-import com.example.simple.simplethink.model.Course
-import com.example.simple.simplethink.model.CourseLogs
-import com.example.simple.simplethink.model.PraticeSections
-import com.example.simple.simplethink.model.Sections
+import com.example.simple.simplethink.main.activity.PraticeContact
+import com.example.simple.simplethink.model.*
 import com.example.simple.simplethink.utils.FilesUtils
 import com.example.simple.simplethink.utils.FilesUtils.timeParse
 import com.example.simple.simplethink.utils.GenerateUUID
 import com.example.simple.simplethink.utils.ImageUtil.showBKImage
+import com.example.simple.simplethink.utils.PackageModeUtils
 import kotlinx.android.synthetic.main.activity_scene_paly.*
 import java.io.IOException
 import java.text.SimpleDateFormat
@@ -60,7 +59,7 @@ class ScenePlayActivity : AppCompatActivity(), View.OnClickListener {
     var mSeekbar : SeekBar ?= null
     var isStop = false
     val persenter = ScenePlayPresenter(this)
-    lateinit var course: CourseLogs
+    lateinit var course: PraticeRequest
     var sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
     var courseList = ArrayList<CourseLogs>()
     var courseMap = HashMap<String,ArrayList<CourseLogs>>()
@@ -106,9 +105,13 @@ class ScenePlayActivity : AppCompatActivity(), View.OnClickListener {
         (player as MediaPlayer).setOnCompletionListener(object : MediaPlayer.OnCompletionListener {
             override fun onCompletion(mp: MediaPlayer?) {
                 val date = Date(System.currentTimeMillis())
-                course = CourseLogs(GenerateUUID.generateOneUUID(),sections?.course_id,sections?.id,sections?.audio_id,sdf.format(date))
-                courseList.add(course)
-                persenter.uploadPractice(courseList)
+                course = PackageModeUtils.packagePraticeRequest(
+                        GenerateUUID.generateOneUUID(),
+                        sections?.course_id,
+                        sections?.id,
+                        sections?.audio_id,
+                        sdf.format(date))
+                persenter.uploadPractice(course)
             }
         })
     }

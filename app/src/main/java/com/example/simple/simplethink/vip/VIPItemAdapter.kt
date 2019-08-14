@@ -17,7 +17,7 @@ import com.example.simple.simplethink.utils.ResourcesUtils
 /**
  * Created by jiessie on 2019/6/11.
  */
-class VIPItemAdapter(val context: Activity, val vipArray : List<Common>,val isVip: Boolean) : RecyclerView.Adapter<TotleViewHolder>() {
+class VIPItemAdapter(val context: Activity, val vipArray : List<Common>,val isVip: Boolean?) : RecyclerView.Adapter<TotleViewHolder>() {
 
     private var mClickListener : OnTotleItemClickListener?= null
     override fun getItemCount(): Int {
@@ -27,7 +27,7 @@ class VIPItemAdapter(val context: Activity, val vipArray : List<Common>,val isVi
     override fun onBindViewHolder(holder: TotleViewHolder?, position: Int) {
         holder?.mVipDateItem?.text = vipArray?.get(position)?.title
         holder?.mVipMoneyImage?.text = vipArray[position].price.toString()
-        if(isVip) holder?.mVipBtn?.text = ResourcesUtils.getString(R.string.renew)
+        if(isVip!!) holder?.mVipBtn?.text = ResourcesUtils.getString(R.string.renew)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): TotleViewHolder {

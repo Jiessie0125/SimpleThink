@@ -13,3 +13,7 @@ data class CourseLogs(
         @SerializedName("audio_id") val audio_id : Int?,
         @SerializedName("completed_time") val completed_time : String
 ): Serializable
+
+data class PraticeRequest(
+        @SerializedName("course_logs") val course_logs : List<CourseLogs>?
+): Serializable
