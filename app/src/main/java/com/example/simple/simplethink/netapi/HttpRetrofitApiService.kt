@@ -3,8 +3,11 @@ package com.example.simple.simplethink.netapi
 import com.example.simple.simplethink.model.*
 import com.example.simple.simplethink.model.bean.CourseResponse
 import io.reactivex.Observable
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import okhttp3.ResponseBody
 import retrofit2.http.*
+import java.io.File
 
 /**
  * Created by mobileteam on 2019/6/4.
@@ -84,4 +87,12 @@ interface HttpRetrofitApiService {
     @FormUrlEncoded
     @POST("/oauth/access_token")
     fun refresh(@FieldMap params: Map<String, String>): Observable<AuthResponse>
+
+    @Multipart
+    @POST("/file")
+    fun uploadFile(@Part field: MultipartBody.Part): Observable<UploadFileResponse>
+
+    @FormUrlEncoded
+    @PUT("/user/info")
+    fun updateUser(@FieldMap params: HashMap<String, String>):Observable<ResponseBody>
 }

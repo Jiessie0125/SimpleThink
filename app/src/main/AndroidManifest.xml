@@ -84,6 +84,15 @@
         <activity android:name=".main.setting.SettingActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar"
             android:screenOrientation="portrait"/>
+        <activity android:name=".main.UserInfoActivity.UserInfoActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".main.updatepassword.UpdatePasswordActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".main.UserInfoActivity.UpdateNickNameActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

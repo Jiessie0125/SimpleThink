@@ -5,7 +5,10 @@ import com.example.simple.simplethink.model.bean.CourseResponse
 import com.example.simple.simplethink.network.GetRetrofitServiceManager
 import com.example.simple.simplethink.network.RetrofitServiceManager
 import io.reactivex.Observable
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import okhttp3.ResponseBody
+import java.io.File
 
 /**
  * Created by mobileteam on 2019/6/4.
@@ -142,6 +145,24 @@ class HttpResposityImpl: HttpRepository {
     override fun appLogoff(): Observable<ResponseBody> {
         val appLogoffRetrofit = RetrofitServiceManager.instance.create(HttpRetrofitApiService::class.java)
         return appLogoffRetrofit.appLogoff()
+    }
+
+    override fun uploadFile(file: MultipartBody.Part): Observable<UploadFileResponse> {
+        val uploadFileRetrofit = RetrofitServiceManager.instance.create(HttpRetrofitApiService::class.java)
+        return uploadFileRetrofit.uploadFile(file)
+    }
+
+    override fun updateUser(file: String?, nikeName: String?): Observable<ResponseBody> {
+        val service = RetrofitServiceManager.instance.create(HttpRetrofitApiService::class.java)
+        val params = HashMap<String, String>().apply {
+            file?.let {
+                put("avatar", it)
+            }
+            nikeName?.let {
+                put("nickname", it)
+            }
+        }
+        return service.updateUser(params)
     }
 
 }

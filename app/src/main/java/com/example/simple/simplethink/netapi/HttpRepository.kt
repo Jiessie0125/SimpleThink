@@ -3,7 +3,10 @@ package com.example.simple.simplethink.netapi
 import com.example.simple.simplethink.model.*
 import com.example.simple.simplethink.model.bean.CourseResponse
 import io.reactivex.Observable
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import okhttp3.ResponseBody
+import java.io.File
 
 /**
  * Created by mobileteam on 2019/6/4.
@@ -31,4 +34,6 @@ interface HttpRepository {
     fun getSubscription(): Observable<SubscriptionResponse>
     fun appLogoff(): Observable<ResponseBody>
     fun refresh(refresh : String): Observable<AuthResponse>
+    fun uploadFile(file: MultipartBody.Part): Observable<UploadFileResponse>
+    fun updateUser(file: String?, nikeName: String?): Observable<ResponseBody>
 }
