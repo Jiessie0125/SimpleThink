@@ -29,6 +29,7 @@ import java.io.File
  */
 class UserInfoActivity: Activity(),UserInfoContract.View {
     override fun onRefreshUerInfoSuccess() {
+        initUserInfoView()
         Toast.makeText(this, R.string.update_user_info_success, Toast.LENGTH_LONG).show()
     }
 
@@ -83,13 +84,6 @@ class UserInfoActivity: Activity(),UserInfoContract.View {
             val intent = UpdatePasswordActivity.newIntent(this)
             startActivity(intent)
         }
-    }
-
-    private fun initUserInfoView() {
-        val userInfo = AuthInstance.getInstance().userInfo
-        Glide.with(context!!).load(userInfo?.avatar).apply(RequestOptions().placeholder(R.drawable.photo)).into(user_info_avatar)
-        update_nick_name_text.text = userInfo?.nickName
-        update_phone_number.text = userInfo?.userName
         user_info_avatar.setOnClickListener {
             PhotoPicker.builder()
                     .setPhotoCount(1)
@@ -98,6 +92,18 @@ class UserInfoActivity: Activity(),UserInfoContract.View {
                     .setPreviewEnabled(false)
                     .start(this, PhotoPicker.REQUEST_CODE)
         }
+    }
+
+    override fun onResume() {
+        initUserInfoView()
+        super.onResume()
+    }
+
+    private fun initUserInfoView() {
+        val userInfo = AuthInstance.getInstance().userInfo
+        Glide.with(context!!).load(userInfo?.avatar).apply(RequestOptions().placeholder(R.drawable.photo)).into(user_info_avatar)
+        update_nick_name_text.text = userInfo?.nickName
+        update_phone_number.text = userInfo?.userName
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
