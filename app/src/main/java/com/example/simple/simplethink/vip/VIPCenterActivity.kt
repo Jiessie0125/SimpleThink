@@ -70,14 +70,13 @@ class VIPCenterActivity : BaseActivity(), VIPCenterContact.View {
         val date = Date(System.currentTimeMillis())
         val startTime = sdf.parse(sub.user.start_at)
         val endTime = sdf.parse(sub.user.end_at)
-        var isVip = false
         if(belongCalendar(date,startTime,endTime)) {
             userInfo.text = String.format(getString(R.string.vip_date), endTime)
-            isVip = true
+            AuthInstance.getInstance().isVip = true
         }else{
             userInfo.text = ResourcesUtils.getString(R.string.not_vip)
         }
-        vipItemAdapter = VIPItemAdapter(this, sub.common,isVip)
+        vipItemAdapter = VIPItemAdapter(this, sub.common,AuthInstance.getInstance().isVip)
         vip_detail.layoutManager = LinearLayoutManager(this)
         vip_detail.adapter = vipItemAdapter
         vipItemAdapter.notifyDataSetChanged()

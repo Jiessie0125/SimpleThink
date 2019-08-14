@@ -6,7 +6,7 @@ import io.reactivex.Observable
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import okhttp3.ResponseBody
-import java.io.File
+import retrofit2.http.Body
 
 /**
  * Created by mobileteam on 2019/6/4.
@@ -36,6 +36,6 @@ interface HttpRepository {
     fun refresh(refresh : String): Observable<AuthResponse>
     fun uploadFile(file: MultipartBody.Part): Observable<UploadFileResponse>
     fun updateUser(file: String?, nikeName: String?): Observable<ResponseBody>
-    fun uploadPractice(params: ArrayList<CourseLogs>): Observable<ResponseBody>
+    fun uploadPractice(@Body params: RequestBody): Observable<ResponseBody>
     fun getCourseLogs(): Observable<SubscriptionResponse>
 }

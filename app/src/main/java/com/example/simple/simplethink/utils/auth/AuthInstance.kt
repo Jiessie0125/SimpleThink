@@ -7,6 +7,7 @@ import com.example.simple.simplethink.utils.SharedPreferencesUtil
 class AuthInstance {
     var accessToken: String? = null
     var userInfo: UserInfoResponse? = null
+    var isVip: Boolean?= false
 
     companion object {
         const val AUTH = "AUTH"
@@ -24,6 +25,7 @@ class AuthInstance {
         accessToken = null
         userInfo = null
         singleton = null
+        isVip = false
         SharedPreferencesUtil.removeString(MyApp.context!!,AuthInstance.AUTH)
         SharedPreferencesUtil.removeString(MyApp.context!!,AuthInstance.REFRESHTOKEN)
     }
