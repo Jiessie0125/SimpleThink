@@ -132,7 +132,8 @@ class WhithNoiseFragment : Fragment(),WhiteNoiseContact.View ,View.OnClickListen
 
         override fun run() {
             while (player != null && isStop == false) {
-                // 将SeekBar位置设置到当前播放位置handler.sendEmptyMessage(player!!.getCurrentPosition())
+                // 将SeekBar位置设置到当前播放位置
+                handler.sendEmptyMessage(player!!.getCurrentPosition())
                 try {
                     // 每100毫秒更新一次位置
                     Thread.sleep(80)
