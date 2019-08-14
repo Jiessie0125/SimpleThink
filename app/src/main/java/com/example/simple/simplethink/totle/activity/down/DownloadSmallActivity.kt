@@ -59,7 +59,9 @@ class DownloadSmallActivity : BaseActivity() {
                 override fun onItemClick(v: View?, position: Int) {
                     when (v?.getId()) {
                         R.id.download_small_delete_ry -> removeBigClass(downloadArray[position],sourceName)
-                        R.id.download_small_play_ry ->showPlayPage(downloadArray[position],FilesUtils.getLocalFileUrl(downloadArray[position],sourceName))
+                        R.id.download_small_play_ry ->{
+                            showPlayPage(downloadArray[position],FilesUtils.getLocalFileUrl(downloadArray[position],sourceName))
+                        }
                     }
                 }
             })
@@ -82,7 +84,7 @@ class DownloadSmallActivity : BaseActivity() {
         }
     }
     private fun showPlayPage(sceneName : String,sceneSource: String){
-        val intent = ScenePlayActivity.newIntent(this,sceneName,sceneSource,null)
+        val intent = ScenePlayActivity.newIntent(this,sceneName,sceneSource,null,null)
         startActivity(intent)
     }
 }

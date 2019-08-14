@@ -165,4 +165,12 @@ class HttpResposityImpl: HttpRepository {
         return service.updateUser(params)
     }
 
+    override fun uploadPractice(params: HashMap<String, ArrayList<CourseLogs>>): Observable<ResponseBody> {
+        val appLogoffRetrofit = RetrofitServiceManager.instance.create(HttpRetrofitApiService::class.java)
+        return appLogoffRetrofit.uploadPractice(params)
+    }
+    override fun getCourseLogs(): Observable<SubscriptionResponse> {
+        val getSuggestedCourseRetrofit = RetrofitServiceManager.instance.create(HttpRetrofitApiService::class.java)
+        return getSuggestedCourseRetrofit.getCourseLogs();
+    }
 }

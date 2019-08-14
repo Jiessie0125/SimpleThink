@@ -12,15 +12,20 @@ import android.util.Log
 import android.view.View
 import android.widget.SeekBar
 import com.example.simple.simplethink.R
+import com.example.simple.simplethink.model.Course
+import com.example.simple.simplethink.model.CourseLogs
+import com.example.simple.simplethink.model.PraticeSections
+import com.example.simple.simplethink.model.Sections
 import com.example.simple.simplethink.utils.FilesUtils
 import com.example.simple.simplethink.utils.FilesUtils.timeParse
+import com.example.simple.simplethink.utils.GenerateUUID
 import com.example.simple.simplethink.utils.ImageUtil.showBKImage
 import kotlinx.android.synthetic.main.activity_scene_paly.*
 import java.io.IOException
-
-
-
-
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
+import kotlin.collections.HashMap
 
 
 /**
@@ -32,11 +37,14 @@ class ScenePlayActivity : AppCompatActivity(), View.OnClickListener {
         const val SCENERESOURCE = "SCENERESOURCE"
         const val SCENENAME = "SCENENAME"
         const val BKGROUND = "BKGROUND"
-        fun newIntent (context: Context?,sceneName : String, sceneSource: String,bkground: String?) : Intent {
+        const val SECTIONS = "SECTIONS"
+        const val COURSELOGS = "course_logs"
+        fun newIntent (context: Context?,sceneName : String, sceneSource: String,bkground: String?,sections: PraticeSections?) : Intent {
             var intent = Intent(context, ScenePlayActivity::class.java)
             intent.putExtra(SCENENAME,sceneName)
             intent.putExtra(SCENERESOURCE,sceneSource)
             intent.putExtra(BKGROUND,bkground)
+            intent.putExtra(SECTIONS,sections)
             return intent
         }
     }
@@ -52,6 +60,11 @@ class ScenePlayActivity : AppCompatActivity(), View.OnClickListener {
     var player : MediaPlayer ?= null
     var mSeekbar : SeekBar ?= null
     var isStop = false
+    val persenter = ScenePlayPresenter(this)
+    lateinit var course: CourseLogs
+    var sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+    var courseList = ArrayList<CourseLogs>()
+    var courseMap = HashMap<String,ArrayList<CourseLogs>>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -82,6 +95,7 @@ class ScenePlayActivity : AppCompatActivity(), View.OnClickListener {
         val sceneName = intent.getSerializableExtra(SCENENAME) as String?
         val sceneSource = intent.getSerializableExtra(SCENERESOURCE) as String?
         val bkground = intent.getSerializableExtra(BKGROUND) as String?
+        val sections =  intent.getSerializableExtra(SECTIONS) as PraticeSections?
         bkground?.let {
             showBKImage(bkground,this,scene_play_bg)
         }
@@ -90,6 +104,15 @@ class ScenePlayActivity : AppCompatActivity(), View.OnClickListener {
         sceneSource?.let {
             scene_item_totle.text = FilesUtils.timeParse(player?.getDuration()?.toLong())
         }
+        (player as MediaPlayer).setOnCompletionListener(object : MediaPlayer.OnCompletionListener {
+            override fun onCompletion(mp: MediaPlayer?) {
+                val date = Date(System.currentTimeMillis())
+                course = CourseLogs(GenerateUUID.generateOneUUID(),sections?.course_id,sections?.id,sections?.audio_id,sdf.format(date))
+                courseList.add(course)
+                courseMap.put(COURSELOGS,courseList)
+                persenter.uploadPractice(courseMap)
+            }
+        })
     }
 
     fun play(sceneSource : String){

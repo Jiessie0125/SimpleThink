@@ -7,7 +7,7 @@ import java.io.Serializable
  * Created by mobileteam on 2019/6/4.
  */
 data class Course(
-        @SerializedName("id") val id : Int,
+        @SerializedName("id") val id : Int?,
         @SerializedName("channel") val channel : String,
         @SerializedName("prohibit_channel") val prohibit_channel : String,
         @SerializedName("title") val title : String,

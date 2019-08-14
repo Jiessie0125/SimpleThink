@@ -10,6 +10,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
 import android.view.View
 import com.example.simple.simplethink.R
+import com.example.simple.simplethink.model.PraticeSections
 import com.example.simple.simplethink.model.ScenesResponse
 import com.example.simple.simplethink.model.Sections
 import com.example.simple.simplethink.netapi.HttpResposityImpl
@@ -69,14 +70,20 @@ class SceneDetailActivity: AppCompatActivity() ,SceneDetailContact.View {
             override fun onItemClick(v: View, viewName: SceneDetailAdapter.ViewName, position: Int) {
                 when (v.getId()) {
                     R.id.scene_download -> downloadMP3(position)
-                    else -> showSceneResourcePage(sections[position].title, FilesUtils.getLocalFileUrl(sections[position].title,title),sceneResponse.content_img_new)
+                    else -> {
+                        val pratice = PraticeSections(sections[position].id,sections[position].course_id,sections[position].audio_id)
+                        showSceneResourcePage(sections[position].title,
+                                FilesUtils.getLocalFileUrl(sections[position].title,title),
+                                sceneResponse.content_img_new,
+                                pratice)
+                    }
                 }
             }
         })
     }
 
-    private fun showSceneResourcePage(sceneName : String, sceneSource : String, bkground: String){
-        val intent = ScenePlayActivity.newIntent(this,sceneName,sceneSource,bkground)
+    private fun showSceneResourcePage(sceneName : String, sceneSource : String, bkground: String,sections:PraticeSections){
+        val intent = ScenePlayActivity.newIntent(this,sceneName,sceneSource,bkground,sections)
         startActivity(intent)
     }
 
