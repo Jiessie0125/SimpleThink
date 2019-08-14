@@ -98,7 +98,7 @@ interface HttpRetrofitApiService {
 
     @FormUrlEncoded
     @POST("/course/logs")
-    fun uploadPractice(@FieldMap params: HashMap<String, ArrayList<CourseLogs>>): Observable<ResponseBody>
+    fun uploadPractice(@FieldMap params:  ArrayList<CourseLogs>): Observable<ResponseBody>
 
     @GET("/course/logs")
     fun getCourseLogs(): Observable<SubscriptionResponse>
