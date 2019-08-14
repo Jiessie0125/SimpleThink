@@ -21,6 +21,7 @@ import com.example.simple.simplethink.totle.activity.RecyclerViewSpacesItemDecor
 import com.example.simple.simplethink.totle.activity.course.CourseDetailActivity
 import com.example.simple.simplethink.utils.DateUtils
 import com.example.simple.simplethink.utils.ErrorHandler
+import com.example.simple.simplethink.vip.VIPCenterActivity
 import com.example.simple.simplethink.welcome.Activity.AdvertisementActivity
 import kotlinx.android.synthetic.main.fragment_main_prelogon.*
 import java.util.*
@@ -133,8 +134,12 @@ class PreLogonFragment : LogonBaseFragment(), MainContract.View {
     private fun redirectorBanner(bannerResponse: BottomActivityResponse?) {
         when (bannerResponse?.tag) {
             "vip" -> {
+                val intent = VIPCenterActivity.newIntent(context)
+                startActivity(intent)
             }
             "lessions" -> {
+                val intent = CourseDetailActivity.newIntent(bannerResponse.lessionsID!!.toInt(),context)
+                startActivity(intent)
             }
             "sign" -> {
             }
@@ -164,8 +169,13 @@ class PreLogonFragment : LogonBaseFragment(), MainContract.View {
     private fun redirector(acitivityResponse: ActivityResponse?) {
         when (acitivityResponse?.tag) {
             "vip" -> {
+                val intent = VIPCenterActivity.newIntent(context)
+                startActivity(intent)
             }
             "lessions" -> {
+                val intent = CourseDetailActivity.newIntent(acitivityResponse.lessionsID.toInt(),context)
+                startActivity(intent)
+
             }
             "sign" -> {
             }

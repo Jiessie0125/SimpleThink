@@ -23,12 +23,7 @@ class TotlePresenter(val httpResposityImpl : HttpResposityImpl, val view: TotleF
                 .observeOn(AndroidSchedulers.mainThread())
                 .map { result -> result }
                 .subscribe({message ->
-                    var bannerUrlList = ArrayList<String>()
-                    for(i in 0 until message.size){
-                        var bannerURL = message[i].imgURL
-                        bannerUrlList.add(bannerURL)
-                    }
-                    view.setBanner(bannerUrlList)
+                    view.setBanner(message)
                 },{
                     error->
                     Log.e("---","----getTotleSortfail:"+error)

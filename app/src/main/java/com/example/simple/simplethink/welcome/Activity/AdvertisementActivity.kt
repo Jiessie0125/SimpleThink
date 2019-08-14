@@ -2,6 +2,7 @@ package com.example.simple.simplethink.welcome.Activity
 
 import android.app.Activity
 import android.content.Intent
+import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.view.Gravity
 import android.view.View
@@ -41,9 +42,17 @@ class AdvertisementActivity : Activity(), View.OnClickListener {
         webView = findViewById<View>(R.id.ad_webView) as WebView
         webView!!.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN)
         from = getIntent().getStringExtra("from")
-        bannerResponse = getIntent().getSerializableExtra("BannerResponse") as BannerResponse
-        activityResponse = getIntent().getSerializableExtra("ActivityResponse") as ActivityResponse
-        bottomActivityResponse = getIntent().getSerializableExtra("BottomActivityResponse") as BottomActivityResponse
+        getIntent().getSerializableExtra("BannerResponse")?.let {
+            bannerResponse = it as BannerResponse
+        }
+
+        getIntent().getSerializableExtra("ActivityResponse")?.let {
+            activityResponse = it as ActivityResponse
+        }
+        getIntent().getSerializableExtra("BottomActivityResponse")?.let {
+           bottomActivityResponse = it as BottomActivityResponse
+       }
+
         if (bannerResponse != null) {
             webView!!.loadUrl(bannerResponse!!.lessionsID)
         }
@@ -67,22 +76,24 @@ class AdvertisementActivity : Activity(), View.OnClickListener {
     }
 
     private fun initBean() {
-        bean.setShareType(Platform.SHARE_WEBPAGE)
-        bean.setTitle("简单冥想")
-        bean.setText("累了？来放松一下")
+        bean.shareType = Platform.SHARE_WEBPAGE
+        bean.title = "简单冥想"
+        bean.text = "累了？来放松一下"
 
         if (bannerResponse != null) {
-            bean.setImageUrl(bannerResponse!!.imgURL)
-            bean.setUrl(bannerResponse!!.lessionsID)
+            bean.imageUrl = bannerResponse!!.imgURL
+            bean.url = bannerResponse!!.lessionsID
         }
         if (activityResponse != null) {
-            bean.setImageUrl(activityResponse!!.imgURL)
-            bean.setUrl(activityResponse!!.lessionsID)
+            bean.imageUrl = activityResponse!!.imgURL
+            bean.url = activityResponse!!.lessionsID
         }
         if (bottomActivityResponse != null) {
-            bean.setImageUrl(bottomActivityResponse!!.imgURL)
-            bean.setUrl(bottomActivityResponse!!.lessionsID)
+            bean.imageUrl = bottomActivityResponse!!.imgURL
+            bean.url = bottomActivityResponse!!.lessionsID
         }
+        val logo = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher)
+        bean.imageData = logo
 
     }
 

@@ -15,9 +15,11 @@ import com.example.simple.simplethink.R
 import com.example.simple.simplethink.main.MainActivity
 import com.example.simple.simplethink.model.BannerResponse
 import com.example.simple.simplethink.totle.TotleActivity
+import com.example.simple.simplethink.totle.activity.course.CourseDetailActivity
 import com.example.simple.simplethink.utils.ImageUtil
 import com.example.simple.simplethink.utils.LocalDataCache
 import com.example.simple.simplethink.utils.URLConstant
+import com.example.simple.simplethink.vip.VIPCenterActivity
 
 import java.io.File
 
@@ -30,7 +32,6 @@ class SplashActivity : Activity(), View.OnClickListener {
     private var mc: MyCountDownTimer? = null
     private var tv: TextView? = null
     private var iv: ImageView? = null
-    private val APP_IMAGE_DIR = "sort_item"
     private var tag: String? = null
     private var linkPage: String? = null
     private var handler: Handler? = null
@@ -98,15 +99,15 @@ class SplashActivity : Activity(), View.OnClickListener {
         } else {
             when (tag) {
                 "vip" -> {
+                    val intent = VIPCenterActivity.newIntent(this)
+                    startActivity(intent)
                 }
                 "lessions" -> {
-                }
-                "sign" -> {
+                    val intent = CourseDetailActivity.newIntent(linkPage!!.toInt(),this)
+                    startActivity(intent)
                 }
                 "advertisment" -> enterActivity(AdvertisementActivity::class.java, "main", bannerResponse)
-            }//                    enterActivity();
-            //                    enterActivity();
-            //                    enterActivity();
+            };
         }
 
     }

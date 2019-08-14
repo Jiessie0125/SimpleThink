@@ -210,9 +210,11 @@
 
                 <ImageView
                     android:id="@+id/selection_image1"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="135dp"
                     android:layout_marginTop="15dp"
+                    android:paddingStart="16sp"
+                    android:paddingEnd="16sp"
                     android:scaleType="fitXY" />
 
                 <TextView

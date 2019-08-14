@@ -2,8 +2,10 @@ package com.example.simple.simplethink.totle.fragment.totlePage
 
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.Bitmap
 import android.os.Bundle
+import android.os.Handler
 import android.support.v4.app.Fragment
 import android.support.v7.widget.GridLayoutManager
 import android.view.LayoutInflater
@@ -11,12 +13,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.example.simple.simplethink.R
 import com.example.simple.simplethink.buzzy.BuzzyCourseActivity
-import com.example.simple.simplethink.model.Course
-import com.example.simple.simplethink.model.FirstCourseResponse
-import com.example.simple.simplethink.model.TotleItem
-import com.example.simple.simplethink.model.TotleSortResponse
+import com.example.simple.simplethink.model.*
 import com.example.simple.simplethink.netapi.HttpResposityImpl
 import com.example.simple.simplethink.totle.activity.RecyclerViewSpacesItemDecoration
 import com.example.simple.simplethink.totle.activity.course.CourseDetailActivity
@@ -24,12 +24,18 @@ import com.example.simple.simplethink.totle.adapter.CourseAdapter
 import com.example.simple.simplethink.totle.adapter.OnCoursetemClickListener
 import com.example.simple.simplethink.totle.adapter.OnTotleItemClickListener
 import com.example.simple.simplethink.totle.adapter.TotleAdapter
+import com.example.simple.simplethink.utils.DateUtils
 import com.example.simple.simplethink.utils.LocalDataCache
 import com.example.simple.simplethink.utils.ResourcesUtils
 import com.example.simple.simplethink.utils.URLConstant
+import com.example.simple.simplethink.vip.VIPCenterActivity
+import com.example.simple.simplethink.welcome.Activity.AdvertisementActivity
 import com.youth.banner.loader.ImageLoader
+import kotlinx.android.synthetic.main.fragment_main_prelogon.*
 import kotlinx.android.synthetic.main.fragment_totle.*
 import kotlinx.android.synthetic.main.fragment_white_noise.*
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 /**
@@ -43,6 +49,9 @@ class TotleFragment : Fragment(), TotleContact.View {
     lateinit var totleAdapter: TotleAdapter
     lateinit var courseAdapter: CourseAdapter
     var buzzyItems = 0
+    private var handler: Handler = Handler()
+    private var runnable: Runnable = Runnable {}
+    private var activityCount: Int = 0
     //lateinit var getTotleSort : List<TotleSortResponse>
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -161,17 +170,91 @@ class TotleFragment : Fragment(), TotleContact.View {
         courseAdapter.setData(courseList)*/
     }
 
-    override fun setBanner(bannerUrlList: ArrayList<String>) {
-        mbanner.setImageLoader(object : ImageLoader() {
-            override fun displayImage(context: Context, path: Any?, imageView: ImageView) {
-                Glide.with(context).load(path).into(imageView)
+
+    override fun setBanner(message: List<BannerResponse>) {
+        if (message.size == 0) {
+            Glide.with(context!!).load(R.drawable.sugges_activity).into(mbanner)
+            return
+        }
+        if (message.size == 1) {
+            val suggestedActivity = message?.get(0)
+            val date = DateUtils.DateToString(Date(), DateUtils.DATE_TO_STRING_DETAIAL_PATTERN)
+            if (date >= suggestedActivity?.start_time.toString() && date <= suggestedActivity?.end_time.toString()) {
+                Glide.with(context!!).load(message?.get(0).imgURL).into(mbanner)
+                mbanner.setOnClickListener {
+                    redirectorBanner(message?.get(0))
+                }
+            } else {
+                Glide.with(context!!).load(R.drawable.sugges_activity).into(mbanner)
             }
-        })
-        mbanner.setDelayTime(4000)
-        mbanner.setImages(bannerUrlList)
-        mbanner.isAutoPlay(true)
-        mbanner.start()
+            return
+        }
+        handler = Handler()
+        runnable = object : Runnable {
+            override fun run() {
+                handler.postDelayed(this, 4000)
+
+                if (activityCount == message.size) {
+                    activityCount = 0
+                }
+
+                val date = DateUtils.DateToString(Date(), DateUtils.DATE_TO_STRING_DETAIAL_PATTERN)
+                if (date >= message?.get(activityCount)?.start_time.toString() && date <= message?.get(activityCount)?.end_time.toString()) {
+                    Glide.with(context!!).load(message?.get(activityCount).imgURL).into(mbanner)
+                    activityCount++
+                    mbanner.setOnClickListener {
+                        redirectorBanner(message?.get(activityCount))
+                    }
+                }
+            }
+        }
+        handler.post(runnable)
     }
+
+    private fun redirectorBanner(bannerResponse: BannerResponse?) {
+        when (bannerResponse?.tag) {
+            "vip" -> {
+                val intent = VIPCenterActivity.newIntent(context)
+                startActivity(intent)
+            }
+            "lessions" -> {
+                val intent = CourseDetailActivity.newIntent(bannerResponse.lessionsID!!.toInt(),context)
+                startActivity(intent)
+            }
+            "sign" -> {
+            }
+            "advertisment" -> enterBannerActivity(AdvertisementActivity::class.java, "", bannerResponse)
+        }
+
+    }
+
+    private fun enterBannerActivity(activity: Class<*>, from: String, bannerResponse: BannerResponse?) {
+
+        val intent = Intent(context, activity)
+
+        if (from == "") {
+            intent.putExtra("from", "main")
+        } else {
+            intent.putExtra("from", from)
+        }
+        bannerResponse?.let {
+            intent.putExtra("BannerResponse", it)
+        }
+        startActivity(intent)
+        this.activity?.finish()
+    }
+
+//    override fun setBanner(bannerUrlList: ArrayList<String>) {
+//        mbanner.setImageLoader(object : ImageLoader() {
+//            override fun displayImage(context: Context, path: Any?, imageView: ImageView) {
+//                Glide.with(context).load(path).into(imageView)
+//            }
+//        })
+//        mbanner.setDelayTime(4000)
+//        mbanner.setImages(bannerUrlList)
+//        mbanner.isAutoPlay(true)
+//        mbanner.start()
+//    }
 
     override fun setBuzzyItem(id: Int) {
         buzzyItems = id

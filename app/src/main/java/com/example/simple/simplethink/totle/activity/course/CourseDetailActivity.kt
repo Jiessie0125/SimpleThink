@@ -4,18 +4,28 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import android.view.Gravity
 import android.view.View
+import cn.sharesdk.framework.Platform
+import com.bumptech.glide.Glide
 import com.example.simple.simplethink.R
 import com.example.simple.simplethink.base.BaseActivity
+import com.example.simple.simplethink.model.BannerResponse
 import com.example.simple.simplethink.model.PraticeSections
 import com.example.simple.simplethink.model.Sections
 import com.example.simple.simplethink.model.bean.CourseResponse
+import com.example.simple.simplethink.model.bean.ShareMediaBean
 import com.example.simple.simplethink.netapi.HttpResposityImpl
 import com.example.simple.simplethink.totle.activity.ScenePlayActivity
 import com.example.simple.simplethink.totle.adapter.CourseDetailAdapter
 import com.example.simple.simplethink.utils.FilesUtils
+import com.example.simple.simplethink.utils.ShareMediaPopupWindow
 import com.example.simple.simplethink.vip.VIPCenterActivity
 import kotlinx.android.synthetic.main.activity_course_detail.*
+import android.graphics.BitmapFactory
+import android.graphics.Bitmap
+
+
 
 /**
  * Created by jiessie on 2019/7/28.
@@ -24,7 +34,9 @@ class CourseDetailActivity: BaseActivity(), CourseDetailContact.View{
 
     lateinit var coursePresenter : CourseDetailContact.Presenter
     lateinit var courseDetailAdapter : CourseDetailAdapter
+    private val supportMediaList = arrayOf<String>(ShareMediaPopupWindow.WECHAT, ShareMediaPopupWindow.MOMENTS, ShareMediaPopupWindow.QQ, ShareMediaPopupWindow.QQSPACE, ShareMediaPopupWindow.WEIBO)
     private var isManager =false
+    private val bean = ShareMediaBean()
 
     companion object {
         const val COURSEID = "COURSEID"
@@ -41,6 +53,22 @@ class CourseDetailActivity: BaseActivity(), CourseDetailContact.View{
         init()
     }
 
+
+    private fun initBean() {
+        bean.shareType = Platform.SHARE_WEBPAGE
+        bean.title = "简单冥想"
+        bean.text = "累了？来放松一下"
+        val logo = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher)
+        bean.imageData = logo
+        bean.url = "http://resource.simplemeditation.cn/icon/scene/background/qingchen-bg.png"
+    }
+
+    private fun showPopFormBottom() {
+        val shareMediaPopupWindow = ShareMediaPopupWindow(this, supportMediaList, bean)
+        shareMediaPopupWindow.showAtLocation(findViewById<View>(R.id.ad_popup_course), Gravity.BOTTOM, 0, 0)
+    }
+
+
     private fun init(){
         var intent = getIntent()
         var courseItem = intent.getSerializableExtra(COURSEID) as Int
@@ -48,6 +76,10 @@ class CourseDetailActivity: BaseActivity(), CourseDetailContact.View{
         coursePresenter = CourseDetailPresenter(httpResposityImpl,this)
         coursePresenter.getCourse(courseItem)
         course_back.setOnClickListener { finish() }
+        course_share.setOnClickListener {
+            initBean()
+            showPopFormBottom()
+        }
     }
 
     override fun setCourseAdapter(courseResponse : CourseResponse) {

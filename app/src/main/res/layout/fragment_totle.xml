@@ -21,11 +21,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
 
-
-            <com.youth.banner.Banner
+            <ImageView
                 android:id="@+id/mbanner"
                 android:layout_width="match_parent"
-                android:layout_height="150dp" />
+                android:layout_height="135dp"
+                android:layout_marginTop="15dp"
+                android:paddingStart="16sp"
+                android:paddingEnd="16sp"
+                android:scaleType="fitXY" />
+
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recycle_tv"
                 android:layout_margin="20dp"

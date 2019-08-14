@@ -11,9 +11,11 @@ import com.example.simple.simplethink.main.UserInfoActivity.UserInfoActivity
 import com.example.simple.simplethink.model.ActivityResponse
 import com.example.simple.simplethink.model.BottomActivityResponse
 import com.example.simple.simplethink.model.SuggestedCourse
+import com.example.simple.simplethink.totle.activity.course.CourseDetailActivity
 import com.example.simple.simplethink.utils.DateUtils
 import com.example.simple.simplethink.utils.ErrorHandler
 import com.example.simple.simplethink.utils.auth.AuthInstance
+import com.example.simple.simplethink.vip.VIPCenterActivity
 import com.example.simple.simplethink.welcome.Activity.AdvertisementActivity
 import kotlinx.android.synthetic.main.fragment_main_postlogon.*
 import java.util.*
@@ -97,8 +99,13 @@ class PostLogonFragment : LogonBaseFragment(),MainContract.View {
     private fun redirector(acitivityResponse: ActivityResponse?) {
         when (acitivityResponse?.tag) {
             "vip" -> {
+                val intent = VIPCenterActivity.newIntent(context)
+                startActivity(intent)
             }
             "lessions" -> {
+                val intent = CourseDetailActivity.newIntent(acitivityResponse.lessionsID.toInt(),context)
+                startActivity(intent)
+
             }
             "sign" -> {
             }
