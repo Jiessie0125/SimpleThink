@@ -2,15 +2,20 @@ package com.example.simple.simplethink.main.fragment
 
 import android.content.Intent
 import android.os.Handler
+import android.support.v7.widget.LinearLayoutManager
+import android.view.View
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.simple.simplethink.R
 import com.example.simple.simplethink.main.MainContract
 import com.example.simple.simplethink.main.MainPresenter
 import com.example.simple.simplethink.main.UserInfoActivity.UserInfoActivity
+import com.example.simple.simplethink.main.adapter.CourseAdapter
+import com.example.simple.simplethink.main.adapter.OnCoursetemClickListener
 import com.example.simple.simplethink.model.ActivityResponse
 import com.example.simple.simplethink.model.BottomActivityResponse
 import com.example.simple.simplethink.model.SuggestedCourse
+import com.example.simple.simplethink.totle.activity.RecyclerViewSpacesItemDecoration
 import com.example.simple.simplethink.totle.activity.course.CourseDetailActivity
 import com.example.simple.simplethink.utils.DateUtils
 import com.example.simple.simplethink.utils.ErrorHandler
@@ -29,6 +34,7 @@ class PostLogonFragment : LogonBaseFragment(),MainContract.View {
     private var handler: Handler = Handler()
     private var runnable: Runnable = Runnable {}
     private var activityCount: Int = 0
+    lateinit var courseAdapter: CourseAdapter
 
 
     override fun onGetSuggestedActivitySuccess(message: List<ActivityResponse>) {
@@ -39,6 +45,7 @@ class PostLogonFragment : LogonBaseFragment(),MainContract.View {
     }
 
     override fun onGetSuggestedCourseSuccess(message: List<SuggestedCourse>) {
+        setCouseAdapter(message)
     }
 
     override fun onFailure(e: Throwable) {
@@ -49,6 +56,29 @@ class PostLogonFragment : LogonBaseFragment(),MainContract.View {
         fun newInstance(): LogonBaseFragment {
             return PostLogonFragment()
         }
+    }
+
+    private fun setCouseAdapter(totalList: List<SuggestedCourse>) {
+        courseAdapter = CourseAdapter(activity!!, totalList)
+        val layoutManager = LinearLayoutManager(context)
+        layoutManager.orientation = LinearLayoutManager.HORIZONTAL
+        recommend_course.layoutManager = layoutManager
+        val stringIntegerHashMap = HashMap<String, Int>()
+        stringIntegerHashMap.put(RecyclerViewSpacesItemDecoration.RIGHT_DECORATION, 25)
+        stringIntegerHashMap.put(RecyclerViewSpacesItemDecoration.TOP_DECORATION, 50)
+        recommend_course.addItemDecoration(RecyclerViewSpacesItemDecoration(stringIntegerHashMap))
+        recommend_course.adapter = courseAdapter
+        courseAdapter.notifyDataSetChanged()
+        courseAdapter.setOnItemClickListener(object : OnCoursetemClickListener {
+            override fun onItemClick(v: View?, position: Int) {
+                showCourseDetail(totalList[position].id)
+            }
+        })
+    }
+
+    private fun showCourseDetail(title: Int) {
+        var courseActivity = CourseDetailActivity.newIntent(title, context)
+        startActivity(courseActivity)
     }
 
     private fun setSuggestedActivity(message: List<ActivityResponse>) {
@@ -141,6 +171,7 @@ class PostLogonFragment : LogonBaseFragment(),MainContract.View {
 
     private fun getImages() {
         presenter.getSuggestedActivity()
+        presenter.getSuggestedCourse()
     }
 
     private fun initUserInfoView() {
