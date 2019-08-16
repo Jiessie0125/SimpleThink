@@ -1,5 +1,7 @@
 package com.example.simple.simplethink.totle.fragment.whiteNoisePage
 
+import android.annotation.SuppressLint
+import android.graphics.Color
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.Environment
@@ -33,6 +35,7 @@ class WhithNoiseFragment : Fragment(),WhiteNoiseContact.View ,View.OnClickListen
     
     lateinit var persenter: WhiteNoiseContact.Presenter
     lateinit var whiteItemAdapter: WhiteItemAdapter
+    private  var PLAYER_TIME:Int = 10 * 60 * 1000
     var player : MediaPlayer?= null
     var isStop = false
 
@@ -64,6 +67,106 @@ class WhithNoiseFragment : Fragment(),WhiteNoiseContact.View ,View.OnClickListen
         val httpResposityImpl = HttpResposityImpl()
         persenter = WhiteNoisePresenter(httpResposityImpl, this,this.activity!!)
         persenter.getWhiteNoise()
+        initNumber()
+    }
+
+    private fun initNumber(){
+
+        cricle_number_5.isSelected = false
+        cricle_number_10.isSelected = false
+        cricle_number_15.isSelected = false
+        cricle_number_20.isSelected = false
+        cricle_number_30.isSelected = false
+
+        cricle_number_5.setOnClickListener {
+            cricle_number_5.isSelected = true
+            cricle_number_10.isSelected = false
+            cricle_number_15.isSelected = false
+            cricle_number_20.isSelected = false
+            cricle_number_30.isSelected = false
+            PLAYER_TIME = 5 * 60 * 1000
+            if(player != null && isStop == false && player!!.getCurrentPosition()> PLAYER_TIME){
+                player!!.stop()
+            }
+            cricle_number_5.setTextColor(resources.getColor(R.color.logonButton))
+            cricle_number_10.setTextColor(resources.getColor(R.color.wordWhite))
+            cricle_number_15.setTextColor(resources.getColor(R.color.wordWhite))
+            cricle_number_20.setTextColor(resources.getColor(R.color.wordWhite))
+            cricle_number_30.setTextColor(resources.getColor(R.color.wordWhite))
+        }
+
+        cricle_number_10.setOnClickListener {
+            cricle_number_5.isSelected = false
+            cricle_number_10.isSelected = true
+            cricle_number_15.isSelected = false
+            cricle_number_20.isSelected = false
+            cricle_number_30.isSelected = false
+            PLAYER_TIME = 10 * 60 * 1000
+            if(player != null && isStop == false && player!!.getCurrentPosition()> PLAYER_TIME){
+                player!!.stop()
+            }
+
+            cricle_number_5.setTextColor(resources.getColor(R.color.wordWhite))
+            cricle_number_10.setTextColor(resources.getColor(R.color.logonButton))
+            cricle_number_15.setTextColor(resources.getColor(R.color.wordWhite))
+            cricle_number_20.setTextColor(resources.getColor(R.color.wordWhite))
+            cricle_number_30.setTextColor(resources.getColor(R.color.wordWhite))
+        }
+
+        cricle_number_15.setOnClickListener {
+            cricle_number_5.isSelected = false
+            cricle_number_10.isSelected = false
+            cricle_number_15.isSelected = true
+            cricle_number_20.isSelected = false
+            cricle_number_30.isSelected = false
+            PLAYER_TIME = 15 * 60 * 1000
+            if(player != null && isStop == false && player!!.getCurrentPosition()> PLAYER_TIME){
+                player!!.stop()
+            }
+
+            cricle_number_5.setTextColor(resources.getColor(R.color.wordWhite))
+            cricle_number_10.setTextColor(resources.getColor(R.color.wordWhite))
+            cricle_number_15.setTextColor(resources.getColor(R.color.logonButton))
+            cricle_number_20.setTextColor(resources.getColor(R.color.wordWhite))
+            cricle_number_30.setTextColor(resources.getColor(R.color.wordWhite))
+
+        }
+
+        cricle_number_20.setOnClickListener {
+            cricle_number_5.isSelected = false
+            cricle_number_10.isSelected = false
+            cricle_number_15.isSelected = false
+            cricle_number_20.isSelected = true
+            cricle_number_30.isSelected = false
+            PLAYER_TIME = 20 * 60 * 1000
+            if(player != null && isStop == false && player!!.getCurrentPosition()> PLAYER_TIME){
+                player!!.stop()
+            }
+
+            cricle_number_5.setTextColor(resources.getColor(R.color.wordWhite))
+            cricle_number_10.setTextColor(resources.getColor(R.color.wordWhite))
+            cricle_number_15.setTextColor(resources.getColor(R.color.wordWhite))
+            cricle_number_20.setTextColor(resources.getColor(R.color.logonButton))
+            cricle_number_30.setTextColor(resources.getColor(R.color.wordWhite))
+        }
+
+        cricle_number_30.setOnClickListener {
+            cricle_number_5.isSelected = false
+            cricle_number_10.isSelected = false
+            cricle_number_15.isSelected = false
+            cricle_number_20.isSelected = false
+            cricle_number_30.isSelected = true
+            PLAYER_TIME = 30 * 60 * 1000
+            if(player != null && isStop == false && player!!.getCurrentPosition()> PLAYER_TIME){
+                player!!.stop()
+            }
+
+            cricle_number_5.setTextColor(resources.getColor(R.color.wordWhite))
+            cricle_number_10.setTextColor(resources.getColor(R.color.wordWhite))
+            cricle_number_15.setTextColor(resources.getColor(R.color.wordWhite))
+            cricle_number_20.setTextColor(resources.getColor(R.color.wordWhite))
+            cricle_number_30.setTextColor(resources.getColor(R.color.logonButton))
+        }
     }
 
     override fun updateView(list: List<WhiteNoiseItemResponse>) {
@@ -132,6 +235,10 @@ class WhithNoiseFragment : Fragment(),WhiteNoiseContact.View ,View.OnClickListen
 
         override fun run() {
             while (player != null && isStop == false) {
+                if(player!!.getCurrentPosition() > PLAYER_TIME){
+                    player!!.stop()
+                    continue
+                }
                 // 将SeekBar位置设置到当前播放位置
                 handler.sendEmptyMessage(player!!.getCurrentPosition())
                 try {
@@ -173,8 +280,18 @@ class WhithNoiseFragment : Fragment(),WhiteNoiseContact.View ,View.OnClickListen
         super.onDestroy()
     }
 
+    private fun resetPlay(){
+        isStop = true
+        player?.let {
+            if(player!!.isPlaying()){
+                player!!.stop();
+            }
+            player!!.reset();
+        }
+    }
+
     private fun releasePlay(){
-        isStop = false
+        isStop = true
         player?.let {
             if(player!!.isPlaying()){
                 player!!.stop();

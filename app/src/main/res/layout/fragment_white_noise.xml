@@ -46,6 +46,79 @@
              android:layout_gravity="center"/>
       </LinearLayout>
 
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:orientation="horizontal"
+          android:layout_marginLeft="40dp"
+          android:layout_marginTop="110dp">
+         <TextView
+             android:id="@+id/cricle_number_5"
+             android:layout_width="20dp"
+             android:layout_height="20dp"
+             android:textAlignment="center"
+             android:text="5"
+             android:background="@drawable/circle_number_selector"
+             android:textSize="13sp"
+             android:textColor="@color/wordWhite"/>
+         <View
+            android:layout_gravity="center_vertical"
+             android:layout_width="30dp"
+             android:layout_height="1dp"
+             android:background="@color/wordWhite"></View>
+         <TextView
+             android:id="@+id/cricle_number_10"
+             android:layout_width="20dp"
+             android:layout_height="20dp"
+             android:textAlignment="center"
+             android:text="10"
+             android:background="@drawable/circle_number_selector"
+             android:textSize="13sp"
+             android:textColor="@color/wordWhite"/>
+         <View
+             android:layout_gravity="center_vertical"
+             android:layout_width="30dp"
+             android:layout_height="1dp"
+             android:background="@color/wordWhite"></View>
+         <TextView
+             android:id="@+id/cricle_number_15"
+             android:layout_width="20dp"
+             android:layout_height="20dp"
+             android:textAlignment="center"
+             android:text="15"
+             android:background="@drawable/circle_number_selector"
+             android:textSize="13sp"
+             android:textColor="@color/wordWhite"/>
+         <View
+             android:layout_gravity="center_vertical"
+             android:layout_width="30dp"
+             android:layout_height="1dp"
+             android:background="@color/wordWhite"></View>
+         <TextView
+             android:id="@+id/cricle_number_20"
+             android:layout_width="20dp"
+             android:layout_height="20dp"
+             android:textAlignment="center"
+             android:text="20"
+             android:background="@drawable/circle_number_selector"
+             android:textSize="13sp"
+             android:textColor="@color/wordWhite"/>
+         <View
+             android:layout_gravity="center_vertical"
+             android:layout_width="30dp"
+             android:layout_height="1dp"
+             android:background="@color/wordWhite"></View>
+         <TextView
+             android:id="@+id/cricle_number_30"
+             android:layout_width="20dp"
+             android:layout_height="20dp"
+             android:textAlignment="center"
+             android:text="30"
+             android:background="@drawable/circle_number_selector"
+             android:textSize="13sp"
+             android:textColor="@color/wordWhite"/>
+      </LinearLayout>
+
    </FrameLayout>
 
    <android.support.v7.widget.RecyclerView
