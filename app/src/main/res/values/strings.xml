@@ -89,4 +89,11 @@
     <string name="update_password_success">密码修改成功</string>
     <string name="update_user_info_success">用户信息修改成功</string>
     <string name="nike_name_cannot_null">昵称不允许为空</string>
+
+    <string name="complete">完成</string>
+    <string name="practice_course">练习课程</string>
+    <string name="continue_day_count">连续收听</string>
+    <string name="duration_count">累计时长</string>
+    <string name="meet">与简单生活不期而遇</string>
+    <string name="share_img">分享图片</string>
 </resources>

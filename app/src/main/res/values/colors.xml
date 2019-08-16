@@ -30,4 +30,5 @@
     <color name="logoff">#9D4141</color>
     <color name="edit_text">#645E6B</color>
     <color name="transparent1">#00000000</color>
+    <color name="pic_text">#FF7F00</color>
 </resources>

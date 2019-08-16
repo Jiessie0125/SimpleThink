@@ -142,8 +142,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="135dp"
                     android:layout_marginTop="15dp"
-                    android:paddingStart="16sp"
-                    android:paddingEnd="16sp"
                     android:scaleType="fitXY" />
 
                 <TextView
