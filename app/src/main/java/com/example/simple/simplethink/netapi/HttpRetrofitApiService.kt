@@ -102,4 +102,7 @@ interface HttpRetrofitApiService {
 
     @GET("/course/logs")
     fun getCourseLogs(): Observable<SubscriptionResponse>
+
+    @POST("/subscription/order")
+    fun createSubscription(@Body params:  RequestBody): Observable<CreateSubscriptionResponse>
 }

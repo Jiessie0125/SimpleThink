@@ -17,32 +17,32 @@ import com.example.simple.simplethink.utils.ResourcesUtils
 /**
  * Created by jiessie on 2019/6/11.
  */
-class VIPItemAdapter(val context: Activity, val vipArray : List<Common>,val isVip: Boolean?) : RecyclerView.Adapter<TotleViewHolder>() {
+class VIPItemAdapter(val context: Activity, val vipArray : List<Common>,val isVip: Boolean?) : RecyclerView.Adapter<VIPViewHolder>() {
 
-    private var mClickListener : OnTotleItemClickListener?= null
+    private var mClickListener : OnVIPItemClickListener?= null
     override fun getItemCount(): Int {
         return vipArray?.size!!
     }
 
-    override fun onBindViewHolder(holder: TotleViewHolder?, position: Int) {
+    override fun onBindViewHolder(holder: VIPViewHolder?, position: Int) {
         holder?.mVipDateItem?.text = vipArray?.get(position)?.title
         holder?.mVipMoneyImage?.text = vipArray[position].price.toString()
         if(isVip!!) holder?.mVipBtn?.text = ResourcesUtils.getString(R.string.renew)
+        holder?.mVipBtn?.tag = position
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): TotleViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): VIPViewHolder {
         val layoutInflater = LayoutInflater.from(parent?.context)
         val holder = layoutInflater.inflate(R.layout.vip_detail_item, null, false)
-        return TotleViewHolder(holder, mClickListener)
+        return VIPViewHolder(holder, mClickListener)
     }
 
-    fun setOnItemClickListener( listener : OnTotleItemClickListener){
+    fun setOnItemClickListener( listener : OnVIPItemClickListener){
         this.mClickListener = listener
     }
-
 }
 
-class TotleViewHolder(view : View?, private val mListener: OnTotleItemClickListener?): RecyclerView.ViewHolder(view), View.OnClickListener {
+class VIPViewHolder(view : View?, private val mListener: OnVIPItemClickListener?): RecyclerView.ViewHolder(view), View.OnClickListener {
     var mVipDateItem : TextView?
     var mVipMoneyImage : TextView?
     var mVipBtn : TextView?
@@ -53,13 +53,19 @@ class TotleViewHolder(view : View?, private val mListener: OnTotleItemClickListe
         mVipBtn = view?.findViewById(R.id.course_play)
 
         view?.setOnClickListener(this)
+        mVipBtn?.setOnClickListener(this)
     }
 
     override fun onClick(v: View?) {
-        mListener?.onItemClick(v, getPosition())
+        val position = v?.getTag()      //getTag()获取数据
+        if (mListener != null) {
+            when (v?.getId()) {
+                R.id.course_play -> mListener?.onItemClick(v, position as Int)
+            }
+        }
     }
 }
 
-interface OnTotleItemClickListener {
+interface OnVIPItemClickListener {
     fun onItemClick(v: View?, position: Int)
 }

@@ -38,4 +38,5 @@ interface HttpRepository {
     fun updateUser(file: String?, nikeName: String?): Observable<ResponseBody>
     fun uploadPractice(@Body params: RequestBody): Observable<ResponseBody>
     fun getCourseLogs(): Observable<SubscriptionResponse>
+    fun createSubscription(@Body params:  RequestBody): Observable<CreateSubscriptionResponse>
 }

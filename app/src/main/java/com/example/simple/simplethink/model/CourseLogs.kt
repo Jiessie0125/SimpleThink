@@ -17,3 +17,8 @@ data class CourseLogs(
 data class PraticeRequest(
         @SerializedName("course_logs") val course_logs : List<CourseLogs>?
 ): Serializable
+
+data class CreateSubRequest(
+        @SerializedName("subscription_id") val subscription_id : Int?,
+        @SerializedName("platform") val platform : String?
+): Serializable

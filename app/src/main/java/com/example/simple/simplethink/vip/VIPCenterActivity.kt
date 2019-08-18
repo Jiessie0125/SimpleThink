@@ -5,14 +5,17 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import android.view.View
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.simple.simplethink.R
 import com.example.simple.simplethink.base.BaseActivity
 import com.example.simple.simplethink.login.LoginActivity
+import com.example.simple.simplethink.model.CreateSubRequest
 import com.example.simple.simplethink.model.SubscriptionResponse
 import com.example.simple.simplethink.netapi.HttpResposityImpl
 import com.example.simple.simplethink.utils.FilesUtils.belongCalendar
+import com.example.simple.simplethink.utils.PackageModeUtils
 import com.example.simple.simplethink.utils.ResourcesUtils
 import com.example.simple.simplethink.utils.SharedPreferencesUtil
 import com.example.simple.simplethink.utils.auth.AuthInstance
@@ -80,6 +83,19 @@ class VIPCenterActivity : BaseActivity(), VIPCenterContact.View {
         vip_detail.layoutManager = LinearLayoutManager(this)
         vip_detail.adapter = vipItemAdapter
         vipItemAdapter.notifyDataSetChanged()
+        vipItemAdapter.setOnItemClickListener(object : OnVIPItemClickListener{
+            override fun onItemClick(v: View?, position: Int) {
+                when (v?.getId()) {
+                    R.id.course_play -> {
+                        val param = CreateSubRequest(
+                                subscription_id = sub.common[position].id,
+                                platform = "android"
+                        )
+                        persenter.createSubscription(param)
+                    }
+                }
+            }
+        })
     }
 
     private fun initUserInfoView() {
