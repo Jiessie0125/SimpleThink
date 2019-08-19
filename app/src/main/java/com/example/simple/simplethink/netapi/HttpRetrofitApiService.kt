@@ -96,9 +96,9 @@ interface HttpRetrofitApiService {
     @PUT("/user/info")
     fun updateUser(@FieldMap params: HashMap<String, String>):Observable<ResponseBody>
 
-
+    @Multipart
     @POST("/course/logs")
-    fun uploadPractice(@Body params:  RequestBody): Observable<ResponseBody>
+    fun uploadPractice(@Part("course_logs") params:  RequestBody): Observable<ResponseBody>
 
     @GET("/course/logs")
     fun getCourseLogs(): Observable<SubscriptionResponse>

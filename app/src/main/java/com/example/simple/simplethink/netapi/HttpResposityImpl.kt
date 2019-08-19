@@ -9,6 +9,7 @@ import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import okhttp3.ResponseBody
 import retrofit2.http.Body
+import retrofit2.http.Part
 import java.io.File
 
 /**
@@ -171,7 +172,7 @@ class HttpResposityImpl: HttpRepository {
         return service.updateUser(params)
     }
 
-    override fun uploadPractice(@Body params:  RequestBody): Observable<ResponseBody> {
+    override fun uploadPractice(@Part params:  RequestBody): Observable<ResponseBody> {
         val appLogoffRetrofit = RetrofitServiceManager.instance.create(HttpRetrofitApiService::class.java)
         return appLogoffRetrofit.uploadPractice(params)
     }

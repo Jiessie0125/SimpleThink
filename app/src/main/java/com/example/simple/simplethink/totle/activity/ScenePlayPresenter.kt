@@ -13,21 +13,18 @@ import okhttp3.RequestBody
 /**
  * Created by jiessie on 2019/6/4.
  */
-class ScenePlayPresenter( val view: ScenePlayActivity) : ScenePlayContact.Presenter {
+class ScenePlayPresenter(val view: ScenePlayActivity) : ScenePlayContact.Presenter {
     val httpResposityImpl = HttpResposityImpl()
-    override fun uploadPractice(params: PraticeRequest) {
-        val body = RequestBody.create(MediaType.parse("application/json"),GsonBuilder()
-                .disableHtmlEscaping()
-                .create().toJson(params))
+    override fun uploadPractice(params: String) {
+        val body = RequestBody.create(MediaType.parse("multipart/form-data"), params)
         httpResposityImpl.uploadPractice(body).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .map { result -> result }
-                .subscribe({message ->
+                .subscribe({ message ->
                     Log.e("---", "----uploadExce:" + message)
-                },{
-                    error->
+                }, { error ->
                     Log.e("---", "----uploadExce:" + error)
                 })
     }
 
-   }
+}

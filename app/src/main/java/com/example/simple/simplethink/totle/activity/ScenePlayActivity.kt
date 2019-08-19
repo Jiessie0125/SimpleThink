@@ -59,7 +59,6 @@ class ScenePlayActivity : AppCompatActivity(), View.OnClickListener {
     var mSeekbar : SeekBar ?= null
     var isStop = false
     val persenter = ScenePlayPresenter(this)
-    lateinit var course: PraticeRequest
     var sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
     var courseList = ArrayList<CourseLogs>()
     var courseMap = HashMap<String,ArrayList<CourseLogs>>()
@@ -105,12 +104,25 @@ class ScenePlayActivity : AppCompatActivity(), View.OnClickListener {
         (player as MediaPlayer).setOnCompletionListener(object : MediaPlayer.OnCompletionListener {
             override fun onCompletion(mp: MediaPlayer?) {
                 val date = Date(System.currentTimeMillis())
-                course = PackageModeUtils.packagePraticeRequest(
-                        GenerateUUID.generateOneUUID(),
-                        sections?.course_id,
-                        sections?.id,
-                        sections?.audio_id,
-                        sdf.format(date))
+                val unique_id = GenerateUUID.generateOneUUID()
+                val course_id = sections?.course_id
+                val section_id = sections?.id
+                val audio_id = sections?.audio_id
+                val completed_time = sdf.format(date)
+
+                var course = "[ {" +
+                        "\"unique_id\": \"$unique_id\"," +
+                        "\"course_id\": $course_id, " +
+                        "\"section_id\": $section_id," +
+                        "\"audio_id\": $audio_id," +
+                        "\"completed_time\": \"$completed_time\"" +
+                        "} ]"
+//                        PackageModeUtils.packagePraticeRequest(
+//                        GenerateUUID.generateOneUUID(),
+//                        sections?.course_id,
+//                        sections?.id,
+//                        sections?.audio_id,
+//                        sdf.format(date))
                 persenter.uploadPractice(course)
             }
         })

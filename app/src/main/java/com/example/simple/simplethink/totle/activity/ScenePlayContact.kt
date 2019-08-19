@@ -8,7 +8,7 @@ import com.example.simple.simplethink.model.PraticeRequest
 interface ScenePlayContact {
 
     interface  Presenter {
-        fun uploadPractice(params: PraticeRequest)
+        fun uploadPractice(params: String)
     }
 
 }
