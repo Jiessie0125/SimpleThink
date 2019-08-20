@@ -8,7 +8,7 @@ import com.example.simple.simplethink.model.SubscriptionResponse
 class PraticeContact {
 
     interface Presenter{
-        fun getCourseLogs()
+//        fun getCourseLogs()
     }
 
     interface View{

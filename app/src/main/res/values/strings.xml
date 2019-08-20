@@ -96,4 +96,6 @@
     <string name="duration_count">累计时长</string>
     <string name="meet">与简单生活不期而遇</string>
     <string name="share_img">分享图片</string>
+
+    <string name="practice_record">练习记录</string>
 </resources>

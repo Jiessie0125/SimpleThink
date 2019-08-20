@@ -15,6 +15,7 @@ import com.example.simple.simplethink.main.adapter.OnCoursetemClickListener
 import com.example.simple.simplethink.main.setting.SettingActivity
 import com.example.simple.simplethink.model.ActivityResponse
 import com.example.simple.simplethink.model.BottomActivityResponse
+import com.example.simple.simplethink.model.PracticeAllResponse
 import com.example.simple.simplethink.model.SuggestedCourse
 import com.example.simple.simplethink.totle.TotleActivity
 import com.example.simple.simplethink.totle.activity.RecyclerViewSpacesItemDecoration
@@ -40,6 +41,9 @@ class PreLogonFragment : LogonBaseFragment(), MainContract.View {
         fun newInstance(): LogonBaseFragment {
             return PreLogonFragment()
         }
+    }
+
+    override fun onGetPracticeSuccess(message: PracticeAllResponse) {
     }
 
     override fun getLayoutId(): Int = R.layout.fragment_main_prelogon

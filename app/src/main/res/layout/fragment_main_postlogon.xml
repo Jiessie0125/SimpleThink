@@ -35,7 +35,6 @@
                     android:gravity="center"
                     android:textColor="@color/wordWhite"
                     android:textSize="@dimen/scene_paly_txt" />
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -122,6 +121,7 @@
                 android:background="@color/blackItemLine" />
 
             <LinearLayout
+                android:id="@+id/recommend_course_list"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="28dp"
@@ -164,6 +164,69 @@
             </LinearLayout>
 
             <View
+                android:id="@+id/recommend_course_line"
+                android:layout_width="match_parent"
+                android:layout_height="7dp"
+                android:layout_marginTop="44dp"
+                android:background="@color/blackItemLine" />
+
+            <LinearLayout
+                android:id="@+id/recommend_practice_list"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="28dp"
+                android:orientation="vertical"
+                android:paddingStart="@dimen/default_view_horizontal_padding">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <View
+                        android:id="@+id/button_circle_shape_practice"
+                        android:layout_width="14dp"
+                        android:layout_height="14dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="5dp"
+                        android:background="@drawable/button_circle_shape" />
+
+                    <TextView
+                        android:layout_toRightOf="@id/button_circle_shape_practice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="@string/practice_record"
+                        android:textColor="@color/wordWhite"
+                        android:textSize="@dimen/login_small_title" />
+                    <ImageView
+                        android:id="@+id/practice_more"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:scaleType="fitXY"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/next_white"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginRight="21dp"/>
+                </RelativeLayout>
+
+                <ScrollView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/recommend_practice"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
+                    </LinearLayout>
+                </ScrollView>
+            </LinearLayout>
+
+            <View
+                android:id="@+id/recommend_practice_line"
                 android:layout_width="match_parent"
                 android:layout_height="7dp"
                 android:layout_marginTop="44dp"

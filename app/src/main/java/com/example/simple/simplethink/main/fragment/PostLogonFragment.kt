@@ -14,6 +14,7 @@ import com.example.simple.simplethink.main.adapter.CourseAdapter
 import com.example.simple.simplethink.main.adapter.OnCoursetemClickListener
 import com.example.simple.simplethink.model.ActivityResponse
 import com.example.simple.simplethink.model.BottomActivityResponse
+import com.example.simple.simplethink.model.PracticeAllResponse
 import com.example.simple.simplethink.model.SuggestedCourse
 import com.example.simple.simplethink.totle.activity.RecyclerViewSpacesItemDecoration
 import com.example.simple.simplethink.totle.activity.course.CourseDetailActivity
@@ -36,6 +37,9 @@ class PostLogonFragment : LogonBaseFragment(),MainContract.View {
     private var activityCount: Int = 0
     lateinit var courseAdapter: CourseAdapter
 
+    override fun onGetPracticeSuccess(message: PracticeAllResponse) {
+
+    }
 
     override fun onGetSuggestedActivitySuccess(message: List<ActivityResponse>) {
         setSuggestedActivity(message)
@@ -57,6 +61,10 @@ class PostLogonFragment : LogonBaseFragment(),MainContract.View {
             return PostLogonFragment()
         }
     }
+
+
+
+
 
     private fun setCouseAdapter(totalList: List<SuggestedCourse>) {
         courseAdapter = CourseAdapter(activity!!, totalList)
@@ -166,12 +174,13 @@ class PostLogonFragment : LogonBaseFragment(),MainContract.View {
     override fun initView() {
         initUserInfoView()
         presenter.bind(this)
-        getImages()
+        getDatas()
     }
 
-    private fun getImages() {
+    private fun getDatas() {
         presenter.getSuggestedActivity()
         presenter.getSuggestedCourse()
+        presenter.getPracticeList()
     }
 
     private fun initUserInfoView() {

@@ -56,10 +56,10 @@ class PraticeActivity : BaseActivity(), PraticeContact.View {
     }
 
     private fun init() {
-        persenter = PraticePresenter( this)
-        if(!SharedPreferencesUtil.getString(this, AuthInstance.AUTH).isNullOrEmpty()) {
-           // persenter.getSubscription()
-        }
+//        persenter = PraticePresenter( this)
+//        if(!SharedPreferencesUtil.getString(this, AuthInstance.AUTH).isNullOrEmpty()) {
+//           // persenter.getSubscription()
+//        }
     }
 
     override fun updateVipItem(sub: SubscriptionResponse) {

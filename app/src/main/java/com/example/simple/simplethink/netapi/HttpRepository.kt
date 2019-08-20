@@ -38,6 +38,6 @@ interface HttpRepository {
     fun uploadFile(file: MultipartBody.Part): Observable<UploadFileResponse>
     fun updateUser(file: String?, nikeName: String?): Observable<ResponseBody>
     fun uploadPractice(@Part params: RequestBody): Observable<ResponseBody>
-    fun getCourseLogs(): Observable<SubscriptionResponse>
+    fun getCourseLogs(): Observable<ResponseBody>
     fun createSubscription(@Body params:  RequestBody): Observable<CreateSubscriptionResponse>
 }

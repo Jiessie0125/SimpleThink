@@ -4,6 +4,7 @@ import com.example.simple.simplethink.model.*
 import com.example.simple.simplethink.model.bean.CourseResponse
 import com.example.simple.simplethink.network.GetRetrofitServiceManager
 import com.example.simple.simplethink.network.RetrofitServiceManager
+import com.example.simple.simplethink.utils.DateUtils
 import io.reactivex.Observable
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -11,6 +12,7 @@ import okhttp3.ResponseBody
 import retrofit2.http.Body
 import retrofit2.http.Part
 import java.io.File
+import java.util.*
 
 /**
  * Created by mobileteam on 2019/6/4.
@@ -176,8 +178,10 @@ class HttpResposityImpl: HttpRepository {
         val appLogoffRetrofit = RetrofitServiceManager.instance.create(HttpRetrofitApiService::class.java)
         return appLogoffRetrofit.uploadPractice(params)
     }
-    override fun getCourseLogs(): Observable<SubscriptionResponse> {
+    override fun getCourseLogs(): Observable<ResponseBody> {
         val getSuggestedCourseRetrofit = RetrofitServiceManager.instance.create(HttpRetrofitApiService::class.java)
-        return getSuggestedCourseRetrofit.getCourseLogs();
+        val nowDate = DateUtils.dateToStr(Date())
+        val monthAgoDate = DateUtils.getNextDay(nowDate,"-31")
+        return getSuggestedCourseRetrofit.getCourseLogs(monthAgoDate, nowDate);
     }
 }

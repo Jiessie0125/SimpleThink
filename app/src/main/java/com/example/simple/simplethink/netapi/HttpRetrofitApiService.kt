@@ -101,7 +101,7 @@ interface HttpRetrofitApiService {
     fun uploadPractice(@Part("course_logs") params:  RequestBody): Observable<ResponseBody>
 
     @GET("/course/logs")
-    fun getCourseLogs(): Observable<SubscriptionResponse>
+    fun getCourseLogs(@Query("start_date")start_date:String, @Query("end_date")end_date:String): Observable<ResponseBody>
 
     @POST("/subscription/order")
     fun createSubscription(@Body params:  RequestBody): Observable<CreateSubscriptionResponse>
