@@ -16,20 +16,9 @@ public class PracticesResponse {
         this.practiceTime = practiceTime;
     }
 
-    private Map<String,Practice> practiceTime;
+    private Map<String, Practice> practiceTime;
 
-/*    public List<Practice> practicesList;
-
-    public PracticesResponse(List<Practice> practicesList){
-        this.practicesList = practicesList;
-    }
-
-*//*    public static class Practices {
-        public List<Practice> practiceList;
-    }*/
-
-
-    public static class Practice{
+    public static class Practice {
         public String unique_id;
         public String date_time;
         public Course course;
@@ -69,11 +58,11 @@ public class PracticesResponse {
         }
     }
 
-    public static class Course{
-      public int id;
-      public String title;
-      public String subtitle;
-      public String content;
+    public static class Course {
+        public int id;
+        public String title;
+        public String subtitle;
+        public String content;
 
         public int getId() {
             return id;
@@ -108,7 +97,7 @@ public class PracticesResponse {
         }
     }
 
-    public static class Section{
+    public static class Section {
         public int id;
         public String title;
 

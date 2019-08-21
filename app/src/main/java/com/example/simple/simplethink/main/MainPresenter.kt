@@ -3,15 +3,9 @@ package com.example.simple.simplethink.main
 import android.util.Log
 import com.example.simple.simplethink.netapi.HttpRepository
 import com.example.simple.simplethink.netapi.HttpResposityImpl
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
-import io.reactivex.schedulers.Schedulers
-import io.reactivex.android.schedulers.AndroidSchedulers
-import android.app.Person
-import com.example.simple.simplethink.model.PracticeResponse
-import com.example.simple.simplethink.model.PracticesResponse
 import com.example.simple.simplethink.utils.FilesUtils
-import org.json.JSONObject
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 
 
 /**
@@ -78,9 +72,4 @@ class MainPresenter : MainContract.Presenter {
                     view?.onFailure(error)
                 })
     }
-
-    inline fun <reified PracticesResponse : Any> Gson.fromJson(json: String): List<PracticesResponse> {
-        return Gson().fromJson(json, object :TypeToken<List<PracticesResponse>>(){}.type)
-    }
-
 }

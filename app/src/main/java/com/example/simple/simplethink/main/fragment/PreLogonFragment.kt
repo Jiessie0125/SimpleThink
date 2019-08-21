@@ -12,12 +12,9 @@ import com.example.simple.simplethink.main.MainContract
 import com.example.simple.simplethink.main.MainPresenter
 import com.example.simple.simplethink.main.adapter.CourseAdapter
 import com.example.simple.simplethink.main.adapter.OnCoursetemClickListener
-import com.example.simple.simplethink.main.setting.SettingActivity
 import com.example.simple.simplethink.model.ActivityResponse
 import com.example.simple.simplethink.model.BottomActivityResponse
-import com.example.simple.simplethink.model.PracticeAllResponse
 import com.example.simple.simplethink.model.SuggestedCourse
-import com.example.simple.simplethink.totle.TotleActivity
 import com.example.simple.simplethink.totle.activity.RecyclerViewSpacesItemDecoration
 import com.example.simple.simplethink.totle.activity.course.CourseDetailActivity
 import com.example.simple.simplethink.utils.DateUtils
@@ -43,7 +40,7 @@ class PreLogonFragment : LogonBaseFragment(), MainContract.View {
         }
     }
 
-    override fun onGetPracticeSuccess(message: PracticeAllResponse) {
+    override fun onGetPracticeSuccess() {
     }
 
     override fun getLayoutId(): Int = R.layout.fragment_main_prelogon

@@ -1,9 +1,7 @@
 package com.example.simple.simplethink.main
 
-import android.app.Activity
 import com.example.simple.simplethink.model.ActivityResponse
 import com.example.simple.simplethink.model.BottomActivityResponse
-import com.example.simple.simplethink.model.PracticeAllResponse
 import com.example.simple.simplethink.model.SuggestedCourse
 
 /**
@@ -15,7 +13,7 @@ interface MainContract {
         fun onGetSuggestedActivitySuccess(message: List<ActivityResponse>)
         fun onGetBottomActivitySuccess(message: BottomActivityResponse)
         fun onGetSuggestedCourseSuccess(message: List<SuggestedCourse>)
-        fun onGetPracticeSuccess(message: PracticeAllResponse)
+        fun onGetPracticeSuccess()
         fun onFailure(e: Throwable)
     }
 

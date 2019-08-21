@@ -14,7 +14,6 @@ import com.example.simple.simplethink.main.adapter.CourseAdapter
 import com.example.simple.simplethink.main.adapter.OnCoursetemClickListener
 import com.example.simple.simplethink.model.ActivityResponse
 import com.example.simple.simplethink.model.BottomActivityResponse
-import com.example.simple.simplethink.model.PracticeAllResponse
 import com.example.simple.simplethink.model.SuggestedCourse
 import com.example.simple.simplethink.totle.activity.RecyclerViewSpacesItemDecoration
 import com.example.simple.simplethink.totle.activity.course.CourseDetailActivity
@@ -37,7 +36,7 @@ class PostLogonFragment : LogonBaseFragment(),MainContract.View {
     private var activityCount: Int = 0
     lateinit var courseAdapter: CourseAdapter
 
-    override fun onGetPracticeSuccess(message: PracticeAllResponse) {
+    override fun onGetPracticeSuccess() {
 
     }
 
