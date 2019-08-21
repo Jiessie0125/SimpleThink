@@ -1,13 +1,9 @@
 package com.example.simple.simplethink.utils
 
 import android.app.Activity
-import android.content.ContentValues.TAG
-import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.os.Build
 import android.os.Environment
-import android.util.Log
 import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -15,9 +11,8 @@ import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
 import com.example.simple.simplethink.MyApp.Companion.context
 import com.example.simple.simplethink.R
-import com.example.simple.simplethink.totle.adapter.SceneDetailAdapter
-import kotlinx.android.synthetic.main.fragment_totle.*
-import okhttp3.ResponseBody
+import com.example.simple.simplethink.model.PracticesResponse
+import com.google.gson.Gson
 import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
@@ -25,8 +20,8 @@ import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
 import java.io.IOException
-import java.text.SimpleDateFormat
 import java.util.*
+import kotlin.collections.ArrayList
 
 /**
  * Created by mobileteam on 2019/6/6.
@@ -187,25 +182,36 @@ object FilesUtils{
         return if (nowTime.after(beginTime) && nowTime.before(endTime)) { true} else {false}
     }
 
-    fun getMap(jsonString: String): Map<String, Any>? {
+    fun getMap(jsonString: String): Map<String, List<PracticesResponse>>? {
         val jsonObject: JSONObject
         try {
             jsonObject = JSONObject(jsonString)
             val keyIter = jsonObject.keys()
             var key: String
             var value: Any
-            val valueMap = HashMap<String, Any>()
+            var praticeItem : List<PracticesResponse>
+            val valueMap = HashMap<String, List<PracticesResponse>>()
             while (keyIter.hasNext()) {
                 key = keyIter.next()
-                value = jsonObject.get(key)
-                valueMap.put(key, value)
+                value = jsonObject.get(key) as JSONArray
+                praticeItem = convertToPratice(value)
+                valueMap.put(key, praticeItem)
             }
             return valueMap
         } catch (e: JSONException) {
             e.printStackTrace()
         }
-
         return null
+    }
 
+    fun convertToPratice(json : JSONArray) : List<PracticesResponse>{
+        var pratice = ArrayList<PracticesResponse>()
+        var gson = Gson()
+        var itemPratice : PracticesResponse ?= null
+        for(i in 0 until json.length()){
+            itemPratice = gson.fromJson(json[i].toString(),PracticesResponse::class.java)
+            pratice.add(itemPratice)
+        }
+        return pratice
     }
 }
