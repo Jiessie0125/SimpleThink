@@ -18,6 +18,9 @@ import com.example.simple.simplethink.R
 import com.example.simple.simplethink.totle.adapter.SceneDetailAdapter
 import kotlinx.android.synthetic.main.fragment_totle.*
 import okhttp3.ResponseBody
+import org.json.JSONArray
+import org.json.JSONException
+import org.json.JSONObject
 import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
@@ -182,5 +185,27 @@ object FilesUtils{
     }
     fun belongCalendar( nowTime:Date,  beginTime:Date,  endTime:Date) : Boolean{
         return if (nowTime.after(beginTime) && nowTime.before(endTime)) { true} else {false}
+    }
+
+    fun getMap(jsonString: String): Map<String, Any>? {
+        val jsonObject: JSONObject
+        try {
+            jsonObject = JSONObject(jsonString)
+            val keyIter = jsonObject.keys()
+            var key: String
+            var value: Any
+            val valueMap = HashMap<String, Any>()
+            while (keyIter.hasNext()) {
+                key = keyIter.next()
+                value = jsonObject.get(key)
+                valueMap.put(key, value)
+            }
+            return valueMap
+        } catch (e: JSONException) {
+            e.printStackTrace()
+        }
+
+        return null
+
     }
 }
