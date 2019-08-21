@@ -40,4 +40,6 @@ interface HttpRepository {
     fun uploadPractice(@Part params: RequestBody): Observable<ResponseBody>
     fun getCourseLogs(): Observable<ResponseBody>
     fun createSubscription(@Body params:  RequestBody): Observable<CreateSubscriptionResponse>
+    fun wxOrder(orderId: String): Observable<OrderWXResponse>
+    fun aliOrder(orderId: String): Observable<OrderAliPayResponse>
 }

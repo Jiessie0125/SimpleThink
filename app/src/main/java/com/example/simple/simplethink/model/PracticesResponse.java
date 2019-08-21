@@ -8,17 +8,6 @@ import java.util.Map;
  */
 
 public class PracticesResponse {
-    public Map<String, Practice> getPracticeTime() {
-        return practiceTime;
-    }
-
-    public void setPracticeTime(Map<String, Practice> practiceTime) {
-        this.practiceTime = practiceTime;
-    }
-
-    private Map<String, Practice> practiceTime;
-
-    public static class Practice {
         public String unique_id;
         public String date_time;
         public Course course;
@@ -56,7 +45,6 @@ public class PracticesResponse {
 
             return section;
         }
-    }
 
     public static class Course {
         public int id;

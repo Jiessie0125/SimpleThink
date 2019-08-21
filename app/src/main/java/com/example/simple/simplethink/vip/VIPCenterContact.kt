@@ -1,8 +1,6 @@
 package com.example.simple.simplethink.vip
 
-import com.example.simple.simplethink.model.BuzzyCourseResponse
-import com.example.simple.simplethink.model.CreateSubRequest
-import com.example.simple.simplethink.model.SubscriptionResponse
+import com.example.simple.simplethink.model.*
 
 /**
  * Created by mobileteam on 2019/6/21.
@@ -16,5 +14,7 @@ class VIPCenterContact {
 
     interface View{
         fun updateVipItem(sub : SubscriptionResponse)
+        fun sendPreWxPay(message: OrderWXResponse)
+        fun sendAliPay(message: OrderAliPayResponse)
     }
 }

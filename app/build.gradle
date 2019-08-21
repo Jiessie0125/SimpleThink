@@ -113,4 +113,6 @@ dependencies {
     implementation 'com.github.jokermonn:permissions4m:2.1.2-lib'
     annotationProcessor 'com.github.jokermonn:permissions4m:2.1.2-processor'
     implementation 'me.iwf.photopicker:PhotoPicker:0.9.12@aar'
+    implementation 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:+'
+    implementation (name: 'alipaySdk-15.6.5-20190718211159-noUtdid', ext: 'aar')
 }
