@@ -24,7 +24,8 @@ import com.example.simple.simplethink.vip.VIPCenterActivity
 import kotlinx.android.synthetic.main.activity_course_detail.*
 import android.graphics.BitmapFactory
 import android.graphics.Bitmap
-
+import com.example.simple.simplethink.utils.SharePicturePopupWindow
+import kotlinx.android.synthetic.main.activity_test.*
 
 
 /**
@@ -40,6 +41,7 @@ class CourseDetailActivity: BaseActivity(), CourseDetailContact.View{
 
     companion object {
         const val COURSEID = "COURSEID"
+        const val REQUEST_CODE = 1
         fun newIntent (item : Int, context: Context?) : Intent {
             var intent = Intent(context,CourseDetailActivity::class.java)
             intent.putExtra(COURSEID,item)
@@ -119,7 +121,16 @@ class CourseDetailActivity: BaseActivity(), CourseDetailContact.View{
 
     private fun showSceneResourcePage(sceneName : String, sceneSource : String, bkground: String?,sections: PraticeSections){
         val intent = ScenePlayActivity.newIntent(this,sceneName,sceneSource,bkground,sections)
-        startActivity(intent)
+        startActivityForResult(intent, REQUEST_CODE)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        val courseName = data?.getStringExtra("courseName")
+        if(requestCode == REQUEST_CODE && resultCode == ScenePlayActivity.RESULT_CODE){
+            val picturePopupWindow = SharePicturePopupWindow(this, courseName!!)
+            picturePopupWindow.showAtLocation(ad_popup_pic_course, Gravity.BOTTOM, 0, 0)
+        }
     }
 
     private fun showVipPage(){

@@ -36,6 +36,7 @@ class SharePicturePopupWindow constructor(activity: Activity, courseName: String
     lateinit var pic_duration_count:TextView
     lateinit var user_info_avatar:ImageView
     lateinit var update_nick_name_text:TextView
+    lateinit var imageBkg: ImageView
     private lateinit var mPopView: View
     private val bean = ShareMediaBean()
     private val supportMediaList = arrayOf<String>(ShareMediaPopupWindow.WECHAT, ShareMediaPopupWindow.MOMENTS, ShareMediaPopupWindow.QQ, ShareMediaPopupWindow.QQSPACE, ShareMediaPopupWindow.WEIBO)
@@ -49,8 +50,10 @@ class SharePicturePopupWindow constructor(activity: Activity, courseName: String
     private fun init() {
         val inflater = LayoutInflater.from(activity)
         mPopView = inflater.inflate(R.layout.share_picture_pop, null)
+        imageBkg = mPopView.findViewById<ImageView>(R.id.image_pkg)
         picCloseBtn = mPopView.findViewById<ImageView>(R.id.pic_close_img)
         linearLayout = mPopView.findViewById<LinearLayout>(R.id.share_img_btn)
+        Glide.with(MyApp.context!!).load(R.drawable.share_course).into(imageBkg)
         frameLayout = mPopView.findViewById<FrameLayout>(R.id.pic_share_img)
         pic_course = mPopView.findViewById<TextView>(R.id.pic_course)
         pic_course.text = courseName

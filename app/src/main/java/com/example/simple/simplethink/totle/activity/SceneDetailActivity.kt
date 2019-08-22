@@ -8,16 +8,20 @@ import android.os.PersistableBundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.util.Log
+import android.view.Gravity
 import android.view.View
 import com.example.simple.simplethink.R
 import com.example.simple.simplethink.model.PraticeSections
 import com.example.simple.simplethink.model.ScenesResponse
 import com.example.simple.simplethink.model.Sections
 import com.example.simple.simplethink.netapi.HttpResposityImpl
+import com.example.simple.simplethink.totle.activity.course.CourseDetailActivity
 import com.example.simple.simplethink.totle.adapter.SceneDetailAdapter
 import com.example.simple.simplethink.utils.DownloadHelper
 import com.example.simple.simplethink.utils.FilesUtils
 import com.example.simple.simplethink.utils.ImageUtil.showBKImage
+import com.example.simple.simplethink.utils.SharePicturePopupWindow
+import kotlinx.android.synthetic.main.activity_course_detail.*
 import kotlinx.android.synthetic.main.activity_scene_detail.*
 import kotlinx.android.synthetic.main.scene_detail_item.*
 import java.io.File
@@ -33,6 +37,7 @@ class SceneDetailActivity: AppCompatActivity() ,SceneDetailContact.View {
     lateinit var  sceneResponse : ScenesResponse
 
     companion object {
+        const val REQUEST_CODE = 2
         const val SCENEDETAIL = "SCENEDETAIL"
         fun newIntent (context: Context?, scenesResponse: ScenesResponse) : Intent {
             var intent = Intent(context, SceneDetailActivity::class.java)
@@ -84,7 +89,16 @@ class SceneDetailActivity: AppCompatActivity() ,SceneDetailContact.View {
 
     private fun showSceneResourcePage(sceneName : String, sceneSource : String, bkground: String,sections:PraticeSections){
         val intent = ScenePlayActivity.newIntent(this,sceneName,sceneSource,bkground,sections)
-        startActivity(intent)
+        startActivityForResult(intent, REQUEST_CODE)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        val courseName = data?.getStringExtra("courseName")
+        if(requestCode == REQUEST_CODE && resultCode == ScenePlayActivity.RESULT_CODE){
+            val picturePopupWindow = SharePicturePopupWindow(this, courseName!!)
+            picturePopupWindow.showAtLocation(ad_popup_pic_scene, Gravity.BOTTOM, 0, 0)
+        }
     }
 
     fun downloadMP3(position: Int){

@@ -62,8 +62,8 @@ class PostLogonFragment : LogonBaseFragment(),MainContract.View {
 
     private fun sortPractice(){
         var keyArray: MutableSet<String> = practiceMap.keys
-        keyArray.sorted().reversed()
-        for(item: String in keyArray){
+        var sortedKyes = keyArray.sorted().reversed()
+        for(item: String in sortedKyes){
             practiceMap.get(item)?.let {
                 sortedPracticeMap.put(item, it)
             }
@@ -79,8 +79,8 @@ class PostLogonFragment : LogonBaseFragment(),MainContract.View {
 
     private fun getLatestThreePractice(){
         var counter = 0;
-        for(item: String in practiceMap.keys){
-            practiceMap.get(item)?.let {
+        for(item: String in sortedPracticeMap.keys.reversed()){
+            sortedPracticeMap.get(item)?.let {
                 it.forEach { item ->
                     if(counter == 3){
                         return

@@ -18,9 +18,9 @@
         android:layout_width="250dp"
         android:layout_height="380dp">
         <ImageView
+            android:id="@+id/image_pkg"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/share_course"
             android:scaleType="fitXY"/>
         <LinearLayout
             android:layout_marginLeft="20dp"

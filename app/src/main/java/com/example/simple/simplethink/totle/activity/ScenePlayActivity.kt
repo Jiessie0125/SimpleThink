@@ -14,6 +14,7 @@ import android.widget.SeekBar
 import com.example.simple.simplethink.R
 import com.example.simple.simplethink.main.activity.PraticeContact
 import com.example.simple.simplethink.model.*
+import com.example.simple.simplethink.utils.ErrorHandler
 import com.example.simple.simplethink.utils.FilesUtils
 import com.example.simple.simplethink.utils.FilesUtils.timeParse
 import com.example.simple.simplethink.utils.GenerateUUID
@@ -30,9 +31,24 @@ import kotlin.collections.HashMap
 /**
  * Created by jiessie on 2019/7/13.
  */
-class ScenePlayActivity : AppCompatActivity(), View.OnClickListener {
+class ScenePlayActivity : AppCompatActivity(), View.OnClickListener, ScenePlayContact.View {
+    override fun onLoadUserInfoSuccess() {
+        var intent = Intent()
+        intent.putExtra("courseName",sceneName)
+        setResult(RESULT_CODE, intent)
+        finish()
+    }
+
+    override fun onuploadPracticeSuccess() {
+        persenter.loadUserInfo()
+    }
+
+    override fun onFailure(e: Throwable) {
+        ErrorHandler.showErrorWithToast(this, e)
+    }
 
     companion object {
+        const val RESULT_CODE = 2
         const val SCENERESOURCE = "SCENERESOURCE"
         const val SCENENAME = "SCENENAME"
         const val BKGROUND = "BKGROUND"
@@ -58,8 +74,9 @@ class ScenePlayActivity : AppCompatActivity(), View.OnClickListener {
     var player : MediaPlayer ?= null
     var mSeekbar : SeekBar ?= null
     var isStop = false
-    val persenter = ScenePlayPresenter(this)
+    val persenter = ScenePlayPresenter()
     var sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+    var sceneName : String? = null
     var courseList = ArrayList<CourseLogs>()
     var courseMap = HashMap<String,ArrayList<CourseLogs>>()
 
@@ -67,6 +84,7 @@ class ScenePlayActivity : AppCompatActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_scene_paly)
         initView()
+        persenter.bind(this)
         progress_bar_healthy.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar, i: Int, b: Boolean) {
                 if (b) {
@@ -89,7 +107,7 @@ class ScenePlayActivity : AppCompatActivity(), View.OnClickListener {
         mSeekbar = progress_bar_healthy
         scene_paly_close.setOnClickListener(this)
         scene_play.setOnClickListener(this)
-        val sceneName = intent.getSerializableExtra(SCENENAME) as String?
+        sceneName = intent.getSerializableExtra(SCENENAME) as String?
         val sceneSource = intent.getSerializableExtra(SCENERESOURCE) as String?
         val bkground = intent.getSerializableExtra(BKGROUND) as String?
         val sections =  intent.getSerializableExtra(SECTIONS) as PraticeSections?
@@ -117,12 +135,6 @@ class ScenePlayActivity : AppCompatActivity(), View.OnClickListener {
                         "\"audio_id\": $audio_id," +
                         "\"completed_time\": \"$completed_time\"" +
                         "} ]"
-//                        PackageModeUtils.packagePraticeRequest(
-//                        GenerateUUID.generateOneUUID(),
-//                        sections?.course_id,
-//                        sections?.id,
-//                        sections?.audio_id,
-//                        sdf.format(date))
                 persenter.uploadPractice(course)
             }
         })
@@ -165,6 +177,7 @@ class ScenePlayActivity : AppCompatActivity(), View.OnClickListener {
             }
             player!!.release();
         }
+        persenter.unbind()
         super.onDestroy()
     }
 
@@ -185,6 +198,7 @@ class ScenePlayActivity : AppCompatActivity(), View.OnClickListener {
         }
         super.onResume()
     }
+
 
     override fun onClick(v: View?) {
         when(v?.id){

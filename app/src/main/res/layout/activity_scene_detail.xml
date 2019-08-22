@@ -52,5 +52,19 @@
 
     </android.support.v7.widget.RecyclerView>
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="visible"
+        android:id="@+id/ad_popup_pic_scene"
+        >
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_alignParentBottom="true"
+        android:visibility="visible"
+        android:id="@+id/media_popup"
+        ></RelativeLayout>
 
 </RelativeLayout>

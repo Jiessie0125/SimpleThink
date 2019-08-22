@@ -56,7 +56,7 @@ class PraticeActivity : BaseActivity(){
     private fun convertMapAsListData(){
 
         sortedMap.let {
-            val keys = sortedMap.keys
+            val keys = sortedMap.keys.sorted().reversed()
             var count = 0;
             for(key in keys){
                 practiceDetailsList.add(key)
