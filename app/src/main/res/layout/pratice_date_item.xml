@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:minHeight="55dp"
+    android:minHeight="40dp"
     android:id="@+id/pratice_time_item_rv"
     android:background="@color/mainColor"
     android:orientation="horizontal">
@@ -14,6 +14,7 @@
         android:layout_gravity="center_vertical"
         android:background="@color/praticeIcon"/>
     <TextView
+        android:id="@+id/practice_course_title"
         android:layout_marginLeft="11dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -30,7 +31,7 @@
         android:textColor="@color/blackSuggesstion"
         android:text="-"/>
     <TextView
-        android:id="@+id/pratice_item_title_rv"
+        android:id="@+id/pratice_item_section_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"

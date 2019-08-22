@@ -11,7 +11,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
 import com.example.simple.simplethink.MyApp.Companion.context
 import com.example.simple.simplethink.R
-import com.example.simple.simplethink.model.PracticesResponse
+import com.example.simple.simplethink.model.PracticeResponse
 import com.google.gson.Gson
 import org.json.JSONArray
 import org.json.JSONException
@@ -182,15 +182,15 @@ object FilesUtils{
         return if (nowTime.after(beginTime) && nowTime.before(endTime)) { true} else {false}
     }
 
-    fun getMap(jsonString: String): Map<String, List<PracticesResponse>>? {
+    fun getMap(jsonString: String): Map<String, List<PracticeResponse>>? {
         val jsonObject: JSONObject
         try {
             jsonObject = JSONObject(jsonString)
             val keyIter = jsonObject.keys()
             var key: String
             var value: Any
-            var praticeItem : List<PracticesResponse>
-            val valueMap = HashMap<String, List<PracticesResponse>>()
+            var praticeItem : List<PracticeResponse>
+            val valueMap = HashMap<String, List<PracticeResponse>>()
             while (keyIter.hasNext()) {
                 key = keyIter.next()
                 value = jsonObject.get(key) as JSONArray
@@ -204,12 +204,12 @@ object FilesUtils{
         return null
     }
 
-    fun convertToPratice(json : JSONArray) : List<PracticesResponse>{
-        var pratice = ArrayList<PracticesResponse>()
+    fun convertToPratice(json : JSONArray) : List<PracticeResponse>{
+        var pratice = ArrayList<PracticeResponse>()
         var gson = Gson()
-        var itemPratice : PracticesResponse ?= null
+        var itemPratice : PracticeResponse ?= null
         for(i in 0 until json.length()){
-            itemPratice = gson.fromJson(json[i].toString(),PracticesResponse::class.java)
+            itemPratice = gson.fromJson(json[i].toString(),PracticeResponse::class.java)
             pratice.add(itemPratice)
         }
         return pratice
