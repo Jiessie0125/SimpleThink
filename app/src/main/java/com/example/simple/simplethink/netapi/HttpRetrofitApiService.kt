@@ -105,4 +105,12 @@ interface HttpRetrofitApiService {
 
     @POST("/subscription/order")
     fun createSubscription(@Body params:  RequestBody): Observable<CreateSubscriptionResponse>
+
+    @FormUrlEncoded
+    @POST("/wx/wx_order")
+    fun wxOrder(@Field("order_id") orderId: String): Observable<OrderWXResponse>
+
+    @FormUrlEncoded
+    @POST("/alipay/order_string")
+    fun aliOrder(@Field("order_id")orderId: String): Observable<OrderAliPayResponse>
 }

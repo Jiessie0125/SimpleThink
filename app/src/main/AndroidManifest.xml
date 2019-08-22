@@ -64,6 +64,7 @@
         <activity android:name=".totle.activity.course.CourseDetailActivity"
             android:screenOrientation="portrait"/>
         <activity android:name=".vip.VIPCenterActivity"
+            android:launchMode="singleInstance"
             android:screenOrientation="portrait"/>
         <activity android:name=".totle.activity.down.DownloadActivity"
             android:screenOrientation="portrait"/>
@@ -96,6 +97,15 @@
         <activity android:name=".main.activity.PraticeActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar"
             android:screenOrientation="portrait"/>
+        <activity android:name=".wxapi.WXPayEntryActivity"
+            android:exported="true"
+            android:launchMode="singleTop">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+                <data android:scheme="wx19435760a0e8b89e"/>
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
