@@ -10,10 +10,14 @@ import com.example.simple.simplethink.R
 import com.example.simple.simplethink.main.MainContract
 import com.example.simple.simplethink.main.MainPresenter
 import com.example.simple.simplethink.main.UserInfoActivity.UserInfoActivity
+import com.example.simple.simplethink.main.activity.PraticeActivity
 import com.example.simple.simplethink.main.adapter.CourseAdapter
 import com.example.simple.simplethink.main.adapter.OnCoursetemClickListener
+import com.example.simple.simplethink.main.adapter.OnCourseClickListener
+import com.example.simple.simplethink.main.adapter.PraticeAdapter
 import com.example.simple.simplethink.model.ActivityResponse
 import com.example.simple.simplethink.model.BottomActivityResponse
+import com.example.simple.simplethink.model.PracticeResponse
 import com.example.simple.simplethink.model.SuggestedCourse
 import com.example.simple.simplethink.totle.activity.RecyclerViewSpacesItemDecoration
 import com.example.simple.simplethink.totle.activity.course.CourseDetailActivity
@@ -24,6 +28,8 @@ import com.example.simple.simplethink.vip.VIPCenterActivity
 import com.example.simple.simplethink.welcome.Activity.AdvertisementActivity
 import kotlinx.android.synthetic.main.fragment_main_postlogon.*
 import java.util.*
+import kotlin.collections.ArrayList
+import kotlin.collections.HashMap
 
 /**
  * Created by Ashur on 2019/8/7.
@@ -35,9 +41,55 @@ class PostLogonFragment : LogonBaseFragment(),MainContract.View {
     private var runnable: Runnable = Runnable {}
     private var activityCount: Int = 0
     lateinit var courseAdapter: CourseAdapter
+    lateinit var practiceAdapter: PraticeAdapter
+    lateinit var practiceMap: HashMap<String, ArrayList<PracticeResponse>>
+    var sortedPracticeMap = HashMap<String, ArrayList<PracticeResponse>>()
+    var latestThreePractice = ArrayList<PracticeResponse>()
 
-    override fun onGetPracticeSuccess() {
+    override fun onGetPracticeSuccess(message: Map<String, List<PracticeResponse>>) {
+        practiceMap = message as HashMap<String, ArrayList<PracticeResponse>>
+        if(practiceMap.size == 0){
+            presenter.getSuggestedCourse()
+        }else{
+            recommend_course_list.visibility = View.GONE
+            recommend_course_line.visibility = View.GONE
+        }
+        sortPractice()
+        getLatestThreePractice()
+        setPracticeAdapter(latestThreePractice)
+    }
 
+
+    private fun sortPractice(){
+        var keyArray: MutableSet<String> = practiceMap.keys
+        keyArray.sorted().reversed()
+        for(item: String in keyArray){
+            practiceMap.get(item)?.let {
+                sortedPracticeMap.put(item, it)
+            }
+        }
+        sortedPracticeMap.let {
+            practice_more.setOnClickListener {
+                var intent = PraticeActivity.newIntent(context)
+                intent.putExtra("sortedPracticeMap", sortedPracticeMap)
+                startActivity(intent)
+            }
+        }
+    }
+
+    private fun getLatestThreePractice(){
+        var counter = 0;
+        for(item: String in practiceMap.keys){
+            practiceMap.get(item)?.let {
+                it.forEach { item ->
+                    if(counter == 3){
+                        return
+                    }
+                    latestThreePractice.add(item)
+                    counter++
+                }
+            }
+        }
     }
 
     override fun onGetSuggestedActivitySuccess(message: List<ActivityResponse>) {
@@ -49,6 +101,8 @@ class PostLogonFragment : LogonBaseFragment(),MainContract.View {
 
     override fun onGetSuggestedCourseSuccess(message: List<SuggestedCourse>) {
         setCouseAdapter(message)
+        recommend_course_list.visibility = View.VISIBLE
+        recommend_course_line.visibility = View.VISIBLE
     }
 
     override fun onFailure(e: Throwable) {
@@ -61,7 +115,19 @@ class PostLogonFragment : LogonBaseFragment(),MainContract.View {
         }
     }
 
-
+    private fun setPracticeAdapter(practiceList: ArrayList<PracticeResponse>) {
+        practiceAdapter = PraticeAdapter(activity!!, practiceList)
+        val layoutManager = LinearLayoutManager(context)
+        layoutManager.orientation = LinearLayoutManager.VERTICAL
+        recommend_practice.layoutManager = layoutManager
+        recommend_practice.adapter = practiceAdapter
+        practiceAdapter.notifyDataSetChanged()
+        practiceAdapter.setOnItemClickListener(object : OnCourseClickListener {
+            override fun onItemClick(v: View?, position: Int) {
+                showCourseDetail(practiceList[position].course.id)
+            }
+        })
+    }
 
 
 
@@ -178,7 +244,6 @@ class PostLogonFragment : LogonBaseFragment(),MainContract.View {
 
     private fun getDatas() {
         presenter.getSuggestedActivity()
-        presenter.getSuggestedCourse()
         presenter.getPracticeList()
     }
 

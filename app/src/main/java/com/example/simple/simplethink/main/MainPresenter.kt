@@ -1,6 +1,7 @@
 package com.example.simple.simplethink.main
 
 import android.util.Log
+import com.example.simple.simplethink.model.PracticeResponse
 import com.example.simple.simplethink.netapi.HttpRepository
 import com.example.simple.simplethink.netapi.HttpResposityImpl
 import com.example.simple.simplethink.utils.FilesUtils
@@ -66,8 +67,9 @@ class MainPresenter : MainContract.Presenter {
                 .observeOn(AndroidSchedulers.mainThread())
                 .map { result -> result }
                 .subscribe({ message ->
-                    val coursePratice = FilesUtils.getMap(message.string())
+                    val coursePratice = FilesUtils.getMap(message.string()) as Map<String, List<PracticeResponse>>
                     Log.e("---coursePratice--","----response---:"+coursePratice)
+                    view?.onGetPracticeSuccess(coursePratice)
                 }, { error ->
                     view?.onFailure(error)
                 })
