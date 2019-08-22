@@ -67,9 +67,10 @@ class MainPresenter : MainContract.Presenter {
                 .observeOn(AndroidSchedulers.mainThread())
                 .map { result -> result }
                 .subscribe({ message ->
-                    val coursePratice = FilesUtils.getMap(message.string()) as Map<String, List<PracticeResponse>>
+                    val coursePratice = FilesUtils.getMap(message.string())
                     Log.e("---coursePratice--","----response---:"+coursePratice)
                     view?.onGetPracticeSuccess(coursePratice)
+
                 }, { error ->
                     view?.onFailure(error)
                 })

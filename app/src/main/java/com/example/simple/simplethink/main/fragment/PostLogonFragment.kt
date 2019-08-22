@@ -46,17 +46,19 @@ class PostLogonFragment : LogonBaseFragment(),MainContract.View {
     var sortedPracticeMap = HashMap<String, ArrayList<PracticeResponse>>()
     var latestThreePractice = ArrayList<PracticeResponse>()
 
-    override fun onGetPracticeSuccess(message: Map<String, List<PracticeResponse>>) {
-        practiceMap = message as HashMap<String, ArrayList<PracticeResponse>>
-        if(practiceMap.size == 0){
-            presenter.getSuggestedCourse()
-        }else{
+    override fun onGetPracticeSuccess(message: Map<String, List<PracticeResponse>>?) {
+        message?.let {
+            practiceMap = message as HashMap<String, ArrayList<PracticeResponse>>
             recommend_course_list.visibility = View.GONE
             recommend_course_line.visibility = View.GONE
+            recommend_practice_line.visibility = View.VISIBLE
+            recommend_practice.visibility = View.VISIBLE
+            sortPractice()
+            getLatestThreePractice()
+            setPracticeAdapter(latestThreePractice)
+            return
         }
-        sortPractice()
-        getLatestThreePractice()
-        setPracticeAdapter(latestThreePractice)
+        presenter.getSuggestedCourse()
     }
 
 
@@ -103,6 +105,8 @@ class PostLogonFragment : LogonBaseFragment(),MainContract.View {
         setCouseAdapter(message)
         recommend_course_list.visibility = View.VISIBLE
         recommend_course_line.visibility = View.VISIBLE
+        recommend_practice_line.visibility = View.GONE
+        recommend_practice_list.visibility = View.GONE
     }
 
     override fun onFailure(e: Throwable) {
@@ -128,8 +132,6 @@ class PostLogonFragment : LogonBaseFragment(),MainContract.View {
             }
         })
     }
-
-
 
     private fun setCouseAdapter(totalList: List<SuggestedCourse>) {
         courseAdapter = CourseAdapter(activity!!, totalList)
@@ -251,6 +253,8 @@ class PostLogonFragment : LogonBaseFragment(),MainContract.View {
         val userInfo = AuthInstance.getInstance().userInfo
         Glide.with(context!!).load(userInfo?.avatar).apply(RequestOptions().placeholder(R.drawable.photo)).into(avatar)
         user_name.text = userInfo?.nickName
+        totalTime.text = userInfo?.durationCount
+        totalDate.text = userInfo?.continueDay
         avatar.setOnClickListener {
             val intent = UserInfoActivity.newIntent(context)
             startActivity(intent)

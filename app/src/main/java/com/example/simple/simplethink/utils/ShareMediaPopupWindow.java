@@ -239,10 +239,11 @@ public class ShareMediaPopupWindow extends PopupWindow implements View.OnClickLi
     //qq sharing
     private void showQQShare(ShareMediaBean bean) {
         cn.sharesdk.tencent.qq.QQ.ShareParams sp = new QQ.ShareParams();
-        sp.setShareType(Platform.SHARE_WEBPAGE);
+        sp.setShareType(bean.getShareType());
         sp.setTitle(bean.getTitle());
         sp.setTitleUrl(bean.getUrl());
         sp.setText(bean.getText());
+        sp.setImageData(bean.getImageData());
         sp.setImageUrl(bean.getImageUrl());
         sp.setImagePath(bean.getImagePath());
         Platform qq = ShareSDK.getPlatform(cn.sharesdk.tencent.qq.QQ.NAME);
@@ -260,6 +261,7 @@ public class ShareMediaPopupWindow extends PopupWindow implements View.OnClickLi
         sp.setImagePath(bean.getImagePath());
         sp.setSite(bean.getSite());
         sp.setSiteUrl(bean.getSiteUrl());
+        sp.setShareType(bean.getShareType());
         Platform qzone = ShareSDK.getPlatform(QZone.NAME);
         qzone.setPlatformActionListener(this);
         qzone.share(sp);

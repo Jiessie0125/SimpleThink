@@ -40,7 +40,7 @@ class PreLogonFragment : LogonBaseFragment(), MainContract.View {
             return PreLogonFragment()
         }
     }
-    override fun onGetPracticeSuccess(message: Map<String, List<PracticeResponse>>) {
+    override fun onGetPracticeSuccess(message: Map<String, List<PracticeResponse>>?) {
 
     }
     override fun getLayoutId(): Int = R.layout.fragment_main_prelogon

@@ -14,7 +14,7 @@ interface MainContract {
         fun onGetSuggestedActivitySuccess(message: List<ActivityResponse>)
         fun onGetBottomActivitySuccess(message: BottomActivityResponse)
         fun onGetSuggestedCourseSuccess(message: List<SuggestedCourse>)
-        fun onGetPracticeSuccess(message: Map<String, List<PracticeResponse>>)
+        fun onGetPracticeSuccess(message: Map<String, List<PracticeResponse>>?)
         fun onFailure(e: Throwable)
     }
 

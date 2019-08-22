@@ -182,10 +182,15 @@ object FilesUtils{
         return if (nowTime.after(beginTime) && nowTime.before(endTime)) { true} else {false}
     }
 
-    fun getMap(jsonString: String): Map<String, List<PracticeResponse>>? {
+    fun getMap(jsonString: String?): Map<String, List<PracticeResponse>>? {
         val jsonObject: JSONObject
         try {
-            jsonObject = JSONObject(jsonString)
+            if(jsonString == "[]"){
+                return null
+            }
+            jsonObject = jsonString.let {
+                JSONObject(it)
+            }
             val keyIter = jsonObject.keys()
             var key: String
             var value: Any

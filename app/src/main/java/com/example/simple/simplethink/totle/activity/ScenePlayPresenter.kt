@@ -40,6 +40,7 @@ class ScenePlayPresenter : ScenePlayContact.Presenter {
                     view?.onuploadPracticeSuccess()
                     Log.e("---", "----uploadExce:" + message)
                 }, { error ->
+                    view?.onFailure(error)
                     Log.e("---", "----uploadExce:" + error)
                 })
     }
