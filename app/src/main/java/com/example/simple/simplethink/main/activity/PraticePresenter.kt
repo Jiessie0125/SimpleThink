@@ -12,7 +12,7 @@ import io.reactivex.schedulers.Schedulers
  */
 class PraticePresenter( val view: PraticeActivity) : PraticeContact.Presenter {
     val httpResposityImpl = HttpResposityImpl()
-//    override fun getCourseLogs(){
+    override fun getCourseLogs(){
 //        httpResposityImpl.getCourseLogs().subscribeOn(Schedulers.io())
 //                .observeOn(AndroidSchedulers.mainThread())
 //                .map { result -> result }
@@ -22,7 +22,7 @@ class PraticePresenter( val view: PraticeActivity) : PraticeContact.Presenter {
 //                    error->
 //                    Log.e("---", "----getTotleSortfail:" + error)
 //                })
-//    }
+    }
 
 
 }

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/mainColor"
+    android:orientation="horizontal"
+    android:minHeight="40dp">
+    <ImageView
+        android:layout_width="5dp"
+        android:layout_height="5dp"
+        android:layout_gravity="center_vertical"
+        android:background="@color/praticeIcon"/>
+    <TextView
+        android:id="@+id/practice_course_title"
+        android:layout_marginLeft="11dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:text="11111"
+        android:textColor="@color/wordWhite"
+        android:textSize="@dimen/login_small_title"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="10dp"
+        android:textSize="@dimen/course_txt"
+        android:textColor="@color/blackSuggesstion"
+        android:text="-"/>
+    <TextView
+        android:id="@+id/pratice_item_section_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="5dp"
+        android:textSize="@dimen/course_txt"
+        android:textColor="@color/blackSuggesstion"
+        android:text="ddffgg"/>
+</LinearLayout>
+
