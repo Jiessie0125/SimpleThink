@@ -10,6 +10,8 @@ import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
 import android.view.View
 import android.widget.TextView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.example.simple.simplethink.R
 import com.example.simple.simplethink.R.id.user
 import com.example.simple.simplethink.main.MainActivity
@@ -23,6 +25,7 @@ import com.example.simple.simplethink.utils.auth.AuthInstance
 import com.example.simple.simplethink.utils.auth.AuthInstance.Companion.AUTH
 import com.example.simple.simplethink.utils.auth.AuthInstance.Companion.REFRESHTOKEN
 import kotlinx.android.synthetic.main.activity_totle.*
+import kotlinx.android.synthetic.main.fragment_main_postlogon.*
 
 /**
  * Created by mobileteam on 2019/6/3.
@@ -67,10 +70,10 @@ class TotleActivity: AppCompatActivity() {
         mFragments.add(totleFragment.createFragment())
         mFragments.add(scenceFragment.createFragment())
         mFragments.add(whithFragment.createFragment())
-
         initAdapter()
         initTabView()
-
+        val userInfo = AuthInstance.getInstance().userInfo
+        Glide.with(this).load(userInfo?.avatar).apply(RequestOptions().placeholder(R.drawable.photo)).into(user)
     }
 
     private fun showMainActivity(){

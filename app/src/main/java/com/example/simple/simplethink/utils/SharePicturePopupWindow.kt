@@ -18,6 +18,8 @@ import com.example.simple.simplethink.MyApp
 import com.example.simple.simplethink.model.bean.ShareMediaBean
 import com.example.simple.simplethink.utils.auth.AuthInstance
 import kotlinx.android.synthetic.main.activity_update_userinfo.*
+import android.graphics.ImageFormat
+import java.nio.ByteBuffer
 
 
 /**
@@ -80,8 +82,10 @@ class SharePicturePopupWindow constructor(activity: Activity, courseName: String
         var bitmap = createBitmap(v)
         bean.shareType = Platform.SHARE_IMAGE
         bean.imageData = bitmap
+        bean.imagePath = FilesUtils.savaBitmapReturnPath(bitmap,"sharePic","jpg")
         showPopFormBottom()
     }
+
 
     private fun showPopFormBottom() {
         val shareMediaPopupWindow = ShareMediaPopupWindow(activity, supportMediaList, bean)

@@ -101,10 +101,12 @@ class SplashActivity : Activity(), View.OnClickListener {
                 "vip" -> {
                     val intent = VIPCenterActivity.newIntent(this)
                     startActivity(intent)
+                    finish()
                 }
                 "lessions" -> {
                     val intent = CourseDetailActivity.newIntent(linkPage!!.toInt(),this)
                     startActivity(intent)
+                    finish()
                 }
                 "advertisment" -> enterActivity(AdvertisementActivity::class.java, "main", bannerResponse)
             };

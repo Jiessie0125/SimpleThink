@@ -26,37 +26,61 @@ import kotlin.collections.ArrayList
 /**
  * Created by mobileteam on 2019/6/6.
  */
-object FilesUtils{
+object FilesUtils {
     val APP_IMAGE_DIR = "sort_item"
     var filename = Environment.getExternalStorageDirectory().toString() + File.separator + APP_IMAGE_DIR
     val pictureFolder = Environment.getExternalStorageDirectory().toString()
 
-        fun savaBitmap(message : ByteArray, strFileName: String, type: String):Boolean {
+    fun savaBitmap(message: ByteArray, strFileName: String, type: String): Boolean {
+        try {
+            val bitmap = BitmapFactory.decodeByteArray(message, 0, message.size)
+            val folder = File(filename)
+            if (!folder.exists()) {
+                folder.mkdirs()
+            }
+            val savePath = folder.getPath() + File.separator + strFileName + "." + type
+            val f = File(savePath)
+            var fOut: FileOutputStream?
             try {
-                val bitmap = BitmapFactory.decodeByteArray(message,0,message.size)
-                val folder = File(filename)
-                if (!folder.exists()) {
-                    folder.mkdirs()
-                }
-                val savePath = folder.getPath() + File.separator + strFileName + "." + type
-                val f = File(savePath)
-                var fOut: FileOutputStream?
-                try {
-                    fOut = FileOutputStream(f)
-                    bitmap.compress(Bitmap.CompressFormat.PNG, 100, fOut)//把Bitmap对象解析成流
-                    fOut!!.flush()
-                    fOut!!.close()
-                    return true
-                } catch (e: Exception) {
-                    e.printStackTrace()
-                }
-            }catch (e : IOException){
+                fOut = FileOutputStream(f)
+                bitmap.compress(Bitmap.CompressFormat.PNG, 100, fOut)//把Bitmap对象解析成流
+                fOut!!.flush()
+                fOut!!.close()
+                return true
+            } catch (e: Exception) {
                 e.printStackTrace()
             }
-            return false
+        } catch (e: IOException) {
+            e.printStackTrace()
         }
+        return false
+    }
 
-    fun getItemIcon(strItemIcon : String,activity: Activity,imageView: ImageView?){
+    fun savaBitmapReturnPath(bitmap: Bitmap, strFileName: String, type: String): String {
+        try {
+            val folder = File(filename)
+            if (!folder.exists()) {
+                folder.mkdirs()
+            }
+            val savePath = folder.getPath() + File.separator + strFileName + "." + type
+            val f = File(savePath)
+            var fOut: FileOutputStream?
+            try {
+                fOut = FileOutputStream(f)
+                bitmap.compress(Bitmap.CompressFormat.PNG, 100, fOut)//把Bitmap对象解析成流
+                fOut!!.flush()
+                fOut!!.close()
+                return savePath
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        } catch (e: IOException) {
+            e.printStackTrace()
+        }
+        return ""
+    }
+
+    fun getItemIcon(strItemIcon: String, activity: Activity, imageView: ImageView?) {
         val options = RequestOptions()
                 .placeholder(R.drawable.first_use)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
@@ -67,15 +91,15 @@ object FilesUtils{
             val destFile = File(appDir, fileName)
             if (!destFile.exists()) throw Exception("can't find image")
             Glide.with(activity)
-                           .load(destFile)
-                           .apply(options)
-                           .into(imageView!!)
+                    .load(destFile)
+                    .apply(options)
+                    .into(imageView!!)
         } catch (e: Exception) {
             e.printStackTrace()
         }
     }
 
-    fun getLocalFileUrl(sceneName : String , mp3Path : String) : String{
+    fun getLocalFileUrl(sceneName: String, mp3Path: String): String {
         var filePath = context?.getExternalFilesDir(mp3Path)
         val appDir = File(filePath, sceneName)
         if (!appDir.exists()) throw Exception("can't find folder")
@@ -83,19 +107,19 @@ object FilesUtils{
 
     }
 
-    fun isHaveFile(sceneName : String , mp3Path : String) :Boolean{
+    fun isHaveFile(sceneName: String, mp3Path: String): Boolean {
         var filePath = context?.getExternalFilesDir(mp3Path)
         val appDir = File(filePath, sceneName)
         if (!appDir.exists()) return false else return true
     }
 
-    fun showImage(imageUrl: String,activity: Activity,imageView: ImageView?){
+    fun showImage(imageUrl: String, activity: Activity, imageView: ImageView?) {
         Glide.with(activity)
                 .load(imageUrl)
                 .into(imageView!!)
     }
 
-    fun downloadImage( activity: Activity, url: String, imageName :String) {
+    fun downloadImage(activity: Activity, url: String, imageName: String) {
 
         Thread(Runnable {
             try {
@@ -111,7 +135,7 @@ object FilesUtils{
                     }
                     val fileName = imageName + ".jpg"
                     val destFile = File(appDir, fileName)
-                    copy(target,destFile)
+                    copy(target, destFile)
                 })
             } catch (e: Exception) {
                 e.printStackTrace()
@@ -145,6 +169,7 @@ object FilesUtils{
 
         }
     }
+
     fun timeParse(duration: Long?): String {
         var time = ""
         val minute = duration!! / 60000
@@ -178,14 +203,19 @@ object FilesUtils{
 
         return dirFile.delete()
     }
-    fun belongCalendar( nowTime:Date,  beginTime:Date,  endTime:Date) : Boolean{
-        return if (nowTime.after(beginTime) && nowTime.before(endTime)) { true} else {false}
+
+    fun belongCalendar(nowTime: Date, beginTime: Date, endTime: Date): Boolean {
+        return if (nowTime.after(beginTime) && nowTime.before(endTime)) {
+            true
+        } else {
+            false
+        }
     }
 
     fun getMap(jsonString: String?): Map<String, List<PracticeResponse>>? {
         val jsonObject: JSONObject
         try {
-            if(jsonString == "[]"){
+            if (jsonString == "[]") {
                 return null
             }
             jsonObject = jsonString.let {
@@ -194,7 +224,7 @@ object FilesUtils{
             val keyIter = jsonObject.keys()
             var key: String
             var value: Any
-            var praticeItem : List<PracticeResponse>
+            var praticeItem: List<PracticeResponse>
             val valueMap = HashMap<String, List<PracticeResponse>>()
             while (keyIter.hasNext()) {
                 key = keyIter.next()
@@ -209,12 +239,12 @@ object FilesUtils{
         return null
     }
 
-    fun convertToPratice(json : JSONArray) : List<PracticeResponse>{
+    fun convertToPratice(json: JSONArray): List<PracticeResponse> {
         var pratice = ArrayList<PracticeResponse>()
         var gson = Gson()
-        var itemPratice : PracticeResponse ?= null
-        for(i in 0 until json.length()){
-            itemPratice = gson.fromJson(json[i].toString(),PracticeResponse::class.java)
+        var itemPratice: PracticeResponse? = null
+        for (i in 0 until json.length()) {
+            itemPratice = gson.fromJson(json[i].toString(), PracticeResponse::class.java)
             pratice.add(itemPratice)
         }
         return pratice

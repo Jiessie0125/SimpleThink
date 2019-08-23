@@ -19,6 +19,7 @@ import com.example.simple.simplethink.model.bean.ShareMediaBean
 import com.example.simple.simplethink.utils.ShareMediaPopupWindow
 
 import cn.sharesdk.framework.Platform
+import com.example.simple.simplethink.totle.TotleActivity
 
 /**
  * Created by mobileteam on 2019/7/17.
@@ -115,7 +116,7 @@ class AdvertisementActivity : Activity(), View.OnClickListener {
 
 
     private fun enterHomeActivity() {
-        val intent = Intent(this, MainActivity::class.java)
+        val intent = Intent(this, TotleActivity::class.java)
         startActivity(intent)
         finish()
     }
