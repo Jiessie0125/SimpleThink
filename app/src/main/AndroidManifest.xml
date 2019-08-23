@@ -106,6 +106,9 @@
                 <data android:scheme="wx19435760a0e8b89e"/>
             </intent-filter>
         </activity>
+        <activity android:name=".main.activity.SelectionDetailsActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/mainColor"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:orientation="vertical"
+        android:paddingEnd="@dimen/default_view_horizontal_padding"
+        android:paddingStart="@dimen/default_view_horizontal_padding">
+        <ImageView
+            android:id="@+id/selection_image_detail"
+            android:layout_width="match_parent"
+            android:layout_height="135dp"
+            android:layout_marginTop="15dp"
+            android:scaleType="fitXY" />
+        <TextView
+            android:id="@+id/selection_title_detail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="15dp"
+            android:text="@string/logon_revive"
+            android:textColor="@color/wordWhite"
+            android:textSize="@dimen/login_small_title" />
+        <TextView
+            android:id="@+id/selection_sub_title_detail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/logon_revive_word"
+            android:textColor="@color/blackSuggesstion"
+            android:textSize="@dimen/logon_revive_word" />
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/blackItemLine" />
+</LinearLayout>
+

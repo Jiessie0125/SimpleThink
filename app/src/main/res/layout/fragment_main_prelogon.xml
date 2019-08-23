@@ -134,7 +134,7 @@
                         android:layout_centerVertical="true"
                         android:layout_alignParentRight="true"
                         android:layout_marginRight="5dp"
-                        android:src="@drawable/next"/>
+                        android:src="@drawable/next_white"/>
                 </RelativeLayout>
 
                 <ImageView

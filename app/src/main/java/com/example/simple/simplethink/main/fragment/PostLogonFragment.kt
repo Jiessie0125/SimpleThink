@@ -11,6 +11,7 @@ import com.example.simple.simplethink.main.MainContract
 import com.example.simple.simplethink.main.MainPresenter
 import com.example.simple.simplethink.main.UserInfoActivity.UserInfoActivity
 import com.example.simple.simplethink.main.activity.PraticeActivity
+import com.example.simple.simplethink.main.activity.SelectionDetailsActivity
 import com.example.simple.simplethink.main.adapter.CourseAdapter
 import com.example.simple.simplethink.main.adapter.OnCoursetemClickListener
 import com.example.simple.simplethink.main.adapter.OnCourseClickListener
@@ -27,6 +28,7 @@ import com.example.simple.simplethink.utils.auth.AuthInstance
 import com.example.simple.simplethink.vip.VIPCenterActivity
 import com.example.simple.simplethink.welcome.Activity.AdvertisementActivity
 import kotlinx.android.synthetic.main.fragment_main_postlogon.*
+import java.io.Serializable
 import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
@@ -45,6 +47,7 @@ class PostLogonFragment : LogonBaseFragment(),MainContract.View {
     lateinit var practiceMap: HashMap<String, ArrayList<PracticeResponse>>
     var sortedPracticeMap = HashMap<String, ArrayList<PracticeResponse>>()
     var latestThreePractice = ArrayList<PracticeResponse>()
+    lateinit var selectionList: List<ActivityResponse>
 
     override fun onGetPracticeSuccess(message: Map<String, List<PracticeResponse>>?) {
         message?.let {
@@ -95,7 +98,14 @@ class PostLogonFragment : LogonBaseFragment(),MainContract.View {
     }
 
     override fun onGetSuggestedActivitySuccess(message: List<ActivityResponse>) {
+        selectionList = message
+        selection_more.setOnClickListener {
+            var intent = SelectionDetailsActivity.newIntent(context)
+            intent.putExtra("selectionList", selectionList as Serializable)
+            startActivity(intent)
+        }
         setSuggestedActivity(message)
+
     }
 
     override fun onGetBottomActivitySuccess(message: BottomActivityResponse) {

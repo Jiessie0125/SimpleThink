@@ -10,6 +10,7 @@ import com.example.simple.simplethink.R
 import com.example.simple.simplethink.login.LoginActivity
 import com.example.simple.simplethink.main.MainContract
 import com.example.simple.simplethink.main.MainPresenter
+import com.example.simple.simplethink.main.activity.SelectionDetailsActivity
 import com.example.simple.simplethink.main.adapter.CourseAdapter
 import com.example.simple.simplethink.main.adapter.OnCoursetemClickListener
 import com.example.simple.simplethink.model.ActivityResponse
@@ -23,6 +24,7 @@ import com.example.simple.simplethink.utils.ErrorHandler
 import com.example.simple.simplethink.vip.VIPCenterActivity
 import com.example.simple.simplethink.welcome.Activity.AdvertisementActivity
 import kotlinx.android.synthetic.main.fragment_main_prelogon.*
+import java.io.Serializable
 import java.util.*
 
 /**
@@ -34,6 +36,7 @@ class PreLogonFragment : LogonBaseFragment(), MainContract.View {
     private var handler: Handler = Handler()
     private var runnable: Runnable = Runnable {}
     private var activityCount: Int = 0
+    lateinit var selectionList: List<ActivityResponse>
 
     companion object {
         fun newInstance(): LogonBaseFragment {
@@ -51,6 +54,12 @@ class PreLogonFragment : LogonBaseFragment(), MainContract.View {
     }
 
     override fun onGetSuggestedActivitySuccess(message: List<ActivityResponse>) {
+        selectionList = message
+        selection_more.setOnClickListener {
+            var intent = SelectionDetailsActivity.newIntent(context)
+            intent.putExtra("selectionList", selectionList as Serializable)
+            startActivity(intent)
+        }
         setSuggestedActivity(message)
     }
 
