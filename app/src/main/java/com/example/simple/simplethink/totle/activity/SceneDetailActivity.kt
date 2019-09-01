@@ -75,12 +75,13 @@ class SceneDetailActivity: AppCompatActivity() ,SceneDetailContact.View {
             override fun onItemClick(v: View, viewName: SceneDetailAdapter.ViewName, position: Int) {
                 when (v.getId()) {
                     R.id.scene_download -> downloadMP3(position)
-                    else -> {
+                    else -> { if(FilesUtils.isHaveFile(sections?.get(position)?.title, title)) {
                         val pratice = PraticeSections(sections[position].id,sections[position].course_id,sections[position].audio_id)
                         showSceneResourcePage(sections[position].title,
                                 FilesUtils.getLocalFileUrl(sections[position].title,title),
                                 sceneResponse.content_img_new,
                                 pratice)
+                    }
                     }
                 }
             }

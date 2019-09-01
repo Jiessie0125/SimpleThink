@@ -150,6 +150,16 @@ class HttpResposityImpl: HttpRepository {
         return getSuggestedCourseRetrofit.aliOrder(orderId)
     }
 
+    override fun checkAliOrder(orderId: String?): Observable<PayResponse> {
+        val getSuggestedCourseRetrofit = RetrofitServiceManager.instance.create(HttpRetrofitApiService::class.java)
+        return getSuggestedCourseRetrofit.checkAliOrder(orderId)
+    }
+
+    override fun checkWechatOrder(orderId: String?): Observable<PayResponse> {
+        val getSuggestedCourseRetrofit = RetrofitServiceManager.instance.create(HttpRetrofitApiService::class.java)
+        return getSuggestedCourseRetrofit.checkWechatOrder(orderId)
+    }
+
     override fun refresh(refresh : String): Observable<AuthResponse> {
         val service = RetrofitServiceManager.instance.create(HttpRetrofitApiService::class.java)
         val params = HashMap<String, String>().apply {

@@ -38,13 +38,17 @@ class SceneDetailAdapter( val context: Activity,val sections : List<Sections>,va
         holder?.mLinearLayout?.tag = position
         holder?.mTotleItem?.text = sections?.get(position)?.title
         FilesUtils.showImage(sections?.get(position)?.title_img, context, holder?.mItemImage)
-        holder?.mDownloadImage?.tag = position
-        if(isShow && mPosition == position){
+        if(FilesUtils.isHaveFile(sections?.get(position)?.title, title)){
+            holder?.mScenePlay?.visibility = View.VISIBLE
+            holder?.mDownloadImage?.visibility = View.GONE
+            holder?.mProcessBar?.visibility = View.GONE
+        } else if(isShow && mPosition == position){
             holder?.mProcessBar?.visibility = View.VISIBLE
             holder?.mDownloadImage?.visibility = View.GONE
             updateProcessBar(sections[position].url,sections[position].title,holder?.mProcessBar)
         }else{
             holder?.mProcessBar?.visibility = View.GONE
+            holder?.mDownloadImage?.tag = position
         }
         holder
     }
@@ -74,6 +78,7 @@ class SceneDetailAdapter( val context: Activity,val sections : List<Sections>,va
             }
 
             override fun onSuccess(file: File) {
+                notifyDataSetChanged()
             }
         })
     }
@@ -92,6 +97,7 @@ class SceneDetailAdapter( val context: Activity,val sections : List<Sections>,va
         var mTotleItem : TextView?
         var mItemImage : ImageView?
         var mDownloadImage : ImageView?
+        var mScenePlay : ImageView?
         var mProcessBar : RoundProgressBar?
         var mLinearLayout : LinearLayout?
 
@@ -101,6 +107,7 @@ class SceneDetailAdapter( val context: Activity,val sections : List<Sections>,va
             mDownloadImage = view?.findViewById(R.id.scene_download)
             mProcessBar = view?.findViewById(R.id.scene_download_mp3)
             mLinearLayout = view?.findViewById(R.id.scene_item)
+            mScenePlay = view?.findViewById(R.id.scene_paly)
             mProcessBar?.setStyle(RoundProgressBar.FILL)
             mProcessBar?.circleProgressColor = ResourcesUtils.resource.getColor(R.color.wordWhite)
             mProcessBar?.roundWidth = 1.toFloat()

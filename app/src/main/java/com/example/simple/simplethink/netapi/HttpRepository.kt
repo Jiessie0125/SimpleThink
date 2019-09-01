@@ -42,4 +42,6 @@ interface HttpRepository {
     fun createSubscription(@Body params:  RequestBody): Observable<CreateSubscriptionResponse>
     fun wxOrder(orderId: String): Observable<OrderWXResponse>
     fun aliOrder(orderId: String): Observable<OrderAliPayResponse>
+    fun checkAliOrder(orderId: String?): Observable<PayResponse>
+    fun checkWechatOrder(orderId: String?): Observable<PayResponse>
 }

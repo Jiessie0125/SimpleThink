@@ -113,4 +113,12 @@ interface HttpRetrofitApiService {
     @FormUrlEncoded
     @POST("/alipay/order_string")
     fun aliOrder(@Field("order_id")orderId: String): Observable<OrderAliPayResponse>
+
+    @FormUrlEncoded
+    @POST("/alipay/alipay_check_order")
+    fun checkAliOrder(@Field("order_id")orderId: String?): Observable<PayResponse>
+
+    @FormUrlEncoded
+    @POST("/wx/wx_check_order")
+    fun checkWechatOrder(@Field("order_id")orderId: String?): Observable<PayResponse>
 }

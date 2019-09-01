@@ -8,6 +8,7 @@ class AuthInstance {
     var accessToken: String? = null
     var userInfo: UserInfoResponse? = null
     var isVip: Boolean?= false
+    var orderId : String ?= null
 
     companion object {
         const val AUTH = "AUTH"
@@ -26,6 +27,7 @@ class AuthInstance {
         userInfo = null
         singleton = null
         isVip = false
+        orderId = null
         SharedPreferencesUtil.removeString(MyApp.context!!,AuthInstance.AUTH)
         SharedPreferencesUtil.removeString(MyApp.context!!,AuthInstance.REFRESHTOKEN)
     }

@@ -1,15 +1,9 @@
 package com.example.simple.simplethink.vip
 
 import android.util.Log
-import com.example.simple.simplethink.buzzy.BuzzyCourseActivity
-import com.example.simple.simplethink.buzzy.BuzzyCourseContact
 import com.example.simple.simplethink.model.CreateSubRequest
-import com.example.simple.simplethink.model.OrderWXResponse
-import com.example.simple.simplethink.model.TotleItem
 import com.example.simple.simplethink.netapi.HttpResposityImpl
-import com.example.simple.simplethink.utils.auth.AuthInstance
 import com.google.gson.GsonBuilder
-import com.tencent.mm.opensdk.modelpay.PayReq
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import okhttp3.MediaType
@@ -40,15 +34,17 @@ class VIPCenterPresenter(val httpResposityImpl : HttpResposityImpl, val view: VI
                 .observeOn(AndroidSchedulers.mainThread())
                 .map { result -> result }
                 .subscribe({message ->
-                   // prePay(message.order_id)
+                    //prePay(message.order_id)
                     Log.e("---", "----message:" + message)
+                    view.showPayDialog(message.order_id)
+                   // aliPay(message.order_id)
                 },{
                     error->
                     Log.e("---", "----getTotleSortfail:" + error)
                 })
     }
 
-    private fun prePay(orderId : String){
+    override fun wechatPay(orderId : String){
         httpResposityImpl.wxOrder(orderId).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .map { result -> result }
@@ -61,7 +57,7 @@ class VIPCenterPresenter(val httpResposityImpl : HttpResposityImpl, val view: VI
                 })
     }
 
-    private fun aliPay(orderId : String){
+    override fun aliPay(orderId : String){
         httpResposityImpl.aliOrder(orderId).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .map { result -> result }
@@ -74,5 +70,27 @@ class VIPCenterPresenter(val httpResposityImpl : HttpResposityImpl, val view: VI
                 })
     }
 
+    override  fun confirmWechatOrder(orderId : String?){
+        httpResposityImpl.checkWechatOrder(orderId).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .map { result -> result }
+                .subscribe({message ->
+                    Log.e("---", "----message:" + message)
+                },{
+                    error->
+                    Log.e("---", "----getTotleSortfail:" + error)
+                })
+    }
+    override  fun confirmAlipayOrder(orderId : String?){
+        httpResposityImpl.checkAliOrder(orderId).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .map { result -> result }
+                .subscribe({message ->
+                    Log.e("---", "----message:" + message)
+                },{
+                    error->
+                    Log.e("---", "----getTotleSortfail:" + error)
+                })
+    }
 
 }

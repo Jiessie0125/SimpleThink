@@ -60,8 +60,8 @@ class WXPayEntryActivity : Activity(), IWXAPIEventHandler {
         }
     }
 
-    private fun showVipPage(reslut : String?){
-        val vipIntent = VIPCenterActivity.newIntent(this,reslut)
+    private fun showVipPage(code : String?){
+        val vipIntent = VIPCenterActivity.newIntent(this,code)
         startActivity(vipIntent)
     }
     override fun onNewIntent(intent: Intent) {

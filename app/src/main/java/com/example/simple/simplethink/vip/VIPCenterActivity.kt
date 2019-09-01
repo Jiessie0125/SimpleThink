@@ -1,21 +1,25 @@
 package com.example.simple.simplethink.vip
 
+import android.annotation.SuppressLint
+import android.app.AlertDialog
+import android.app.Dialog
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import android.os.Message
 import android.support.v7.widget.LinearLayoutManager
+import android.text.TextUtils
+import android.util.Log
 import android.view.View
 import android.widget.Toast
+import com.alipay.sdk.app.PayTask
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.simple.simplethink.R
 import com.example.simple.simplethink.base.BaseActivity
 import com.example.simple.simplethink.login.LoginActivity
-import com.example.simple.simplethink.model.CreateSubRequest
-import com.example.simple.simplethink.model.OrderAliPayResponse
-import com.example.simple.simplethink.model.OrderWXResponse
-import com.example.simple.simplethink.model.SubscriptionResponse
+import com.example.simple.simplethink.model.*
 import com.example.simple.simplethink.netapi.HttpResposityImpl
 import com.example.simple.simplethink.utils.FilesUtils.belongCalendar
 import com.example.simple.simplethink.utils.ResourcesUtils
@@ -28,12 +32,10 @@ import kotlinx.android.synthetic.main.activity_vip_center.*
 import kotlinx.android.synthetic.main.title_tool.*
 import java.text.SimpleDateFormat
 import java.util.*
-import com.mob.tools.utils.UIHandler.sendMessage
-import com.mob.wrappers.PaySDKWrapper.pay
-import com.alipay.sdk.app.PayTask
-import android.text.TextUtils
-import android.annotation.SuppressLint
-import android.os.Handler
+import android.content.DialogInterface
+import com.example.simple.simplethink.main.MainActivity
+
+
 
 
 /**
@@ -44,6 +46,8 @@ class VIPCenterActivity : BaseActivity(), VIPCenterContact.View {
     lateinit var vipItemAdapter: VIPItemAdapter
     lateinit var persenter: VIPCenterContact.Presenter
     var sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+    private val SDK_PAY_FLAG = 1
+    private val SDK_AUTH_FLAG = 2
 
     companion object {
         const val PAYRESULT = "PAYRESULT"
@@ -51,9 +55,9 @@ class VIPCenterActivity : BaseActivity(), VIPCenterContact.View {
             var intent = Intent(context, VIPCenterActivity::class.java)
             return intent
         }
-        fun newIntent(context: Context?,reslut : String?): Intent {
+        fun newIntent(context: Context?,code : String?): Intent {
             var intent = Intent(context, VIPCenterActivity::class.java)
-            intent.putExtra(PAYRESULT,reslut)
+            intent.putExtra(PAYRESULT,code)
             return intent
         }
     }
@@ -79,7 +83,11 @@ class VIPCenterActivity : BaseActivity(), VIPCenterContact.View {
     override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)
         val result = intent?.getSerializableExtra(PAYRESULT)
-        result?.let { Toast.makeText(this, result as String, Toast.LENGTH_LONG).show() }
+        result?.let {
+
+            if(result == "支付成功" ){persenter.confirmWechatOrder(AuthInstance.getInstance().orderId)}
+            else{Toast.makeText(this, result as String, Toast.LENGTH_LONG).show()}
+             }
     }
 
     private fun init() {
@@ -95,7 +103,7 @@ class VIPCenterActivity : BaseActivity(), VIPCenterContact.View {
         val startTime = sdf.parse(sub.user.start_at)
         val endTime = sdf.parse(sub.user.end_at)
         if(belongCalendar(date,startTime,endTime)) {
-            userInfo.text = String.format(getString(R.string.vip_date), endTime)
+            userInfo.text = String.format(getString(R.string.vip_date), sub.user.end_at)
             AuthInstance.getInstance().isVip = true
         }else{
             userInfo.text = ResourcesUtils.getString(R.string.not_vip)
@@ -117,6 +125,31 @@ class VIPCenterActivity : BaseActivity(), VIPCenterContact.View {
                 }
             }
         })
+    }
+
+    override fun showPayDialog(orderId: String) {
+        val items = arrayOf("微信", "支付宝")
+        val alertBuilder = AlertDialog.Builder(this)
+                .setTitle("支付选择：")
+                .setSingleChoiceItems(items, -1 , object: DialogInterface.OnClickListener{
+                    override fun onClick(dialog: DialogInterface, which : Int) {
+                        when (which){
+                            0 -> {persenter.wechatPay(orderId)}
+                            1 -> {persenter.aliPay(orderId)}
+                        }
+                        dialog.dismiss()
+                    }
+                }).create()
+        alertBuilder.show()
+             /*   .setSingleChoiceItems(items, 0, DialogInterface.OnClickListener {
+                    dialogInterface, i ->
+                    AuthInstance.getInstance().orderId = orderId
+                    when (i){
+                        0 -> {persenter.wechatPay(orderId)}
+                        1 -> {persenter.aliPay(orderId)}
+                    }
+                   // Toast.makeText(this@MainActivity, items[i], Toast.LENGTH_SHORT).show()
+        })*/
     }
 
     private fun initUserInfoView() {
@@ -147,68 +180,50 @@ class VIPCenterActivity : BaseActivity(), VIPCenterContact.View {
         api.sendReq(req)
     }
 
-    override fun sendAliPay(message: OrderAliPayResponse) {
-        // 必须异步调用
-        /*val payThread = Thread(object : Runnable{
-            override fun run() {
-                val alipay = PayTask(this@VIPCenterActivity)
-                val result = alipay.payV2(message.str, true)
-
-                val msg = Message()
-                msg.what = SDK_PAY_FLAG
-                msg.obj = result
-                mHandler.sendMessage(msg)
-            }
-        })
-        payThread.start()*/
-    }
-
     @SuppressLint("HandlerLeak")
     private val mHandler = object : Handler() {
 
         override fun handleMessage(msg: Message) {
             when (msg.what) {
 
-               /* SDK_PAY_FLAG -> {
+                SDK_PAY_FLAG -> {
                     val payResult = PayResult(msg.obj as Map<String, String>)
-                    *//**
-                     * 对于支付结果，请商户依赖服务端的异步通知结果。同步通知结果，仅作为支付结束的通知。
-                     *//*
-                    val resultInfo = payResult.getResult()// 同步返回需要验证的信息
-                    val resultStatus = payResult.getResultStatus()
+
+                    val resultInfo = payResult.result// 同步返回需要验证的信息
+                    val resultStatus = payResult.resultStatus
                     // 判断resultStatus 为9000则代表支付成功
                     if (TextUtils.equals(resultStatus, "9000")) {
+
+                        persenter.confirmAlipayOrder(AuthInstance.getInstance().orderId)
                         // 该笔订单是否真实支付成功，需要依赖服务端的异步通知。
-                        Toast.makeText(this@VIPCenterActivity, "支付成功", Toast.LENGTH_SHORT).show()
+                       // Toast.makeText(this@VIPCenterActivity, "支付成功", Toast.LENGTH_SHORT).show()
                     } else {
                         // 该笔订单真实的支付结果，需要依赖服务端的异步通知。
-                        Toast.makeText(this@VIPCenterActivity, "支付失败", Toast.LENGTH_SHORT).show()
+                       // Toast.makeText(this@VIPCenterActivity, "支付失败", Toast.LENGTH_SHORT).show()
                     }
                 }
-
-                SDK_AUTH_FLAG -> {
-                    val authResult = AuthResult(msg.obj as Map<String, String>, true)
-                    val resultStatus = authResult.getResultStatus()
-
-                    // 判断resultStatus 为“9000”且result_code
-                    // 为“200”则代表授权成功，具体状态码代表含义可参考授权接口文档
-                    if (TextUtils.equals(resultStatus, "9000") && TextUtils.equals(authResult.getResultCode(), "200")) {
-                        // 获取alipay_open_id，调支付时作为参数extern_token 的value
-                        // 传入，则支付账户为该授权账户
-                        Toast.makeText(this@VIPCenterActivity,
-                                "授权成功\n" + String.format("authCode:%s", authResult.getAuthCode()), Toast.LENGTH_SHORT)
-                                .show()
-                    } else {
-                        // 其他状态值则为授权失败
-                        Toast.makeText(this@VIPCenterActivity,
-                                "授权失败" + String.format("authCode:%s", authResult.getAuthCode()), Toast.LENGTH_SHORT).show()
-
-                    }
-                }
-
                 else -> {
-                }*/
+                }
             }
         }
     }
+
+    override fun sendAliPay(message: OrderAliPayResponse) {
+        // 必须异步调用
+        val payRunnable = Runnable {
+            val alipay = PayTask(this)
+            val result = alipay.payV2(message.str, true)
+            Log.i("msp", result.toString())
+
+            val msg = Message()
+            msg.what = SDK_PAY_FLAG
+            msg.obj = result
+            mHandler.sendMessage(msg)
+        }
+
+        // 必须异步调用
+        val payThread = Thread(payRunnable)
+        payThread.start()
+    }
+
 }

@@ -8,5 +8,5 @@ import java.io.Serializable
  */
 data class CreateSubscriptionResponse(
         @SerializedName("order_id") val order_id : String,
-        @SerializedName("alipay_price") val alipay_price : Int
+        @SerializedName("alipay_price") val alipay_price : Double
 ): Serializable
