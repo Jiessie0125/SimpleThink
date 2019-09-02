@@ -12,14 +12,12 @@
         android:id="@+id/recycle_course_img"
         android:layout_width="155dp"
         android:layout_height="115dp"
-        android:src="@drawable/scene_down"
         android:scaleType="fitXY" />
     <TextView
         android:id="@+id/recycle_course_vip"
         android:layout_width="37dp"
         android:layout_height="18dp"
         android:background="@color/fisrtUse"
-        android:text="111"
         android:gravity="center"
         android:textSize="@dimen/logon_revive_word"
         android:textColor="@color/wordWhite"/>

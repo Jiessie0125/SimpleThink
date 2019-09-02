@@ -38,6 +38,9 @@ class SceneDetailAdapter( val context: Activity,val sections : List<Sections>,va
         holder?.mLinearLayout?.tag = position
         holder?.mTotleItem?.text = sections?.get(position)?.title
         FilesUtils.showImage(sections?.get(position)?.title_img, context, holder?.mItemImage)
+        if(sections[position]?.free == "false"){
+            holder?.mSceneVip?.visibility = View.VISIBLE
+        }
         if(FilesUtils.isHaveFile(sections?.get(position)?.title, title)){
             holder?.mScenePlay?.visibility = View.VISIBLE
             holder?.mDownloadImage?.visibility = View.GONE
@@ -97,6 +100,7 @@ class SceneDetailAdapter( val context: Activity,val sections : List<Sections>,va
         var mTotleItem : TextView?
         var mItemImage : ImageView?
         var mDownloadImage : ImageView?
+        var mSceneVip : TextView?
         var mScenePlay : ImageView?
         var mProcessBar : RoundProgressBar?
         var mLinearLayout : LinearLayout?
@@ -105,6 +109,7 @@ class SceneDetailAdapter( val context: Activity,val sections : List<Sections>,va
             mTotleItem = view?.findViewById(R.id.recycle_scene_detail_tv)
             mItemImage = view?.findViewById(R.id.recycle_scene_detail_img)
             mDownloadImage = view?.findViewById(R.id.scene_download)
+            mSceneVip = view?.findViewById(R.id.recycle_scene_vip)
             mProcessBar = view?.findViewById(R.id.scene_download_mp3)
             mLinearLayout = view?.findViewById(R.id.scene_item)
             mScenePlay = view?.findViewById(R.id.scene_paly)

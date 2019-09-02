@@ -2,12 +2,9 @@ package com.example.simple.simplethink.totle.activity
 
 import android.content.Context
 import android.content.Intent
-import android.graphics.Bitmap
 import android.os.Bundle
-import android.os.PersistableBundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
-import android.util.Log
 import android.view.Gravity
 import android.view.View
 import com.example.simple.simplethink.R
@@ -15,16 +12,12 @@ import com.example.simple.simplethink.model.PraticeSections
 import com.example.simple.simplethink.model.ScenesResponse
 import com.example.simple.simplethink.model.Sections
 import com.example.simple.simplethink.netapi.HttpResposityImpl
-import com.example.simple.simplethink.totle.activity.course.CourseDetailActivity
 import com.example.simple.simplethink.totle.adapter.SceneDetailAdapter
-import com.example.simple.simplethink.utils.DownloadHelper
 import com.example.simple.simplethink.utils.FilesUtils
 import com.example.simple.simplethink.utils.ImageUtil.showBKImage
 import com.example.simple.simplethink.utils.SharePicturePopupWindow
-import kotlinx.android.synthetic.main.activity_course_detail.*
+import com.example.simple.simplethink.vip.VIPCenterActivity
 import kotlinx.android.synthetic.main.activity_scene_detail.*
-import kotlinx.android.synthetic.main.scene_detail_item.*
-import java.io.File
 
 /**
  * Created by jiessie on 2019/7/5.
@@ -74,18 +67,29 @@ class SceneDetailActivity: AppCompatActivity() ,SceneDetailContact.View {
         sceneDetailAdapter.setOnItemClickListener(object : SceneDetailAdapter.OnItemDetailClickListener {
             override fun onItemClick(v: View, viewName: SceneDetailAdapter.ViewName, position: Int) {
                 when (v.getId()) {
-                    R.id.scene_download -> downloadMP3(position)
+                    R.id.scene_download ->  {if(sections[position].free == "true"){downloadMP3(position)}
+                                                else {showVipPage()}}
                     else -> { if(FilesUtils.isHaveFile(sections?.get(position)?.title, title)) {
-                        val pratice = PraticeSections(sections[position].id,sections[position].course_id,sections[position].audio_id)
-                        showSceneResourcePage(sections[position].title,
+                                val pratice = PraticeSections(sections[position].id,sections[position].course_id,sections[position].audio_id)
+                                showSceneResourcePage(sections[position].title,
                                 FilesUtils.getLocalFileUrl(sections[position].title,title),
                                 sceneResponse.content_img_new,
                                 pratice)
+                            }else{
+                        if(sections[position].free == "false"){
+                            showVipPage()
+                        }
                     }
                     }
                 }
             }
         })
+    }
+
+
+    private fun showVipPage(){
+        val intent = VIPCenterActivity.newIntent(this)
+        startActivity(intent)
     }
 
     private fun showSceneResourcePage(sceneName : String, sceneSource : String, bkground: String,sections:PraticeSections){
