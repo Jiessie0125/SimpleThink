@@ -182,11 +182,11 @@ class ScenePlayActivity : AppCompatActivity(), View.OnClickListener, ScenePlayCo
     }
 
     override fun onPause() {
-        player?.let {
-            if (player!!.isPlaying()) {
-                player!!.pause()
-            }
-        }
+//        player?.let {
+//            if (player!!.isPlaying()) {
+//                player!!.pause()
+//            }
+//        }
         super.onPause()
     }
 
