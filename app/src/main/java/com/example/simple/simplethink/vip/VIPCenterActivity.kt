@@ -33,9 +33,9 @@ import kotlinx.android.synthetic.main.title_tool.*
 import java.text.SimpleDateFormat
 import java.util.*
 import android.content.DialogInterface
+import com.example.simple.simplethink.MyApp
 import com.example.simple.simplethink.main.MainActivity
-
-
+import com.example.simple.simplethink.utils.URLConstant.VIPTIME
 
 
 /**
@@ -102,6 +102,9 @@ class VIPCenterActivity : BaseActivity(), VIPCenterContact.View {
         val date = Date(System.currentTimeMillis())
         val startTime = sdf.parse(sub.user.start_at)
         val endTime = sdf.parse(sub.user.end_at)
+        endTime?.let {
+            SharedPreferencesUtil.setString(MyApp.context, VIPTIME,endTime.toString())
+        }
         if(belongCalendar(date,startTime,endTime)) {
             userInfo.text = String.format(getString(R.string.vip_date), sub.user.end_at)
             AuthInstance.getInstance().isVip = true

@@ -7,7 +7,7 @@ import com.example.simple.simplethink.utils.SharedPreferencesUtil
 class AuthInstance {
     var accessToken: String? = null
     var userInfo: UserInfoResponse? = null
-    var isVip: Boolean?= false
+    var isVip: Boolean= false
     var orderId : String ?= null
 
     companion object {
