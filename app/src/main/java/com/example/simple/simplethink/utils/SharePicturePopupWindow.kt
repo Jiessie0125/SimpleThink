@@ -108,7 +108,7 @@ class SharePicturePopupWindow constructor(activity: Activity, courseName: String
         this.height = RelativeLayout.LayoutParams.MATCH_PARENT// 设置弹出窗口的高
         this.isFocusable = true// 设置弹出窗口可
         this.animationStyle = R.style.anim_fade// 设置动画
-        this.setBackgroundDrawable(ColorDrawable(Color.GRAY))
+        this.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         backgroundAlpha(0.5f)
         this.setOnDismissListener(object : PopupWindow.OnDismissListener{
             override fun onDismiss() {
