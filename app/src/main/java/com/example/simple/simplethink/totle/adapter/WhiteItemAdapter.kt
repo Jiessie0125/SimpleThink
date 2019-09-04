@@ -8,20 +8,24 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.example.simple.simplethink.R
 import com.example.simple.simplethink.model.TotleItem
+import com.example.simple.simplethink.model.WhiteNoiseItem
 import com.example.simple.simplethink.model.WhiteNoiseItemResponse
 import com.example.simple.simplethink.totle.fragment.whiteNoisePage.MyLayout
 import com.example.simple.simplethink.utils.DownloadHelper
 import com.example.simple.simplethink.utils.FilesUtils
 import com.example.simple.simplethink.utils.ResourcesUtils
+import kotlinx.android.synthetic.main.fragment_main_postlogon.*
 import java.io.File
 import java.util.ArrayList
 
 /**
  * Created by jiessie on 2019/6/11.
  */
-class WhiteItemAdapter( val context: Activity,val totleLish: List<WhiteNoiseItemResponse>) : RecyclerView.Adapter<WhiteItemViewHolder>() {
+class WhiteItemAdapter( val context: Activity,val totleLish: List<WhiteNoiseItem>) : RecyclerView.Adapter<WhiteItemViewHolder>() {
 
     private var mClickListener : OnWhiteItemClickListener ?= null
     private var mPosition = -1
@@ -34,7 +38,8 @@ class WhiteItemAdapter( val context: Activity,val totleLish: List<WhiteNoiseItem
 
     override fun onBindViewHolder(holder: WhiteItemViewHolder?, position: Int) {
         holder?.mTotleItem?.text = totleLish?.get(position)?.title
-        FilesUtils.showImage(totleLish?.get(position)?.img, context, holder?.mItemImage)
+//        FilesUtils.showImage(totleLish?.get(position)?.img, context, holder?.mItemImage)
+        Glide.with(context).load(totleLish?.get(position)?.img).into(holder?.mItemImage)
         if(position == 0 && checked){
             holder?.mSelectedItemImage?.visibility = View.VISIBLE
             holder?.mWhiteItem?.background  = ResourcesUtils.resource.getDrawable(R.drawable.shape_corner_seleted)
