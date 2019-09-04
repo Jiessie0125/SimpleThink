@@ -22,8 +22,7 @@ import com.example.simple.simplethink.model.PracticeResponse
 import com.example.simple.simplethink.model.SuggestedCourse
 import com.example.simple.simplethink.totle.activity.RecyclerViewSpacesItemDecoration
 import com.example.simple.simplethink.totle.activity.course.CourseDetailActivity
-import com.example.simple.simplethink.utils.DateUtils
-import com.example.simple.simplethink.utils.ErrorHandler
+import com.example.simple.simplethink.utils.*
 import com.example.simple.simplethink.utils.auth.AuthInstance
 import com.example.simple.simplethink.vip.VIPCenterActivity
 import com.example.simple.simplethink.welcome.Activity.AdvertisementActivity
@@ -265,6 +264,14 @@ class PostLogonFragment : LogonBaseFragment(),MainContract.View {
         user_name.text = userInfo?.nickName
         totalTime.text = userInfo?.durationCount
         totalDate.text = userInfo?.continueDay
+        if(AuthInstance.getInstance().isVip) {
+            vip_info.text = String.format(getString(R.string.vip_date), SharedPreferencesUtil.getString(this.activity, URLConstant.VIPTIME))
+            vip_link.text = ResourcesUtils.getString(R.string.to_renew)
+        } else {
+            vip_info.text = ResourcesUtils.getString(R.string.not_vip)
+            vip_link.text = ResourcesUtils.getString(R.string.to_buy)
+        }
+
         avatar.setOnClickListener {
             val intent = UserInfoActivity.newIntent(context)
             startActivity(intent)
