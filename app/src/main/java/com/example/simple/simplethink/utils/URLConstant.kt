@@ -1,7 +1,5 @@
 package com.example.simple.simplethink.utils
 
-import okhttp3.MediaType
-
 /**
  * Created by mobileteam on 2019/6/4.
  */

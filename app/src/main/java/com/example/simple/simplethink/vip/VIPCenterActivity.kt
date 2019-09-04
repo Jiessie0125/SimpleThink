@@ -2,8 +2,8 @@ package com.example.simple.simplethink.vip
 
 import android.annotation.SuppressLint
 import android.app.AlertDialog
-import android.app.Dialog
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
@@ -16,7 +16,6 @@ import android.widget.Toast
 import com.alipay.sdk.app.PayTask
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import com.example.simple.simplethink.R
 import com.example.simple.simplethink.base.BaseActivity
 import com.example.simple.simplethink.login.LoginActivity
 import com.example.simple.simplethink.model.*
@@ -32,10 +31,6 @@ import kotlinx.android.synthetic.main.activity_vip_center.*
 import kotlinx.android.synthetic.main.title_tool.*
 import java.text.SimpleDateFormat
 import java.util.*
-import android.content.DialogInterface
-import com.example.simple.simplethink.MyApp
-import com.example.simple.simplethink.main.MainActivity
-import com.example.simple.simplethink.utils.URLConstant.VIPTIME
 
 
 /**
