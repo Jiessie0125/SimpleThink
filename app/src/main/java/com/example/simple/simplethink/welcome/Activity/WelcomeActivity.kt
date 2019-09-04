@@ -8,6 +8,7 @@ import com.example.simple.simplethink.R
 import com.example.simple.simplethink.main.MainActivity
 import com.example.simple.simplethink.model.BannerResponse
 import com.example.simple.simplethink.netapi.HttpResposityImpl
+import com.example.simple.simplethink.totle.TotleActivity
 import com.example.simple.simplethink.utils.*
 import java.util.*
 
@@ -76,7 +77,7 @@ class WelcomeActivity : Activity() {
     }
 
     private fun enterHomeActivity() {
-        val intent = Intent(this, MainActivity::class.java)
+        val intent = Intent(this, TotleActivity::class.java)
         startActivity(intent)
         finish()
     }

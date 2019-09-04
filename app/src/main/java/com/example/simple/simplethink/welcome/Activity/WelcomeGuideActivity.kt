@@ -14,6 +14,7 @@ import android.widget.LinearLayout
 
 import com.example.simple.simplethink.R
 import com.example.simple.simplethink.main.MainActivity
+import com.example.simple.simplethink.totle.TotleActivity
 import com.example.simple.simplethink.utils.SharedPreferencesUtil
 import com.example.simple.simplethink.welcome.Adapter.GuideViewPagerAdapter
 
@@ -141,7 +142,7 @@ class WelcomeGuideActivity : Activity(), View.OnClickListener {
     }
 
     private fun enterMainActivity() {
-        val intent = Intent(this@WelcomeGuideActivity, MainActivity::class.java)
+        val intent = Intent(this@WelcomeGuideActivity, TotleActivity::class.java)
         startActivity(intent)
         SharedPreferencesUtil.setBoolean(this@WelcomeGuideActivity, SharedPreferencesUtil.FIRST_OPEN, false)
         finish()

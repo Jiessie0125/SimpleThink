@@ -72,6 +72,9 @@ class TotleActivity: AppCompatActivity() {
         mFragments.add(whithFragment.createFragment())
         initAdapter()
         initTabView()
+    }
+
+    fun initUserInfo(){
         val userInfo = AuthInstance.getInstance().userInfo
         Glide.with(this).load(userInfo?.avatar).apply(RequestOptions().placeholder(R.drawable.photo)).into(user)
     }
