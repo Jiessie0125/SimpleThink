@@ -15,4 +15,6 @@ object URLConstant {
     const val VIP = "vip"
     const val FREE = "free"
     const val THIRD_PSD = "w123456"
+    const val VIPTIME = "VIPTIME"
+    const val ISVIP = "ISVIP"
 }

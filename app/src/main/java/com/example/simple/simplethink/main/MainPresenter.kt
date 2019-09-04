@@ -75,4 +75,15 @@ class MainPresenter : MainContract.Presenter {
                     view?.onFailure(error)
                 })
     }
+    override fun getSubscription(){
+        repository.getSubscription().subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .map { result -> result }
+                .subscribe({message ->
+                    view?.updateVipItem(message)
+                },{
+                    error->
+                    view?.onFailure(error)
+                })
+    }
 }

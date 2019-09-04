@@ -68,6 +68,13 @@ class WhithNoiseFragment : Fragment(),WhiteNoiseContact.View ,View.OnClickListen
         persenter = WhiteNoisePresenter(httpResposityImpl, this,this.activity!!)
         persenter.getWhiteNoise()
         initNumber()
+        white_set_time.setOnClickListener {
+            if(set_time_layout.visibility == View.GONE){
+                set_time_layout.visibility = View.VISIBLE
+            }else{
+                set_time_layout.visibility = View.GONE
+            }
+        }
     }
 
     private fun initNumber(){

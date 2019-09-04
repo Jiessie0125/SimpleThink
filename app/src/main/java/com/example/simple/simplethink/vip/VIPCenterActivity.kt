@@ -33,9 +33,9 @@ import kotlinx.android.synthetic.main.title_tool.*
 import java.text.SimpleDateFormat
 import java.util.*
 import android.content.DialogInterface
+import com.example.simple.simplethink.MyApp
 import com.example.simple.simplethink.main.MainActivity
-
-
+import com.example.simple.simplethink.utils.URLConstant.VIPTIME
 
 
 /**
@@ -99,16 +99,18 @@ class VIPCenterActivity : BaseActivity(), VIPCenterContact.View {
     }
 
     override fun updateVipItem(sub : SubscriptionResponse) {
+        var isVip: Boolean= false
         val date = Date(System.currentTimeMillis())
         val startTime = sdf.parse(sub.user.start_at)
         val endTime = sdf.parse(sub.user.end_at)
+        val expireTime = sub.user.end_at.substring(0,sub.user.end_at.indexOf(" "))
         if(belongCalendar(date,startTime,endTime)) {
-            userInfo.text = String.format(getString(R.string.vip_date), sub.user.end_at)
-            AuthInstance.getInstance().isVip = true
+            userInfo.text = String.format(getString(R.string.vip_date), expireTime)
+            isVip = true
         }else{
             userInfo.text = ResourcesUtils.getString(R.string.not_vip)
         }
-        vipItemAdapter = VIPItemAdapter(this, sub.common,AuthInstance.getInstance().isVip)
+        vipItemAdapter = VIPItemAdapter(this, sub.common,isVip)
         vip_detail.layoutManager = LinearLayoutManager(this)
         vip_detail.adapter = vipItemAdapter
         vipItemAdapter.notifyDataSetChanged()

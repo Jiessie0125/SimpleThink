@@ -6,6 +6,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.example.simple.simplethink.MyApp
 import com.example.simple.simplethink.R
 import com.example.simple.simplethink.main.MainContract
 import com.example.simple.simplethink.main.MainPresenter
@@ -16,19 +17,17 @@ import com.example.simple.simplethink.main.adapter.CourseAdapter
 import com.example.simple.simplethink.main.adapter.OnCoursetemClickListener
 import com.example.simple.simplethink.main.adapter.OnCourseClickListener
 import com.example.simple.simplethink.main.adapter.PraticeAdapter
-import com.example.simple.simplethink.model.ActivityResponse
-import com.example.simple.simplethink.model.BottomActivityResponse
-import com.example.simple.simplethink.model.PracticeResponse
-import com.example.simple.simplethink.model.SuggestedCourse
+import com.example.simple.simplethink.model.*
 import com.example.simple.simplethink.totle.activity.RecyclerViewSpacesItemDecoration
 import com.example.simple.simplethink.totle.activity.course.CourseDetailActivity
-import com.example.simple.simplethink.utils.DateUtils
-import com.example.simple.simplethink.utils.ErrorHandler
+import com.example.simple.simplethink.utils.*
 import com.example.simple.simplethink.utils.auth.AuthInstance
 import com.example.simple.simplethink.vip.VIPCenterActivity
 import com.example.simple.simplethink.welcome.Activity.AdvertisementActivity
+import kotlinx.android.synthetic.main.activity_vip_center.*
 import kotlinx.android.synthetic.main.fragment_main_postlogon.*
 import java.io.Serializable
+import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 import kotlin.collections.HashMap
@@ -48,6 +47,7 @@ class PostLogonFragment : LogonBaseFragment(),MainContract.View {
     var sortedPracticeMap = HashMap<String, ArrayList<PracticeResponse>>()
     var latestThreePractice = ArrayList<PracticeResponse>()
     lateinit var selectionList: List<ActivityResponse>
+    var sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
 
     override fun onGetPracticeSuccess(message: Map<String, List<PracticeResponse>>?) {
         message?.let {
@@ -105,7 +105,6 @@ class PostLogonFragment : LogonBaseFragment(),MainContract.View {
             startActivity(intent)
         }
         setSuggestedActivity(message)
-
     }
 
     override fun onGetBottomActivitySuccess(message: BottomActivityResponse) {
@@ -214,8 +213,7 @@ class PostLogonFragment : LogonBaseFragment(),MainContract.View {
     private fun redirector(acitivityResponse: ActivityResponse?) {
         when (acitivityResponse?.tag) {
             "vip" -> {
-                val intent = VIPCenterActivity.newIntent(context)
-                startActivity(intent)
+                showActivity()
             }
             "lessions" -> {
                 val intent = CourseDetailActivity.newIntent(acitivityResponse.lessionsID.toInt(),context)
@@ -227,6 +225,11 @@ class PostLogonFragment : LogonBaseFragment(),MainContract.View {
             "advertisment" -> enterActivity(AdvertisementActivity::class.java, "", acitivityResponse)
         }
 
+    }
+
+    private fun showActivity(){
+        val intent = VIPCenterActivity.newIntent(context)
+        startActivity(intent)
     }
 
     private fun enterActivity(activity: Class<*>, from: String, acitivityResponse: ActivityResponse?) {
@@ -255,6 +258,7 @@ class PostLogonFragment : LogonBaseFragment(),MainContract.View {
     }
 
     private fun getDatas() {
+        presenter.getSubscription()
         presenter.getSuggestedActivity()
         presenter.getPracticeList()
     }
@@ -265,9 +269,14 @@ class PostLogonFragment : LogonBaseFragment(),MainContract.View {
         user_name.text = userInfo?.nickName
         totalTime.text = userInfo?.durationCount
         totalDate.text = userInfo?.continueDay
+
         avatar.setOnClickListener {
             val intent = UserInfoActivity.newIntent(context)
             startActivity(intent)
+        }
+
+        vip_link.setOnClickListener {
+            showActivity()
         }
     }
 
@@ -275,5 +284,19 @@ class PostLogonFragment : LogonBaseFragment(),MainContract.View {
         presenter.unbind()
         handler.removeCallbacks(runnable)
         super.onDestroy()
+    }
+
+    override fun updateVipItem(sub: SubscriptionResponse) {
+        val date = Date(System.currentTimeMillis())
+        val startTime = sdf.parse(sub.user.start_at)
+        val endTime = sdf.parse(sub.user.end_at)
+        val expireTime = sub.user.end_at.substring(0,sub.user.end_at.indexOf(" "))
+        if(FilesUtils.belongCalendar(date, startTime, endTime)) {
+            vip_info.text = String.format(getString(R.string.vip_date), expireTime)
+            vip_link.text = ResourcesUtils.getString(R.string.to_renew)
+        }else{
+            vip_info.text = ResourcesUtils.getString(R.string.not_vip)
+            vip_link.text = ResourcesUtils.getString(R.string.to_buy)
+        }
     }
 }

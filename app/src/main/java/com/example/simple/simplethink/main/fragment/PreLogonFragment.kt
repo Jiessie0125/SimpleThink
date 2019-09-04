@@ -13,10 +13,7 @@ import com.example.simple.simplethink.main.MainPresenter
 import com.example.simple.simplethink.main.activity.SelectionDetailsActivity
 import com.example.simple.simplethink.main.adapter.CourseAdapter
 import com.example.simple.simplethink.main.adapter.OnCoursetemClickListener
-import com.example.simple.simplethink.model.ActivityResponse
-import com.example.simple.simplethink.model.BottomActivityResponse
-import com.example.simple.simplethink.model.PracticeResponse
-import com.example.simple.simplethink.model.SuggestedCourse
+import com.example.simple.simplethink.model.*
 import com.example.simple.simplethink.totle.activity.RecyclerViewSpacesItemDecoration
 import com.example.simple.simplethink.totle.activity.course.CourseDetailActivity
 import com.example.simple.simplethink.utils.DateUtils
@@ -242,4 +239,6 @@ class PreLogonFragment : LogonBaseFragment(), MainContract.View {
         var courseActivity = CourseDetailActivity.newIntent(title, context)
         startActivity(courseActivity)
     }
+
+    override fun updateVipItem(sub: SubscriptionResponse) {}
 }

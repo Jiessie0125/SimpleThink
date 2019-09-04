@@ -1,9 +1,6 @@
 package com.example.simple.simplethink.main
 
-import com.example.simple.simplethink.model.ActivityResponse
-import com.example.simple.simplethink.model.BottomActivityResponse
-import com.example.simple.simplethink.model.PracticeResponse
-import com.example.simple.simplethink.model.SuggestedCourse
+import com.example.simple.simplethink.model.*
 
 /**
  * Created by 111 on 2019/7/18.
@@ -16,6 +13,7 @@ interface MainContract {
         fun onGetSuggestedCourseSuccess(message: List<SuggestedCourse>)
         fun onGetPracticeSuccess(message: Map<String, List<PracticeResponse>>?)
         fun onFailure(e: Throwable)
+        fun updateVipItem(sub : SubscriptionResponse)
     }
 
     interface Presenter {
@@ -25,5 +23,6 @@ interface MainContract {
         fun getBottomActivity()
         fun getSuggestedCourse()
         fun getPracticeList()
+        fun getSubscription()
     }
 }

@@ -64,7 +64,7 @@
         <activity android:name=".totle.activity.course.CourseDetailActivity"
             android:screenOrientation="portrait"/>
         <activity android:name=".vip.VIPCenterActivity"
-            android:launchMode="singleInstance"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait"/>
         <activity android:name=".totle.activity.down.DownloadActivity"
             android:screenOrientation="portrait"/>
