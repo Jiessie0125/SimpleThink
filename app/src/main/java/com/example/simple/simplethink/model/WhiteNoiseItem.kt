@@ -11,6 +11,7 @@ data class WhiteNoiseItem(
         @SerializedName("id") val id : Int?,
         @SerializedName("title") val title : String,
         @SerializedName("img") val img : Int,
+        @SerializedName("imgSelected") val imgSelected : Int,
         @SerializedName("url") val url : String,
         @SerializedName("sequence") val sequence : String
 ): Serializable

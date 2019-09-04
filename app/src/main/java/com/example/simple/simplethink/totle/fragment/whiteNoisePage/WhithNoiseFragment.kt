@@ -218,56 +218,66 @@ class WhithNoiseFragment : Fragment(), View.OnClickListener {
         for (index in 1 until 10) {
             var title = ""
             var img = 0
+            var img_selected = 0
             var url = ""
             when (index) {
                 1 -> {
                     title = getString(R.string.white_noise_1)
-                    img = R.drawable.shuidi
+                    img = R.drawable.yu
+                    img_selected =  R.drawable.yu_selected
                     url = "m01.mp3";
                 }
                 2 -> {
                     title = getString(R.string.white_noise_2)
-                    img = R.drawable.shuidi
+                    img = R.drawable.ocean
+                    img_selected =  R.drawable.ocean_selected
                     url = "m02.mp3";
                 }
                 3 -> {
                     title = getString(R.string.white_noise_3)
-                    img = R.drawable.shuidi
+                    img = R.drawable.bird
+                    img_selected =  R.drawable.bird_selected
                     url = "m03.mp3";
                 }
                 4 -> {
                     title = getString(R.string.white_noise_1)
                     img = R.drawable.shuidi
+                    img_selected =  R.drawable.shuidi_selected
                     url = "m04.mp3";
                 }
                 5 -> {
                     title = getString(R.string.white_noise_5)
-                    img = R.drawable.shuidi
+                    img = R.drawable.fire
+                    img_selected =  R.drawable.fire_selected
                     url = "m05.mp3";
                 }
                 6 -> {
                     title = getString(R.string.white_noise_6)
-                    img = R.drawable.shuidi
+                    img = R.drawable.wing
+                    img_selected =  R.drawable.wing_selected
                     url = "m06.mp3";
                 }
                 7 -> {
                     title = getString(R.string.white_noise_7)
-                    img = R.drawable.shuidi
+                    img = R.drawable.train
+                    img_selected =  R.drawable.train_selected
                     url = "m07.mp3";
                 }
                 8 -> {
                     title = getString(R.string.white_noise_8)
-                    img = R.drawable.shuidi
+                    img = R.drawable.shuye
+                    img_selected =  R.drawable.shuye_selected
                     url = "m08.mp3";
                 }
                 9 -> {
                     title = getString(R.string.white_noise_9)
-                    img = R.drawable.shuidi
+                    img = R.drawable.shui
+                    img_selected =  R.drawable.shui_selected
                     url = "m09.mp3";
                 }
 
             }
-            val whiteNoiseItem = WhiteNoiseItem(index, title, img, url, index.toString())
+            val whiteNoiseItem = WhiteNoiseItem(index, title, img, img_selected, url, index.toString())
             list+= whiteNoiseItem
         }
         return list

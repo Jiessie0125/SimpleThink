@@ -44,11 +44,13 @@ class WhiteItemAdapter( val context: Activity,val totleLish: List<WhiteNoiseItem
             holder?.mSelectedItemImage?.visibility = View.VISIBLE
             holder?.mWhiteItem?.background  = ResourcesUtils.resource.getDrawable(R.drawable.shape_corner_seleted)
             holder?.mTotleItem?.setTextColor(ResourcesUtils.resource.getColor(R.color.wordWhite))
+            Glide.with(context).load(totleLish?.get(position)?.imgSelected).into(holder?.mItemImage)
             checked = false
         }else if(isShow && mPosition == position){
             holder?.mSelectedItemImage?.visibility = View.VISIBLE
             holder?.mWhiteItem?.background  = ResourcesUtils.resource.getDrawable(R.drawable.shape_corner_seleted)
             holder?.mTotleItem?.setTextColor(ResourcesUtils.resource.getColor(R.color.wordWhite))
+            Glide.with(context).load(totleLish?.get(position)?.imgSelected).into(holder?.mItemImage)
         }else{
             holder?.mSelectedItemImage?.visibility = View.GONE
             holder?.mWhiteItem?.background  = ResourcesUtils.resource.getDrawable(R.drawable.shape_corner)
