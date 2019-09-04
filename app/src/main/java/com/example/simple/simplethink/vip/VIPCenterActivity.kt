@@ -16,6 +16,7 @@ import android.widget.Toast
 import com.alipay.sdk.app.PayTask
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.example.simple.simplethink.R
 import com.example.simple.simplethink.base.BaseActivity
 import com.example.simple.simplethink.login.LoginActivity
 import com.example.simple.simplethink.model.*

@@ -21,7 +21,7 @@ class WhiteNoisePresenter(val httpResposityImpl : HttpResposityImpl, val view: W
                 .observeOn(AndroidSchedulers.mainThread())
                 .map { result -> result }
                 .subscribe({message ->
-                    view.updateView(message)
+//                    view.updateView(message)
                 },{
                     error->
                     Log.e("---", "----getTotleSortfail:" + error)

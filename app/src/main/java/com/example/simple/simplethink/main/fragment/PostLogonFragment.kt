@@ -269,7 +269,6 @@ class PostLogonFragment : LogonBaseFragment(),MainContract.View {
         user_name.text = userInfo?.nickName
         totalTime.text = userInfo?.durationCount
         totalDate.text = userInfo?.continueDay
-
         avatar.setOnClickListener {
             val intent = UserInfoActivity.newIntent(context)
             startActivity(intent)

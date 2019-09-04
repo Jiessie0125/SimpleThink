@@ -40,6 +40,7 @@ class TotlePresenter( val view: TotleActivity) : TotleContact.Presenter {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ message ->
                     AuthInstance.getInstance().userInfo = message
+                    view.initUserInfo()
                 }, { error ->
                    // view?.onFailure(error)
                 })

@@ -99,4 +99,15 @@
     <string name="share_img">分享图片</string>
 
     <string name="practice_record">练习记录</string>
+
+    <string name="white_noise_1">雨天</string>
+    <string name="white_noise_2">海浪</string>
+    <string name="white_noise_3">鸟叫声</string>
+    <string name="white_noise_4">水滴</string>
+    <string name="white_noise_5">篝火</string>
+    <string name="white_noise_6">风</string>
+    <string name="white_noise_7">火车</string>
+    <string name="white_noise_8">落叶</string>
+    <string name="white_noise_9">溪流</string>
+
 </resources>
