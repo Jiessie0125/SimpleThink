@@ -54,10 +54,12 @@
                     android:textColor="@color/wordWhite"
                     android:textSize="@dimen/hello_text_size"/>
                 <ImageView
+                    android:id="@+id/course_vip_img"
                     android:layout_width="15dp"
                     android:layout_height="10dp"
                     android:layout_marginLeft="10dp"
                     android:layout_gravity="center_vertical"
+                    android:visibility="gone"
                     android:src="@drawable/an_crown"/>
             </LinearLayout>
             <TextView
@@ -71,6 +73,7 @@
                 android:layout_marginTop="20dp"
                 android:textColor="@color/courseDetail"/>
             <Button
+                android:id="@+id/download_all_course"
                 android:layout_marginTop="40dp"
                 android:layout_width="265dp"
                 android:layout_height="45dp"

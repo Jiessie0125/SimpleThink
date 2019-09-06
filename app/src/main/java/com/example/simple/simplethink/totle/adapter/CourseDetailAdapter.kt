@@ -17,7 +17,6 @@ import com.example.simple.simplethink.utils.DownloadHelper
 import com.example.simple.simplethink.utils.FilesUtils
 import com.example.simple.simplethink.utils.FilesUtils.isHaveFile
 import com.example.simple.simplethink.utils.ResourcesUtils
-import com.example.simple.simplethink.utils.URLConstant
 import java.io.File
 
 /**
@@ -42,7 +41,7 @@ class CourseDetailAdapter(val context: Activity, val totleLish : List<CourseSect
             holder?.mRelativeLayout?.background = ResourcesUtils.resource.getDrawable(R.color.courseDetailDownload)
             holder?.mCoursePlay?.visibility = View.VISIBLE
             holder?.mCourseViptem?.visibility = View.GONE
-        }else if(isShow && mPosition == position){
+        }else if(/*isShow &&*/ mPosition == position){
             holder?.mItemPercent?.visibility = View.VISIBLE
             holder?.mCourseViptem?.visibility = View.GONE
             updateProcessBar(totleLish[position].url,totleLish[position].title,holder?.mProgressItem)

@@ -24,6 +24,7 @@ import com.example.simple.simplethink.vip.VIPCenterActivity
 import kotlinx.android.synthetic.main.activity_course_detail.*
 import android.graphics.BitmapFactory
 import android.graphics.Bitmap
+import com.example.simple.simplethink.model.bean.CourseSections
 import com.example.simple.simplethink.utils.SharePicturePopupWindow
 import kotlinx.android.synthetic.main.activity_test.*
 
@@ -38,6 +39,7 @@ class CourseDetailActivity: BaseActivity(), CourseDetailContact.View{
     private val supportMediaList = arrayOf<String>(ShareMediaPopupWindow.WECHAT, ShareMediaPopupWindow.MOMENTS, ShareMediaPopupWindow.QQ, ShareMediaPopupWindow.QQSPACE, ShareMediaPopupWindow.WEIBO)
     private var isManager =false
     private val bean = ShareMediaBean()
+    var downLoadCourse : List<CourseSections>? =null
 
     companion object {
         const val COURSEID = "COURSEID"
@@ -82,10 +84,19 @@ class CourseDetailActivity: BaseActivity(), CourseDetailContact.View{
             initBean()
             showPopFormBottom()
         }
+        download_all_course.setOnClickListener {
+            downLoadCourse?.let {
+                for (index in 0..(downLoadCourse as List<CourseSections>).size-1){
+                    isVipItem((downLoadCourse as List<CourseSections>)[index].free,index,false)
+                }
+            }
+        }
     }
 
     override fun setCourseAdapter(courseResponse : CourseResponse) {
+        downLoadCourse = courseResponse.sections
         course_title.text = courseResponse.title
+        if(courseResponse.type_new == "vip"){course_vip_img.visibility = View.VISIBLE}
         content_detail.text = courseResponse.content_new
         course_detail_totle.text = "("+ courseResponse.section_total_count+")"
         FilesUtils.showImage(courseResponse.title_img_new, this, content_bk)
@@ -96,7 +107,7 @@ class CourseDetailActivity: BaseActivity(), CourseDetailContact.View{
         courseDetailAdapter.setOnItemClickListener(object : CourseDetailAdapter.OnCourseDetailItemClickListener {
             override fun onItemClick(v: View?, position: Int) {
                 when(v?.id){
-                    R.id.course_download -> isVipItem(courseResponse.sections[position].free,position)
+                    R.id.course_download -> isVipItem(courseResponse.sections[position].free,position,true)
                     R.id.course_play -> {
                         val pratice = PraticeSections(courseResponse.sections[position].id,courseResponse.sections[position].course_id,courseResponse.sections[position].audio_id)
                         showSceneResourcePage(courseResponse.sections[position].title,
@@ -112,10 +123,10 @@ class CourseDetailActivity: BaseActivity(), CourseDetailContact.View{
         courseDetailAdapter.changetShowDelImage(isManager ,position)
     }
 
-    private fun isVipItem(free: String,position: Int){
+    private fun isVipItem(free: String,position: Int,downloadOnly: Boolean){
         when(free){
             "true" -> downloadCourseMP3(position)
-            "false" -> showVipPage()
+            "false" -> { if(downloadOnly)showVipPage() }
         }
     }
 
