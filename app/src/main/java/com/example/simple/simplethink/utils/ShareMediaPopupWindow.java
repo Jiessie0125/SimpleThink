@@ -255,7 +255,7 @@ public class ShareMediaPopupWindow extends PopupWindow implements View.OnClickLi
     private void showQQSpaceShare(ShareMediaBean bean) {
         Platform.ShareParams sp = new Platform.ShareParams();
         sp.setTitle(bean.getTitle());
-        sp.setTitleUrl(bean.getTitleUrl()); // 标题的超链接
+        sp.setTitleUrl(bean.getUrl()); // 标题的超链接
         sp.setText(bean.getText());
         sp.setImageUrl(bean.getImageUrl());
         sp.setImagePath(bean.getImagePath());
