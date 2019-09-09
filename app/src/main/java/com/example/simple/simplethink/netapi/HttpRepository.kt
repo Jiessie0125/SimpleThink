@@ -31,7 +31,7 @@ interface HttpRepository {
     fun getSuggestedActivity(): Observable<List<ActivityResponse>>
     fun getBottomActivity(): Observable<BottomActivityResponse>
     fun getSuggestedCourse(): Observable<List<SuggestedCourse>>
-    fun register(password: String, username: String, code: String?): Observable<ResponseBody>
+    fun register(password: String, username: String, code: String="", gender: String="other", nickname: String="", avatar: String="", rangeAge: String="", rangeLocation: String=""): Observable<ResponseBody>
     fun getSubscription(): Observable<SubscriptionResponse>
     fun appLogoff(): Observable<ResponseBody>
     fun refresh(refresh : String): Observable<AuthResponse>

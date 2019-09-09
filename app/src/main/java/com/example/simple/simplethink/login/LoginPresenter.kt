@@ -1,6 +1,7 @@
 package com.example.simple.simplethink.login
 
 import com.example.simple.simplethink.MyApp
+import cn.sharesdk.framework.PlatformDb
 import com.example.simple.simplethink.netapi.HttpRepository
 import com.example.simple.simplethink.netapi.HttpResposityImpl
 import com.example.simple.simplethink.netapi.auth.AuthRepository
@@ -29,12 +30,15 @@ class LoginPresenter : LoginContract.Presenter {
         this.view = null
     }
 
-    override fun login(userName: String) {
+    override fun login(platformDb: PlatformDb) {
         view?.loading()
-        authRepository.checkIsUserExist(userName).subscribeOn(Schedulers.io())
+        authRepository.checkIsUserExist(platformDb.userId).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ message ->
-                    if (message.exist?.toBoolean() == true) auth(userName) else register(userName)
+                    if (message.exist?.toBoolean() == true)
+                        auth(platformDb.userId)
+                    else
+                        register(platformDb.userId,platformDb.userName,platformDb.userIcon,platformDb.userGender)
                 }, { error ->
                     view?.dismiss()
                     view?.onFailure(error)
@@ -58,8 +62,9 @@ class LoginPresenter : LoginContract.Presenter {
                 })
     }
 
-    private fun register(userName: String) {
-        repository.register(URLConstant.THIRD_PSD, userName, null).subscribeOn(Schedulers.io())
+    private fun register(userName: String, nickName: String, avatar: String, gender: String) {
+        val myGender = if (gender.equals("m", true)) "male" else if (gender.equals("f", true)) "female" else "other"
+        repository.register(password = URLConstant.THIRD_PSD, username = userName, nickname = nickName, avatar = avatar, gender = myGender).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ message ->
                     auth(userName)

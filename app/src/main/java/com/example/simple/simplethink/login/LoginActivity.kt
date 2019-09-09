@@ -105,7 +105,7 @@ class LoginActivity : Activity(), PlatformActionListener, LoginContract.View {
         plat.platformActionListener = this
         plat.SSOSetting(true)
         ShareSDK.setActivity(this)
-        plat.authorize()
+        plat.showUser(null)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -114,10 +114,9 @@ class LoginActivity : Activity(), PlatformActionListener, LoginContract.View {
         }
     }
 
-    override fun onComplete(p0: Platform?, p1: Int, p2: HashMap<String, Any>?) {
-        val userId = p0?.db?.userId
-        userId?.let {
-            runOnUiThread { presenter.login(it) }
+    override fun onComplete(plat: Platform?, p1: Int, p2: HashMap<String, Any>?) {
+        plat?.db?.let {
+            runOnUiThread { presenter.login(plat.db) }
             return
         }
         runOnUiThread { ErrorHandler.showErrorWithToast(this, R.string.login_3rd_party_auth_fail) }

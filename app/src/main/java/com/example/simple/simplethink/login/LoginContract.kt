@@ -1,5 +1,7 @@
 package com.example.simple.simplethink.login
 
+import cn.sharesdk.framework.PlatformDb
+
 /**
  * Created by Ashur on 2019/8/2.
  */
@@ -17,7 +19,7 @@ interface LoginContract {
     interface Presenter {
         fun bind(view: View)
         fun unbind()
-        fun login(userName: String)
+        fun login(platformDb: PlatformDb)
         fun loadUserInfo()
     }
 }
