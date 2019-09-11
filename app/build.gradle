@@ -18,6 +18,7 @@ MobSDK {
                 appKey "411207932"
                 appSecret "9aeb5b839272c7626f1286e2b21e15f1"
                 shareByAppClient true
+                callbackUri "https://api.weibo.com/oauth2/default.html"
                 enable true
             }
             Wechat {
