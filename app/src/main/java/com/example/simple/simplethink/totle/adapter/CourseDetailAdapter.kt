@@ -1,7 +1,6 @@
 package com.example.simple.simplethink.totle.adapter
 
 import android.app.Activity
-import android.os.Environment
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -10,7 +9,6 @@ import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
 import com.example.simple.simplethink.R
-import com.example.simple.simplethink.model.Course
 import com.example.simple.simplethink.model.bean.CourseSections
 import com.example.simple.simplethink.totle.activity.view.ProgressBarView
 import com.example.simple.simplethink.utils.DownloadHelper
@@ -27,6 +25,8 @@ class CourseDetailAdapter(val context: Activity, val totleLish : List<CourseSect
     private var mClickListener : OnCourseDetailItemClickListener?= null
     private var mPosition = -1
     private var isShow = false
+    var downloadAllPositon = 0
+    var IsDownloadAllCourse = false
 
     override fun getItemCount(): Int {
         return totleLish?.size!!
@@ -106,8 +106,6 @@ class CourseDetailAdapter(val context: Activity, val totleLish : List<CourseSect
         }
     }
     fun updateProcessBar(url: String,FILE_NAME: String, processBar: ProgressBarView?){
-       // var filePath = Environment.getExternalStorageDirectory().toString() + File.separator +COURSEDETAIL
-       // var filePath = context.getExternalFilesDir(COURSEDETAIL)
         val folder = context.getExternalFilesDir(courseTitle)
         if (!folder.exists()) {
             folder.mkdirs()
@@ -115,6 +113,10 @@ class CourseDetailAdapter(val context: Activity, val totleLish : List<CourseSect
         var localPath = folder.getPath() + File.separator + FILE_NAME
         DownloadHelper.download(url, localPath, object : DownloadHelper.OnDownloadListener {
             override fun onFail(file: File, failInfo: String?) {
+                if(IsDownloadAllCourse){
+                    downloadAllPositon = downloadAllPositon + 1
+                    downloadAllCourse(downloadAllPositon)
+                }
             }
 
             override fun onProgress(progress: Int?) {
@@ -127,8 +129,21 @@ class CourseDetailAdapter(val context: Activity, val totleLish : List<CourseSect
 
             override fun onSuccess(file: File) {
                 notifyDataSetChanged()
+                if(IsDownloadAllCourse){
+                    downloadAllPositon = downloadAllPositon + 1
+                    downloadAllCourse(downloadAllPositon)
+                }
             }
         })
+    }
+
+    fun downloadAllCourse(positon : Int){
+        IsDownloadAllCourse = true
+        if(positon == totleLish.size){
+            return
+        }else{
+            if(totleLish[positon].free == "true") changetShowDelImage(true,positon)
+        }
     }
 
 }

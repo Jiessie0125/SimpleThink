@@ -2,31 +2,26 @@ package com.example.simple.simplethink.totle.activity.course
 
 import android.content.Context
 import android.content.Intent
+import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.Gravity
 import android.view.View
 import cn.sharesdk.framework.Platform
-import com.bumptech.glide.Glide
 import com.example.simple.simplethink.R
 import com.example.simple.simplethink.base.BaseActivity
-import com.example.simple.simplethink.model.BannerResponse
 import com.example.simple.simplethink.model.PraticeSections
-import com.example.simple.simplethink.model.Sections
 import com.example.simple.simplethink.model.bean.CourseResponse
+import com.example.simple.simplethink.model.bean.CourseSections
 import com.example.simple.simplethink.model.bean.ShareMediaBean
 import com.example.simple.simplethink.netapi.HttpResposityImpl
 import com.example.simple.simplethink.totle.activity.ScenePlayActivity
 import com.example.simple.simplethink.totle.adapter.CourseDetailAdapter
 import com.example.simple.simplethink.utils.FilesUtils
 import com.example.simple.simplethink.utils.ShareMediaPopupWindow
+import com.example.simple.simplethink.utils.SharePicturePopupWindow
 import com.example.simple.simplethink.vip.VIPCenterActivity
 import kotlinx.android.synthetic.main.activity_course_detail.*
-import android.graphics.BitmapFactory
-import android.graphics.Bitmap
-import com.example.simple.simplethink.model.bean.CourseSections
-import com.example.simple.simplethink.utils.SharePicturePopupWindow
-import kotlinx.android.synthetic.main.activity_test.*
 
 
 /**
@@ -86,9 +81,10 @@ class CourseDetailActivity: BaseActivity(), CourseDetailContact.View{
         }
         download_all_course.setOnClickListener {
             downLoadCourse?.let {
-                for (index in 0..(downLoadCourse as List<CourseSections>).size-1){
+                courseDetailAdapter.downloadAllCourse(0)
+                /*for (index in 0..(downLoadCourse as List<CourseSections>).size-1){
                     isVipItem((downLoadCourse as List<CourseSections>)[index].free,index,false)
-                }
+                }*/
             }
         }
     }
