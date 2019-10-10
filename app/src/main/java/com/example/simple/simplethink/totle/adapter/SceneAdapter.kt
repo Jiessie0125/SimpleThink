@@ -19,7 +19,7 @@ import java.util.ArrayList
 /**
  * Created by jiessie on 2019/6/11.
  */
-class SceneAdapter(val context: Activity,val sceneList : List<ScenesResponse>) : RecyclerView.Adapter<SceneViewHolder>() {
+class SceneAdapter   (val context: Activity,val sceneList : List<ScenesResponse>) : RecyclerView.Adapter<SceneViewHolder>() {
 
     var totleLish = ArrayList<SceneItem>()
     private var mClickListener : OnItemClickListener ?= null

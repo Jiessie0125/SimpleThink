@@ -61,7 +61,7 @@ class LoginActivity : Activity(), PlatformActionListener, LoginContract.View {
         login_via_wechat.setOnClickListener { loginViaWechat() }
         login_via_qq.setOnClickListener { loginViaQQ() }
         login_via_weibo.setOnClickListener { loginViaWeibo() }
-        login_close_btn.setOnClickListener { close() }
+        login_close_btn.setOnClickListener { finish() }
         login_policy.setOnClickListener{policy()}
         register_btn.setOnClickListener { register() }
     }
@@ -98,7 +98,7 @@ class LoginActivity : Activity(), PlatformActionListener, LoginContract.View {
     }
 
     private fun close() {
-        finish()
+        this.finish()
     }
 
     private fun authorize(plat: Platform) {

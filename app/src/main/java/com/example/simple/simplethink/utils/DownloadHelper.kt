@@ -16,7 +16,7 @@ internal object DownloadHelper {
         task.execute()
     }
 
-    private class DownloadAsyncTask internal constructor(private val mUrl: String, private val mFilePath: String, private val mListener: OnDownloadListener?) : AsyncTask<String, Int, Boolean>() {
+     class DownloadAsyncTask internal constructor(private val mUrl: String, private val mFilePath: String, private val mListener: OnDownloadListener?) : AsyncTask<String, Int, Boolean>() {
         private var mFailInfo: String? = null
         override fun doInBackground(vararg params: String): Boolean? {
             val pdfUrl = mUrl

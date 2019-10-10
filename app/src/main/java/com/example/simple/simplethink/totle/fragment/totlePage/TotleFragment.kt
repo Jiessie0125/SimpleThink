@@ -18,6 +18,7 @@ import com.example.simple.simplethink.R
 import com.example.simple.simplethink.buzzy.BuzzyCourseActivity
 import com.example.simple.simplethink.model.*
 import com.example.simple.simplethink.netapi.HttpResposityImpl
+import com.example.simple.simplethink.totle.BaseFragment
 import com.example.simple.simplethink.totle.activity.RecyclerViewSpacesItemDecoration
 import com.example.simple.simplethink.totle.activity.course.CourseDetailActivity
 import com.example.simple.simplethink.totle.adapter.CourseAdapter
@@ -52,6 +53,8 @@ class TotleFragment : Fragment(), TotleContact.View {
     private var handler: Handler = Handler()
     private var runnable: Runnable = Runnable {}
     private var activityCount: Int = 0
+    private val mHasLoadedOnce = false
+    private val isPrepared = false
     //lateinit var getTotleSort : List<TotleSortResponse>
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -275,4 +278,5 @@ class TotleFragment : Fragment(), TotleContact.View {
         totleList = ArrayList<TotleSortResponse>()
         courseList = ArrayList<TotleItem>()
     }
+
 }

@@ -12,7 +12,6 @@
         android:id="@+id/recycle_buzzy_course_img"
         android:layout_width="155dp"
         android:layout_height="115dp"
-        android:src="@drawable/scene_down"
         android:scaleType="fitXY"
         />
     <TextView

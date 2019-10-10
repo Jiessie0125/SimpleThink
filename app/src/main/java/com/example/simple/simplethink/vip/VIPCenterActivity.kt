@@ -160,6 +160,7 @@ class VIPCenterActivity : BaseActivity(), VIPCenterContact.View {
         }else{
             val intent = LoginActivity.newIntent(this)
             startActivity(intent)
+            finish()
         }
     }
 

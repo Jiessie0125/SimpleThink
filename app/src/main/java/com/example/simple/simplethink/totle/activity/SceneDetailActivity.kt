@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.view.Gravity
 import android.view.View
+import com.example.simple.simplethink.MyApp.Companion.context
 import com.example.simple.simplethink.R
 import com.example.simple.simplethink.model.PraticeSections
 import com.example.simple.simplethink.model.ScenesResponse
@@ -69,16 +70,21 @@ class SceneDetailActivity: AppCompatActivity() ,SceneDetailContact.View {
                 when (v.getId()) {
                     R.id.scene_download ->  {if(sections[position].free == "true"){downloadMP3(position)}
                                                 else {showVipPage()}}
-                    else -> { if(FilesUtils.isHaveFile(sections?.get(position)?.title, title)) {
+                    else -> {
+                        if(FilesUtils.isHaveFile(sections?.get(position)?.title, title)) {
                                 val pratice = PraticeSections(sections[position].id,sections[position].course_id,sections[position].audio_id)
                                 showSceneResourcePage(sections[position].title,
                                 FilesUtils.getLocalFileUrl(sections[position].title,title),
                                 sceneResponse.content_img_new,
                                 pratice)
                             }else{
-                        if(sections[position].free == "false"){
-                            showVipPage()
-                        }
+                                val folder = context?.getExternalFilesDir(title)
+                                if (folder?.exists()!!) {
+                                    FilesUtils.deleteFile(folder)
+                                }
+                                if(sections[position].free == "false"){
+                                    showVipPage()
+                                }
                     }
                     }
                 }

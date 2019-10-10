@@ -1,11 +1,7 @@
 package com.example.simple.simplethink.totle.fragment.whiteNoisePage
 
-import android.annotation.SuppressLint
-import android.graphics.Color
 import android.media.MediaPlayer
-import android.net.Uri
 import android.os.Bundle
-import android.os.Environment
 import android.os.Handler
 import android.os.Message
 import android.support.v4.app.Fragment
@@ -14,24 +10,16 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.simple.simplethink.MyApp
 import com.example.simple.simplethink.R
 import com.example.simple.simplethink.model.WhiteNoiseItem
-import com.example.simple.simplethink.model.WhiteNoiseItemResponse
-import com.example.simple.simplethink.netapi.HttpResposityImpl
+import com.example.simple.simplethink.totle.BaseFragment
 import com.example.simple.simplethink.totle.activity.RecyclerViewSpacesItemDecoration
 import com.example.simple.simplethink.totle.adapter.OnWhiteItemClickListener
 import com.example.simple.simplethink.totle.adapter.WhiteItemAdapter
-import com.example.simple.simplethink.utils.DownloadHelper
 import com.example.simple.simplethink.utils.FilesUtils
 import com.example.simple.simplethink.utils.ResourcesUtils
-import kotlinx.android.synthetic.main.activity_scene_paly.*
 import kotlinx.android.synthetic.main.fragment_white_noise.*
-import java.io.File
 import java.io.IOException
-import java.io.ObjectInputStream
-import android.content.res.AssetFileDescriptor
-
 
 
 /**
@@ -44,6 +32,8 @@ class WhithNoiseFragment : Fragment(), View.OnClickListener {
     private var PLAYER_TIME: Int = 10 * 60 * 1000
     var player: MediaPlayer? = null
     var isStop = false
+    private val mHasLoadedOnce = false
+    private val isPrepared = false
 
     val handler = object : Handler() {
         override fun handleMessage(msg: Message) {
@@ -71,7 +61,7 @@ class WhithNoiseFragment : Fragment(), View.OnClickListener {
     }
 
     private fun init() {
-        player = MediaPlayer()
+
         updateView()
         initNumber()
         cricle_number_5.isSelected = false
@@ -204,7 +194,8 @@ class WhithNoiseFragment : Fragment(), View.OnClickListener {
         whiteItemAdapter.notifyDataSetChanged()
         whiteItemAdapter.setOnItemClickListener(object : OnWhiteItemClickListener {
             override fun onItemClick(v: View?, position: Int) {
-                // releasePlay()
+                releasePlay()
+                isStop = false
                 whiteItemAdapter.changetShowDelImage(true, position)
                 white_play.setImageResource(R.drawable.white_stop)
                 white_item_play_time.text = ResourcesUtils.getString(R.string.white_noise_time)
@@ -240,7 +231,7 @@ class WhithNoiseFragment : Fragment(), View.OnClickListener {
                     url = "m03.mp3";
                 }
                 4 -> {
-                    title = getString(R.string.white_noise_1)
+                    title = getString(R.string.white_noise_4)
                     img = R.drawable.shuidi
                     img_selected =  R.drawable.shuidi_selected
                     url = "m04.mp3";
@@ -284,6 +275,7 @@ class WhithNoiseFragment : Fragment(), View.OnClickListener {
     }
 
     fun play(sceneSource: String) {
+        player = MediaPlayer()
         player?.reset()
         try {
             val assetMg = context.getAssets()
@@ -321,14 +313,15 @@ class WhithNoiseFragment : Fragment(), View.OnClickListener {
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.white_play -> {
-                if (player?.isPlaying!!) {
-                    player?.pause()
-                    white_play.setImageResource(R.drawable.white_play)
-                } else {
-                    player?.start()
-                    white_play.setImageResource(R.drawable.white_stop)
+                player?.let {
+                    if (player?.isPlaying!!) {
+                        player?.pause()
+                        white_play.setImageResource(R.drawable.white_play)
+                    } else {
+                        player?.start()
+                        white_play.setImageResource(R.drawable.white_stop)
+                    }
                 }
-
             }
         }
     }
@@ -346,7 +339,6 @@ class WhithNoiseFragment : Fragment(), View.OnClickListener {
     }
 
     private fun resetPlay() {
-        isStop = true
         player?.let {
             if (player!!.isPlaying()) {
                 player!!.stop();
@@ -359,9 +351,10 @@ class WhithNoiseFragment : Fragment(), View.OnClickListener {
         isStop = true
         player?.let {
             if (player!!.isPlaying()) {
-                player!!.stop();
+                player!!.stop()
             }
-            player!!.release();
+            player!!.release()
+            player = null
         }
     }
 
@@ -375,11 +368,21 @@ class WhithNoiseFragment : Fragment(), View.OnClickListener {
     }
 
     override fun onResume() {
-        player?.let {
+       /* player?.let {
             if (!player!!.isPlaying()) {
                 player!!.start()
             }
-        }
+        }*/
+        white_play.setImageResource(R.drawable.white_play)
         super.onResume()
     }
+
+
+
+    override fun onDestroyView() {
+        releasePlay()
+        super.onDestroyView()
+
+    }
+
 }

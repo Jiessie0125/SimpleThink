@@ -110,7 +110,7 @@ object FilesUtils {
     fun isHaveFile(sceneName: String, mp3Path: String): Boolean {
         var filePath = context?.getExternalFilesDir(mp3Path)
         val appDir = File(filePath, sceneName)
-        if (!appDir.exists()) return false else return true
+        if (!appDir.exists()) return false  else return true
     }
 
     fun showImage(imageUrl: String, activity: Activity, imageView: ImageView?) {

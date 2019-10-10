@@ -7,14 +7,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.simple.simplethink.R
-import com.example.simple.simplethink.model.SceneItem
 import com.example.simple.simplethink.model.ScenesResponse
 import com.example.simple.simplethink.netapi.HttpResposityImpl
+import com.example.simple.simplethink.totle.BaseFragment
 import com.example.simple.simplethink.totle.activity.SceneDetailActivity
 import com.example.simple.simplethink.totle.adapter.OnItemClickListener
 import com.example.simple.simplethink.totle.adapter.SceneAdapter
 import kotlinx.android.synthetic.main.fragment_scence.*
-import java.util.ArrayList
 
 /**
  * Created by jiessie on 2019/6/5.
@@ -22,6 +21,8 @@ import java.util.ArrayList
 class SceneFragment : Fragment() ,SceneContact.View{
     lateinit var sceneAdapter: SceneAdapter
     lateinit var persenter: SceneContact.Presenter
+    private val mHasLoadedOnce = false
+    private val isPrepared = false
    // lateinit var sceneList : List<ScenesResponse>
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
