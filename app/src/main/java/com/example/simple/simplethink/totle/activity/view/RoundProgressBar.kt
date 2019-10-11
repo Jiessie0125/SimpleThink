@@ -150,12 +150,12 @@ class RoundProgressBar @JvmOverloads constructor(context: Context, attrs: Attrib
         when (style) {
             STROKE -> {
                 paint!!.setStyle(Paint.Style.STROKE)
-                canvas.drawArc(oval, 0.toFloat(), (360 * this.progress / max).toFloat(), false, paint) // 根据进度画圆弧
+                canvas.drawArc(oval, -90.toFloat(), (360 * this.progress / max).toFloat(), false, paint) // 根据进度画圆弧
             }
             FILL -> {
                 paint!!.setStyle(Paint.Style.FILL_AND_STROKE)
                 if (this.progress != 0) {
-                    canvas.drawArc(oval, 0.toFloat(), (360 * this.progress / max).toFloat(), true, paint) // 根据进度画圆弧
+                    canvas.drawArc(oval, -90.toFloat(), (360 * this.progress / max).toFloat(), true, paint) // 根据进度画圆弧
                 }
             }
             FILL_UP -> {

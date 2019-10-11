@@ -141,10 +141,6 @@ class TotleFragment : Fragment(), TotleContact.View {
     override fun setCourseIcon(courses : List<Course>) {
         courseAdapter = CourseAdapter(this.activity!!,courses)
         recycle_course_tv.layoutManager = GridLayoutManager(this.context, 2)
-        val stringIntegerHashMap = HashMap< String, Int>()
-        stringIntegerHashMap.put(RecyclerViewSpacesItemDecoration.RIGHT_DECORATION, 50)//右间距
-        stringIntegerHashMap.put(RecyclerViewSpacesItemDecoration.TOP_DECORATION, 50)
-        recycle_course_tv.addItemDecoration(RecyclerViewSpacesItemDecoration(stringIntegerHashMap))
         recycle_course_tv.adapter = courseAdapter
         courseAdapter.notifyDataSetChanged()
         courseAdapter.setOnItemClickListener(object :OnCoursetemClickListener{
