@@ -20,6 +20,7 @@ import com.example.simple.simplethink.utils.FilesUtils
 import com.example.simple.simplethink.utils.ResourcesUtils
 import kotlinx.android.synthetic.main.fragment_white_noise.*
 import java.io.IOException
+import java.util.*
 
 
 /**
@@ -34,6 +35,7 @@ class WhithNoiseFragment : Fragment(), View.OnClickListener {
     var isStop = false
     private val mHasLoadedOnce = false
     private val isPrepared = false
+    private var timer:Timer?=null
 
     val handler = object : Handler() {
         override fun handleMessage(msg: Message) {
@@ -53,6 +55,13 @@ class WhithNoiseFragment : Fragment(), View.OnClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         white_play.setOnClickListener(this)
+    }
+
+    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
+        super.setUserVisibleHint(isVisibleToUser)
+        if(!isVisibleToUser){
+            releasePlay()
+        }
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -283,32 +292,32 @@ class WhithNoiseFragment : Fragment(), View.OnClickListener {
             player?.setDataSource(fileDescriptor.getFileDescriptor(), fileDescriptor.getStartOffset(), fileDescriptor.getLength())
             player?.prepare()
             player?.start()
-            Thread(MyThread()).start()
+            startTimer()
         } catch (e: IOException) {
             e.printStackTrace()
         }
     }
 
-    internal inner class MyThread : Runnable {
+    private fun startTimer(){
+        timer?.cancel()
+        timer = Timer()
+        timer?.schedule(object :TimerTask(){
+            override fun run() {
+                if (player != null && isStop == false) {
+                    if (player!!.getCurrentPosition() > PLAYER_TIME) {
+                        player!!.stop()
+                    }
+                    if(player!!.isPlaying) {
+                        // 将SeekBar位置设置到当前播放位置
+                        handler.sendEmptyMessage(player!!.getCurrentPosition())
+                    }
+                }
 
-        override fun run() {
-            while (player != null && isStop == false) {
-                if (player!!.getCurrentPosition() > PLAYER_TIME) {
-                    player!!.stop()
-                    continue
-                }
-                // 将SeekBar位置设置到当前播放位置
-                handler.sendEmptyMessage(player!!.getCurrentPosition())
-                try {
-                    // 每100毫秒更新一次位置
-                    Thread.sleep(80)
-                } catch (e: InterruptedException) {
-                    e.printStackTrace()
-                }
             }
+        },0,500)
 
-        }
     }
+
 
     override fun onClick(v: View?) {
         when (v?.id) {
@@ -356,6 +365,7 @@ class WhithNoiseFragment : Fragment(), View.OnClickListener {
             player!!.release()
             player = null
         }
+        timer?.cancel()
     }
 
     override fun onPause() {
