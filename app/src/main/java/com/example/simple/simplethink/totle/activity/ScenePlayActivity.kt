@@ -1,7 +1,9 @@
 package com.example.simple.simplethink.totle.activity
 
 
+import android.app.AlertDialog
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.media.MediaPlayer
 import android.os.Bundle
@@ -203,7 +205,7 @@ class ScenePlayActivity : AppCompatActivity(), View.OnClickListener, ScenePlayCo
     override fun onClick(v: View?) {
         when(v?.id){
             R.id.scene_paly_close -> {
-                this.finish()
+                showDeleteDialog()
             }
             R.id.scene_play -> {
                 if(player?.isPlaying!!){
@@ -222,6 +224,19 @@ class ScenePlayActivity : AppCompatActivity(), View.OnClickListener, ScenePlayCo
         handler.removeCallbacksAndMessages(null)
         isStop = true
         super.finish()
+    }
+
+    private fun showDeleteDialog() {
+        val builder = AlertDialog.Builder(this)
+                .setTitle("是否要结束本次训练？")
+                .setPositiveButton("否", DialogInterface.OnClickListener { dialog, which ->
+                    dialog.dismiss()
+                })
+                .setNegativeButton("是", DialogInterface.OnClickListener { dialog, which ->
+                    this.finish()
+                })
+        builder.create().show()
+
     }
 
 }

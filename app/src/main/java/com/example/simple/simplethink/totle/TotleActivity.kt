@@ -1,5 +1,6 @@
 package com.example.simple.simplethink.totle
 
+import android.Manifest
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -19,6 +20,8 @@ import com.example.simple.simplethink.totle.activity.down.DownloadActivity
 import com.example.simple.simplethink.totle.fragment.scenePage.SceneFragment
 import com.example.simple.simplethink.totle.fragment.totlePage.TotleFragment
 import com.example.simple.simplethink.totle.fragment.whiteNoisePage.WhithNoiseFragment
+import com.example.simple.simplethink.utils.PermissionInterface
+import com.example.simple.simplethink.utils.PermissionUtils
 import com.example.simple.simplethink.utils.ResourcesUtils
 import com.example.simple.simplethink.utils.SharedPreferencesUtil
 import com.example.simple.simplethink.utils.auth.AuthInstance
@@ -30,7 +33,7 @@ import kotlinx.android.synthetic.main.fragment_main_postlogon.*
 /**
  * Created by mobileteam on 2019/6/3.
  */
-class TotleActivity: AppCompatActivity() {
+class TotleActivity: AppCompatActivity() , PermissionInterface {
 
     val tabTitles = arrayOf(ResourcesUtils.getString(R.string.totle),
             ResourcesUtils.getString(R.string.scene),
@@ -40,6 +43,15 @@ class TotleActivity: AppCompatActivity() {
     private val mFragments = ArrayList<Fragment>()
     private var holder : ViewHolder?= null
     private val presenter = TotlePresenter(this)
+    var LOCATION: Int = 1
+    var STORATE: Int = 2
+    val arrayOfStringCall: Array<String> = arrayOf(Manifest.permission.READ_PHONE_STATE
+            , Manifest.permission.READ_CALL_LOG, Manifest.permission.CALL_PHONE,
+            Manifest.permission.ADD_VOICEMAIL, Manifest.permission.WRITE_CALL_LOG,
+            Manifest.permission.USE_SIP, Manifest.permission.PROCESS_OUTGOING_CALLS,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION
+    )
 
     companion object {
         fun newIntent (context: Context) : Intent {
@@ -50,6 +62,7 @@ class TotleActivity: AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        PermissionUtils.requestPermissions(arrayOfStringCall, LOCATION, this, this)
         setContentView(R.layout.activity_totle)
         init()
     }
@@ -150,6 +163,20 @@ class TotleActivity: AppCompatActivity() {
             holder?.mTabItem?.textSize = 17.0f
             holder?.mTabItem?.setTextColor(ResourcesUtils.resource.getColor(R.color.totleTitle))
         }
+    }
+    override fun requestPermissionsSuccess(callBackCode: Int) {
+//        when (callBackCode) {
+//            LOCATION -> PermissionUtils.requestPermissions(arrayOfStringStorage,2,this,this)
+//            STORATE -> PermissionUtils.requestPermissions(arrayOfStringLocation,3,this,this)
+//        }
+
+    }
+
+    override fun requestPermissionsFail(callBackCode: Int) {
+//        when (callBackCode) {
+//            LOCATION -> PermissionUtils.requestPermissions(arrayOfStringStorage,2,this,this)
+//            STORATE -> PermissionUtils.requestPermissions( arrayOfStringLocation,3,this,this)
+//        }
     }
 }
 

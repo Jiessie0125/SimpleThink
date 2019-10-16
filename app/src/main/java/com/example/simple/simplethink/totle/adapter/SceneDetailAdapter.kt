@@ -52,10 +52,6 @@ class SceneDetailAdapter( val context: Activity,val sections : List<Sections>,va
         }else{
             holder?.mProcessBar?.visibility = View.GONE
             holder?.mDownloadImage?.tag = position
-            val folder = context.getExternalFilesDir(title)
-          /*  if (folder.exists()) {
-                FilesUtils.deleteFile(folder)
-            }*/
         }
         holder
     }

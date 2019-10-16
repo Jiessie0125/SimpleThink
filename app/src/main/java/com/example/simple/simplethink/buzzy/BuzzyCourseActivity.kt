@@ -67,10 +67,6 @@ class BuzzyCourseActivity: BaseActivity(),BuzzyCourseContact.View {
     private fun setAdapter(buzzyCourseUrlList : List<BuzzyCourseResponse>){
         totleAdapter = BuzzyCourseAdapter(this,buzzyCourseUrlList)
         buzzyCouse_tv.layoutManager = GridLayoutManager(this,2)
-        val stringIntegerHashMap = HashMap< String, Int>()
-        stringIntegerHashMap.put(RecyclerViewSpacesItemDecoration.RIGHT_DECORATION, 50)//右间距
-        stringIntegerHashMap.put(RecyclerViewSpacesItemDecoration.TOP_DECORATION, 50)
-        buzzyCouse_tv.addItemDecoration(RecyclerViewSpacesItemDecoration(stringIntegerHashMap))
         buzzyCouse_tv.adapter = totleAdapter
         totleAdapter.notifyDataSetChanged()
         totleAdapter.setOnItemClickListener(object : OnBuzzyItemClickListener {

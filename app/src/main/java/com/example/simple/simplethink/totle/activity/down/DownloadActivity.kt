@@ -1,5 +1,6 @@
 package com.example.simple.simplethink.totle.activity.down
 
+import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
@@ -12,6 +13,9 @@ import com.example.simple.simplethink.utils.FilesUtils
 import com.example.simple.simplethink.utils.ResourcesUtils
 import kotlinx.android.synthetic.main.activity_download.*
 import kotlinx.android.synthetic.main.title_tool.*
+import android.content.DialogInterface
+
+
 
 /**
  * Created by jiessie on 2019/7/5.
@@ -36,8 +40,7 @@ class DownloadActivity : BaseActivity() {
         setHeader(ResourcesUtils.getString(R.string.download_manager))
         val folder = this.getExternalFilesDirs(null)[0]
         folder?.let {
-            it.list().forEach { item ->
-                downloadArray.add(item)
+            it.list().forEach { item ->initDownloadArr(item)
             }
         }
         downloadAdapter = DownloadItemAdapter(this)
@@ -50,11 +53,17 @@ class DownloadActivity : BaseActivity() {
             downloadAdapter.setOnItemClickListener(object : DownloadItemAdapter.OnDownloadItemClickListener {
                 override fun onItemClick(v: View?, position: Int) {
                     when (v?.getId()) {
-                        R.id.download_delete_ry -> removeBigClass(downloadArray[position])
+                        R.id.download_delete_ry -> showDeleteDialog(downloadArray[position])
                         else ->showSmallClass(downloadArray[position])
                     }
                 }
             })
+        }
+    }
+
+    private fun initDownloadArr( item : String){
+        if (this.getExternalFilesDir(item).list().size > 0){
+            downloadArray.add(item)
         }
     }
 
@@ -76,6 +85,19 @@ class DownloadActivity : BaseActivity() {
     private fun showSmallClass(bigClassName : String){
         val downloadSmallIntent = DownloadSmallActivity.newIntent(this,bigClassName)
         startActivity(downloadSmallIntent)
+    }
+
+    private fun showDeleteDialog(bigClassName : String) {
+        val builder = AlertDialog.Builder(this)
+                .setTitle("是否要删除该课程及其下所有子课程？")
+                .setPositiveButton("取消", DialogInterface.OnClickListener { dialog, which ->
+                    dialog.dismiss()
+                })
+                .setNegativeButton("确定", DialogInterface.OnClickListener { dialog, which ->
+                    removeBigClass(bigClassName)
+                })
+        builder.create().show()
+
     }
 
 }

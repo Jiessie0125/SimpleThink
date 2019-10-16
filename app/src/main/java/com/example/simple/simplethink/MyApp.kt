@@ -50,8 +50,9 @@ class MyApp : Application() {
                     // 后台到前台，在此进行相应操作
                     isRunInBackground = false
                     if (System.currentTimeMillis() - time > 180000) {
-                        val intent = Intent(context, WelcomeActivity::class.java)
+                        val intent = Intent(this@MyApp, WelcomeActivity::class.java)
                         intent.putExtra("isAppRestart", true)
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                         startActivity(intent)
                     }
 

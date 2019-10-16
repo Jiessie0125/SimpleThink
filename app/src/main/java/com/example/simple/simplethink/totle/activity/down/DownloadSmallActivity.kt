@@ -1,6 +1,8 @@
 package com.example.simple.simplethink.totle.activity.down
 
+import android.app.AlertDialog
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
@@ -58,7 +60,7 @@ class DownloadSmallActivity : BaseActivity() {
             downloadAdapter.setOnItemClickListener(object : DownloadSmallItemAdapter.OnDownloadSmallItemClickListener {
                 override fun onItemClick(v: View?, position: Int) {
                     when (v?.getId()) {
-                        R.id.download_small_delete_ry -> removeBigClass(downloadArray[position],sourceName)
+                        R.id.download_small_delete_ry -> showDeleteDialog(downloadArray[position],sourceName)
                         R.id.download_small_play_ry ->{
                             showPlayPage(downloadArray[position],FilesUtils.getLocalFileUrl(downloadArray[position],sourceName))
                         }
@@ -72,6 +74,18 @@ class DownloadSmallActivity : BaseActivity() {
         super.setHeader(title)
         title_tool_id.text = title
         title_tool_back.setOnClickListener { finish() }
+    }
+    private fun showDeleteDialog(bigClassName : String,parentPath: String) {
+        val builder = AlertDialog.Builder(this)
+                .setTitle("是否要删除该课程？")
+                .setPositiveButton("取消", DialogInterface.OnClickListener { dialog, which ->
+                    dialog.dismiss()
+                })
+                .setNegativeButton("确定", DialogInterface.OnClickListener { dialog, which ->
+                    removeBigClass(bigClassName,parentPath)
+                })
+        builder.create().show()
+
     }
 
     private fun removeBigClass(bigClassName : String,parentPath: String){

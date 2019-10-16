@@ -18,23 +18,13 @@ import kotlinx.android.synthetic.main.activity_main.*
 /**
  * Created by mobileteam on 2019/6/3.
  */
-class MainActivity : FragmentActivity(), PermissionInterface {
-    var LOCATION: Int = 1
-    var STORATE: Int = 2
+class MainActivity : FragmentActivity(){
     var showingFragment: LogonBaseFragment? = null
     val mainPersent = MainPresenter()
-    val arrayOfStringCall: Array<String> = arrayOf(Manifest.permission.READ_PHONE_STATE
-            , Manifest.permission.READ_CALL_LOG, Manifest.permission.CALL_PHONE,
-            Manifest.permission.ADD_VOICEMAIL, Manifest.permission.WRITE_CALL_LOG,
-            Manifest.permission.USE_SIP, Manifest.permission.PROCESS_OUTGOING_CALLS,
-            Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE,
-            Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION
-    )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        PermissionUtils.requestPermissions(arrayOfStringCall, LOCATION, this, this)
         setting.setOnClickListener { showSettingPage() }
         home.setOnClickListener { showTotlePage() }
     }
@@ -66,20 +56,6 @@ class MainActivity : FragmentActivity(), PermissionInterface {
         startActivity(settingIntent)
     }
 
-    override fun requestPermissionsSuccess(callBackCode: Int) {
-//        when (callBackCode) {
-//            LOCATION -> PermissionUtils.requestPermissions(arrayOfStringStorage,2,this,this)
-//            STORATE -> PermissionUtils.requestPermissions(arrayOfStringLocation,3,this,this)
-//        }
-
-    }
-
-    override fun requestPermissionsFail(callBackCode: Int) {
-//        when (callBackCode) {
-//            LOCATION -> PermissionUtils.requestPermissions(arrayOfStringStorage,2,this,this)
-//            STORATE -> PermissionUtils.requestPermissions( arrayOfStringLocation,3,this,this)
-//        }
-    }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         PermissionUtils.requestPermissionsResult(requestCode, permissions as Array<String>

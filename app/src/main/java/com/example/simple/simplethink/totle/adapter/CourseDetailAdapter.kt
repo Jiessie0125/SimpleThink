@@ -49,10 +49,6 @@ class CourseDetailAdapter(val context: Activity, val totleLish : List<CourseSect
         else{
             holder?.mItemPercent?.visibility = View.GONE
             holder?.mRelativeLayout?.background = ResourcesUtils.resource.getDrawable(R.color.mainColor)
-            val folder = context.getExternalFilesDir(totleLish?.get(position)?.title)
-            if (folder.exists()) {
-                FilesUtils.deleteFile(folder)
-            }
         }
     }
 

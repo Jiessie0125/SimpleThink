@@ -34,7 +34,8 @@ class WhithNoiseFragment : Fragment(), View.OnClickListener {
     var player: MediaPlayer? = null
     var isStop = false
     private val mHasLoadedOnce = false
-    private val isPrepared = false
+    private var mposition = 0
+    private var isPrepared = false
     private var timer:Timer?=null
 
     val handler = object : Handler() {
@@ -193,6 +194,7 @@ class WhithNoiseFragment : Fragment(), View.OnClickListener {
 
     fun updateView() {
         val list = initWhiteNoiseItem()
+        player = MediaPlayer()
         whiteItemAdapter = WhiteItemAdapter(this.activity!!, list)
         white_noise_rv.layoutManager = GridLayoutManager(this.activity, 3) as RecyclerView.LayoutManager?
         val stringIntegerHashMap = HashMap<String, Int>()
@@ -201,10 +203,12 @@ class WhithNoiseFragment : Fragment(), View.OnClickListener {
         white_noise_rv.addItemDecoration(RecyclerViewSpacesItemDecoration(stringIntegerHashMap))
         white_noise_rv.adapter = whiteItemAdapter
         whiteItemAdapter.notifyDataSetChanged()
+        isPrepared = true
         whiteItemAdapter.setOnItemClickListener(object : OnWhiteItemClickListener {
             override fun onItemClick(v: View?, position: Int) {
                 releasePlay()
                 isStop = false
+                mposition = position
                 whiteItemAdapter.changetShowDelImage(true, position)
                 white_play.setImageResource(R.drawable.white_stop)
                 white_item_play_time.text = ResourcesUtils.getString(R.string.white_noise_time)
@@ -284,7 +288,6 @@ class WhithNoiseFragment : Fragment(), View.OnClickListener {
     }
 
     fun play(sceneSource: String) {
-        player = MediaPlayer()
         player?.reset()
         try {
             val assetMg = context.getAssets()
@@ -327,7 +330,10 @@ class WhithNoiseFragment : Fragment(), View.OnClickListener {
                         player?.pause()
                         white_play.setImageResource(R.drawable.white_play)
                     } else {
-                        player?.start()
+                        if(mposition == 0){play("m01.mp3")}
+                        else{
+                            player?.start()
+                        }
                         white_play.setImageResource(R.drawable.white_stop)
                     }
                 }
@@ -365,6 +371,10 @@ class WhithNoiseFragment : Fragment(), View.OnClickListener {
             player!!.release()
             player = null
         }
+        if(isPrepared){
+            white_play.setImageResource(R.drawable.white_play)
+            white_item_play_time.text = ResourcesUtils.getString(R.string.white_noise_time)
+        }
         timer?.cancel()
     }
 
@@ -383,7 +393,6 @@ class WhithNoiseFragment : Fragment(), View.OnClickListener {
                 player!!.start()
             }
         }*/
-        white_play.setImageResource(R.drawable.white_play)
         super.onResume()
     }
 
@@ -391,6 +400,7 @@ class WhithNoiseFragment : Fragment(), View.OnClickListener {
 
     override fun onDestroyView() {
         releasePlay()
+        isPrepared = false
         super.onDestroyView()
 
     }
