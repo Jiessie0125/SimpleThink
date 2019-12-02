@@ -79,9 +79,11 @@ class TotleFragment : Fragment(), TotleContact.View {
         val httpResposityImpl = HttpResposityImpl()
         persenter = TotlePresenter(httpResposityImpl, this,this.activity!!)
         persenter.getBanner()
-         var getTotleSort  = LocalDataCache.getLocalData(URLConstant.GETTOTLESORT)
-         var getCourseImage  = LocalDataCache.getLocalData(URLConstant.GETCOURSEIMAGE)
-        if(getTotleSort == null){ persenter.getTotleSort() }
+        persenter.getTotleSort()
+        persenter.getCourse()
+        var getTotleSort  = LocalDataCache.getLocalData(URLConstant.GETTOTLESORT)
+        var getCourseImage  = LocalDataCache.getLocalData(URLConstant.GETCOURSEIMAGE)
+  /*      if(getTotleSort == null){ persenter.getTotleSort() }
         else{
            // for (i in 0 until (getTotleSort as List<TotleSortResponse>).size) {
                 setTotleIcon(getTotleSort as List<TotleSortResponse>)
@@ -92,7 +94,7 @@ class TotleFragment : Fragment(), TotleContact.View {
            // for (i in 0 until (getCourseImage as FirstCourseResponse).courses.size) {
                 setCourseIcon((getCourseImage as FirstCourseResponse).courses)
            // }
-        }
+        }*/
          getCourseImage?.let {
              setBuzzyItem((getCourseImage as FirstCourseResponse).id)
          }

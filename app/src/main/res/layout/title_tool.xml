@@ -12,14 +12,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:minHeight="@dimen/title_tool">
+        <LinearLayout
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:gravity="center">
+            <ImageView
+                android:id="@+id/title_tool_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/default_view_horizontal_padding"
+                android:src="@drawable/back" />
+        </LinearLayout>
 
-        <ImageView
-            android:id="@+id/title_tool_back"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/default_view_horizontal_padding"
-            android:src="@drawable/back" />
 
         <TextView
             android:id="@+id/title_tool_id"

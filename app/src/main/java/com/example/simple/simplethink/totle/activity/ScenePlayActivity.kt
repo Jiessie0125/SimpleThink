@@ -46,6 +46,10 @@ class ScenePlayActivity : AppCompatActivity(), View.OnClickListener, ScenePlayCo
     }
 
     override fun onFailure(e: Throwable) {
+        if(e.message == "HTTP 401 Unauthorized"){
+            finish()
+            return
+        }
         ErrorHandler.showErrorWithToast(this, e)
     }
 

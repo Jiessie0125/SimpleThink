@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.widget.TextView
 import com.example.simple.simplethink.R
@@ -70,10 +71,10 @@ class CourseDetailAdapter(val context: Activity, val totleLish : List<CourseSect
     inner class CourseDetailViewHolder(view : View?): RecyclerView.ViewHolder(view) {
         var mTotleItem : TextView?
         var mItemName : TextView?
-        var mCourseViptem : ImageView?
+        var mCourseViptem : LinearLayout?
         var mItemPercent : TextView?
         var mProgressItem : ProgressBarView?
-        var mCoursePlay : ImageView?
+        var mCoursePlay : LinearLayout?
         var mRelativeLayout : RelativeLayout?
 
         init {

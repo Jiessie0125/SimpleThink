@@ -62,6 +62,8 @@ class WhithNoiseFragment : Fragment(), View.OnClickListener {
         super.setUserVisibleHint(isVisibleToUser)
         if(!isVisibleToUser){
             releasePlay()
+        }else{
+            player = MediaPlayer()
         }
     }
 
@@ -206,7 +208,8 @@ class WhithNoiseFragment : Fragment(), View.OnClickListener {
         isPrepared = true
         whiteItemAdapter.setOnItemClickListener(object : OnWhiteItemClickListener {
             override fun onItemClick(v: View?, position: Int) {
-                releasePlay()
+               // releasePlay()
+                if(player == null)player = MediaPlayer()
                 isStop = false
                 mposition = position
                 whiteItemAdapter.changetShowDelImage(true, position)
@@ -330,7 +333,10 @@ class WhithNoiseFragment : Fragment(), View.OnClickListener {
                         player?.pause()
                         white_play.setImageResource(R.drawable.white_play)
                     } else {
-                        if(mposition == 0){play("m01.mp3")}
+                        if(mposition == 0){
+                            play("m01.mp3")
+                            isStop = false
+                        }
                         else{
                             player?.start()
                         }
@@ -370,10 +376,12 @@ class WhithNoiseFragment : Fragment(), View.OnClickListener {
             }
             player!!.release()
             player = null
+            mposition = 0
         }
         if(isPrepared){
             white_play.setImageResource(R.drawable.white_play)
             white_item_play_time.text = ResourcesUtils.getString(R.string.white_noise_time)
+            whiteItemAdapter.changetShowDelImage(true, 0)
         }
         timer?.cancel()
     }
