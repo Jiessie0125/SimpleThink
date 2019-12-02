@@ -18,11 +18,12 @@
             android:layout_width="match_parent"
             android:layout_height="225dp"
             android:background="@drawable/transparent_layer"/>
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
             <RelativeLayout
+                android:id="@+id/couseTitle"
                 android:layout_width="match_parent"
                 android:layout_height="55dp">
                 <ImageView
@@ -45,6 +46,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_below="@+id/couseTitle"
+                android:id="@+id/couseName"
                 android:gravity="center_horizontal"
                 android:layout_marginTop="45dp">
                 <TextView
@@ -64,6 +67,7 @@
             </LinearLayout>
             <TextView
                 android:id="@+id/content_detail"
+                android:layout_below="@+id/couseName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/scene_detail_image_txt"
@@ -74,9 +78,11 @@
                 android:textColor="@color/courseDetail"/>
             <Button
                 android:id="@+id/download_all_course"
-                android:layout_marginTop="40dp"
+                android:layout_below="@+id/couseTitle"
+                android:layout_marginTop="150dp"
                 android:layout_width="265dp"
                 android:layout_height="45dp"
+                android:layout_centerInParent="true"
                 android:layout_gravity="center"
                 android:text="@string/download_class_list"
                 android:textSize="@dimen/login_small_title"
@@ -84,6 +90,7 @@
             <LinearLayout
                 android:layout_marginTop="36dp"
                 android:layout_marginLeft="20dp"
+                android:layout_below="@+id/download_all_course"
                 android:layout_marginBottom="25dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
@@ -108,7 +115,7 @@
                     android:textColor="@color/wordWhite"
                     android:textSize="@dimen/login_small_title"/>
             </LinearLayout>
-        </LinearLayout>
+        </RelativeLayout>
 
     </FrameLayout>
 
