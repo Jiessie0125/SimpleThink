@@ -9,18 +9,24 @@
     android:layout_gravity="center_horizontal"
     android:orientation="vertical">
 
-
 <com.example.simple.simplethink.totle.RoundAngleFrameLayout
 
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_gravity="center_horizontal"
+    android:id="@+id/course_item"
     app:radius="10dp">
     <ImageView
         android:id="@+id/recycle_course_img"
         android:layout_width="155dp"
         android:layout_height="115dp"
+        android:src="@drawable/ellipse"
         android:scaleType="fitXY" />
+    <View
+        android:layout_width="155dp"
+        android:layout_height="115dp"
+        android:alpha="0.5"
+        android:background="@color/wordBlack"/>
     <TextView
         android:id="@+id/recycle_course_vip"
         android:layout_width="37dp"

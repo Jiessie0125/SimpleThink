@@ -13,6 +13,7 @@
         android:layout_height="wrap_content"
         android:minHeight="@dimen/title_tool">
         <LinearLayout
+            android:id="@+id/title_tool_back_all"
             android:layout_width="55dp"
             android:layout_height="55dp"
             android:gravity="center">

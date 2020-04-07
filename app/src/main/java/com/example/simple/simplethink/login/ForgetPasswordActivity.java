@@ -13,10 +13,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.simple.simplethink.R;
+import com.example.simple.simplethink.base.BaseActivity;
 import com.example.simple.simplethink.utils.ErrorHandler;
 import com.example.simple.simplethink.utils.ValidationUtils;
 
@@ -24,10 +26,10 @@ import com.example.simple.simplethink.utils.ValidationUtils;
  * Created by mobileteam on 2019/7/25.
  */
 
-public class ForgetPasswordActivity extends Activity implements View.OnClickListener, ForgetPasswordContract.View{
+public class ForgetPasswordActivity extends BaseActivity implements View.OnClickListener, ForgetPasswordContract.View{
 
     private Button submit_btn;
-    private ImageView title_tool_back;
+    private LinearLayout title_tool_back;
     private TextView countDown;
     private EditText phoneNumber;
     private EditText password1;
@@ -55,7 +57,7 @@ public class ForgetPasswordActivity extends Activity implements View.OnClickList
         password1 = (EditText)findViewById(R.id.login_phone_number_pwd_1);
         password2 = (EditText)findViewById(R.id.login_phone_number_pwd_2);
         validate_sms_code = (EditText)findViewById(R.id.validate_sms_code);
-        title_tool_back = (ImageView)findViewById(R.id.title_tool_back);
+        title_tool_back = (LinearLayout)findViewById(R.id.title_tool_back_all);
         title_tool_back.setTag("back");
         title_tool_back.setOnClickListener(this);
         Intent intent = getIntent();
@@ -162,13 +164,18 @@ public class ForgetPasswordActivity extends Activity implements View.OnClickList
     }
 
     @Override
-    public void onSuccess() {
+    public void onRegisterSuccess() {
+        Toast.makeText(this, R.string.register_success, Toast.LENGTH_LONG).show();
+        this.finish();
+    }
 
+    @Override
+    public void onSuccess() {
+        Toast.makeText(this, R.string.sms_code, Toast.LENGTH_LONG).show();
     }
 
     @Override
     public void onFailure(Throwable e) {
-        ErrorHandler.Companion.showErrorWithToast(this,e);
     }
 
     class MyCountDownTimer extends CountDownTimer {

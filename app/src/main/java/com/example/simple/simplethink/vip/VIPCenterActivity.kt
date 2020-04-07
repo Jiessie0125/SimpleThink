@@ -11,7 +11,9 @@ import android.os.Message
 import android.support.v7.widget.LinearLayoutManager
 import android.text.TextUtils
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
+import android.widget.RelativeLayout
 import android.widget.Toast
 import com.alipay.sdk.app.PayTask
 import com.bumptech.glide.Glide
@@ -21,11 +23,13 @@ import com.example.simple.simplethink.base.BaseActivity
 import com.example.simple.simplethink.login.LoginActivity
 import com.example.simple.simplethink.model.*
 import com.example.simple.simplethink.netapi.HttpResposityImpl
+import com.example.simple.simplethink.totle.activity.course.CourseDetailActivity
 import com.example.simple.simplethink.utils.FilesUtils.belongCalendar
 import com.example.simple.simplethink.utils.ResourcesUtils
 import com.example.simple.simplethink.utils.SharedPreferencesUtil
 import com.example.simple.simplethink.utils.auth.AuthInstance
 import com.example.simple.simplethink.utils.auth.AuthInstance.Companion.AUTH
+import com.example.simple.simplethink.vip.view.MyDiolag
 import com.tencent.mm.opensdk.modelpay.PayReq
 import com.tencent.mm.opensdk.openapi.WXAPIFactory
 import kotlinx.android.synthetic.main.activity_vip_center.*
@@ -47,6 +51,7 @@ class VIPCenterActivity : BaseActivity(), VIPCenterContact.View {
 
     companion object {
         const val PAYRESULT = "PAYRESULT"
+        const val COURSEDETAIL = "COURSEDETAIL"
         fun newIntent(context: Context?): Intent {
             var intent = Intent(context, VIPCenterActivity::class.java)
             return intent
@@ -56,12 +61,21 @@ class VIPCenterActivity : BaseActivity(), VIPCenterContact.View {
             intent.putExtra(PAYRESULT,code)
             return intent
         }
+        fun newIntent(context: Context?,code : Int?): Intent {
+            var intent = Intent(context, VIPCenterActivity::class.java)
+            intent.putExtra(COURSEDETAIL,code)
+            return intent
+        }
     }
 
     override fun setHeader(title: String) {
         super.setHeader(title)
         title_tool_id.text = title
-        title_tool_back.setOnClickListener { finish() }
+        title_tool_back_all.setOnClickListener { intent?.getSerializableExtra(COURSEDETAIL)?.let{
+            var courseActivity = CourseDetailActivity.newIntent(intent?.getSerializableExtra(COURSEDETAIL) as Int, this)
+            startActivity(courseActivity)
+        }
+            finish()}
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -97,11 +111,20 @@ class VIPCenterActivity : BaseActivity(), VIPCenterContact.View {
     override fun updateVipItem(sub : SubscriptionResponse) {
         var isVip: Boolean= false
         val date = Date(System.currentTimeMillis())
-        val startTime = sdf.parse(sub.user.start_at)
-        val endTime = sdf.parse(sub.user.end_at)
-        val expireTime = sub.user.end_at.substring(0,sub.user.end_at.indexOf(" "))
+        var startTime = Date()
+        var endTime = startTime
+        if(!sub.user?.start_at.isNullOrBlank()){
+            startTime = sdf.parse(sub.user?.start_at)
+        }
+        if(!sub.user?.end_at.isNullOrBlank()){
+            endTime = sdf.parse(sub.user?.end_at)
+        }
         if(belongCalendar(date,startTime,endTime)) {
+            val expireTime = sub.user?.end_at?.substring(0,sub.user.end_at.indexOf(" "))
             userInfo.text = String.format(getString(R.string.vip_date), expireTime)
+            var noVip = ResourcesUtils.resource.getDrawable(R.drawable.vip)
+            noVip.setBounds(0,0,45,50)
+            userName.setCompoundDrawables(null,null,noVip,null)
             isVip = true
         }else{
             userInfo.text = ResourcesUtils.getString(R.string.not_vip)
@@ -115,7 +138,7 @@ class VIPCenterActivity : BaseActivity(), VIPCenterContact.View {
                 when (v?.getId()) {
                     R.id.course_play -> {
                         val param = CreateSubRequest(
-                                subscription_id = sub.common[position].id,
+                                subscription_id = sub.common?.get(position)?.id,
                                 platform = "android"
                         )
                         persenter.createSubscription(param)
@@ -125,12 +148,28 @@ class VIPCenterActivity : BaseActivity(), VIPCenterContact.View {
         })
     }
 
-    override fun showPayDialog(orderId: String) {
+    override fun showPayDialog(orderId: String){
+        val dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_my, null,false)
+        val dialog = MyDiolag(this,dialogView,intArrayOf(R.id.wechat_payfor,R.id.alipayfor,R.id.cancel_pay))
+        dialog.bottmShow()
+        dialog.setOnBottomItemClickListener(object : MyDiolag.OnBottomItemClickListener {
+            override fun onBottomItemClick(myDiolag: MyDiolag, view: View?) {
+                when(view?.id){
+                    R.id.wechat_payfor -> { persenter.wechatPay(orderId) }
+                    R.id.alipayfor -> { persenter.aliPay(orderId) }
+                    R.id.cancel_pay -> { dialog.dismiss() }
+                }
+            }
+        })
+    }
+
+/*    override fun showPayDialog(orderId: String) {
         val items = arrayOf("微信", "支付宝")
         val alertBuilder = AlertDialog.Builder(this)
                 .setTitle("支付选择：")
                 .setSingleChoiceItems(items, -1 , object: DialogInterface.OnClickListener{
                     override fun onClick(dialog: DialogInterface, which : Int) {
+                        AuthInstance.getInstance().orderId = orderId
                         when (which){
                             0 -> {persenter.wechatPay(orderId)}
                             1 -> {persenter.aliPay(orderId)}
@@ -139,16 +178,7 @@ class VIPCenterActivity : BaseActivity(), VIPCenterContact.View {
                     }
                 }).create()
         alertBuilder.show()
-             /*   .setSingleChoiceItems(items, 0, DialogInterface.OnClickListener {
-                    dialogInterface, i ->
-                    AuthInstance.getInstance().orderId = orderId
-                    when (i){
-                        0 -> {persenter.wechatPay(orderId)}
-                        1 -> {persenter.aliPay(orderId)}
-                    }
-                   // Toast.makeText(this@MainActivity, items[i], Toast.LENGTH_SHORT).show()
-        })*/
-    }
+    }*/
 
     private fun initUserInfoView() {
         if(!SharedPreferencesUtil.getString(this,AUTH).isNullOrEmpty()) {
@@ -158,7 +188,7 @@ class VIPCenterActivity : BaseActivity(), VIPCenterContact.View {
                 return
             }
         }else{
-            val intent = LoginActivity.newIntent(this)
+            val intent = LoginActivity.newIntent(this,intent?.getSerializableExtra(COURSEDETAIL)?.let { intent?.getSerializableExtra(COURSEDETAIL) as Int } )
             startActivity(intent)
             finish()
         }
@@ -195,10 +225,10 @@ class VIPCenterActivity : BaseActivity(), VIPCenterContact.View {
 
                         persenter.confirmAlipayOrder(AuthInstance.getInstance().orderId)
                         // 该笔订单是否真实支付成功，需要依赖服务端的异步通知。
-                       // Toast.makeText(this@VIPCenterActivity, "支付成功", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@VIPCenterActivity, "支付成功", Toast.LENGTH_SHORT).show()
                     } else {
                         // 该笔订单真实的支付结果，需要依赖服务端的异步通知。
-                       // Toast.makeText(this@VIPCenterActivity, "支付失败", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@VIPCenterActivity, "支付失败", Toast.LENGTH_SHORT).show()
                     }
                 }
                 else -> {

@@ -35,6 +35,7 @@
              android:layout_height="wrap_content"
              android:text="@string/white_noise_time"
              android:textSize="@dimen/welcome_text_size"
+             android:textStyle="bold"
              android:textColor="@color/wordWhite"/>
          <ImageView
              android:id="@+id/white_set_time"

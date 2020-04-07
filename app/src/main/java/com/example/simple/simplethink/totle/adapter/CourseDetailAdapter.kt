@@ -10,12 +10,14 @@ import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.widget.TextView
 import com.example.simple.simplethink.R
+import com.example.simple.simplethink.model.PraticeSections
 import com.example.simple.simplethink.model.bean.CourseSections
 import com.example.simple.simplethink.totle.activity.view.ProgressBarView
 import com.example.simple.simplethink.utils.DownloadHelper
 import com.example.simple.simplethink.utils.FilesUtils
 import com.example.simple.simplethink.utils.FilesUtils.isHaveFile
 import com.example.simple.simplethink.utils.ResourcesUtils
+import com.example.simple.simplethink.utils.SharedPreferencesUtil
 import java.io.File
 
 /**
@@ -26,6 +28,7 @@ class CourseDetailAdapter(val context: Activity, val totleLish : List<CourseSect
     private var mClickListener : OnCourseDetailItemClickListener?= null
     private var mPosition = -1
     private var isShow = false
+    private var mPratice : PraticeSections? = null
     var downloadAllPositon = 0
     var IsDownloadAllCourse = false
 
@@ -62,9 +65,10 @@ class CourseDetailAdapter(val context: Activity, val totleLish : List<CourseSect
         this.mClickListener = listener
     }
 
-    fun changetShowDelImage(isShow :Boolean ,position: Int){
+    fun changetShowDelImage(isShow :Boolean ,position: Int,pratice : PraticeSections){
         mPosition = position
         this.isShow = isShow
+        mPratice = pratice
         notifyDataSetChanged()
     }
 
@@ -130,6 +134,7 @@ class CourseDetailAdapter(val context: Activity, val totleLish : List<CourseSect
 
             override fun onSuccess(file: File) {
                 notifyDataSetChanged()
+                SharedPreferencesUtil.setGsonString(context,FILE_NAME,mPratice)
                 if(IsDownloadAllCourse){
                     downloadAllPositon = downloadAllPositon + 1
                     downloadAllCourse(downloadAllPositon)
@@ -143,7 +148,8 @@ class CourseDetailAdapter(val context: Activity, val totleLish : List<CourseSect
         if(positon == totleLish.size){
             return
         }else{
-            if(totleLish[positon].free == "true") changetShowDelImage(true,positon)
+            val pratice = PraticeSections(totleLish[positon].id,totleLish[positon].course_id,totleLish[positon].audio_id)
+            if(totleLish[positon].free == "true") changetShowDelImage(true,positon,pratice)
         }
     }
 

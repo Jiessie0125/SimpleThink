@@ -7,11 +7,12 @@
     android:layout_centerInParent="true">
     <TextView
         android:id="@+id/scene_sections_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:text="1111"
         android:layout_gravity="center"
-        android:textColor="@color/wordWhite"
+        android:layout_marginTop="5dp"
+        android:textColor="@color/scenceItemName"
         android:textSize="@dimen/course_txt"/>
 
 </LinearLayout>

@@ -53,7 +53,7 @@ class ForgetPasswordPresenter : ForgetPasswordContract.Presenter {
                 .observeOn(AndroidSchedulers.mainThread())
                 .map { result -> result }
                 .subscribe({ message ->
-                    view?.onSuccess()
+                    view?.onRegisterSuccess()
                 }, { error ->
                     Log.e("---", "----registerFail:" + error)
                     view?.onFailure(error)

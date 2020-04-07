@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import com.example.simple.simplethink.R
+import com.example.simple.simplethink.base.BaseActivity
 import com.example.simple.simplethink.main.MainActivity
 import com.example.simple.simplethink.model.BannerResponse
 import com.example.simple.simplethink.netapi.HttpResposityImpl
@@ -12,7 +13,7 @@ import com.example.simple.simplethink.totle.TotleActivity
 import com.example.simple.simplethink.utils.*
 import java.util.*
 
-class WelcomeActivity : Activity() {
+class WelcomeActivity : BaseActivity() {
     lateinit var persenter: SplashContract.Presenter
 
     private var splashBanner:BannerResponse? = null

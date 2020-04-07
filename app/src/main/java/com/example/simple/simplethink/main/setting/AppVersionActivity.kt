@@ -6,13 +6,14 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Html
 import com.example.simple.simplethink.R
+import com.example.simple.simplethink.base.BaseActivity
 import com.example.simple.simplethink.login.ProtocolActivity
 import kotlinx.android.synthetic.main.activity_app_version.*
 
 /**
  * Created by mobileteam on 2019/8/8.
  */
-class AppVersionActivity : Activity() {
+class AppVersionActivity : BaseActivity() {
     companion object {
         fun newIntent (context: Context?) : Intent {
             var intent = Intent(context,AppVersionActivity::class.java)

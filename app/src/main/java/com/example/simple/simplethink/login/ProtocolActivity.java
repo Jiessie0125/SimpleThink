@@ -12,12 +12,13 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import com.example.simple.simplethink.R;
+import com.example.simple.simplethink.base.BaseActivity;
 
 /**
  * Created by mobileteam on 2019/7/30.
  */
 
-public class ProtocolActivity extends Activity implements View.OnClickListener {
+public class ProtocolActivity extends BaseActivity implements View.OnClickListener {
 
     private ImageView back;
     private WebView webView;

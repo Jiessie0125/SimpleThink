@@ -26,17 +26,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="135dp"
                 android:layout_marginTop="15dp"
-                android:paddingStart="16sp"
-                android:paddingEnd="16sp"
+                android:src="@drawable/banner_images"
+                android:layout_marginRight="16sp"
+                android:layout_marginLeft="16sp"
                 android:scaleType="fitXY" />
 
-            <android.support.v7.widget.RecyclerView
+            <com.example.simple.simplethink.totle.MaxRecyclerView
                 android:id="@+id/recycle_tv"
                 android:layout_margin="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-            </android.support.v7.widget.RecyclerView>
+            </com.example.simple.simplethink.totle.MaxRecyclerView>
             <View
                 android:layout_width="match_parent"
                 android:layout_height="7dp"
@@ -73,7 +74,7 @@
                         android:layout_height="match_parent"
                         android:src="@drawable/more" />
                 </LinearLayout>
-                <android.support.v7.widget.RecyclerView
+                <com.example.simple.simplethink.totle.MaxRecyclerView
                     android:id="@+id/recycle_course_tv"
                     android:layout_marginTop="20dp"
                     android:layout_marginBottom="50dp"
@@ -81,7 +82,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal">
 
-                </android.support.v7.widget.RecyclerView>
+                </com.example.simple.simplethink.totle.MaxRecyclerView>
             </LinearLayout>
 
         </LinearLayout>

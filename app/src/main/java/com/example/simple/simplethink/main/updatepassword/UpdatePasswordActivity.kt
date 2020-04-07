@@ -6,6 +6,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import com.example.simple.simplethink.R
+import com.example.simple.simplethink.base.BaseActivity
 import com.example.simple.simplethink.utils.ErrorHandler
 import com.example.simple.simplethink.utils.auth.AuthInstance
 import kotlinx.android.synthetic.main.activity_update_password.*
@@ -13,7 +14,7 @@ import kotlinx.android.synthetic.main.activity_update_password.*
 /**
  * Created by mobileteam on 2019/8/13.
  */
-class UpdatePasswordActivity : Activity(), UpdatePasswordContract.View {
+class UpdatePasswordActivity : BaseActivity(), UpdatePasswordContract.View {
 
     private var presenter: UpdatePasswordContract.Presenter = UpdatePasswordPresenter()
 

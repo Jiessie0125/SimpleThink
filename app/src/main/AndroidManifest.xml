@@ -64,6 +64,7 @@
         <activity android:name=".login.LoginViaPhoneNumActivity"
             android:screenOrientation="portrait"/>
         <activity android:name=".totle.activity.course.CourseDetailActivity"
+            android:launchMode="singleTask"
             android:screenOrientation="portrait"/>
         <activity android:name=".vip.VIPCenterActivity"
             android:launchMode="singleTask"
@@ -72,12 +73,12 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".totle.activity.down.DownloadSmallActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name="me.iwf.photopicker.PhotoPickerActivity"
+        <!--<activity android:name="me.iwf.photopicker.PhotoPickerActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar"
             android:screenOrientation="portrait"/>
         <activity android:name="me.iwf.photopicker.PhotoPagerActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"/>-->
         <activity android:name=".main.setting.AppVersionActivity"
         android:theme="@style/Theme.AppCompat.NoActionBar"
         android:screenOrientation="portrait"/>

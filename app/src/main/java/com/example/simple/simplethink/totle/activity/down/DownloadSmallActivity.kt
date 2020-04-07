@@ -6,6 +6,7 @@ import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import android.view.Gravity
 import android.view.View
 import com.example.simple.simplethink.R
 import com.example.simple.simplethink.base.BaseActivity
@@ -14,6 +15,8 @@ import com.example.simple.simplethink.totle.adapter.DownloadItemAdapter
 import com.example.simple.simplethink.totle.adapter.DownloadSmallItemAdapter
 import com.example.simple.simplethink.utils.FilesUtils
 import com.example.simple.simplethink.utils.ResourcesUtils
+import com.example.simple.simplethink.utils.SharePicturePopupWindow
+import com.example.simple.simplethink.utils.SharedPreferencesUtil
 import kotlinx.android.synthetic.main.activity_download.*
 import kotlinx.android.synthetic.main.title_tool.*
 import java.io.File
@@ -24,10 +27,12 @@ import java.io.File
 class DownloadSmallActivity : BaseActivity() {
     lateinit var downloadAdapter : DownloadSmallItemAdapter
     var downloadArray = ArrayList<String>()
+    var sourceName =""
 
     companion object {
         const val SOURCENAME = "SOURCENAME"
-        fun newIntent (context: Context?,sourceName : String) : Intent {
+        const val REQUEST_CODE = 1024
+        fun newIntent (context: Context?,sourceName : String?) : Intent {
             var intent = Intent(context, DownloadSmallActivity::class.java)
             intent.putExtra(SOURCENAME,sourceName)
             return intent
@@ -41,7 +46,7 @@ class DownloadSmallActivity : BaseActivity() {
 
     fun initView(){
         var intent = getIntent()
-        var sourceName = intent.getSerializableExtra(SOURCENAME) as String
+        sourceName = intent.getSerializableExtra(SOURCENAME) as String
         setHeader(ResourcesUtils.getString(R.string.download_manager))
         val folder = this.getExternalFilesDirs(sourceName)[0]
         folder?.let {
@@ -51,6 +56,8 @@ class DownloadSmallActivity : BaseActivity() {
         }
         downloadAdapter = DownloadSmallItemAdapter(this)
         downloadArray?.let {
+            no_download_record.visibility = View.GONE
+            downloadClass.visibility = View.VISIBLE
             downloadClass.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
             downloadArray.forEach { item ->
                 downloadAdapter.setData(downloadArray)
@@ -73,7 +80,13 @@ class DownloadSmallActivity : BaseActivity() {
     override fun setHeader(title: String) {
         super.setHeader(title)
         title_tool_id.text = title
-        title_tool_back.setOnClickListener { finish() }
+        title_tool_back_all.setOnClickListener { showDownloadPage() }
+    }
+
+    private fun showDownloadPage(){
+        val intent = DownloadActivity.newIntent(this)
+        startActivity(intent)
+        finish()
     }
     private fun showDeleteDialog(bigClassName : String,parentPath: String) {
         val builder = AlertDialog.Builder(this)
@@ -96,9 +109,26 @@ class DownloadSmallActivity : BaseActivity() {
             downloadArray.remove(bigClassName)
             downloadAdapter.setData(downloadArray)
         }
+        val folders = this.getExternalFilesDirs(sourceName)[0]
+        folders?.let {
+            if(it.list().size == 0){
+                no_download_record.visibility = View.VISIBLE
+                downloadClass.visibility = View.GONE
+            }
+        }
     }
     private fun showPlayPage(sceneName : String,sceneSource: String){
-        val intent = ScenePlayActivity.newIntent(this,sceneName,sceneSource,null,null)
-        startActivity(intent)
+        val praticeSections = SharedPreferencesUtil.getGsonString(this,sceneName)
+        val intent = ScenePlayActivity.newIntent(this,sceneName,sceneSource,null,praticeSections)
+        startActivityForResult(intent, DownloadSmallActivity.REQUEST_CODE)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        val courseName = data?.getStringExtra("courseName")
+        if(requestCode == DownloadSmallActivity.REQUEST_CODE && resultCode == ScenePlayActivity.RESULT_CODE){
+            val picturePopupWindow = SharePicturePopupWindow(this, courseName!!)
+            picturePopupWindow.showAtLocation(ad_popup_pic_course, Gravity.BOTTOM, 0, 0)
+        }
     }
 }

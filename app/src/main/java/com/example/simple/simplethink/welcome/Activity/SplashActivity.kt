@@ -12,6 +12,7 @@ import android.widget.TextView
 
 import com.bumptech.glide.Glide
 import com.example.simple.simplethink.R
+import com.example.simple.simplethink.base.BaseActivity
 import com.example.simple.simplethink.main.MainActivity
 import com.example.simple.simplethink.model.BannerResponse
 import com.example.simple.simplethink.totle.TotleActivity
@@ -27,7 +28,7 @@ import java.io.File
  * Created by mobileteam on 2019/7/15.
  */
 
-class SplashActivity : Activity(), View.OnClickListener {
+class SplashActivity : BaseActivity(), View.OnClickListener {
 
     private var mc: MyCountDownTimer? = null
     private var tv: TextView? = null
@@ -42,10 +43,10 @@ class SplashActivity : Activity(), View.OnClickListener {
         setContentView(R.layout.activity_splash)
         val intent = getIntent()
         isAppRestart = intent.getBooleanExtra("isAppRestart", false)
-        tv = findViewById<View>(R.id.tv_jump) as TextView
+        tv = findViewById(R.id.tv_jump) as TextView
         tv!!.setTag("jump")
         tv!!.setOnClickListener(this)
-        iv = findViewById<View>(R.id.iv_picture) as ImageView
+        iv = findViewById(R.id.iv_picture) as ImageView
         initSplashPage()
     }
 

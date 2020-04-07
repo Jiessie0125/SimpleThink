@@ -39,6 +39,7 @@ class SharePicturePopupWindow constructor(activity: Activity, courseName: String
     lateinit var user_info_avatar:ImageView
     lateinit var update_nick_name_text:TextView
     lateinit var imageBkg: ImageView
+    lateinit var shareRelative : RelativeLayout
     private lateinit var mPopView: View
     private val bean = ShareMediaBean()
     private val supportMediaList = arrayOf<String>(ShareMediaPopupWindow.WECHAT, ShareMediaPopupWindow.MOMENTS, ShareMediaPopupWindow.QQ, ShareMediaPopupWindow.QQSPACE, ShareMediaPopupWindow.WEIBO)
@@ -55,14 +56,15 @@ class SharePicturePopupWindow constructor(activity: Activity, courseName: String
         imageBkg = mPopView.findViewById<ImageView>(R.id.image_pkg)
         picCloseBtn = mPopView.findViewById<ImageView>(R.id.pic_close_img)
         linearLayout = mPopView.findViewById<LinearLayout>(R.id.share_img_btn)
+        shareRelative = mPopView.findViewById<RelativeLayout>(R.id.share_img)
         Glide.with(MyApp.context!!).load(R.drawable.share_course).into(imageBkg)
         frameLayout = mPopView.findViewById<FrameLayout>(R.id.pic_share_img)
         pic_course = mPopView.findViewById<TextView>(R.id.pic_course)
         pic_course.text = courseName
         continue_day_count = mPopView.findViewById<TextView>(R.id.pic_continue_day)
-        continue_day_count.text = userInfo?.continueDay
+        continue_day_count.text = userInfo?.continueDay + ResourcesUtils.getString(R.string.share_day)
         pic_duration_count = mPopView.findViewById<TextView>(R.id.pic_duration_count)
-        pic_duration_count.text = userInfo?.durationCount
+        pic_duration_count.text = userInfo?.durationCount + ResourcesUtils.getString(R.string.share_mins)
         user_info_avatar = mPopView.findViewById<ImageView>(R.id.user_info_avatar)
         Glide.with(MyApp.context!!).load(userInfo?.avatar).apply(RequestOptions().placeholder(R.drawable.photo)).into(user_info_avatar)
         update_nick_name_text = mPopView.findViewById<TextView>(R.id.pic_nick_name)
@@ -70,6 +72,9 @@ class SharePicturePopupWindow constructor(activity: Activity, courseName: String
 
 
         picCloseBtn.setOnClickListener {
+            dismiss()
+        }
+        shareRelative.setOnClickListener {
             dismiss()
         }
         linearLayout.setOnClickListener {

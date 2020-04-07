@@ -1,7 +1,9 @@
 package com.example.simple.simplethink.totle.adapter
 
 import android.app.Activity
+import android.graphics.drawable.BitmapDrawable
 import android.support.v7.widget.RecyclerView
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -27,6 +29,8 @@ class CourseAdapter( val context: Activity, val totleLish : List<Course>) : Recy
     }
 
     override fun onBindViewHolder(holder: CourseViewHolder?, position: Int) {
+        val window = this.context.getWindow()
+        window.setBackgroundDrawable(BitmapDrawable())
         holder?.mTotleItem?.text = totleLish?.get(position)?.title
         FilesUtils.getItemIcon(totleLish?.get(position)?.title,context,holder?.mItemImage)
         when(totleLish[position].type_new){

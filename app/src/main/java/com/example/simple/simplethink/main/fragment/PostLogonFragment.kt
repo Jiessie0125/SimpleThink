@@ -119,7 +119,7 @@ class PostLogonFragment : LogonBaseFragment(),MainContract.View {
     }
 
     override fun onFailure(e: Throwable) {
-        ErrorHandler.showErrorWithToast(context!!, e)
+       // ErrorHandler.showErrorWithToast(context!!, e)
     }
 
     companion object {
@@ -237,16 +237,15 @@ class PostLogonFragment : LogonBaseFragment(),MainContract.View {
 
         val intent = Intent(context, activity)
 
-        if (from == "") {
-            intent.putExtra("from", "main")
-        } else {
+       /* if (from == "") {
+            intent.putExtra("from", "")
+        } else {*/
             intent.putExtra("from", from)
-        }
+        /*}*/
         acitivityResponse?.let {
             intent.putExtra("ActivityResponse", it)
         }
         startActivity(intent)
-        this.activity?.finish()
     }
 
     override fun getLayoutId(): Int = R.layout.fragment_main_postlogon
@@ -287,11 +286,20 @@ class PostLogonFragment : LogonBaseFragment(),MainContract.View {
 
     override fun updateVipItem(sub: SubscriptionResponse) {
         val date = Date(System.currentTimeMillis())
-        val startTime = sdf.parse(sub.user.start_at)
-        val endTime = sdf.parse(sub.user.end_at)
-        val expireTime = sub.user.end_at.substring(0,sub.user.end_at.indexOf(" "))
+        var startTime = Date()
+        var endTime = startTime
+        if(!sub.user?.start_at.isNullOrBlank()){
+            startTime = sdf.parse(sub.user?.start_at)
+        }
+        if(!sub.user?.end_at.isNullOrBlank()){
+            endTime = sdf.parse(sub.user?.end_at)
+        }
         if(FilesUtils.belongCalendar(date, startTime, endTime)) {
+            val expireTime = sub.user?.end_at?.substring(0,sub.user.end_at?.indexOf(" "))
             vip_info.text = String.format(getString(R.string.vip_date), expireTime)
+            var noVip = ResourcesUtils.resource.getDrawable(R.drawable.vip)
+            noVip.setBounds(0,0,45,50)
+            vip_info.setCompoundDrawables(noVip,null,null,null)
             vip_link.text = ResourcesUtils.getString(R.string.to_renew)
         }else{
             vip_info.text = ResourcesUtils.getString(R.string.not_vip)

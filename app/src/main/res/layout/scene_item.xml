@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:id="@+id/scece_item"
+
     android:orientation="horizontal">
 
     <FrameLayout
+        android:id="@+id/scene_item_src"
         android:layout_width="115dp"
         android:layout_height="115dp"
         android:layout_marginTop="@dimen/default_view_horizontal_padding"
@@ -27,13 +30,23 @@
             android:text="111"/>
     </FrameLayout>
     <android.support.v7.widget.RecyclerView
+
+        android:layout_toEndOf="@+id/scene_item_src"
         android:layout_marginTop="@dimen/default_view_horizontal_padding"
         android:id="@+id/scene_sections"
         android:layout_marginLeft="30dp"
-        android:layout_gravity="center_vertical"
-        android:layout_width="wrap_content"
+         android:layout_centerVertical="true"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
     </android.support.v7.widget.RecyclerView>
 
-</LinearLayout>
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerInParent="true"
+        android:layout_marginRight="20dp"
+        android:src="@drawable/next_step"/>
+
+</RelativeLayout>

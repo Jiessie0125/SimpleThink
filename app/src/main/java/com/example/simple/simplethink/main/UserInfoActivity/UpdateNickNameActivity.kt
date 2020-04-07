@@ -8,6 +8,7 @@ import android.text.Editable
 import android.widget.EditText
 import android.widget.Toast
 import com.example.simple.simplethink.R
+import com.example.simple.simplethink.base.BaseActivity
 import com.example.simple.simplethink.main.updatepassword.UpdatePasswordActivity
 import com.example.simple.simplethink.model.UploadFileResponse
 import com.example.simple.simplethink.utils.ErrorHandler
@@ -17,7 +18,7 @@ import kotlinx.android.synthetic.main.activity_update_nick_name.*
 /**
  * Created by mobileteam on 2019/8/13.
  */
-class UpdateNickNameActivity: Activity(), UserInfoContract.View{
+class UpdateNickNameActivity: BaseActivity(), UserInfoContract.View{
     override fun onRefreshUerInfoSuccess() {
         Toast.makeText(this, R.string.update_user_info_success, Toast.LENGTH_LONG).show()
         finish()

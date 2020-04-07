@@ -13,12 +13,14 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import com.example.simple.simplethink.R
 import com.example.simple.simplethink.R.id.scene_download_mp3
+import com.example.simple.simplethink.model.PraticeSections
 import com.example.simple.simplethink.model.Sections
 import com.example.simple.simplethink.totle.activity.view.RoundProgressBar
 import com.example.simple.simplethink.utils.DownloadHelper
 import com.example.simple.simplethink.utils.FilesUtils
 import com.example.simple.simplethink.utils.FilesUtils.timeParse
 import com.example.simple.simplethink.utils.ResourcesUtils
+import com.example.simple.simplethink.utils.SharedPreferencesUtil
 import java.io.File
 
 /**
@@ -29,6 +31,7 @@ class SceneDetailAdapter( val context: Activity,val sections : List<Sections>,va
     private var mClickListener : OnItemDetailClickListener ?= null
     private var isShow = false
     private var mPosition = -1
+    private var mPratice : PraticeSections ?=null
 
     override fun getItemCount(): Int {
         return sections.size
@@ -81,6 +84,7 @@ class SceneDetailAdapter( val context: Activity,val sections : List<Sections>,va
             }
 
             override fun onSuccess(file: File) {
+                SharedPreferencesUtil.setGsonString(context,FILE_NAME,mPratice)
                 notifyDataSetChanged()
             }
         })
@@ -90,9 +94,10 @@ class SceneDetailAdapter( val context: Activity,val sections : List<Sections>,va
         this.mClickListener = listener
     }
 
-    fun changetShowDelImage(isShow: Boolean,position: Int) {
+    fun changetShowDelImage(isShow: Boolean,position: Int,pratice : PraticeSections) {
         mPosition = position
         this.isShow = isShow
+        mPratice = pratice
         notifyDataSetChanged()
     }
 

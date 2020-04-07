@@ -27,6 +27,6 @@ class FeedBackActivity : BaseActivity() {
     override fun setHeader(title: String) {
         super.setHeader(title)
         title_tool_id.text = title
-        title_tool_back.setOnClickListener { finish() }
+        title_tool_back_all.setOnClickListener { finish() }
     }
 }

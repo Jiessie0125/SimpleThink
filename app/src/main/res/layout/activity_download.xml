@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/scene_bg"
+    android:fitsSystemWindows="true"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/mainColor"
@@ -10,7 +11,14 @@
 
     <include android:id="@+id/buzzy_title"
         layout="@layout/title_tool"/>
+    <ImageView
+        android:id="@+id/no_download_record"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:src="@drawable/download_bk"/>
     <android.support.v7.widget.RecyclerView
+        android:visibility="gone"
         android:id="@+id/downloadClass"
         android:layout_marginLeft="@dimen/default_view_horizontal_padding"
         android:layout_marginRight="@dimen/default_view_horizontal_padding"
@@ -18,5 +26,12 @@
         android:layout_height="wrap_content">
 
     </android.support.v7.widget.RecyclerView>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="visible"
+        android:id="@+id/ad_popup_pic_course"
+        >
+    </RelativeLayout>
 
 </LinearLayout>

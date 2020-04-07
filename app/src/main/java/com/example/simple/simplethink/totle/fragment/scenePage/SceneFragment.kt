@@ -45,7 +45,11 @@ class SceneFragment : Fragment() ,SceneContact.View{
         scene_rv.adapter = sceneAdapter
         sceneAdapter.setOnItemClickListener(object :OnItemClickListener{
             override fun onItemClick(view: View, postion: Int) {
-                showSceneDetailPage(sceneList[postion])
+                when (view.getId()) {
+                    R.id.scece_item,R.id.scene_sections ->  {
+                        showSceneDetailPage(sceneList[postion])
+                    }
+                }
                }
         })
     }

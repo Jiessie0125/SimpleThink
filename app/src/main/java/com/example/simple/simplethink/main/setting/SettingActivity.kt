@@ -8,6 +8,7 @@ import android.os.Message
 import android.view.View
 import com.example.simple.simplethink.MyApp
 import com.example.simple.simplethink.R
+import com.example.simple.simplethink.base.BaseActivity
 import com.example.simple.simplethink.main.MainActivity
 import com.example.simple.simplethink.main.SettingContract
 import com.example.simple.simplethink.main.SettingPresenter
@@ -23,7 +24,7 @@ import kotlinx.android.synthetic.main.title_tool.*
 /**
  * Created by jiessie on 2019/8/6.
  */
-class SettingActivity : Activity(), SettingContract.View {
+class SettingActivity : BaseActivity(), SettingContract.View {
 
     private val presenter = SettingPresenter()
 
@@ -90,6 +91,6 @@ class SettingActivity : Activity(), SettingContract.View {
     }
 
     private fun init(){
-        title_tool_back.setOnClickListener { finish() }
+        title_tool_back_all.setOnClickListener { finish() }
     }
 }

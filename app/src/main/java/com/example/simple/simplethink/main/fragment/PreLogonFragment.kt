@@ -70,7 +70,7 @@ class PreLogonFragment : LogonBaseFragment(), MainContract.View {
 
 
     override fun onFailure(e: Throwable) {
-        ErrorHandler.showErrorWithToast(context!!, e)
+       // ErrorHandler.showErrorWithToast(context!!, e)
 
     }
 

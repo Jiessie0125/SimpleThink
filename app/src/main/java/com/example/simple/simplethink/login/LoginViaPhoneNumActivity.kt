@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import com.example.simple.simplethink.R
+import com.example.simple.simplethink.base.BaseActivity
 import com.example.simple.simplethink.utils.ErrorHandler
 import com.example.simple.simplethink.utils.ValidationUtils
 import com.example.simple.simplethink.widget.WaitDialog
@@ -13,7 +14,7 @@ import kotlinx.android.synthetic.main.activity_login_phone_number.*
 /**
  * Created by Ashur on 2019/7/18.
  */
-class LoginViaPhoneNumActivity : Activity(), LoginViaPhoneContract.View {
+class LoginViaPhoneNumActivity : BaseActivity(), LoginViaPhoneContract.View {
 
     companion object {
         open fun newIntent(context: Context): Intent {

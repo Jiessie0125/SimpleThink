@@ -9,7 +9,6 @@ import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
 import com.example.simple.simplethink.R
-import com.example.simple.simplethink.model.VIPItem
 
 /**
  * Created by jiessie on 2019/6/11.
@@ -49,8 +48,8 @@ class DownloadItemAdapter(val context: Activity) : RecyclerView.Adapter<Download
         hidenClass = bigClassName
         notifyDataSetChanged()
     }*/
-    fun setData(vipArray : ArrayList<String>){
-        this.vipArray = vipArray
+    fun setData(vipArray : ArrayList<String>?){
+        this.vipArray = vipArray!!
         notifyDataSetChanged()
     }
 

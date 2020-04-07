@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.BitmapFactory
 import android.os.Bundle
+import android.os.Handler
 import android.support.v7.widget.LinearLayoutManager
 import android.view.Gravity
 import android.view.View
@@ -17,6 +18,7 @@ import com.example.simple.simplethink.model.bean.ShareMediaBean
 import com.example.simple.simplethink.netapi.HttpResposityImpl
 import com.example.simple.simplethink.totle.activity.ScenePlayActivity
 import com.example.simple.simplethink.totle.adapter.CourseDetailAdapter
+import com.example.simple.simplethink.utils.DownloadHelper
 import com.example.simple.simplethink.utils.FilesUtils
 import com.example.simple.simplethink.utils.ShareMediaPopupWindow
 import com.example.simple.simplethink.utils.SharePicturePopupWindow
@@ -35,11 +37,12 @@ class CourseDetailActivity: BaseActivity(), CourseDetailContact.View{
     private var isManager =false
     private val bean = ShareMediaBean()
     var downLoadCourse : List<CourseSections>? =null
+    var courseItem : Int =0
 
     companion object {
         const val COURSEID = "COURSEID"
         const val REQUEST_CODE = 1
-        fun newIntent (item : Int, context: Context?) : Intent {
+        fun newIntent (item : Int?, context: Context?) : Intent {
             var intent = Intent(context,CourseDetailActivity::class.java)
             intent.putExtra(COURSEID,item)
             return intent
@@ -64,22 +67,31 @@ class CourseDetailActivity: BaseActivity(), CourseDetailContact.View{
 
     private fun showPopFormBottom() {
         val shareMediaPopupWindow = ShareMediaPopupWindow(this, supportMediaList, bean)
-        shareMediaPopupWindow.showAtLocation(findViewById<View>(R.id.ad_popup_course), Gravity.BOTTOM, 0, 0)
+        shareMediaPopupWindow.showAtLocation(findViewById(R.id.ad_popup_course), Gravity.BOTTOM, 0, 0)
     }
 
 
     private fun init(){
         var intent = getIntent()
-        var courseItem = intent.getSerializableExtra(COURSEID) as Int
+        courseItem = intent.getSerializableExtra(COURSEID) as Int
         val httpResposityImpl = HttpResposityImpl()
         coursePresenter = CourseDetailPresenter(httpResposityImpl,this)
         coursePresenter.getCourse(courseItem)
-        course_back.setOnClickListener { finish() }
+        title_tool_back_all.setOnClickListener {
+            finish()
+           /* val handler =  Handler()
+            handler.postDelayed(object: Runnable {
+                override fun run() {
+
+                }
+            }, 3000)*/
+        }
         course_share.setOnClickListener {
             initBean()
             showPopFormBottom()
         }
         download_all_course.setOnClickListener {
+            download_all_course.isEnabled = false
             downLoadCourse?.let {
                 courseDetailAdapter.downloadAllCourse(0)
                 /*for (index in 0..(downLoadCourse as List<CourseSections>).size-1){
@@ -87,6 +99,11 @@ class CourseDetailActivity: BaseActivity(), CourseDetailContact.View{
                 }*/
             }
         }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        DownloadHelper.cancelDownload()
     }
 
     override fun setCourseAdapter(courseResponse : CourseResponse) {
@@ -102,10 +119,10 @@ class CourseDetailActivity: BaseActivity(), CourseDetailContact.View{
         courseDetailAdapter.notifyDataSetChanged()
         courseDetailAdapter.setOnItemClickListener(object : CourseDetailAdapter.OnCourseDetailItemClickListener {
             override fun onItemClick(v: View?, position: Int) {
+                val pratice = PraticeSections(courseResponse.sections[position].id,courseResponse.sections[position].course_id,courseResponse.sections[position].audio_id)
                 when(v?.id){
-                    R.id.course_download -> isVipItem(courseResponse.sections[position].free,position,true)
+                    R.id.course_download -> isVipItem(courseResponse.sections[position].free,position,true,pratice)
                     R.id.course_play -> {
-                        val pratice = PraticeSections(courseResponse.sections[position].id,courseResponse.sections[position].course_id,courseResponse.sections[position].audio_id)
                         showSceneResourcePage(courseResponse.sections[position].title,
                                 FilesUtils.getLocalFileUrl(courseResponse.sections[position].title,courseResponse.title),null,pratice)
 
@@ -114,14 +131,14 @@ class CourseDetailActivity: BaseActivity(), CourseDetailContact.View{
         })
     }
 
-    private fun downloadCourseMP3(position :Int){
+    private fun downloadCourseMP3(position :Int,pratice :PraticeSections){
         isManager = !isManager
-        courseDetailAdapter.changetShowDelImage(isManager ,position)
+        courseDetailAdapter.changetShowDelImage(isManager ,position,pratice)
     }
 
-    private fun isVipItem(free: String,position: Int,downloadOnly: Boolean){
+    private fun isVipItem(free: String,position: Int,downloadOnly: Boolean,pratice :PraticeSections){
         when(free){
-            "true" -> downloadCourseMP3(position)
+            "true" -> downloadCourseMP3(position,pratice)
             "false" -> { if(downloadOnly)showVipPage() }
         }
     }
@@ -137,11 +154,14 @@ class CourseDetailActivity: BaseActivity(), CourseDetailContact.View{
         if(requestCode == REQUEST_CODE && resultCode == ScenePlayActivity.RESULT_CODE){
             val picturePopupWindow = SharePicturePopupWindow(this, courseName!!)
             picturePopupWindow.showAtLocation(ad_popup_pic_course, Gravity.BOTTOM, 0, 0)
+            picturePopupWindow.isOutsideTouchable = true
         }
     }
 
     private fun showVipPage(){
-        val intent = VIPCenterActivity.newIntent(this)
+        val intent = VIPCenterActivity.newIntent(this,courseItem)
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
         startActivity(intent)
+        this.finish()
     }
 }

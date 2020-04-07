@@ -44,9 +44,11 @@ class DownloadActivity : BaseActivity() {
             }
         }
         downloadAdapter = DownloadItemAdapter(this)
-        downloadArray?.let {
+        if(downloadArray.isNotEmpty()) {
+            no_download_record.visibility = View.GONE
+            downloadClass.visibility = View.VISIBLE
             downloadClass.layoutManager =LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false)
-            downloadArray.forEach { item ->
+            downloadArray?.forEach { item ->
                 downloadAdapter.setData(downloadArray)
             }
             downloadClass.adapter = downloadAdapter
@@ -70,7 +72,7 @@ class DownloadActivity : BaseActivity() {
     override fun setHeader(title: String) {
         super.setHeader(title)
         title_tool_id.text = title
-        title_tool_back.setOnClickListener { finish() }
+        title_tool_back_all.setOnClickListener { finish() }
     }
 
     private fun removeBigClass(bigClassName : String){
@@ -78,13 +80,21 @@ class DownloadActivity : BaseActivity() {
         if (folder.exists()) {
            // folder.delete()
             FilesUtils.deleteFile(folder)
-            downloadArray.remove(bigClassName)
+            downloadArray?.remove(bigClassName)
             downloadAdapter.setData(downloadArray)
         }
+        val folders = this.getExternalFilesDirs(null)[0]
+        folders?.let {
+            if(it.list().size == 0){
+                no_download_record.visibility = View.VISIBLE
+                downloadClass.visibility = View.GONE
+            }
+        }
     }
-    private fun showSmallClass(bigClassName : String){
+    private fun showSmallClass(bigClassName : String?){
         val downloadSmallIntent = DownloadSmallActivity.newIntent(this,bigClassName)
         startActivity(downloadSmallIntent)
+        finish()
     }
 
     private fun showDeleteDialog(bigClassName : String) {
@@ -97,7 +107,6 @@ class DownloadActivity : BaseActivity() {
                     removeBigClass(bigClassName)
                 })
         builder.create().show()
-
     }
 
 }

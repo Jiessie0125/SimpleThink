@@ -8,7 +8,7 @@
     <string name="logon_revive">如何在失眠中满血复活？</string>
     <string name="logon_revive_word">冥想新姿势，失眠的时候不遭罪</string>
     <string name="fisrt_use">首次开通 立享5折</string>
-    <string name="totle">全部</string>
+    <string name="totle">冥想</string>
     <string name="scene">场景</string>
     <string name="whith_noise">白噪音</string>
     <string name="guide_text_1_1">累了吗？</string>
@@ -46,6 +46,9 @@
     <string name="send_sms_code">发送验证码</string>
     <string name="sms_countdown_time">秒后再次</string>
     <string name="vip">会员</string>
+    <string name="pay_type">支付方式</string>
+    <string name="ali_pay">支付宝</string>
+    <string name="wechat_pay">微信</string>
     <string name="free">限免</string>
     <string name="class_list">课程列表</string>
     <string name="download_class_list">下载全部课程</string>
@@ -68,7 +71,10 @@
     <string name="login_via_wechat">微信</string>
     <string name="login_via_weibo">微博</string>
     <string name="register">手机注册 >></string>
+    <string name="register_success">用户注册成功</string>
+    <string name="sms_code">验证码已发送</string>
     <string name="login_policy"><![CDATA[登录即代表同意<U>简单冥想用户隐私政策</U>]]></string>
+    <string name="wechat_contact">如果购买中遇到问题请添加客服微信jiandan-2019</string>
     <string name="login_3rd_party_auth_fail">认证失败</string>
     <string name="login_3rd_party_auth_cancel">取消授权认证</string>
     <string name="selection_edit">编辑精选</string>
@@ -76,8 +82,8 @@
 
     <string name="app_version">当前版本 : V</string>
     <string name="app_policy"><![CDATA[<U>《简单冥想用户隐私服务协议》</U>]]></string>
-    <string name="app_feedback">客服邮箱：jiandan888@126.com</string>
-    <string name="app_query">有疑问或者问题反馈请联系客服邮箱</string>
+    <string name="app_feedback">如需反馈&lt;简单冥想&gt;使用中的任何问题或建议，欢迎通过邮件联系我们，我们会在第一时间给予反馈。</string>
+    <string name="app_query">邮箱：service@simplemeditation.cn</string>
     <string name="app_query_title">意见反馈</string>
     <string name="logoff">退出登录</string>
     
@@ -109,5 +115,9 @@
     <string name="white_noise_7">火车</string>
     <string name="white_noise_8">落叶</string>
     <string name="white_noise_9">溪流</string>
+    <string name="share_day">天</string>
+    <string name="share_mins">分钟</string>
+
+    <string name="vip_money_sign">¥</string>
 
 </resources>

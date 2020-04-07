@@ -19,13 +19,14 @@ import com.example.simple.simplethink.model.bean.ShareMediaBean
 import com.example.simple.simplethink.utils.ShareMediaPopupWindow
 
 import cn.sharesdk.framework.Platform
+import com.example.simple.simplethink.base.BaseActivity
 import com.example.simple.simplethink.totle.TotleActivity
 
 /**
  * Created by mobileteam on 2019/7/17.
  */
 
-class AdvertisementActivity : Activity(), View.OnClickListener {
+class AdvertisementActivity : BaseActivity(), View.OnClickListener {
 
     private var webView: WebView? = null
     private var bannerResponse: BannerResponse? = null
@@ -40,7 +41,7 @@ class AdvertisementActivity : Activity(), View.OnClickListener {
     protected override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_advertisement)
-        webView = findViewById<View>(R.id.ad_webView) as WebView
+        webView = findViewById(R.id.ad_webView) as WebView
         webView!!.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN)
         from = getIntent().getStringExtra("from")
         getIntent().getSerializableExtra("BannerResponse")?.let {
@@ -63,10 +64,10 @@ class AdvertisementActivity : Activity(), View.OnClickListener {
         if (bottomActivityResponse != null) {
             webView!!.loadUrl(bottomActivityResponse!!.lessionsID)
         }
-        back_btn = findViewById<View>(R.id.ad_back_btn) as ImageView
+        back_btn = findViewById(R.id.ad_back_btn) as ImageView
         back_btn!!.setTag("back")
         back_btn!!.setOnClickListener(this)
-        share_btn = findViewById<View>(R.id.ad_share_btn) as ImageView
+        share_btn = findViewById(R.id.ad_share_btn) as ImageView
         share_btn!!.setTag("share")
         share_btn!!.setOnClickListener(this)
 
@@ -102,7 +103,7 @@ class AdvertisementActivity : Activity(), View.OnClickListener {
         if (view.getTag() == "back") {
             if (from == "main") {
                 enterHomeActivity()
-            }
+            }else{finish()}
         } else {
             initBean()
             showPopFormBottom()
@@ -111,7 +112,7 @@ class AdvertisementActivity : Activity(), View.OnClickListener {
 
     private fun showPopFormBottom() {
         val shareMediaPopupWindow = ShareMediaPopupWindow(this, supportMediaList, bean)
-        shareMediaPopupWindow.showAtLocation(findViewById<View>(R.id.ad_popup), Gravity.BOTTOM, 0, 0)
+        shareMediaPopupWindow.showAtLocation(findViewById(R.id.ad_popup), Gravity.BOTTOM, 0, 0)
     }
 
 

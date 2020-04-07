@@ -12,10 +12,9 @@
     android:orientation="horizontal">
     <TextView
         android:id="@+id/recycle_vip_date"
-        android:layout_width="80dp"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
-        android:gravity="center"
         android:layout_centerVertical="true"
         android:textSize="@dimen/login_small_title"
         android:layout_marginRight="20dp"
@@ -25,10 +24,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="@dimen/hello_text_size"
+        android:textStyle="bold"
         android:textColor="@color/fisrtUse"
         android:layout_centerInParent="true"
         android:gravity="center"/>
-
+    <TextView
+        android:id="@+id/recycle_vip_discount_money"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/logon_revive_word"
+        android:textColor="@color/edit_text"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@+id/course_play"
+        android:layout_marginEnd="20dp"
+        android:gravity="center"/>
     <TextView
         android:id="@+id/course_play"
         android:layout_width="wrap_content"

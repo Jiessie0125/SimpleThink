@@ -8,6 +8,7 @@ import android.support.v4.media.session.MediaButtonReceiver.handleIntent
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import com.example.simple.simplethink.base.BaseActivity
 import com.example.simple.simplethink.vip.VIPCenterActivity
 import com.tencent.mm.opensdk.openapi.WXAPIFactory
 import com.tencent.mm.opensdk.openapi.IWXAPI
@@ -21,7 +22,7 @@ import com.tencent.mm.opensdk.constants.ConstantsAPI
 /**
  * Created by jiessie on 2019/8/21.
  */
-class WXPayEntryActivity : Activity(), IWXAPIEventHandler {
+class WXPayEntryActivity : BaseActivity(), IWXAPIEventHandler {
 
     private var  api: IWXAPI? = null
 

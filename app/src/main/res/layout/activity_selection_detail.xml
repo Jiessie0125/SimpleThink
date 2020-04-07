@@ -4,23 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     android:background="@color/mainColor"
     android:orientation="vertical">
 
     <include android:id="@+id/buzzy_title"
         layout="@layout/title_tool"/>
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rv_selection"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
-
+                android:layout_height="wrap_content"/>
         </LinearLayout>
-    </ScrollView>
 
 </LinearLayout>

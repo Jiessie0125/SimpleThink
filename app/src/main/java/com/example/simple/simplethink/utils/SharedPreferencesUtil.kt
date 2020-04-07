@@ -3,7 +3,12 @@ package com.example.simple.simplethink.utils
 import android.content.Context
 import android.content.SharedPreferences
 import com.example.simple.simplethink.model.BannerResponse
+import com.example.simple.simplethink.model.PraticeSections
 import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
+import com.google.gson.JsonObject
+
+
 
 object SharedPreferencesUtil {
     private val FILE_NAME = "welcomePage"
@@ -73,6 +78,25 @@ object SharedPreferencesUtil {
                 FILE_NAME, Context.MODE_PRIVATE)
         val editor = activityPreferences?.edit()
         editor?.putString(strKey, strData)
+        editor?.commit()
+    }
+
+    fun getGsonString(context: Context, strKey: String): PraticeSections {
+        val setPreferences = context.getSharedPreferences(
+                FILE_NAME, Context.MODE_PRIVATE)
+        val json = setPreferences.getString(strKey, "")
+        val gson = Gson()
+        val gsonStrData = gson.fromJson(json, PraticeSections::class.java)
+        return gsonStrData
+    }
+
+    fun setGsonString(context: Context?, strKey: String, strData: PraticeSections?) {
+        val activityPreferences = context?.getSharedPreferences(
+                FILE_NAME, Context.MODE_PRIVATE)
+        val editor = activityPreferences?.edit()
+        val gson = Gson()
+        val gsonStrData = gson.toJson(strData)
+        editor?.putString(strKey, gsonStrData)
         editor?.commit()
     }
 

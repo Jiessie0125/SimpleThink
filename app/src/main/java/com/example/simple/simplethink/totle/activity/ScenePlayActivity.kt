@@ -14,6 +14,7 @@ import android.util.Log
 import android.view.View
 import android.widget.SeekBar
 import com.example.simple.simplethink.R
+import com.example.simple.simplethink.base.BaseActivity
 import com.example.simple.simplethink.main.activity.PraticeContact
 import com.example.simple.simplethink.model.*
 import com.example.simple.simplethink.utils.ErrorHandler
@@ -33,7 +34,7 @@ import kotlin.collections.HashMap
 /**
  * Created by jiessie on 2019/7/13.
  */
-class ScenePlayActivity : AppCompatActivity(), View.OnClickListener, ScenePlayContact.View {
+class ScenePlayActivity : BaseActivity(), View.OnClickListener, ScenePlayContact.View {
     override fun onLoadUserInfoSuccess() {
         var intent = Intent()
         intent.putExtra("courseName",sceneName)

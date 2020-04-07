@@ -13,6 +13,7 @@ import android.widget.LinearLayout
 
 
 import com.example.simple.simplethink.R
+import com.example.simple.simplethink.base.BaseActivity
 import com.example.simple.simplethink.main.MainActivity
 import com.example.simple.simplethink.totle.TotleActivity
 import com.example.simple.simplethink.utils.SharedPreferencesUtil
@@ -20,7 +21,7 @@ import com.example.simple.simplethink.welcome.Adapter.GuideViewPagerAdapter
 
 import java.util.ArrayList
 
-class WelcomeGuideActivity : Activity(), View.OnClickListener {
+class WelcomeGuideActivity : BaseActivity(), View.OnClickListener {
     private var viewPager: ViewPager? = null
     private var adapter: GuideViewPagerAdapter? = null
     private var views: MutableList<View>? = null
@@ -55,7 +56,7 @@ class WelcomeGuideActivity : Activity(), View.OnClickListener {
             views!!.add(view)
         }
 
-        viewPager = findViewById<View>(R.id.vp_guide) as ViewPager
+        viewPager = findViewById(R.id.vp_guide) as ViewPager
         /*初始化adapter*/
         adapter = GuideViewPagerAdapter(views)
         viewPager!!.adapter = adapter
@@ -85,7 +86,7 @@ class WelcomeGuideActivity : Activity(), View.OnClickListener {
     }
 
     private fun initDots() {
-        linearLayout = findViewById<View>(R.id.ll) as LinearLayout
+        linearLayout = findViewById(R.id.ll) as LinearLayout
         dots =  arrayOfNulls(pics.size)
 
         /*循环取得小点图片*/

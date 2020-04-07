@@ -5,18 +5,20 @@
     android:id="@+id/scene_play_bg"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     android:background="@color/mainColor">
     <View
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/transparent_layer"/>
+        android:alpha="0.7"
+        android:background="@color/wordBlack"/>
     <SeekBar
         android:layout_below="@+id/scene_item_name"
         android:id="@+id/progress_bar_healthy"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:maxHeight="5dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="102dp"
         android:layout_centerInParent="true"
         android:thumb="@drawable/seek_bar_thumb"
         android:progressDrawable="@drawable/porcess_bk"
@@ -44,7 +46,7 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/logo_white" />
+            android:src="@drawable/logo_full_white" />
         <ImageView
         android:id="@+id/scene_play"
         android:layout_width="24dp"
@@ -67,6 +69,7 @@
 
     <LinearLayout
         android:layout_below="@+id/scene_item_name"
+        android:layout_marginTop="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true">

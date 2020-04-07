@@ -7,6 +7,7 @@ interface ForgetPasswordContract {
 
     interface View {
         fun onSuccess()
+        fun onRegisterSuccess()
         fun onFailure(e:Throwable)
 
     }

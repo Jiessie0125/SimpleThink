@@ -76,6 +76,7 @@ class VIPCenterPresenter(val httpResposityImpl : HttpResposityImpl, val view: VI
                 .map { result -> result }
                 .subscribe({message ->
                     Log.e("---", "----message:" + message)
+                    getSubscription()
                 },{
                     error->
                     Log.e("---", "----getTotleSortfail:" + error)
@@ -86,6 +87,7 @@ class VIPCenterPresenter(val httpResposityImpl : HttpResposityImpl, val view: VI
                 .observeOn(AndroidSchedulers.mainThread())
                 .map { result -> result }
                 .subscribe({message ->
+                    getSubscription()
                     Log.e("---", "----message:" + message)
                 },{
                     error->

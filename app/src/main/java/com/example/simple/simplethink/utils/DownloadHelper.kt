@@ -1,6 +1,7 @@
 package com.example.simple.simplethink.utils
 
 import android.os.AsyncTask
+import android.util.Log
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
@@ -11,14 +12,28 @@ import java.net.URL
  */
 
 internal object DownloadHelper {
+    private var mTask : DownloadAsyncTask ?= null
+    private var filePath : String ?=null
     fun download(url: String, localPath: String, listener: OnDownloadListener) {
-        val task = DownloadAsyncTask(url, localPath, listener)
-        task.execute()
+        filePath = localPath
+        mTask = DownloadAsyncTask(url, localPath, listener)
+        mTask?.execute()
+    }
+
+    fun cancelDownload(){
+        if(mTask != null && mTask?.status == AsyncTask.Status.RUNNING){
+            FilesUtils.deleteFile(File(filePath))
+            mTask?.cancel(true)
+        }
     }
 
      class DownloadAsyncTask internal constructor(private val mUrl: String, private val mFilePath: String, private val mListener: OnDownloadListener?) : AsyncTask<String, Int, Boolean>() {
         private var mFailInfo: String? = null
         override fun doInBackground(vararg params: String): Boolean? {
+            if(isCancelled){
+                FilesUtils.deleteFile(File(mFilePath))
+                return null
+            }
             val pdfUrl = mUrl
             try {
                 val url = URL(pdfUrl)
@@ -73,10 +88,19 @@ internal object DownloadHelper {
 
         override fun onProgressUpdate(vararg values: Int?) {
                 super.onProgressUpdate(*values)
+                if(isCancelled) {
+                    FilesUtils.deleteFile(File(mFilePath))
+                    return@onProgressUpdate
+                }
                 if (values.size > 0) {
                     var mProcess= values[0] ?: 0
                     mListener?.onProgress(mProcess)
                 }
+        }
+        override fun onCancelled() {
+            Log.e("--cancel any---","")
+            mListener?.onProgress(0)
+            FilesUtils.deleteFile(File(mFilePath))
         }
     }
 

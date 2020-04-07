@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     android:background="@color/mainColor"
     android:orientation="vertical">
 
@@ -36,7 +37,7 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/wordWhite"
                     android:textSize="@dimen/scene_paly_txt"
-                    android:drawableRight="@drawable/vip"
+                    android:drawableRight="@drawable/non_vip"
                     android:drawablePadding="10dp"/>
                 <TextView
                     android:id="@+id/userInfo"
@@ -57,6 +58,19 @@
             android:layout_height="wrap_content">
 
         </android.support.v7.widget.RecyclerView>
+        <View
+            android:layout_marginTop="30dp"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/edit_text"/>
+        <TextView
+            android:layout_marginTop="10dp"
+            android:gravity="center_horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/wechat_contact"
+            android:textColor="@color/edit_text"
+            android:textSize="@dimen/course_txt"/>
     </LinearLayout>
 
 </LinearLayout>

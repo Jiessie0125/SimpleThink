@@ -57,8 +57,8 @@ class TotleFragment : Fragment(), TotleContact.View {
     private val isPrepared = false
     //lateinit var getTotleSort : List<TotleSortResponse>
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater!!.inflate(R.layout.fragment_totle, container, false)
+    override fun onCreateView(inflater: LayoutInflater?, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        return inflater?.inflate(R.layout.fragment_totle, container, false)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -130,6 +130,7 @@ class TotleFragment : Fragment(), TotleContact.View {
 
     override fun setTotleIcon(message: List<TotleSortResponse>) {
         totleAdapter = TotleAdapter(this.activity!!,message)
+        recycle_tv.isNestedScrollingEnabled = false
         recycle_tv.layoutManager = GridLayoutManager(this.context, 4)
         recycle_tv.adapter = totleAdapter
         totleAdapter.notifyDataSetChanged()
@@ -142,6 +143,7 @@ class TotleFragment : Fragment(), TotleContact.View {
     }
     override fun setCourseIcon(courses : List<Course>) {
         courseAdapter = CourseAdapter(this.activity!!,courses)
+        recycle_course_tv.isNestedScrollingEnabled = false
         recycle_course_tv.layoutManager = GridLayoutManager(this.context, 2)
         recycle_course_tv.adapter = courseAdapter
         courseAdapter.notifyDataSetChanged()

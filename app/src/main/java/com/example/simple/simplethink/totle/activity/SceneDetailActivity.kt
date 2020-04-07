@@ -9,6 +9,7 @@ import android.view.Gravity
 import android.view.View
 import com.example.simple.simplethink.MyApp.Companion.context
 import com.example.simple.simplethink.R
+import com.example.simple.simplethink.base.BaseActivity
 import com.example.simple.simplethink.model.PraticeSections
 import com.example.simple.simplethink.model.ScenesResponse
 import com.example.simple.simplethink.model.Sections
@@ -23,7 +24,7 @@ import kotlinx.android.synthetic.main.activity_scene_detail.*
 /**
  * Created by jiessie on 2019/7/5.
  */
-class SceneDetailActivity: AppCompatActivity() ,SceneDetailContact.View {
+class SceneDetailActivity: BaseActivity() ,SceneDetailContact.View {
 
     lateinit var sceneDetailAdapter : SceneDetailAdapter
     lateinit var persenter: SceneDetailContact.Presenter
@@ -67,12 +68,12 @@ class SceneDetailActivity: AppCompatActivity() ,SceneDetailContact.View {
         scene_detail_rv.adapter = sceneDetailAdapter
         sceneDetailAdapter.setOnItemClickListener(object : SceneDetailAdapter.OnItemDetailClickListener {
             override fun onItemClick(v: View, viewName: SceneDetailAdapter.ViewName, position: Int) {
+                val pratice = PraticeSections(sections[position].id,sections[position].course_id,sections[position].audio_id)
                 when (v.getId()) {
-                    R.id.scene_download ->  {if(sections[position].free == "true"){downloadMP3(position)}
+                    R.id.scene_download ->  {if(sections[position].free == "true"){downloadMP3(position,pratice)}
                                                 else {showVipPage()}}
                     else -> {
                         if(FilesUtils.isHaveFile(sections?.get(position)?.title, title)) {
-                                val pratice = PraticeSections(sections[position].id,sections[position].course_id,sections[position].audio_id)
                                 showSceneResourcePage(sections[position].title,
                                 FilesUtils.getLocalFileUrl(sections[position].title,title),
                                 sceneResponse.content_img_new,
@@ -112,9 +113,9 @@ class SceneDetailActivity: AppCompatActivity() ,SceneDetailContact.View {
         }
     }
 
-    fun downloadMP3(position: Int){
+    fun downloadMP3(position: Int,pratice : PraticeSections){
         isManager = !isManager
-        sceneDetailAdapter.changetShowDelImage(isManager ,position)
+        sceneDetailAdapter.changetShowDelImage(isManager ,position,pratice)
     }
     override fun updateUi() {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.

@@ -19,6 +19,11 @@
         android:layout_height="115dp"
         android:scaleType="fitXY"
         />
+    <View
+        android:layout_width="155dp"
+        android:layout_height="115dp"
+        android:alpha="0.5"
+        android:background="@color/wordBlack"/>
     <TextView
         android:id="@+id/recycle_buzzy_vip"
         android:layout_width="37dp"

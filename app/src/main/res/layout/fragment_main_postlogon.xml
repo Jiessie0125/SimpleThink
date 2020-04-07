@@ -42,12 +42,13 @@
                     android:gravity="center"
                     android:orientation="horizontal">
 
+
                     <TextView
                         android:id="@+id/vip_info"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="20dp"
-                        android:drawableLeft="@drawable/vip"
+                        android:drawableLeft="@drawable/non_vip"
                         android:drawablePadding="19dp"
                         android:text="@string/vip_expire"
                         android:textColor="@color/blackSuggesstion"
@@ -278,6 +279,7 @@
                     android:id="@+id/selection_image1"
                     android:layout_width="match_parent"
                     android:layout_height="135dp"
+                    android:src="@drawable/banner_images"
                     android:layout_marginTop="15dp"
                     android:scaleType="fitXY" />
 

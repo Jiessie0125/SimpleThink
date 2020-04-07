@@ -26,13 +26,17 @@ import android.provider.MediaStore
 import android.graphics.Bitmap
 import android.os.Environment
 import android.os.Environment.getExternalStorageDirectory
+import com.example.simple.simplethink.base.BaseActivity
+import kotlinx.android.synthetic.main.activity_totle.*
+import kotlinx.android.synthetic.main.activity_vip_center.view.*
 import java.io.*
+import java.util.regex.Pattern
 
 
 /**
  * Created by mobileteam on 2019/8/13.
  */
-class UserInfoActivity : Activity(), UserInfoContract.View {
+class UserInfoActivity : BaseActivity(), UserInfoContract.View {
     override fun onRefreshUerInfoSuccess() {
         initUserInfoView()
         Toast.makeText(this, R.string.update_user_info_success, Toast.LENGTH_LONG).show()
@@ -108,7 +112,10 @@ class UserInfoActivity : Activity(), UserInfoContract.View {
         val userInfo = AuthInstance.getInstance().userInfo
         Glide.with(context!!).load(userInfo?.avatar).apply(RequestOptions().placeholder(R.drawable.photo)).into(user_info_avatar)
         update_nick_name_text.text = userInfo?.nickName
-        update_phone_number.text = userInfo?.userName
+        var phoneNo = ""
+        val pattern = Pattern.compile("^[0-9]*$")
+        userInfo?.userName?.let { if(pattern.matcher(userInfo?.userName.toString()).matches()) phoneNo =  userInfo?.userName }
+        update_phone_number.text = phoneNo
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

@@ -4,6 +4,7 @@ import android.Manifest
 import android.os.Bundle
 import android.support.v4.app.FragmentActivity
 import com.example.simple.simplethink.R
+import com.example.simple.simplethink.base.BaseActivity
 import com.example.simple.simplethink.login.LoginPresenter
 import com.example.simple.simplethink.main.fragment.LogonBaseFragment
 import com.example.simple.simplethink.main.fragment.PostLogonFragment
@@ -18,7 +19,7 @@ import kotlinx.android.synthetic.main.activity_main.*
 /**
  * Created by mobileteam on 2019/6/3.
  */
-class MainActivity : FragmentActivity(){
+class MainActivity : BaseActivity(){
     var showingFragment: LogonBaseFragment? = null
     val mainPersent = MainPresenter()
 

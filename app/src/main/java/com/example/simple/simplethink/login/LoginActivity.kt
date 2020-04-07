@@ -14,15 +14,21 @@ import cn.sharesdk.framework.ShareSDK
 import cn.sharesdk.sina.weibo.SinaWeibo
 import cn.sharesdk.tencent.qq.QQ
 import cn.sharesdk.wechat.friends.Wechat
+import com.example.simple.simplethink.base.BaseActivity
+import com.example.simple.simplethink.totle.activity.course.CourseDetailActivity
 import com.example.simple.simplethink.utils.ErrorHandler
+import com.example.simple.simplethink.vip.VIPCenterActivity
+import com.example.simple.simplethink.vip.VIPCenterActivity.Companion.COURSEDETAIL
 import com.example.simple.simplethink.widget.WaitDialog
+import kotlinx.android.synthetic.main.activity_login_phone_number.view.*
 import java.util.HashMap
 
 
 /**
  * Created by mobileteam on 2019/5/30.
  */
-class LoginActivity : Activity(), PlatformActionListener, LoginContract.View {
+class LoginActivity : BaseActivity(), PlatformActionListener, LoginContract.View {
+    var courseDetail :Int? = 0
 
     override fun loading() {
         waitDialog?.show()
@@ -40,6 +46,11 @@ class LoginActivity : Activity(), PlatformActionListener, LoginContract.View {
         fun newIntent(context: Context): Intent {
             return Intent(context, LoginActivity::class.java)
         }
+        fun newIntent(context: Context,code : Int?): Intent {
+            var intent = Intent(context, LoginActivity::class.java)
+            intent.putExtra(VIPCenterActivity.COURSEDETAIL,code)
+            return intent
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -56,16 +67,26 @@ class LoginActivity : Activity(), PlatformActionListener, LoginContract.View {
     }
 
     private fun initView() {
+        courseDetail = intent?.getSerializableExtra(VIPCenterActivity.COURSEDETAIL)?.let {
+            intent?.getSerializableExtra(VIPCenterActivity.COURSEDETAIL) as Int
+        }
         waitDialog = WaitDialog(this)
         login_via_phone.setOnClickListener { loginViaPhone() }
         login_via_wechat.setOnClickListener { loginViaWechat() }
         login_via_qq.setOnClickListener { loginViaQQ() }
         login_via_weibo.setOnClickListener { loginViaWeibo() }
-        login_close_btn.setOnClickListener { finish() }
+        login_close_btn.setOnClickListener {
+            courseDetail?.let { showCoursePage() }
+            finish()
+        }
         login_policy.setOnClickListener{policy()}
         register_btn.setOnClickListener { register() }
     }
 
+    private fun showCoursePage(){
+        val intent = CourseDetailActivity.newIntent(courseDetail,this)
+        startActivity(intent)
+    }
     private fun loginViaWechat() {
         val platform = ShareSDK.getPlatform(Wechat.NAME)
         authorize(platform)

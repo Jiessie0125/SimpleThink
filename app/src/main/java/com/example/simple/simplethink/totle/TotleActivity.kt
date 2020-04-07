@@ -3,6 +3,7 @@ package com.example.simple.simplethink.totle
 import android.Manifest
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.support.design.widget.TabLayout
 import android.support.v4.app.Fragment
@@ -10,11 +11,13 @@ import android.support.v4.app.FragmentPagerAdapter
 import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
 import android.view.View
+import android.view.WindowManager
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.simple.simplethink.R
 import com.example.simple.simplethink.R.id.user
+import com.example.simple.simplethink.base.BaseActivity
 import com.example.simple.simplethink.main.MainActivity
 import com.example.simple.simplethink.totle.activity.down.DownloadActivity
 import com.example.simple.simplethink.totle.fragment.scenePage.SceneFragment
@@ -33,7 +36,7 @@ import kotlinx.android.synthetic.main.fragment_main_postlogon.*
 /**
  * Created by mobileteam on 2019/6/3.
  */
-class TotleActivity: AppCompatActivity() , PermissionInterface {
+class TotleActivity: BaseActivity() , PermissionInterface {
 
     val tabTitles = arrayOf(ResourcesUtils.getString(R.string.totle),
             ResourcesUtils.getString(R.string.scene),
@@ -110,7 +113,7 @@ class TotleActivity: AppCompatActivity() , PermissionInterface {
             holder?.mTabItem?.text = tabTitles[i]
             if (i == 0){
                 holder?.mTabItem?.isSelected = true
-                holder?.mTabItem?.textSize = 20.0f 
+                holder?.mTabItem?.textSize = 24.0f
                 holder?.mTabItem?.setTextColor(ResourcesUtils.resource.getColor(R.color.wordWhite))
             }
         }
@@ -155,7 +158,7 @@ class TotleActivity: AppCompatActivity() , PermissionInterface {
         holder = ViewHolder(tab?.customView)
         if(isSelected){
             holder?.mTabItem?.isSelected = true
-            holder?.mTabItem?.textSize = 20.0f
+            holder?.mTabItem?.textSize = 24.0f
             holder?.mTabItem?.setTextColor(ResourcesUtils.resource.getColor(R.color.wordWhite))
             mViewPager.currentItem = tab?.position!!
         }else{

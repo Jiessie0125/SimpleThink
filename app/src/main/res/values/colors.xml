@@ -11,7 +11,7 @@
     <color name="blackItemLine">#26202F</color>
     <color name="blackSuggesstion">#645E6B</color>
     <color name="fisrtUse">#D3B462</color>
-    <color name="totleTitle">#ff544d5d</color>
+    <color name="totleTitle">#544D5D</color>
     <color name="totleItem">#ffaeaeae</color>
     <color name="sceneDetailTxt">#4A4A4A</color>
     <color name="guideText">#FFFFFF</color>
@@ -30,6 +30,7 @@
     <color name="logoff">#9D4141</color>
     <color name="edit_text">#645E6B</color>
     <color name="transparent1">#00000000</color>
-    <color name="pic_text">#FF7F00</color>
+    <color name="pic_text">#A2726E</color>
     <color name="praticeIcon">#494B64</color>
+    <color name="scenceItemName">#AEA8B8</color>
 </resources>
