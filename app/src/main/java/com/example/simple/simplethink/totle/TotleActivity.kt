@@ -111,9 +111,10 @@ class TotleActivity: BaseActivity() , PermissionInterface {
             tab?.setCustomView(R.layout.tab_item)
             holder = ViewHolder(tab?.customView)
             holder?.mTabItem?.text = tabTitles[i]
+            holder?.mTabItem?.textSize = 17.0f
             if (i == 0){
                 holder?.mTabItem?.isSelected = true
-                holder?.mTabItem?.textSize = 24.0f
+                holder?.mTabItem?.textSize = 22.0f
                 holder?.mTabItem?.setTextColor(ResourcesUtils.resource.getColor(R.color.wordWhite))
             }
         }
@@ -158,13 +159,13 @@ class TotleActivity: BaseActivity() , PermissionInterface {
         holder = ViewHolder(tab?.customView)
         if(isSelected){
             holder?.mTabItem?.isSelected = true
-            holder?.mTabItem?.textSize = 24.0f
+            holder?.mTabItem?.textSize = 22.0f
             holder?.mTabItem?.setTextColor(ResourcesUtils.resource.getColor(R.color.wordWhite))
             mViewPager.currentItem = tab?.position!!
         }else{
             holder?.mTabItem?.isSelected = false
             holder?.mTabItem?.textSize = 17.0f
-            holder?.mTabItem?.setTextColor(ResourcesUtils.resource.getColor(R.color.totleTitle))
+            holder?.mTabItem?.setTextColor(ResourcesUtils.resource.getColor(R.color.palyTime))
         }
     }
     override fun requestPermissionsSuccess(callBackCode: Int) {

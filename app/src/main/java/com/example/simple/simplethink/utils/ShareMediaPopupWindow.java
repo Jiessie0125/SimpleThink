@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -14,8 +16,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.simple.simplethink.R;
+import com.example.simple.simplethink.model.ShareItem;
 import com.example.simple.simplethink.model.bean.ShareMediaBean;
+import com.example.simple.simplethink.totle.adapter.ShareAdapter;
 
+import org.jetbrains.annotations.Nullable;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import cn.sharesdk.framework.Platform;
@@ -35,16 +42,7 @@ public class ShareMediaPopupWindow extends PopupWindow implements View.OnClickLi
 
     private View mPopView;
     private TextView cancelPopup;
-    private ImageView shareWeChat;
-    private ImageView shareMoments;
-    private ImageView shareQQ;
-    private ImageView shareQQSpace;
-    private ImageView shareWeibo;
-    private TextView shareWeChatText;
-    private TextView shareMomentsText;
-    private TextView shareQQText;
-    private TextView shareQQSpaceText;
-    private TextView shareWeiboText;
+    private RecyclerView popContent;
     public static String WECHAT = "wechat";
     public static String MOMENTS = "moments";
     public static String QQ = "qq";
@@ -52,6 +50,7 @@ public class ShareMediaPopupWindow extends PopupWindow implements View.OnClickLi
     public static String WEIBO = "weibo";
     private ShareMediaBean bean;
     private Context context;
+    private ShareAdapter shareItemAdpter;;
 
 
     public ShareMediaPopupWindow(Context context, String[] supportedMeidaList, ShareMediaBean bean){
@@ -73,26 +72,16 @@ public class ShareMediaPopupWindow extends PopupWindow implements View.OnClickLi
     }
 
     private void initShareWidgets(String[] supportedMeidaList) {
+        ArrayList<ShareItem> shareItemArray = new ArrayList();
+
         if(null != supportedMeidaList && supportedMeidaList.length > 0){
             for(int i = 0; i < supportedMeidaList.length; i++){
-                int identifier= context.getResources().getIdentifier("share"+i, "id", context.getPackageName());
-                int identifier1= context.getResources().getIdentifier("shareText"+i, "id", context.getPackageName());
                 if(supportedMeidaList[i].equals(WECHAT)){
                     Platform wechat = ShareSDK.getPlatform (Wechat.NAME);
                     boolean clientValid = wechat.isClientValid();
                     if(clientValid){
-                        if(identifier == 0)
-                            continue;
-                        shareWeChat = (ImageView) mPopView.findViewById(identifier);
-                        shareWeChat.setImageDrawable(getDrawableFromId(R.drawable.weixin));
-                        if(identifier1 == 0)
-                            continue;
-                        shareWeChatText = (TextView) mPopView.findViewById(identifier1);
-                        shareWeChatText.setText(R.string.wechat_friends);
-                        shareWeChat.setVisibility(View.VISIBLE);
-                        shareWeChatText.setVisibility(View.VISIBLE);
-                        shareWeChat.setTag(WECHAT);
-                        shareWeChat.setOnClickListener(this);
+                        ShareItem shareItem = new ShareItem(R.drawable.weixin, ResourcesUtils.Companion.getString(R.string.wechat_friends));
+                        shareItemArray.add(shareItem);
                         continue;
                     }
                 }
@@ -100,18 +89,8 @@ public class ShareMediaPopupWindow extends PopupWindow implements View.OnClickLi
                     Platform wechat = ShareSDK.getPlatform (Wechat.NAME);
                     boolean clientValid = wechat.isClientValid();
                     if(clientValid){
-                        if(identifier == 0)
-                            continue;
-                        shareMoments = (ImageView) mPopView.findViewById(identifier);
-                        shareMoments.setImageDrawable(getDrawableFromId(R.drawable.pengyouquan));
-                        if(identifier1 == 0)
-                            continue;
-                        shareMomentsText = (TextView) mPopView.findViewById(identifier1);
-                        shareMoments.setVisibility(View.VISIBLE);
-                        shareMomentsText.setVisibility(View.VISIBLE);
-                        shareMomentsText.setText(R.string.wechat_moments);
-                        shareMoments.setTag(MOMENTS);
-                        shareMoments.setOnClickListener(this);
+                        ShareItem shareItem = new ShareItem(R.drawable.pengyouquan, ResourcesUtils.Companion.getString(R.string.wechat_moments));
+                        shareItemArray.add(shareItem);
                         continue;
                     }
                 }
@@ -119,16 +98,8 @@ public class ShareMediaPopupWindow extends PopupWindow implements View.OnClickLi
                     Platform qq = ShareSDK.getPlatform (cn.sharesdk.tencent.qq.QQ.NAME);
                     boolean clientValid = qq.isClientValid();
                     if(clientValid){
-                        if(identifier == 0)
-                            continue;
-                        shareQQ = (ImageView) mPopView.findViewById(identifier);
-                        shareQQ.setImageDrawable(getDrawableFromId(R.drawable.qq));
-                        shareQQText = (TextView) mPopView.findViewById(identifier1);
-                        shareQQText.setText(R.string.qq_friends);
-                        shareQQ.setVisibility(View.VISIBLE);
-                        shareQQText.setVisibility(View.VISIBLE);
-                        shareQQ.setTag(QQ);
-                        shareQQ.setOnClickListener(this);
+                        ShareItem shareItem = new ShareItem(R.drawable.qq, ResourcesUtils.Companion.getString(R.string.qq_friends));
+                        shareItemArray.add(shareItem);
                         continue;
                     }
                 }
@@ -136,14 +107,8 @@ public class ShareMediaPopupWindow extends PopupWindow implements View.OnClickLi
                     Platform qq = ShareSDK.getPlatform (cn.sharesdk.tencent.qq.QQ.NAME);
                     boolean clientValid = qq.isClientValid();
                     if(clientValid){
-                        shareQQSpace = (ImageView) mPopView.findViewById(identifier);
-                        shareQQSpace.setImageDrawable(getDrawableFromId(R.drawable.qq_space));
-                        shareQQSpaceText = (TextView) mPopView.findViewById(identifier1);
-                        shareQQSpaceText.setText(R.string.qq_space);
-                        shareQQSpace.setVisibility(View.VISIBLE);
-                        shareQQSpaceText.setVisibility(View.VISIBLE);
-                        shareQQSpace.setTag(QQSPACE);
-                        shareQQSpace.setOnClickListener(this);
+                        ShareItem shareItem = new ShareItem(R.drawable.qq_space, ResourcesUtils.Companion.getString(R.string.qq_space));
+                        shareItemArray.add(shareItem);
                         continue;
                     }
                 }
@@ -151,19 +116,34 @@ public class ShareMediaPopupWindow extends PopupWindow implements View.OnClickLi
                     Platform weibo = ShareSDK.getPlatform (SinaWeibo.NAME);
                     boolean clientValid = weibo.isClientValid();
                     if(clientValid){
-                        shareWeibo = (ImageView) mPopView.findViewById(identifier);
-                        shareWeibo.setImageDrawable(getDrawableFromId(R.drawable.weibo));
-                        shareWeiboText = (TextView) mPopView.findViewById(identifier1);
-                        shareWeiboText.setText(R.string.sina_weibo);
-                        shareWeibo.setVisibility(View.VISIBLE);
-                        shareWeiboText.setVisibility(View.VISIBLE);
-                        shareWeibo.setTag(WEIBO);
-                        shareWeibo.setOnClickListener(this);
+                        ShareItem shareItem = new ShareItem(R.drawable.weibo, ResourcesUtils.Companion.getString(R.string.sina_weibo));
+                        shareItemArray.add(shareItem);
                         continue;
                     }
                 }
             }
         }
+        shareItemAdpter = new ShareAdapter(this.context ,shareItemArray);
+        popContent = mPopView.findViewById(R.id.popContent);
+        popContent.isNestedScrollingEnabled();
+        popContent.setLayoutManager(new GridLayoutManager(this.context, 3));
+        popContent.setAdapter(shareItemAdpter);
+        shareItemAdpter.setOnItemClickListener(new ShareAdapter.OnSharetemClickListener(){
+            @Override
+            public void onItemClick(@Nullable View v, int position, @Nullable String shareItem) {
+                if(shareItem.equals(ResourcesUtils.Companion.getString(R.string.wechat_friends))){
+                    showWechatShare(bean);
+                }else if(shareItem.equals(ResourcesUtils.Companion.getString(R.string.wechat_moments))){
+                    showCOFShare(bean);
+                }else if(shareItem.equals(ResourcesUtils.Companion.getString(R.string.qq_friends))){
+                    showQQShare(bean);
+                }else if(shareItem.equals(ResourcesUtils.Companion.getString(R.string.qq_space))){
+                    showQQSpaceShare(bean);
+                }else if(shareItem.equals(ResourcesUtils.Companion.getString(R.string.sina_weibo))){
+                    showWeiboShare(bean);
+                }
+            }
+        });
     }
 
     /**
