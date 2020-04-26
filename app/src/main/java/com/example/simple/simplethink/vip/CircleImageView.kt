@@ -42,6 +42,7 @@ class CircleImageView @JvmOverloads constructor(context: Context, @Nullable attr
         }
         if (drawable is BitmapDrawable) {
             paint.setShader(initBitmapShader(drawable as BitmapDrawable))//将着色器设置给画笔
+            canvas.drawARGB(0, 0, 0, 0)//画布设置透明
             canvas.drawCircle(width / 2, height / 2, radius, paint)//使用画笔在画布上画圆
             return
         }

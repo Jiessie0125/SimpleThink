@@ -32,7 +32,8 @@ class CourseAdapter( val context: Activity, val totleLish : List<Course>) : Recy
         val window = this.context.getWindow()
         window.setBackgroundDrawable(BitmapDrawable())
         holder?.mTotleItem?.text = totleLish?.get(position)?.title
-        FilesUtils.getItemIcon(totleLish?.get(position)?.title,context,holder?.mItemImage)
+        FilesUtils.showImage(totleLish?.get(position)?.title_img_new,context,holder?.mItemImage)
+       // FilesUtils.getItemIcon(totleLish?.get(position)?.title,context,holder?.mItemImage)
         when(totleLish[position].type_new){
             VIP -> {
                 holder?.mCourseViptem?.visibility = View.VISIBLE

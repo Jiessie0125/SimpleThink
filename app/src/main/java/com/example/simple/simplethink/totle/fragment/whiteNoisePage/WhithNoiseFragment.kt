@@ -387,11 +387,11 @@ class WhithNoiseFragment : Fragment(), View.OnClickListener {
     }
 
     override fun onPause() {
-        player?.let {
+       /* player?.let {
             if (player!!.isPlaying()) {
                 player!!.pause()
             }
-        }
+        }*/
         super.onPause()
     }
 

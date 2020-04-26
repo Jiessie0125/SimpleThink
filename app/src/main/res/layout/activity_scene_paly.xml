@@ -8,10 +8,12 @@
     android:fitsSystemWindows="true"
     android:background="@color/mainColor">
     <View
+        android:id="@+id/viewScreen"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:alpha="0.7"
-        android:background="@color/wordBlack"/>
+        android:background="@color/wordBlack"
+        android:visibility="invisible"/>
     <SeekBar
         android:layout_below="@+id/scene_item_name"
         android:id="@+id/progress_bar_healthy"
@@ -86,7 +88,7 @@
             android:layout_width="1dp"
             android:layout_height="wrap_content"
             android:layout_margin="3dp"
-            android:text="&#047;"
+            android:layout_gravity="center_horizontal"
             android:textSize="@dimen/logon_revive_word"
             android:background="@color/palyTime"/>
         <TextView

@@ -26,6 +26,7 @@ import android.provider.MediaStore
 import android.graphics.Bitmap
 import android.os.Environment
 import android.os.Environment.getExternalStorageDirectory
+import android.view.View
 import com.example.simple.simplethink.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_totle.*
 import kotlinx.android.synthetic.main.activity_vip_center.view.*
@@ -115,7 +116,12 @@ class UserInfoActivity : BaseActivity(), UserInfoContract.View {
         var phoneNo = ""
         val pattern = Pattern.compile("^[0-9]*$")
         userInfo?.userName?.let { if(pattern.matcher(userInfo?.userName.toString()).matches()) phoneNo =  userInfo?.userName }
-        update_phone_number.text = phoneNo
+        if(phoneNo != ""){
+            userinfo_phoneno.visibility = View.VISIBLE
+            phoneno_view.visibility = View.VISIBLE
+            update_phone_number.text = phoneNo
+        }
+
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

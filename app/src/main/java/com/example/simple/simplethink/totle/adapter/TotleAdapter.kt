@@ -28,7 +28,8 @@ class TotleAdapter(val context:Activity ,val totleLish : List<TotleSortResponse>
 
     override fun onBindViewHolder(holder: TotleViewHolder?, position: Int) {
         holder?.mTotleItem?.text = totleLish?.get(position)?.category_name
-        FilesUtils.getItemIcon(totleLish?.get(position)?.category_name,context,holder?.mItemImage)
+        FilesUtils.showImage(totleLish?.get(position)?.image,context,holder?.mItemImage)
+        //FilesUtils.getItemIcon(totleLish?.get(position)?.category_name,context,holder?.mItemImage)
        // holder?.mItemImage?.setImageBitmap(totleLish?.get(position)?.totleItemImage)
     }
 

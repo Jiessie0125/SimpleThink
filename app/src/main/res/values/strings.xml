@@ -46,6 +46,8 @@
     <string name="send_sms_code">发送验证码</string>
     <string name="sms_countdown_time">秒后再次</string>
     <string name="vip">会员</string>
+    <string name="empty1">空空如也</string>
+    <string name="empty2">快去找些自己喜欢的音频吧</string>
     <string name="pay_type">支付方式</string>
     <string name="ali_pay">支付宝</string>
     <string name="wechat_pay">微信</string>

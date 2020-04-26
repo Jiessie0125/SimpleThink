@@ -11,12 +11,34 @@
 
     <include android:id="@+id/buzzy_title"
         layout="@layout/title_tool"/>
-    <ImageView
+    <LinearLayout
         android:id="@+id/no_download_record"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="center"
-        android:src="@drawable/download_bk"/>
+        android:gravity="center"
+        android:orientation="vertical">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@drawable/download_bk"/>
+        <TextView
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/edit_text"
+            android:textSize="@dimen/course_txt"
+            android:text="@string/empty1"/>
+        <TextView
+            android:layout_marginTop="3dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/edit_text"
+            android:textSize="@dimen/course_txt"
+            android:text="@string/empty2"/>
+
+    </LinearLayout>
+
     <android.support.v7.widget.RecyclerView
         android:visibility="gone"
         android:id="@+id/downloadClass"

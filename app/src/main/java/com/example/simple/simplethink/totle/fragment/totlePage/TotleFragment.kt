@@ -6,6 +6,7 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.os.Bundle
 import android.os.Handler
+import android.os.Message
 import android.support.v4.app.Fragment
 import android.support.v7.widget.GridLayoutManager
 import android.view.LayoutInflater
@@ -31,12 +32,16 @@ import com.example.simple.simplethink.utils.ResourcesUtils
 import com.example.simple.simplethink.utils.URLConstant
 import com.example.simple.simplethink.vip.VIPCenterActivity
 import com.example.simple.simplethink.welcome.Activity.AdvertisementActivity
+import com.youth.banner.BannerConfig
+import com.youth.banner.Transformer
 import com.youth.banner.loader.ImageLoader
 import kotlinx.android.synthetic.main.fragment_main_prelogon.*
 import kotlinx.android.synthetic.main.fragment_totle.*
 import kotlinx.android.synthetic.main.fragment_white_noise.*
 import java.util.*
 import kotlin.collections.ArrayList
+import android.R.attr.path
+import com.youth.banner.listener.OnBannerListener
 
 
 /**
@@ -50,9 +55,9 @@ class TotleFragment : Fragment(), TotleContact.View {
     lateinit var totleAdapter: TotleAdapter
     lateinit var courseAdapter: CourseAdapter
     var buzzyItems = 0
-    private var handler: Handler = Handler()
-    private var runnable: Runnable = Runnable {}
-    private var activityCount: Int = 0
+   // private var handler: Handler = Handler()
+   // private var runnable: Runnable = Runnable {}
+  // private var activityCount: Int = 0
     private val mHasLoadedOnce = false
     private val isPrepared = false
     //lateinit var getTotleSort : List<TotleSortResponse>
@@ -95,9 +100,9 @@ class TotleFragment : Fragment(), TotleContact.View {
                 setCourseIcon((getCourseImage as FirstCourseResponse).courses)
            // }
         }*/
-         getCourseImage?.let {
+        /* getCourseImage?.let {
              setBuzzyItem((getCourseImage as FirstCourseResponse).id)
-         }
+         }*/
     }
 
 
@@ -172,10 +177,17 @@ class TotleFragment : Fragment(), TotleContact.View {
         }
         courseAdapter.setData(courseList)*/
     }
-
+/*    val handler = object : Handler() {
+        override fun handleMessage(msg: Message) {
+            super.handleMessage(msg)
+            if(msg.what == 1){
+                Glide.with(context!!).load(msg.obj).into(mbanner)
+            }
+        }
+    }*/
 
     override fun setBanner(message: List<BannerResponse>) {
-        if (message.size == 0) {
+   /*     if (message.size == 0) {
             Glide.with(context!!).load(R.drawable.sugges_activity).into(mbanner)
             return
         }
@@ -191,29 +203,83 @@ class TotleFragment : Fragment(), TotleContact.View {
                 Glide.with(context!!).load(R.drawable.sugges_activity).into(mbanner)
             }
             return
-        }
-        handler = Handler()
-        runnable = object : Runnable {
-            override fun run() {
-                handler.postDelayed(this, 4000)
-
-                if (activityCount == message.size) {
-                    activityCount = 0
-                }
-
-                val date = DateUtils.DateToString(Date(), DateUtils.DATE_TO_STRING_DETAIAL_PATTERN)
-                if (date >= message?.get(activityCount)?.start_time.toString() && date <= message?.get(activityCount)?.end_time.toString()) {
-                    Glide.with(context!!).load(message?.get(activityCount).imgURL).into(mbanner)
-                    activityCount++
-                    mbanner.setOnClickListener {
-                        redirectorBanner(message?.get(activityCount))
-                    }
-                }
+        }*/
+        val imgs = ArrayList<String>()
+        for(activityCount in 0..message.size-1){
+            val date = DateUtils.DateToString(Date(), DateUtils.DATE_TO_STRING_DETAIAL_PATTERN)
+            if (date >= message?.get(activityCount)?.start_time.toString() && date <= message?.get(activityCount)?.end_time.toString()) {
+                imgs.add(message?.get(activityCount).imgURL)
+                // handler.postDelayed(runnable,4000)
             }
         }
-        handler.post(runnable)
-    }
+        mbanner.setImages(imgs)
+        mbanner.setDelayTime(3000)
+        mbanner.isAutoPlay(true)
+        mbanner.setImageLoader(MyLoader())
+        mbanner.setBannerAnimation(Transformer.Default)
+        mbanner.setIndicatorGravity(BannerConfig.CENTER)
+                //以上内容都可写成链式布局，这是轮播图的监听。比较重要。方法在下面。
+                .setOnBannerListener(object : OnBannerListener{
+                    override fun OnBannerClick(position: Int) {
+                        redirectorBanner(message?.get(position))
+                    }
+                })
+                //必须最后调用的方法，启动轮播图。
+                .start()
 
+        /* runnable = object : Runnable {
+             override fun run() {
+                // handler.postDelayed(this, 4000)
+
+               *//*  if (activityCount == message.size) {
+                    activityCount = 0
+                }*//*
+                for(activityCount in 0..message.size-1){
+                    val date = DateUtils.DateToString(Date(), DateUtils.DATE_TO_STRING_DETAIAL_PATTERN)
+                    if (date >= message?.get(activityCount)?.start_time.toString() && date <= message?.get(activityCount)?.end_time.toString()) {
+                        Glide.with(context!!).load(message?.get(activityCount).imgURL).into(mbanner)
+                        mbanner.setOnClickListener {
+                            redirectorBanner(message?.get(activityCount))
+                        }
+                       // handler.postDelayed(runnable,4000)
+                    }
+                }
+
+            }
+        }*/
+/*        var thread = object : Thread() {
+            override fun run() {
+                // handler.postDelayed(this, 4000)
+
+                *//*  if (activityCount == message.size) {
+                      activityCount = 0
+                  }*//*
+                for(activityCount in 0..message.size-1){
+                    val date = DateUtils.DateToString(Date(), DateUtils.DATE_TO_STRING_DETAIAL_PATTERN)
+                    if (date >= message?.get(activityCount)?.start_time.toString() && date <= message?.get(activityCount)?.end_time.toString()) {
+                        //Glide.with(context!!).load(message?.get(activityCount).imgURL).into(mbanner)
+                        mbanner.setOnClickListener {
+                            redirectorBanner(message?.get(activityCount))
+                        }
+                        var msg = Message.obtain()
+                        msg.obj = message?.get(activityCount).imgURL
+                        msg.what = 1
+                        handler.sendMessage(msg)
+                        // handler.postDelayed(runnable,4000)
+                    }
+                }
+
+            }
+        }
+        thread.start()*/
+       // handler.post(runnable)
+    }
+     class MyLoader: ImageLoader() {
+         override fun displayImage(context: Context?, path: Any?, imageView: ImageView?) {
+             Glide.with(context).load(path as String).into(imageView)
+         }
+
+    }
     private fun redirectorBanner(bannerResponse: BannerResponse?) {
         when (bannerResponse?.tag) {
             "vip" -> {

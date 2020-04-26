@@ -58,9 +58,9 @@ class TotlePresenter(val httpResposityImpl : HttpResposityImpl, val view: TotleF
                     LocalDataCache.save(message,GETCOURSEIMAGE)
                     view.setBuzzyItem(message.id)
                     view.setCourseAdapterView(false,message.courses)
-                    for (i in 0 until message.courses.size){
+                   /* for (i in 0 until message.courses.size){
                         FilesUtils.downloadImage(context, message.courses[i].title_img_new, message.courses[i].title)
-                    }
+                    }*/
                     view.setCourseIcon(message.courses)
                 },{
                     error->

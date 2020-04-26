@@ -21,14 +21,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
 
-            <ImageView
+            <com.youth.banner.Banner
                 android:id="@+id/mbanner"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="135dp"
-                android:layout_marginTop="15dp"
+                android:layout_gravity="center"
                 android:src="@drawable/banner_images"
-                android:layout_marginRight="16sp"
-                android:layout_marginLeft="16sp"
+                android:layout_marginRight="30sp"
+                android:layout_marginLeft="30sp"
                 android:scaleType="fitXY" />
 
             <com.example.simple.simplethink.totle.MaxRecyclerView

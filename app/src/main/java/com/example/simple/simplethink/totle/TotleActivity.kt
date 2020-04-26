@@ -48,8 +48,8 @@ class TotleActivity: BaseActivity() , PermissionInterface {
     private val presenter = TotlePresenter(this)
     var LOCATION: Int = 1
     var STORATE: Int = 2
-    val arrayOfStringCall: Array<String> = arrayOf(Manifest.permission.READ_PHONE_STATE
-            , Manifest.permission.READ_CALL_LOG, Manifest.permission.CALL_PHONE,
+    val arrayOfStringCall: Array<String> = arrayOf(Manifest.permission.READ_PHONE_STATE,
+            Manifest.permission.READ_CALL_LOG, Manifest.permission.CALL_PHONE,
             Manifest.permission.ADD_VOICEMAIL, Manifest.permission.WRITE_CALL_LOG,
             Manifest.permission.USE_SIP, Manifest.permission.PROCESS_OUTGOING_CALLS,
             Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE,

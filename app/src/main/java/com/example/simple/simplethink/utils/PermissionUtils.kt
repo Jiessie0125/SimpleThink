@@ -9,6 +9,7 @@ import android.os.Build
 import android.support.annotation.NonNull
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
+import android.util.Log
 
 
 /**
@@ -31,13 +32,15 @@ class PermissionUtils{
         fun hasPermission( context:Context,  permission:Array<String>): Boolean{
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) { // Android 6.0判断，6.0以下跳过。在清单文件注册即可，不用动态请求，这里直接视为有权限
                 for (value in permission){
-                    if (context.checkSelfPermission(value) != PackageManager.PERMISSION_GRANTED) {
-                        return false;
+                    if (context.checkSelfPermission(value) != PackageManager.PERMISSION_GRANTED){
+                        Log.e("no permiss","-------------")
+                        return false
                     }
                 }
 
             }
-            return true;
+            Log.e("has permiss","------------")
+            return true
         }
 
         /**

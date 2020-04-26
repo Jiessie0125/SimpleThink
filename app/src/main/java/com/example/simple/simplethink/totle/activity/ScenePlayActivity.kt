@@ -119,6 +119,7 @@ class ScenePlayActivity : BaseActivity(), View.OnClickListener, ScenePlayContact
         val bkground = intent.getSerializableExtra(BKGROUND) as String?
         val sections =  intent.getSerializableExtra(SECTIONS) as PraticeSections?
         bkground?.let {
+            viewScreen.visibility = View.VISIBLE
             showBKImage(bkground,this,scene_play_bg)
         }
         sceneName?.let { scene_item_name.text = it }

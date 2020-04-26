@@ -42,6 +42,7 @@ class RoundAngleFrameLayout @JvmOverloads constructor(context: Context, attrs: A
     override fun dispatchDraw(canvas: Canvas) {
         canvas.saveLayer(RectF(0f, 0f, canvas.getWidth().toFloat(), canvas.getHeight().toFloat()), imagePaint, Canvas.ALL_SAVE_FLAG)
         super.dispatchDraw(canvas)
+        canvas.drawARGB(0, 0, 0, 0)
         drawTopLeft(canvas)
         drawTopRight(canvas)
         drawBottomLeft(canvas)
