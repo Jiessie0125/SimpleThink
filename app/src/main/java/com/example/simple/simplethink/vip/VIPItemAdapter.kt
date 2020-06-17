@@ -28,7 +28,7 @@ class VIPItemAdapter(val context: Activity, val vipArray : List<Common>?,val isV
     override fun onBindViewHolder(holder: VIPViewHolder?, position: Int) {
         holder?.mVipDateItem?.text = vipArray?.get(position)?.title
         holder?.mVipMoneyImage?.text = ResourcesUtils.getString(R.string.vip_money_sign) + vipArray?.get(position)?.price.toString()
-        if(vipArray?.get(position)?.discount_price != 0.01){
+        if(!vipArray?.get(position)?.discount_price!!.equals( 0.00)){
             holder?.mVipDiscountMoneyImage?.visibility = View.VISIBLE
             holder?.mVipDiscountMoneyImage?.text = ResourcesUtils.getString(R.string.vip_money_sign) + vipArray?.get(position)?.price.toString().split(".")[0]
             holder?.mVipDiscountMoneyImage?.getPaint()?.setFlags(Paint.STRIKE_THRU_TEXT_FLAG)

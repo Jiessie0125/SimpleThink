@@ -32,6 +32,7 @@
             android:id="@+id/selection_sub_title_detail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
             android:layout_gravity="center"
             android:text="@string/logon_revive_word"
             android:textColor="@color/blackSuggesstion"

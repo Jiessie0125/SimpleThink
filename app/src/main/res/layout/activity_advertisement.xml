@@ -3,10 +3,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
+    android:background="@color/mainColor"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".welcome.Activity.AdvertisementActivity">
     <RelativeLayout
-        android:background="@color/wordBlack"
+        android:background="@color/mainColor"
         android:id="@+id/ad_title_bar"
         android:layout_width="match_parent"
         android:layout_height="50dp"

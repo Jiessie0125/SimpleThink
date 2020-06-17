@@ -42,6 +42,13 @@ class AdvertisementActivity : BaseActivity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_advertisement)
         webView = findViewById(R.id.ad_webView) as WebView
+        webView?.getSettings()?.setJavaScriptCanOpenWindowsAutomatically(true);
+        webView?.getSettings()?.setAllowFileAccess(true);
+        webView?.getSettings()?.setAppCacheEnabled(true);
+        webView?.getSettings()?.setSaveFormData(false);
+        webView?.getSettings()?.setLoadsImagesAutomatically(true);
+        webView?.settings?.javaScriptEnabled = true
+        webView?.settings?.domStorageEnabled = true
         webView!!.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.SINGLE_COLUMN)
         from = getIntent().getStringExtra("from")
         getIntent().getSerializableExtra("BannerResponse")?.let {
@@ -99,7 +106,7 @@ class AdvertisementActivity : BaseActivity(), View.OnClickListener {
 
     }
 
-    public override fun onClick(view: View) {
+    override fun onClick(view: View) {
         if (view.getTag() == "back") {
             if (from == "main") {
                 enterHomeActivity()

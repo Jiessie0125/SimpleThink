@@ -160,16 +160,16 @@ class PreLogonFragment : LogonBaseFragment(), MainContract.View {
 
         val intent = Intent(context, activity)
 
-        if (from == "") {
+       /* if (from == "") {
             intent.putExtra("from", "main")
-        } else {
+        } else {*/
             intent.putExtra("from", from)
-        }
+       // }
         bannerResponse?.let {
             intent.putExtra("BottomActivityResponse", it)
         }
         startActivity(intent)
-        this.activity?.finish()
+       // this.activity?.finish()
     }
 
 
@@ -196,16 +196,16 @@ class PreLogonFragment : LogonBaseFragment(), MainContract.View {
 
         val intent = Intent(context, activity)
 
-        if (from == "") {
+        /*if (from == "") {
             intent.putExtra("from", "main")
-        } else {
+        } else {*/
             intent.putExtra("from", from)
-        }
+        //}
         acitivityResponse?.let {
             intent.putExtra("ActivityResponse", it)
         }
         startActivity(intent)
-        this.activity?.finish()
+       // this.activity?.finish()
     }
 
 

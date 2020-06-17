@@ -38,7 +38,7 @@ class CourseDetailAdapter(val context: Activity, val totleLish : List<CourseSect
 
     override fun onBindViewHolder(holder: CourseDetailViewHolder?, position: Int) {
         holder?.mTotleItem?.text = totleLish?.get(position)?.title
-        holder?.mItemName?.text = FilesUtils.timeParse(totleLish[position].main_duration.toLong())
+        holder?.mItemName?.text = FilesUtils.dateCovent(totleLish[position].main_duration)
         holder?.mCourseViptem?.tag = position
         holder?.mCoursePlay?.tag = position
         if(isHaveFile(totleLish?.get(position)?.title,courseTitle)){

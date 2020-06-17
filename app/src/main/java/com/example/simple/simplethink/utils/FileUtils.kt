@@ -186,6 +186,22 @@ object FilesUtils {
         return time
     }
 
+    fun dateCovent(courseDate : Int): String{
+        var mins = courseDate/60
+        var secounds = courseDate%60
+        return dateFormat(mins) + ":" + dateFormat(secounds)
+    }
+
+    fun dateFormat(i: Int): String{
+        var retStr : String = ""
+        if(i>=0 && i<10){
+            retStr = "0" + Integer.toString(i)
+        }else{
+            retStr = "" + i;
+        }
+        return retStr
+    }
+
     fun deleteFile(dirFile: File): Boolean {
         // 如果dir对应的文件不存在，则退出
         if (!dirFile.exists()) {

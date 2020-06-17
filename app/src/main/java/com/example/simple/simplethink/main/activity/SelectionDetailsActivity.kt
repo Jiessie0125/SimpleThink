@@ -85,16 +85,16 @@ class SelectionDetailsActivity: BaseActivity() {
 
         val intent = Intent(this, activity)
 
-        if (from == "") {
+       /* if (from == "") {
             intent.putExtra("from", "main")
-        } else {
+        } else {*/
             intent.putExtra("from", from)
-        }
+        //}
         acitivityResponse?.let {
             intent.putExtra("ActivityResponse", it)
         }
         startActivity(intent)
-        finish()
+       // finish()
     }
 
 }

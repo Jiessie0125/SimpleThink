@@ -32,14 +32,14 @@ class TotlePresenter(val httpResposityImpl : HttpResposityImpl, val view: TotleF
 
 
     override fun getTotleSort(){
-       httpResposityImpl.getTotleSort().subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
+       httpResposityImpl.getTotleSort().subscribeOn(Schedulers.io())//事件执行的线程
+                .observeOn(AndroidSchedulers.mainThread())//observeOn 事件回掉
                 .map { result -> result }
                 .subscribe({message ->
                     LocalDataCache.save(message,GETTOTLESORT)
-                    for (i in 0 until message.size){
-                        FilesUtils.downloadImage(context, message[i].image, message[i].category_name)
-                    }
+//                    for (i in 0 until message.size){
+//                        FilesUtils.downloadImage(context, message[i].image, message[i].category_name)
+//                    }
                     view.setTotleIcon(message)
                    /*
                     view.getTotleSortIcon(false,message)*/
